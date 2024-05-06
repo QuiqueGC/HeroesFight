@@ -1,4 +1,4 @@
-package com.example.heroes_fight
+package com.example.heroes_fight.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
