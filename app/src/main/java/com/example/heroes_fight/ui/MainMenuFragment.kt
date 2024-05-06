@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.heroes_fight.R
+import com.example.heroes_fight.databinding.FragmentMainMenuBinding
 
 class MainMenuFragment : Fragment() {
+
+    private lateinit var binding: FragmentMainMenuBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_menu, container, false)
+    ): View {
+        binding = FragmentMainMenuBinding.inflate(inflater, container, false)
+        return binding.root
     }
 }
