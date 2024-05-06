@@ -2,4 +2,6 @@
 plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    //para pasar parámetros a través del navController
+    id("androidx.navigation.safeargs.kotlin") version "2.7.1" apply false
 }
