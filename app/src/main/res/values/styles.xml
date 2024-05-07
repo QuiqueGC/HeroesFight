@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="txtRegular">
+        <item name="android:textSize">@dimen/txtCommon</item>
+    </style>
+
+    <style name="txtBoldWhite" parent="txtRegular">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="txtBolBlack" parent="txtRegular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="txtStats">
+        <item name="android:textSize">@dimen/txtSmall</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

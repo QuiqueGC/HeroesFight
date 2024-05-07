@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_card">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginMin"
+        android:background="@drawable/background_card">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glCenterVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/tvId"
+            style="@style/txtBoldWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="#001" />
+
+        <ImageView
+            android:id="@+id/imgHero"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="@dimen/marginMin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvId"
+            tools:src="@color/black" />
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/txtBoldWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginCommon"
+            android:layout_marginTop="@dimen/marginMin"
+            app:layout_constraintEnd_toEndOf="@id/imgHero"
+            app:layout_constraintStart_toStartOf="@id/imgHero"
+            app:layout_constraintTop_toBottomOf="@id/imgHero"
+            tools:text="MANOLO MANOLERO" />
+
+        <View
+            android:id="@+id/vCardStats"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/marginLarge"
+            android:background="@drawable/background_stats"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+        <TextView
+            android:id="@+id/tvStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginCommon"
+            style="@style/txtBolBlack"
+            android:text="STATS"
+            app:layout_constraintTop_toTopOf="@id/vCardStats"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats" />
+
+        <TextView
+            style="@style/txtStats"
+            android:id="@+id/tvIntelligence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Intelligence:"
+            android:layout_marginTop="@dimen/marginLarge"
+            android:layout_marginStart="@dimen/marginCommon"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toBottomOf="@id/tvStats" />
+
+        <TextView
+            android:id="@+id/tvIntelligenceContent"
+            style="@style/txtStats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="045"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="@dimen/marginCommon"
+            app:layout_constraintStart_toEndOf="@id/tvIntelligence"
+            app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
+            app:layout_constraintTop_toTopOf="@id/tvIntelligence"
+            app:layout_constraintBottom_toBottomOf="@id/tvIntelligence" />
+
+
+        <TextView
+            style="@style/txtStats"
+            android:id="@+id/tvSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Speed:"
+            android:layout_marginStart="@dimen/marginCommon"
+            android:layout_marginTop="@dimen/marginCommon"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toBottomOf="@id/tvIntelligence" />
+
+        <TextView
+            android:id="@+id/tvSpeedContent"
+            style="@style/txtStats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="085"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="@dimen/marginCommon"
+            app:layout_constraintStart_toEndOf="@id/tvSpeed"
+            app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
+            app:layout_constraintTop_toTopOf="@id/tvSpeed"
+            app:layout_constraintBottom_toBottomOf="@id/tvSpeed" />
+
+        <TextView
+            style="@style/txtStats"
+            android:id="@+id/tvDurability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Durability:"
+            android:layout_marginStart="@dimen/marginCommon"
+            android:layout_marginTop="@dimen/marginCommon"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toBottomOf="@id/tvSpeed" />
+
+        <TextView
+            android:id="@+id/tvDurabilityContent"
+            style="@style/txtStats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="025"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="@dimen/marginCommon"
+            app:layout_constraintStart_toEndOf="@id/tvDurability"
+            app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
+            app:layout_constraintTop_toTopOf="@id/tvDurability"
+            app:layout_constraintBottom_toBottomOf="@id/tvDurability" />
+
+        <TextView
+            style="@style/txtStats"
+            android:id="@+id/tvStrength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Strength:"
+            android:layout_marginTop="@dimen/marginLarge"
+            android:layout_marginStart="@dimen/marginCommon"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
+            app:layout_constraintTop_toBottomOf="@id/tvStats" />
+
+        <TextView
+            android:id="@+id/tvStrengthContent"
+            style="@style/txtStats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="037"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="@dimen/marginCommon"
+            app:layout_constraintStart_toEndOf="@id/tvStrength"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintTop_toTopOf="@id/tvStrength"
+            app:layout_constraintBottom_toBottomOf="@id/tvStrength" />
+
+        <TextView
+            style="@style/txtStats"
+            android:id="@+id/tvPower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Power:"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:layout_marginStart="@dimen/marginCommon"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
+            app:layout_constraintTop_toBottomOf="@id/tvStrength" />
+
+        <TextView
+            android:id="@+id/tvPowerContent"
+            style="@style/txtStats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="150"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="@dimen/marginCommon"
+            app:layout_constraintStart_toEndOf="@id/tvPower"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintTop_toTopOf="@id/tvPower"
+            app:layout_constraintBottom_toBottomOf="@id/tvPower" />
+
+        <TextView
+            style="@style/txtStats"
+            android:id="@+id/tvCombat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Combat:"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:layout_marginStart="@dimen/marginCommon"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
+            app:layout_constraintTop_toBottomOf="@id/tvPower" />
+
+        <TextView
+            android:id="@+id/tvCombatContent"
+            style="@style/txtStats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="086"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="@dimen/marginCommon"
+            app:layout_constraintStart_toEndOf="@id/tvCombat"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintTop_toTopOf="@id/tvCombat"
+            app:layout_constraintBottom_toBottomOf="@id/tvCombat" />
+
+
+        <TextView
+            android:id="@+id/tvAlignment"
+            style="@style/txtBoldWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginCommon"
+            android:layout_marginTop="@dimen/marginLarge"
+            app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats"
+            tools:text="ALIGMENT" />
+
+        <TextView
+            android:id="@+id/tvLines"
+            style="@style/txtBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/marginMin"
+            android:ellipsize="none"
+            android:maxLines="1"
+            android:text="---------------"
+            app:layout_constraintBottom_toBottomOf="@id/tvAlignment"
+            app:layout_constraintEnd_toStartOf="@id/tvAligmentContent"
+            app:layout_constraintStart_toEndOf="@id/tvAlignment"
+            app:layout_constraintTop_toTopOf="@id/tvAlignment" />
+
+        <TextView
+            android:id="@+id/tvAligmentContent"
+            style="@style/txtBoldWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tvAlignment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
+            app:layout_constraintTop_toTopOf="@id/tvAlignment"
+            tools:text="good" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
