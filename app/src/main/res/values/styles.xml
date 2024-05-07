@@ -10,12 +10,28 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="txtBoldWhiteSmall" parent="txtRegular">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="txtBolBlack" parent="txtRegular">
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="txtBolBlackSmall" parent="txtRegular">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="txtStats">
         <item name="android:textSize">@dimen/txtSmall</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="txtStatsSmall">
+        <item name="android:textSize">9sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
