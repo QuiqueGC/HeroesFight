@@ -5,8 +5,20 @@ import com.example.heroes_fight.data.domain.repository.remote.response.hero.Hero
 
 class HeroMapper : ResponseMapper<HeroResponse, HeroModel> {
     override fun fromResponse(response: HeroResponse): HeroModel {
+
+        var idHero = ""
+        if (response.id != null) {
+            when (response.id!!.length) {
+                1 -> idHero = "#00${response.id}"
+                2 -> idHero = "#0${response.id}"
+                3 -> idHero = "#${response.id}"
+            }
+        }
+
+
+
         return HeroModel(
-            response.id ?: "",
+            idHero,
             response.name ?: "",
             response.biography?.alignment ?: "",
             response.image?.url ?: "",
