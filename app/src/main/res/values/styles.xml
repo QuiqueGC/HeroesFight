@@ -16,13 +16,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="txtBolBlack" parent="txtRegular">
+    <style name="txtBoldBlack" parent="txtRegular">
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="txtBolBlackSmall" parent="txtRegular">
+    <style name="txtBoldBlackSmall" parent="txtRegular">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="txtStats">

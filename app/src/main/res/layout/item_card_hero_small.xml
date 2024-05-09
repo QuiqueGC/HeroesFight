@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/tvId"
-        style="@style/txtBoldWhiteSmall"
+        style="@style/txtBoldBlackSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -34,11 +34,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvId"
-        tools:src="@color/black" />
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight" />
 
     <TextView
         android:id="@+id/tvName"
-        style="@style/txtBoldWhiteSmall"
+        style="@style/txtBoldBlackSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -60,7 +61,7 @@
 
     <TextView
         android:id="@+id/tvStats"
-        style="@style/txtBolBlackSmall"
+        style="@style/txtBoldBlackSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -213,43 +214,5 @@
         app:layout_constraintStart_toEndOf="@id/tvCombat"
         app:layout_constraintTop_toTopOf="@id/tvCombat"
         tools:text="086" />
-
-
-    <TextView
-        android:id="@+id/tvAlignment"
-        style="@style/txtBoldWhiteSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vCardStats"
-        tools:text="ALIGNMENT" />
-
-    <TextView
-        android:id="@+id/tvLines"
-        style="@style/txtBoldWhiteSmall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="2dp"
-        android:ellipsize="none"
-        android:maxLines="1"
-        android:text="---------------"
-        app:layout_constraintBottom_toBottomOf="@id/tvAlignment"
-        app:layout_constraintEnd_toStartOf="@id/tvAligmentContent"
-        app:layout_constraintStart_toEndOf="@id/tvAlignment"
-        app:layout_constraintTop_toTopOf="@id/tvAlignment" />
-
-    <TextView
-        android:id="@+id/tvAligmentContent"
-        style="@style/txtBoldWhiteSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tvAlignment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/glCenterVertical"
-        app:layout_constraintTop_toTopOf="@id/tvAlignment"
-        tools:text="good" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
