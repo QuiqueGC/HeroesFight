@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/cardIncluded"
+        android:id="@+id/cardIncludedGood"
         android:layout_width="170dp"
         android:layout_height="330dp"
         layout="@layout/item_card_hero_small"
@@ -34,7 +34,7 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <include
-        android:id="@+id/cardIncluded"
+        android:id="@+id/cardIncludedBad"
         android:layout_width="170dp"
         android:layout_height="330dp"
         layout="@layout/item_card_hero_small_bad"
