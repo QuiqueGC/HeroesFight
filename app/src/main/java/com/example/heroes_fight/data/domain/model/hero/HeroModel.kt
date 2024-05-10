@@ -7,11 +7,11 @@ data class HeroModel(
     var name: String = "",
     var alignment: String = "",
     var image: String = "",
-    var intelligence: Int = 0,
-    var strength: Int = 0,
-    var speed: Int = 0,
-    var durability: Int = 0,
-    var power: Int = 0,
-    var combat: Int = 0
+    var intelligence: String = "",
+    var strength: String = "",
+    var speed: String = "",
+    var durability: String = "",
+    var power: String = "",
+    var combat: String = ""
 
 ) : BaseModel()

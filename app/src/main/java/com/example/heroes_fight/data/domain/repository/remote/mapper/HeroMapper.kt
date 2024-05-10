@@ -22,12 +22,12 @@ class HeroMapper : ResponseMapper<HeroResponse, HeroModel> {
             response.name ?: "",
             response.biography?.alignment ?: "",
             response.image?.url ?: "",
-            response.powerstats?.intelligence?.toInt() ?: 0,
-            response.powerstats?.strength?.toInt() ?: 0,
-            response.powerstats?.speed?.toInt() ?: 0,
-            response.powerstats?.durability?.toInt() ?: 0,
-            response.powerstats?.power?.toInt() ?: 0,
-            response.powerstats?.combat?.toInt() ?: 0,
+            response.powerstats?.intelligence ?: "",
+            response.powerstats?.strength ?: "",
+            response.powerstats?.speed ?: "",
+            response.powerstats?.durability ?: "",
+            response.powerstats?.power ?: "",
+            response.powerstats?.combat ?: "",
         )
     }
 }
