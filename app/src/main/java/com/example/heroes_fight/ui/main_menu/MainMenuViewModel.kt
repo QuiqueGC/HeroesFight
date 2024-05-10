@@ -19,6 +19,8 @@ class MainMenuViewModel(private val getHeroByIdUseCase: GetHeroByIdUseCase) : Vi
     fun getHeroById() {
 
         viewModelScope.launch(Dispatchers.IO) {
+            _uiState.emit(MainMenuUiState.Loading)
+
             val baseResponse = getHeroByIdUseCase(Random.nextInt(1, 732))
 
             when (baseResponse) {

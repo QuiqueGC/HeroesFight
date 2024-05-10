@@ -34,6 +34,9 @@ class MainMenuFragment : Fragment() {
         viewModel.getHeroById()
         observeViewModel()
 
+        binding.btnRandomCard.setOnClickListener {
+            viewModel.getHeroById()
+        }
 
     }
 
@@ -42,11 +45,19 @@ class MainMenuFragment : Fragment() {
             viewModel.uiState.collect { mainMenuUiState ->
                 when (mainMenuUiState) {
                     is MainMenuUiState.Success -> showCard(mainMenuUiState.heroModel)
-                    is MainMenuUiState.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is MainMenuUiState.Loading -> setLoading()
                     is MainMenuUiState.Error -> showError()
                 }
 
             }
+        }
+    }
+
+    private fun setLoading() {
+        with(binding) {
+            progressBar.visibility = View.VISIBLE
+            cardIncludedGood.layout.visibility = View.GONE
+            cardIncludedBad.layout.visibility = View.GONE
         }
     }
 
