@@ -7,7 +7,7 @@ data class BiographyModel(
     var name: String = "",
     var fullName: String = "",
     var alterEgos: String = "",
-    var aliases: ArrayList<String> = arrayListOf(),
+    var aliases: String = "",
     var placeOfBirth: String = "",
     var firstAppearance: String = "",
     var publisher: String = "",

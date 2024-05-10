@@ -71,6 +71,7 @@ class CardDetailFragment : Fragment() {
             tvFullNameHeroContent.text = biographyModel.fullName
             tvFirstAppearanceHeroContent.text = biographyModel.firstAppearance
             tvPlaceOfBirthHeroContent.text = biographyModel.placeOfBirth
+            tvAliasesHeroContent.text = biographyModel.aliases
 
             Glide.with(requireContext())
                 .load(imgModel.url)
@@ -79,7 +80,7 @@ class CardDetailFragment : Fragment() {
                 .into(imgHero)
         }
     }
-    
+
     private fun setLoading() {
         binding.progressBar.visibility = View.VISIBLE
     }

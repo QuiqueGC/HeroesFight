@@ -5,12 +5,24 @@ import com.example.heroes_fight.data.domain.repository.remote.response.hero.Biog
 
 class BiographyMapper : ResponseMapper<BiographyResponse, BiographyModel> {
     override fun fromResponse(response: BiographyResponse): BiographyModel {
+        var aliases = ""
+        if (response.aliases.isNotEmpty()) {
+            response.aliases.forEach {
+                aliases = if (aliases == "") {
+                    it
+                } else {
+                    "$aliases, $it"
+                }
+            }
+        }
+
+
         return BiographyModel(
             response.id ?: "",
             response.name ?: "",
             response.fullName ?: "",
             response.alterEgos ?: "",
-            response.aliases,
+            aliases,
             response.placeOfBirth ?: "",
             response.firstAppearance ?: "",
             response.publisher ?: "",

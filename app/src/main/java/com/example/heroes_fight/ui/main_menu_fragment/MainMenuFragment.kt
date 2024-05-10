@@ -23,6 +23,13 @@ class MainMenuFragment : Fragment() {
 
     //variable temporal
     private var idHero = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = MainMenuViewModel(GetHeroByIdUseCase())
+        viewModel.getHeroById()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,8 +41,7 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = MainMenuViewModel(GetHeroByIdUseCase())
-        viewModel.getHeroById()
+
 
         observeViewModel()
 
