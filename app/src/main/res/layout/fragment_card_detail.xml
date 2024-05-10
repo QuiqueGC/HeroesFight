@@ -1,14 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/cardview_dark_background"
     tools:context=".ui.card_detail_fragment.CardDetailFragment">
+    
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <ImageView
+            android:id="@+id/imgHero"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/fight" />
+
+        <TextView
+            android:id="@+id/tvBiography"
+            style="@style/txtBoldWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:text="Biography"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgHero" />
+
+
+        <TextView
+            android:id="@+id/tvNameHero"
+            style="@style/txtBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginCommon"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:text="Name"
+            app:layout_constraintEnd_toStartOf="@id/glVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBiography" />
+
+        <TextView
+            android:id="@+id/tvNameHeroContent"
+            style="@style/txtToFillDataOfHero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tvNameHero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glVertical"
+            app:layout_constraintTop_toTopOf="@id/tvNameHero"
+            tools:text="El nombre de este señor" />
+
+        <TextView
+            android:id="@+id/tvFullNameHero"
+            style="@style/txtBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:text="Full name"
+            app:layout_constraintEnd_toEndOf="@id/tvNameHero"
+            app:layout_constraintStart_toStartOf="@id/tvNameHero"
+            app:layout_constraintTop_toBottomOf="@id/tvNameHero" />
+
+        <TextView
+            android:id="@+id/tvFullNameHeroContent"
+            style="@style/txtToFillDataOfHero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tvFullNameHero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glVertical"
+            app:layout_constraintTop_toTopOf="@id/tvFullNameHero"
+            tools:text="El nombre de este señor" />
+
+        <TextView
+            android:id="@+id/tvAlterEgoHero"
+            style="@style/txtBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:text="Alter ego"
+            app:layout_constraintEnd_toEndOf="@id/tvNameHero"
+            app:layout_constraintStart_toStartOf="@id/tvNameHero"
+            app:layout_constraintTop_toBottomOf="@id/tvFullNameHero" />
+
+        <TextView
+            android:id="@+id/tvAlterEgoHeroContent"
+            style="@style/txtToFillDataOfHero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tvAlterEgoHero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glVertical"
+            app:layout_constraintTop_toTopOf="@id/tvAlterEgoHero"
+            tools:text="El nombre de este señor" />
+
+        <TextView
+            android:id="@+id/tvPlaceOfBirthHero"
+            style="@style/txtBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:text="Place of birth"
+            app:layout_constraintEnd_toEndOf="@id/tvNameHero"
+            app:layout_constraintStart_toStartOf="@id/tvNameHero"
+            app:layout_constraintTop_toBottomOf="@id/tvAlterEgoHero" />
+
+        <TextView
+            android:id="@+id/tvPlaceOfBirthHeroContent"
+            style="@style/txtToFillDataOfHero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tvPlaceOfBirthHero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glVertical"
+            app:layout_constraintTop_toTopOf="@id/tvPlaceOfBirthHero"
+            tools:text="El nombre de este señor" />
+
+        <TextView
+            android:id="@+id/tvFirstAppearanceHero"
+            style="@style/txtBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:text="First appearance"
+            app:layout_constraintEnd_toEndOf="@id/tvNameHero"
+            app:layout_constraintStart_toStartOf="@id/tvNameHero"
+            app:layout_constraintTop_toBottomOf="@id/tvPlaceOfBirthHero" />
+
+        <TextView
+            android:id="@+id/tvFirstAppearanceHeroContent"
+            style="@style/txtToFillDataOfHero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tvFirstAppearanceHero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glVertical"
+            app:layout_constraintTop_toTopOf="@id/tvFirstAppearanceHero"
+            tools:text="El nombre de este señor" />
+
+        <TextView
+            android:id="@+id/tvPublisherHero"
+            style="@style/txtBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginCommon"
+            android:text="Publisher"
+            app:layout_constraintEnd_toEndOf="@id/tvNameHero"
+            app:layout_constraintStart_toStartOf="@id/tvNameHero"
+            app:layout_constraintTop_toBottomOf="@id/tvFirstAppearanceHero" />
+
+        <TextView
+            android:id="@+id/tvPublisherHeroContent"
+            style="@style/txtToFillDataOfHero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tvPublisherHero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glVertical"
+            app:layout_constraintTop_toTopOf="@id/tvPublisherHero"
+            tools:text="El nombre de este señor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
