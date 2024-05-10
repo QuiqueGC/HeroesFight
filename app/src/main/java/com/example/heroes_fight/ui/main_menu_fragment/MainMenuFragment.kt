@@ -24,6 +24,7 @@ class MainMenuFragment : Fragment() {
     //variable temporal
     private var idHero = 0
 
+    private var isGoodCard: Boolean? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = MainMenuViewModel(GetHeroByIdUseCase())
@@ -42,10 +43,28 @@ class MainMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         observeViewModel()
 
         setupListeners()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        if (isGoodCard != null) {
+            when (isGoodCard!!) {
+                true -> binding.cardIncludedGood.card.visibility = View.VISIBLE
+                false -> binding.cardIncludedBad.card.visibility = View.VISIBLE
+            }
+        }
+
+
+        /*if (isGoodCard!!) {
+            binding.cardIncludedGood.card.visibility = View.VISIBLE
+        }else{
+            binding.cardIncludedBad.card.visibility = View.VISIBLE
+        }*/
     }
 
     private fun setupListeners() {
@@ -116,6 +135,9 @@ class MainMenuFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
 
         if (heroModel.alignment == "bad") {
+
+            isGoodCard = false
+
             binding.cardSmallIncludedGood.card.visibility = View.GONE
             binding.cardSmallIncludedBad.card.visibility = View.VISIBLE
             with(binding.cardSmallIncludedBad) {
@@ -151,6 +173,9 @@ class MainMenuFragment : Fragment() {
             }
 
         } else {
+
+            isGoodCard = true
+
             binding.cardSmallIncludedBad.card.visibility = View.GONE
             binding.cardSmallIncludedGood.card.visibility = View.VISIBLE
             with(binding.cardSmallIncludedGood) {
