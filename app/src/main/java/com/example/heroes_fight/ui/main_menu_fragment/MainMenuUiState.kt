@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.main_menu
+package com.example.heroes_fight.ui.main_menu_fragment
 
 import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel

@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.main_menu
+package com.example.heroes_fight.ui.main_menu_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
