@@ -7,18 +7,20 @@ import kotlin.random.Random
 class HeroMapper : ResponseMapper<HeroResponse, HeroModel> {
     override fun fromResponse(response: HeroResponse): HeroModel {
 
-        var idHero = ""
+        /*var idHero = ""
         if (response.id != null) {
             when (response.id!!.length) {
                 1 -> idHero = "#00${response.id}"
                 2 -> idHero = "#0${response.id}"
                 3 -> idHero = "#${response.id}"
             }
-        }
+        }*/
+
+        createSerialNum(response.id)
 
         return HeroModel(
             response.id?.toInt() ?: 0,
-            idHero,
+            createSerialNum(response.id),
             response.name ?: "",
             response.biography?.alignment ?: "",
             response.image?.url ?: "",
@@ -29,6 +31,19 @@ class HeroMapper : ResponseMapper<HeroResponse, HeroModel> {
             addedStatValueInNullCase(response.powerstats?.power),
             addedStatValueInNullCase(response.powerstats?.combat)
         )
+    }
+
+    private fun createSerialNum(id: String?): String {
+        return if (id != null) {
+            when (id.length) {
+                1 -> "#00${id}"
+                2 -> "#0${id}"
+                3 -> "#${id}"
+                else -> ""
+            }
+        } else {
+            ""
+        }
     }
 
     private fun addedStatValueInNullCase(statToChange: String?): String {
