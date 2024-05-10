@@ -2,6 +2,7 @@ package com.example.heroes_fight.data.domain.repository
 
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
+import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.data.domain.repository.remote.DataSource
 import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
@@ -14,5 +15,9 @@ object DataProvider : DataSource {
 
     override suspend fun getHeroBiographyById(idHero: Int): BaseResponse<BiographyModel> {
         return RemoteDataSource.getHeroBiographyById(idHero)
+    }
+
+    override suspend fun getHeroImgById(idHero: Int): BaseResponse<ImgModel> {
+        return RemoteDataSource.getHeroImgById(idHero)
     }
 }
