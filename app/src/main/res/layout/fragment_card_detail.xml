@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
     tools:context=".ui.card_detail_fragment.CardDetailFragment">
+
+
+    <ImageView
+        android:id="@+id/imgHero"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight" />
     
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@id/imgHero"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,16 +36,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.45" />
 
-        <ImageView
-            android:id="@+id/imgHero"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/fight" />
-
         <TextView
             android:id="@+id/tvBiography"
             style="@style/txtBoldWhite"
@@ -39,7 +46,7 @@
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgHero" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -176,4 +183,5 @@
             tools:text="El nombre de este señor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
