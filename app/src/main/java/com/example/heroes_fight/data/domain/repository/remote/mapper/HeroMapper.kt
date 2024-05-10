@@ -17,6 +17,7 @@ class HeroMapper : ResponseMapper<HeroResponse, HeroModel> {
         }
 
         return HeroModel(
+            response.id?.toInt() ?: 0,
             idHero,
             response.name ?: "",
             response.biography?.alignment ?: "",

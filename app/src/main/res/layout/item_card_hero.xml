@@ -223,6 +223,7 @@
         tools:text="086" />
 
         <ImageButton
+            android:id="@+id/btnDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_announcement"

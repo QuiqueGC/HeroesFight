@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
@@ -19,6 +20,9 @@ class MainMenuFragment : Fragment() {
 
     private lateinit var binding: FragmentMainMenuBinding
     private lateinit var viewModel: MainMenuViewModel
+
+    //variable temporal
+    private var idHero = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +57,22 @@ class MainMenuFragment : Fragment() {
         binding.cardIncludedGood.card.setOnClickListener {
             it.visibility = View.GONE
         }
+
+        binding.cardIncludedGood.btnDetail.setOnClickListener {
+            findNavController().navigate(
+                MainMenuFragmentDirections.actionMainMenuFragmentToCardDetailFragment(
+                    idHero
+                )
+            )
+        }
+
+        binding.cardIncludedBad.btnDetail.setOnClickListener {
+            findNavController().navigate(
+                MainMenuFragmentDirections.actionMainMenuFragmentToCardDetailFragment(
+                    idHero
+                )
+            )
+        }
     }
 
     private fun observeViewModel() {
@@ -81,13 +101,14 @@ class MainMenuFragment : Fragment() {
     }
 
     private fun showCard(heroModel: HeroModel) {
+        idHero = heroModel.id
         binding.progressBar.visibility = View.GONE
 
         if (heroModel.alignment == "bad") {
             binding.cardSmallIncludedGood.card.visibility = View.GONE
             binding.cardSmallIncludedBad.card.visibility = View.VISIBLE
             with(binding.cardSmallIncludedBad) {
-                tvId.text = heroModel.id
+                tvId.text = heroModel.serialNum
                 tvName.text = heroModel.name
                 tvStrengthContent.text = heroModel.strength
                 tvCombatContent.text = heroModel.combat
@@ -102,7 +123,7 @@ class MainMenuFragment : Fragment() {
             }
 
             with(binding.cardIncludedBad) {
-                tvId.text = heroModel.id
+                tvId.text = heroModel.serialNum
                 tvName.text = heroModel.name
                 tvStrengthContent.text = heroModel.strength
                 tvCombatContent.text = heroModel.combat
@@ -120,7 +141,7 @@ class MainMenuFragment : Fragment() {
             binding.cardSmallIncludedBad.card.visibility = View.GONE
             binding.cardSmallIncludedGood.card.visibility = View.VISIBLE
             with(binding.cardSmallIncludedGood) {
-                tvId.text = heroModel.id
+                tvId.text = heroModel.serialNum
                 tvName.text = heroModel.name
                 tvStrengthContent.text = heroModel.strength
                 tvCombatContent.text = heroModel.combat
@@ -136,7 +157,7 @@ class MainMenuFragment : Fragment() {
             }
 
             with(binding.cardIncludedGood) {
-                tvId.text = heroModel.id
+                tvId.text = heroModel.serialNum
                 tvName.text = heroModel.name
                 tvStrengthContent.text = heroModel.strength
                 tvCombatContent.text = heroModel.combat

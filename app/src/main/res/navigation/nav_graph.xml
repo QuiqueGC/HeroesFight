@@ -9,5 +9,18 @@
         android:id="@+id/mainMenuFragment"
         android:name="com.example.heroes_fight.ui.main_menu_fragment.MainMenuFragment"
         android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_main_menu" />
+        tools:layout="@layout/fragment_main_menu">
+        <action
+            android:id="@+id/action_mainMenuFragment_to_cardDetailFragment"
+            app:destination="@id/cardDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardDetailFragment"
+        android:name="com.example.heroes_fight.ui.card_detail_fragment.CardDetailFragment"
+        android:label="fragment_card_detail"
+        tools:layout="@layout/fragment_card_detail">
+        <argument
+            android:name="idHero"
+            app:argType="integer" />
+    </fragment>
 </navigation>
