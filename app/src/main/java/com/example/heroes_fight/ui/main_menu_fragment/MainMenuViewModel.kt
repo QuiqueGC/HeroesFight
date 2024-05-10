@@ -21,9 +21,8 @@ class MainMenuViewModel(private val getHeroByIdUseCase: GetHeroByIdUseCase) : Vi
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.emit(MainMenuUiState.Loading)
 
-            val baseResponse = getHeroByIdUseCase(Random.nextInt(1, 732))
+            when (val baseResponse = getHeroByIdUseCase(Random.nextInt(1, 732))) {
 
-            when (baseResponse) {
                 is BaseResponse.Success -> {
                     _uiState.emit(MainMenuUiState.Success(baseResponse.data))
                 }

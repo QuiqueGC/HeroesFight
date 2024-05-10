@@ -36,8 +36,13 @@ class MainMenuFragment : Fragment() {
 
         viewModel = MainMenuViewModel(GetHeroByIdUseCase())
         viewModel.getHeroById()
+
         observeViewModel()
 
+        setupListeners()
+    }
+
+    private fun setupListeners() {
         binding.btnRandomCard.setOnClickListener {
             viewModel.getHeroById()
         }
@@ -118,6 +123,7 @@ class MainMenuFragment : Fragment() {
                 tvPowerContent.text = heroModel.power
                 Glide.with(requireContext())
                     .load(heroModel.image)
+                    .error(R.drawable.fight)
                     .apply(RequestOptions().centerCrop())
                     .into(imgHero)
             }
@@ -133,6 +139,7 @@ class MainMenuFragment : Fragment() {
                 tvPowerContent.text = heroModel.power
                 Glide.with(requireContext())
                     .load(heroModel.image)
+                    .error(R.drawable.fight)
                     .apply(RequestOptions().centerCrop())
                     .into(imgHero)
             }
