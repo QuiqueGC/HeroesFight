@@ -56,8 +56,8 @@ class MainMenuFragment : Fragment() {
     private fun setLoading() {
         with(binding) {
             progressBar.visibility = View.VISIBLE
-            cardIncludedGood.layout.visibility = View.GONE
-            cardIncludedBad.layout.visibility = View.GONE
+            cardIncludedGood.card.visibility = View.GONE
+            cardIncludedBad.card.visibility = View.GONE
         }
     }
 
@@ -69,8 +69,8 @@ class MainMenuFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
 
         if (heroModel.alignment == "bad") {
-            binding.cardIncludedGood.layout.visibility = View.GONE
-            binding.cardIncludedBad.layout.visibility = View.VISIBLE
+            binding.cardIncludedGood.card.visibility = View.GONE
+            binding.cardIncludedBad.card.visibility = View.VISIBLE
             with(binding.cardIncludedBad) {
                 tvId.text = heroModel.id
                 tvName.text = heroModel.name
@@ -86,8 +86,8 @@ class MainMenuFragment : Fragment() {
                     .into(imgHero)
             }
         } else {
-            binding.cardIncludedBad.layout.visibility = View.GONE
-            binding.cardIncludedGood.layout.visibility = View.VISIBLE
+            binding.cardIncludedBad.card.visibility = View.GONE
+            binding.cardIncludedGood.card.visibility = View.VISIBLE
             with(binding.cardIncludedGood) {
                 tvId.text = heroModel.id
                 tvName.text = heroModel.name
