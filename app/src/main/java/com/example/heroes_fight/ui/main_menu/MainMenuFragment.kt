@@ -38,6 +38,21 @@ class MainMenuFragment : Fragment() {
             viewModel.getHeroById()
         }
 
+        binding.cardSmallIncludedBad.card.setOnClickListener {
+            binding.cardIncludedBad.card.visibility = View.VISIBLE
+        }
+
+        binding.cardSmallIncludedGood.card.setOnClickListener {
+            binding.cardIncludedGood.card.visibility = View.VISIBLE
+        }
+
+        binding.cardIncludedBad.card.setOnClickListener {
+            it.visibility = View.GONE
+        }
+
+        binding.cardIncludedGood.card.setOnClickListener {
+            it.visibility = View.GONE
+        }
     }
 
     private fun observeViewModel() {
@@ -56,8 +71,8 @@ class MainMenuFragment : Fragment() {
     private fun setLoading() {
         with(binding) {
             progressBar.visibility = View.VISIBLE
-            cardIncludedGood.card.visibility = View.GONE
-            cardIncludedBad.card.visibility = View.GONE
+            cardSmallIncludedGood.card.visibility = View.GONE
+            cardSmallIncludedBad.card.visibility = View.GONE
         }
     }
 
@@ -69,8 +84,23 @@ class MainMenuFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
 
         if (heroModel.alignment == "bad") {
-            binding.cardIncludedGood.card.visibility = View.GONE
-            binding.cardIncludedBad.card.visibility = View.VISIBLE
+            binding.cardSmallIncludedGood.card.visibility = View.GONE
+            binding.cardSmallIncludedBad.card.visibility = View.VISIBLE
+            with(binding.cardSmallIncludedBad) {
+                tvId.text = heroModel.id
+                tvName.text = heroModel.name
+                tvStrengthContent.text = heroModel.strength
+                tvCombatContent.text = heroModel.combat
+                tvIntelligenceContent.text = heroModel.intelligence
+                tvSpeedContent.text = heroModel.speed
+                tvDurabilityContent.text = heroModel.durability
+                tvPowerContent.text = heroModel.power
+                Glide.with(requireContext())
+                    .load(heroModel.image)
+                    .apply(RequestOptions().centerCrop())
+                    .into(imgHero)
+            }
+
             with(binding.cardIncludedBad) {
                 tvId.text = heroModel.id
                 tvName.text = heroModel.name
@@ -85,9 +115,26 @@ class MainMenuFragment : Fragment() {
                     .apply(RequestOptions().centerCrop())
                     .into(imgHero)
             }
+
         } else {
-            binding.cardIncludedBad.card.visibility = View.GONE
-            binding.cardIncludedGood.card.visibility = View.VISIBLE
+            binding.cardSmallIncludedBad.card.visibility = View.GONE
+            binding.cardSmallIncludedGood.card.visibility = View.VISIBLE
+            with(binding.cardSmallIncludedGood) {
+                tvId.text = heroModel.id
+                tvName.text = heroModel.name
+                tvStrengthContent.text = heroModel.strength
+                tvCombatContent.text = heroModel.combat
+                tvIntelligenceContent.text = heroModel.intelligence
+                tvSpeedContent.text = heroModel.speed
+                tvDurabilityContent.text = heroModel.durability
+                tvPowerContent.text = heroModel.power
+                Glide.with(requireContext())
+                    .load(heroModel.image)
+                    .error(R.drawable.fight)
+                    .apply(RequestOptions().centerCrop())
+                    .into(imgHero)
+            }
+
             with(binding.cardIncludedGood) {
                 tvId.text = heroModel.id
                 tvName.text = heroModel.name
@@ -105,4 +152,5 @@ class MainMenuFragment : Fragment() {
             }
         }
     }
+
 }

@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/cardIncludedGood"
+        android:id="@+id/cardSmallIncludedGood"
         layout="@layout/item_card_hero_small"
         android:layout_width="170dp"
         android:layout_height="330dp"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/cardIncludedBad"
+        android:id="@+id/cardSmallIncludedBad"
         layout="@layout/item_card_hero_small_bad"
         android:layout_width="170dp"
         android:layout_height="330dp"
@@ -44,6 +44,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/cardIncludedGood"
+        layout="@layout/item_card_hero"
+        android:layout_width="340dp"
+        android:layout_height="660dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/cardIncludedBad"
+        layout="@layout/item_card_hero_bad"
+        android:layout_width="340dp"
+        android:layout_height="660dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageButton
         android:id="@+id/icList"
