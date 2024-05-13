@@ -9,4 +9,5 @@ interface DataSource {
     suspend fun getHeroById(idHero: Int): BaseResponse<HeroModel>
     suspend fun getHeroBiographyById(idHero: Int): BaseResponse<BiographyModel>
     suspend fun getHeroImgById(idHero: Int): BaseResponse<ImgModel>
+
 }
