@@ -16,9 +16,9 @@
     </fragment>
     <fragment
         android:id="@+id/cardDetailFragment"
-        android:name="com.example.heroes_fight.ui.card_detail_fragment.CardDetailFragment"
+        android:name="com.example.heroes_fight.ui.card_detail_fragment.BiographyDetailFragment"
         android:label="fragment_card_detail"
-        tools:layout="@layout/fragment_card_detail">
+        tools:layout="@layout/fragment_biography_detail">
         <argument
             android:name="idHero"
             app:argType="integer" />

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
-    tools:context=".ui.card_detail_fragment.CardDetailFragment">
+    tools:context=".ui.card_detail_fragment.BiographyDetailFragment">
 
 
     <ImageView
@@ -96,13 +96,6 @@
             app:layout_constraintTop_toTopOf="@id/tvFullNameHero"
             tools:text="El nombre de este señor" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrierFullName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tvFullNameHero,tvFullNameHeroContent" />
-
         <TextView
             android:id="@+id/tvAliasesHero"
             style="@style/txtBoldWhite"
@@ -112,7 +105,7 @@
             android:text="Aliases"
             app:layout_constraintEnd_toEndOf="@id/tvNameHero"
             app:layout_constraintStart_toStartOf="@id/tvNameHero"
-            app:layout_constraintTop_toBottomOf="@id/barrierFullName" />
+            app:layout_constraintTop_toBottomOf="@id/tvFullNameHeroContent" />
 
         <TextView
             android:id="@+id/tvAliasesHeroContent"
@@ -126,12 +119,6 @@
             app:layout_constraintTop_toTopOf="@id/tvAliasesHero"
             tools:text="El nombre de este señor" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrierAliases"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tvAliasesHero,tvAliasesHeroContent" />
 
         <TextView
             android:id="@+id/tvAlterEgoHero"
@@ -142,7 +129,7 @@
             android:text="Alter ego"
             app:layout_constraintEnd_toEndOf="@id/tvNameHero"
             app:layout_constraintStart_toStartOf="@id/tvNameHero"
-            app:layout_constraintTop_toBottomOf="@id/barrierAliases" />
+            app:layout_constraintTop_toBottomOf="@id/tvAliasesHeroContent" />
 
         <TextView
             android:id="@+id/tvAlterEgoHeroContent"
@@ -156,13 +143,6 @@
             app:layout_constraintTop_toTopOf="@id/tvAlterEgoHero"
             tools:text="El nombre de este señor" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrierAlterEgo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tvAlterEgoHero,tvAlterEgoHeroContent" />
-
         <TextView
             android:id="@+id/tvPlaceOfBirthHero"
             style="@style/txtBoldWhite"
@@ -172,7 +152,7 @@
             android:text="Place of birth"
             app:layout_constraintEnd_toEndOf="@id/tvNameHero"
             app:layout_constraintStart_toStartOf="@id/tvNameHero"
-            app:layout_constraintTop_toBottomOf="@id/barrierAlterEgo" />
+            app:layout_constraintTop_toBottomOf="@id/tvAlterEgoHeroContent" />
 
         <TextView
             android:id="@+id/tvPlaceOfBirthHeroContent"
@@ -186,12 +166,6 @@
             app:layout_constraintTop_toTopOf="@id/tvPlaceOfBirthHero"
             tools:text="El nombre de este señor" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrierPlaceOfBirth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tvPlaceOfBirthHero,tvPlaceOfBirthHeroContent" />
 
         <TextView
             android:id="@+id/tvFirstAppearanceHero"
@@ -202,7 +176,7 @@
             android:text="First appearance"
             app:layout_constraintEnd_toEndOf="@id/tvNameHero"
             app:layout_constraintStart_toStartOf="@id/tvNameHero"
-            app:layout_constraintTop_toBottomOf="@id/barrierPlaceOfBirth" />
+            app:layout_constraintTop_toBottomOf="@id/tvPlaceOfBirthHeroContent" />
 
         <TextView
             android:id="@+id/tvFirstAppearanceHeroContent"

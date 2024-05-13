@@ -12,18 +12,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class CardDetailViewModel(
+class BiographyDetailViewModel(
     private val getHeroBiographyByIdUseCase: GetHeroBiographyByIdUseCase,
     private val getHeroImgById: GetHeroImgById
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<CardDetailUiState>(CardDetailUiState.Loading)
-    val uiState: StateFlow<CardDetailUiState> = _uiState
+    private val _uiState = MutableStateFlow<BiographyDetailUiState>(BiographyDetailUiState.Loading)
+    val uiState: StateFlow<BiographyDetailUiState> = _uiState
 
 
     fun getHeroData(idHero: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _uiState.emit(CardDetailUiState.Loading)
+            _uiState.emit(BiographyDetailUiState.Loading)
             val deferredImg = async { getHeroImgById(idHero) }
             val deferredBiography = async { getHeroBiographyByIdUseCase(idHero) }
 
@@ -34,13 +34,13 @@ class CardDetailViewModel(
                 baseResponseImgModel is BaseResponse.Success
             ) {
                 _uiState.emit(
-                    CardDetailUiState.Success(
+                    BiographyDetailUiState.Success(
                         baseResponseBiographyModel.data,
                         baseResponseImgModel.data
                     )
                 )
             } else {
-                _uiState.emit(CardDetailUiState.Error(ErrorModel()))
+                _uiState.emit(BiographyDetailUiState.Error(ErrorModel()))
             }
         }
     }

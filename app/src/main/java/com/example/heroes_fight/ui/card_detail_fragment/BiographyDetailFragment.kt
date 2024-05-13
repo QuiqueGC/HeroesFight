@@ -15,27 +15,27 @@ import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroBiographyByIdUseCase
 import com.example.heroes_fight.data.domain.use_case.GetHeroImgById
-import com.example.heroes_fight.databinding.FragmentCardDetailBinding
+import com.example.heroes_fight.databinding.FragmentBiographyDetailBinding
 import kotlinx.coroutines.launch
 
 
-class CardDetailFragment : Fragment() {
+class BiographyDetailFragment : Fragment() {
 
-    private val args: CardDetailFragmentArgs by navArgs()
-    private lateinit var binding: FragmentCardDetailBinding
-    private lateinit var viewModel: CardDetailViewModel
+    private val args: BiographyDetailFragmentArgs by navArgs()
+    private lateinit var binding: FragmentBiographyDetailBinding
+    private lateinit var viewModel: BiographyDetailViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCardDetailBinding.inflate(inflater, container, false)
+        binding = FragmentBiographyDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = CardDetailViewModel(GetHeroBiographyByIdUseCase(), GetHeroImgById())
+        viewModel = BiographyDetailViewModel(GetHeroBiographyByIdUseCase(), GetHeroImgById())
         viewModel.getHeroData(args.idHero)
 
         observeViewModel()
@@ -45,13 +45,13 @@ class CardDetailFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.uiState.collect { cardDetailUiState ->
                 when (cardDetailUiState) {
-                    is CardDetailUiState.Loading -> setLoading()
-                    is CardDetailUiState.Success -> showData(
+                    is BiographyDetailUiState.Loading -> setLoading()
+                    is BiographyDetailUiState.Success -> showData(
                         cardDetailUiState.biographyModel,
                         cardDetailUiState.imgModel
                     )
 
-                    is CardDetailUiState.Error -> showError()
+                    is BiographyDetailUiState.Error -> showError()
                 }
             }
         }
