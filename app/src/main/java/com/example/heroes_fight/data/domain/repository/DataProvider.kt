@@ -1,5 +1,6 @@
 package com.example.heroes_fight.data.domain.repository
 
+import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
@@ -19,5 +20,9 @@ object DataProvider : DataSource {
 
     override suspend fun getHeroImgById(idHero: Int): BaseResponse<ImgModel> {
         return RemoteDataSource.getHeroImgById(idHero)
+    }
+
+    override suspend fun getAppearanceById(idHero: Int): BaseResponse<AppearanceModel> {
+        return RemoteDataSource.getAppearanceById(idHero)
     }
 }
