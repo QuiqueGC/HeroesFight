@@ -57,7 +57,6 @@ class MainMenuFragment : Fragment() {
                 false -> binding.cardIncludedBad.card.visibility = View.VISIBLE
             }
         }
-
     }
 
     private fun setupListeners() {
@@ -111,6 +110,12 @@ class MainMenuFragment : Fragment() {
                 MainMenuFragmentDirections.actionMainMenuFragmentToAppearanceFragment(
                     idHero
                 )
+            )
+        }
+
+        binding.btnGrid.setOnClickListener {
+            findNavController().navigate(
+                MainMenuFragmentDirections.actionMainMenuFragmentToCardsCollectionFragment()
             )
         }
     }

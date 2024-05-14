@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_appearanceFragment"
             app:destination="@id/appearanceFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_cardsCollectionFragment"
+            app:destination="@id/cardsCollectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/cardDetailFragment"
@@ -35,4 +38,9 @@
             android:name="idHero"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/cardsCollectionFragment"
+        android:name="com.example.heroes_fight.ui.cards_collection_fragment.CardsCollectionFragment"
+        android:label="fragment_cards_collection"
+        tools:layout="@layout/fragment_cards_collection" />
 </navigation>
