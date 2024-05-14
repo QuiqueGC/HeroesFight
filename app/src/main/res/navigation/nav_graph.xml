@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/cardDetailFragment"
-        android:name="com.example.heroes_fight.ui.card_detail_fragment.BiographyDetailFragment"
+        android:name="com.example.heroes_fight.ui.card_biography_fragment.BiographyFragment"
         android:label="fragment_card_detail"
         tools:layout="@layout/fragment_biography_detail">
         <argument

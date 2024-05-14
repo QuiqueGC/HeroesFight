@@ -42,7 +42,6 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         observeViewModel()
 
         setupListeners()
@@ -59,12 +58,6 @@ class MainMenuFragment : Fragment() {
             }
         }
 
-
-        /*if (isGoodCard!!) {
-            binding.cardIncludedGood.card.visibility = View.VISIBLE
-        }else{
-            binding.cardIncludedBad.card.visibility = View.VISIBLE
-        }*/
     }
 
     private fun setupListeners() {
@@ -88,7 +81,7 @@ class MainMenuFragment : Fragment() {
             it.visibility = View.GONE
         }
 
-        binding.cardIncludedGood.btnDetail.setOnClickListener {
+        binding.cardIncludedGood.btnBiography.setOnClickListener {
             findNavController().navigate(
                 MainMenuFragmentDirections.actionMainMenuFragmentToCardDetailFragment(
                     idHero
@@ -96,14 +89,25 @@ class MainMenuFragment : Fragment() {
             )
         }
 
-        binding.cardIncludedBad.btnDetail.setOnClickListener {
+        binding.cardIncludedBad.btnBiography.setOnClickListener {
             findNavController().navigate(
                 MainMenuFragmentDirections.actionMainMenuFragmentToCardDetailFragment(
                     idHero
                 )
             )
         }
+
+
+        binding.cardIncludedGood.btnAppearance.setOnClickListener {
+
+        }
+
+        binding.cardIncludedBad.btnAppearance.setOnClickListener {
+
+        }
     }
+
+
 
     private fun observeViewModel() {
         lifecycleScope.launch {

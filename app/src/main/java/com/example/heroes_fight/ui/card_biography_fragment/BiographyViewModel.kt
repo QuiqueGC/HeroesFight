@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.card_detail_fragment
+package com.example.heroes_fight.ui.card_biography_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,18 +12,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class BiographyDetailViewModel(
+class BiographyViewModel(
     private val getHeroBiographyByIdUseCase: GetHeroBiographyByIdUseCase,
     private val getHeroImgById: GetHeroImgById
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<BiographyDetailUiState>(BiographyDetailUiState.Loading)
-    val uiState: StateFlow<BiographyDetailUiState> = _uiState
+    private val _uiState = MutableStateFlow<BiographyUiState>(BiographyUiState.Loading)
+    val uiState: StateFlow<BiographyUiState> = _uiState
 
 
     fun getHeroData(idHero: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _uiState.emit(BiographyDetailUiState.Loading)
+            _uiState.emit(BiographyUiState.Loading)
             val deferredImg = async { getHeroImgById(idHero) }
             val deferredBiography = async { getHeroBiographyByIdUseCase(idHero) }
 
@@ -34,13 +34,13 @@ class BiographyDetailViewModel(
                 baseResponseImgModel is BaseResponse.Success
             ) {
                 _uiState.emit(
-                    BiographyDetailUiState.Success(
+                    BiographyUiState.Success(
                         baseResponseBiographyModel.data,
                         baseResponseImgModel.data
                     )
                 )
             } else {
-                _uiState.emit(BiographyDetailUiState.Error(ErrorModel()))
+                _uiState.emit(BiographyUiState.Error(ErrorModel()))
             }
         }
     }

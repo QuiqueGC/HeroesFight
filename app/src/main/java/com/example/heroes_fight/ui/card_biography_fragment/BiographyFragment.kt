@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.card_detail_fragment
+package com.example.heroes_fight.ui.card_biography_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,11 +19,11 @@ import com.example.heroes_fight.databinding.FragmentBiographyDetailBinding
 import kotlinx.coroutines.launch
 
 
-class BiographyDetailFragment : Fragment() {
+class BiographyFragment : Fragment() {
 
-    private val args: BiographyDetailFragmentArgs by navArgs()
+    private val args: BiographyFragmentArgs by navArgs()
     private lateinit var binding: FragmentBiographyDetailBinding
-    private lateinit var viewModel: BiographyDetailViewModel
+    private lateinit var viewModel: BiographyViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +35,7 @@ class BiographyDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = BiographyDetailViewModel(GetHeroBiographyByIdUseCase(), GetHeroImgById())
+        viewModel = BiographyViewModel(GetHeroBiographyByIdUseCase(), GetHeroImgById())
         viewModel.getHeroData(args.idHero)
 
         observeViewModel()
@@ -45,13 +45,13 @@ class BiographyDetailFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.uiState.collect { cardDetailUiState ->
                 when (cardDetailUiState) {
-                    is BiographyDetailUiState.Loading -> setLoading()
-                    is BiographyDetailUiState.Success -> showData(
+                    is BiographyUiState.Loading -> setLoading()
+                    is BiographyUiState.Success -> showData(
                         cardDetailUiState.biographyModel,
                         cardDetailUiState.imgModel
                     )
 
-                    is BiographyDetailUiState.Error -> showError()
+                    is BiographyUiState.Error -> showError()
                 }
             }
         }
