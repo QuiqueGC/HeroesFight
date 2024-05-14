@@ -13,12 +13,24 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_cardDetailFragment"
             app:destination="@id/cardDetailFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_appearanceFragment"
+            app:destination="@id/appearanceFragment" />
     </fragment>
     <fragment
         android:id="@+id/cardDetailFragment"
         android:name="com.example.heroes_fight.ui.card_biography_fragment.BiographyFragment"
         android:label="fragment_card_detail"
         tools:layout="@layout/fragment_biography_detail">
+        <argument
+            android:name="idHero"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/appearanceFragment"
+        android:name="com.example.heroes_fight.ui.card_appearance_fragment.AppearanceFragment"
+        android:label="fragment_appearance"
+        tools:layout="@layout/fragment_appearance">
         <argument
             android:name="idHero"
             app:argType="integer" />

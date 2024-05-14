@@ -99,11 +99,19 @@ class MainMenuFragment : Fragment() {
 
 
         binding.cardIncludedGood.btnAppearance.setOnClickListener {
-
+            findNavController().navigate(
+                MainMenuFragmentDirections.actionMainMenuFragmentToAppearanceFragment(
+                    idHero
+                )
+            )
         }
 
         binding.cardIncludedBad.btnAppearance.setOnClickListener {
-
+            findNavController().navigate(
+                MainMenuFragmentDirections.actionMainMenuFragmentToAppearanceFragment(
+                    idHero
+                )
+            )
         }
     }
 
