@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.databinding.ItemCardHeroSmallBadBinding
@@ -13,13 +15,13 @@ import com.example.heroes_fight.databinding.ItemCardHeroSmallBinding
 class CardsCollectionAdapter(
     private val context: Context,
     //private val listener: CardListener,
-    private val cardsList: MutableList<HeroModel>
+    private var cardsList: MutableList<HeroModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    /* interface CardListener {
-         fun onClick()
-     }*/
+    /*interface CardListener {
+        fun onClick()
+    }*/
 
     private val HERO_BAD = 0
     private val HERO_GOOD = 1
@@ -54,11 +56,39 @@ class CardsCollectionAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is HeroGoodViewHolder -> {
-                holder.binding.tvName.text = cardsList[position].name
+                with(holder.binding) {
+                    tvId.text = cardsList[position].serialNum
+                    tvName.text = cardsList[position].name
+                    tvStrengthContent.text = cardsList[position].strength
+                    tvCombatContent.text = cardsList[position].combat
+                    tvIntelligenceContent.text = cardsList[position].intelligence
+                    tvSpeedContent.text = cardsList[position].speed
+                    tvDurabilityContent.text = cardsList[position].durability
+                    tvPowerContent.text = cardsList[position].power
+                    Glide.with(context)
+                        .load(cardsList[position].image)
+                        .error(R.drawable.fight)
+                        .apply(RequestOptions().centerCrop())
+                        .into(imgHero)
+                }
             }
 
             is HeroBadViewHolder -> {
-                holder.binding.tvName.text = cardsList[position].name
+                with(holder.binding) {
+                    tvId.text = cardsList[position].serialNum
+                    tvName.text = cardsList[position].name
+                    tvStrengthContent.text = cardsList[position].strength
+                    tvCombatContent.text = cardsList[position].combat
+                    tvIntelligenceContent.text = cardsList[position].intelligence
+                    tvSpeedContent.text = cardsList[position].speed
+                    tvDurabilityContent.text = cardsList[position].durability
+                    tvPowerContent.text = cardsList[position].power
+                    Glide.with(context)
+                        .load(cardsList[position].image)
+                        .error(R.drawable.fight)
+                        .apply(RequestOptions().centerCrop())
+                        .into(imgHero)
+                }
             }
         }
     }
@@ -67,9 +97,14 @@ class CardsCollectionAdapter(
         return when (cardsList[position].alignment) {
             "bad" -> HERO_BAD
             "good" -> HERO_GOOD
-            else -> throw IllegalArgumentException("Tipo de elemento desconocido")
+            else -> HERO_GOOD//throw IllegalArgumentException("Tipo de elemento desconocido")
         }
     }
 
     override fun getItemCount(): Int = cardsList.count()
+
+    fun refreshList(newList: MutableList<HeroModel>) {
+        cardsList = newList
+        notifyDataSetChanged()
+    }
 }

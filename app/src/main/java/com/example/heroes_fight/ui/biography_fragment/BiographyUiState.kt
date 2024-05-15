@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.card_biography_fragment
+package com.example.heroes_fight.ui.biography_fragment
 
 import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel

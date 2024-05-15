@@ -1,11 +1,11 @@
-package com.example.heroes_fight.ui.card_appearance_fragment
+package com.example.heroes_fight.ui.appearance_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetAppearanceByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgById
+import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class AppearanceViewModel(
     private val getAppearanceByIdUseCase: GetAppearanceByIdUseCase,
-    private val getHeroImgByIdUseCase: GetHeroImgById
+    private val getHeroImgByIdUseCase: GetHeroImgByIdUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<AppearanceUiState>(AppearanceUiState.Loading)

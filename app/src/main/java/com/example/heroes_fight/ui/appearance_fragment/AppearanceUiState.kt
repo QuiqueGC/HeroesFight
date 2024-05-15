@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.card_appearance_fragment
+package com.example.heroes_fight.ui.appearance_fragment
 
 import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel

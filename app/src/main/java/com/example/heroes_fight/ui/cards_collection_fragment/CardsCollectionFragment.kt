@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
+import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
+import kotlinx.coroutines.launch
 
 
 class CardsCollectionFragment : Fragment() {
 
     private lateinit var binding: FragmentCardsCollectionBinding
     private lateinit var adapter: CardsCollectionAdapter
+    private lateinit var viewModel: CardsCollectionViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,11 +31,43 @@ class CardsCollectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupAdapter()
+
+        viewModel = CardsCollectionViewModel(GetHeroByIdUseCase())
+        viewModel.getCardsList()
+
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            viewModel.uiState.collect { cardsCollectionUiState ->
+                when (cardsCollectionUiState) {
+                    is CardsCollectionUiState.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        adapter.refreshList(cardsCollectionUiState.cardsList)
+                    }
+
+                    is CardsCollectionUiState.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is CardsCollectionUiState.Error -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "ERROR ERROR ERROR ERROR",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+
+            }
+        }
     }
 
     private fun setupAdapter() {
-        adapter = CardsCollectionAdapter(requireContext(), getListCards())
+        adapter = CardsCollectionAdapter(requireContext(), mutableListOf())
         val listManager = GridLayoutManager(requireContext(), 2)
 
         with(binding) {
@@ -36,15 +75,21 @@ class CardsCollectionFragment : Fragment() {
             recyclerView.layoutManager = listManager
             recyclerView.adapter = adapter
         }
+        setupPagination()
     }
 
-
-    private fun getListCards(): MutableList<HeroModel> {
-        return mutableListOf(
-            HeroModel(name = "manolo", alignment = "bad"),
-            HeroModel(name = "otro", alignment = "good"),
-            HeroModel(name = "lalala", alignment = "good"),
-            HeroModel(name = "asdasfsdf", alignment = "bad"),
-        )
+    private fun setupPagination() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val layoutManager: GridLayoutManager? =
+                    recyclerView.layoutManager as GridLayoutManager?
+                if (layoutManager?.findLastCompletelyVisibleItemPosition() == recyclerView.adapter?.itemCount?.minus(
+                        1
+                    )
+                ) {
+                    viewModel.getCardsList()
+                }
+            }
+        })
     }
 }

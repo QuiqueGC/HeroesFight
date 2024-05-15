@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/cardDetailFragment"
-        android:name="com.example.heroes_fight.ui.card_biography_fragment.BiographyFragment"
+        android:name="com.example.heroes_fight.ui.biography_fragment.BiographyFragment"
         android:label="fragment_card_detail"
         tools:layout="@layout/fragment_biography_detail">
         <argument
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/appearanceFragment"
-        android:name="com.example.heroes_fight.ui.card_appearance_fragment.AppearanceFragment"
+        android:name="com.example.heroes_fight.ui.appearance_fragment.AppearanceFragment"
         android:label="fragment_appearance"
         tools:layout="@layout/fragment_appearance">
         <argument

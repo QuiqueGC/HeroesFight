@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.card_appearance_fragment
+package com.example.heroes_fight.ui.appearance_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.data.domain.use_case.GetAppearanceByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgById
+import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import com.example.heroes_fight.databinding.FragmentAppearanceBinding
 import kotlinx.coroutines.launch
 
@@ -34,7 +34,7 @@ class AppearanceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = AppearanceViewModel(GetAppearanceByIdUseCase(), GetHeroImgById())
+        viewModel = AppearanceViewModel(GetAppearanceByIdUseCase(), GetHeroImgByIdUseCase())
         viewModel.getHeroData(args.idHero)
 
         observeViewModel()

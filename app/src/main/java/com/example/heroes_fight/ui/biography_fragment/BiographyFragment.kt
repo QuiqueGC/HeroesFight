@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.card_biography_fragment
+package com.example.heroes_fight.ui.biography_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroBiographyByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgById
+import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import com.example.heroes_fight.databinding.FragmentBiographyDetailBinding
 import kotlinx.coroutines.launch
 
@@ -35,7 +35,7 @@ class BiographyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = BiographyViewModel(GetHeroBiographyByIdUseCase(), GetHeroImgById())
+        viewModel = BiographyViewModel(GetHeroBiographyByIdUseCase(), GetHeroImgByIdUseCase())
         viewModel.getHeroData(args.idHero)
 
         observeViewModel()

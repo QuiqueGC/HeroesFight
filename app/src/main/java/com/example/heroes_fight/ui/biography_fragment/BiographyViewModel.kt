@@ -1,11 +1,11 @@
-package com.example.heroes_fight.ui.card_biography_fragment
+package com.example.heroes_fight.ui.biography_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetHeroBiographyByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgById
+import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class BiographyViewModel(
     private val getHeroBiographyByIdUseCase: GetHeroBiographyByIdUseCase,
-    private val getHeroImgById: GetHeroImgById
+    private val getHeroImgByIdUseCase: GetHeroImgByIdUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<BiographyUiState>(BiographyUiState.Loading)
@@ -24,7 +24,7 @@ class BiographyViewModel(
     fun getHeroData(idHero: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.emit(BiographyUiState.Loading)
-            val deferredImg = async { getHeroImgById(idHero) }
+            val deferredImg = async { getHeroImgByIdUseCase(idHero) }
             val deferredBiography = async { getHeroBiographyByIdUseCase(idHero) }
 
             val baseResponseImgModel = deferredImg.await()
