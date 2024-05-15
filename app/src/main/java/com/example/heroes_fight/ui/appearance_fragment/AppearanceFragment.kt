@@ -13,15 +13,15 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
-import com.example.heroes_fight.data.domain.use_case.GetAppearanceByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import com.example.heroes_fight.databinding.FragmentAppearanceBinding
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AppearanceFragment : Fragment() {
+class AppearanceFragment @Inject constructor(
+    private val viewModel: AppearanceViewModel
+) : Fragment() {
 
     private val args: AppearanceFragmentArgs by navArgs()
-    private lateinit var viewModel: AppearanceViewModel
     private lateinit var binding: FragmentAppearanceBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,6 @@ class AppearanceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = AppearanceViewModel(GetAppearanceByIdUseCase(), GetHeroImgByIdUseCase())
         viewModel.getHeroData(args.idHero)
 
         observeViewModel()

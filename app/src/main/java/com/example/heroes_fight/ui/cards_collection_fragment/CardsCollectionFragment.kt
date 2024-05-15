@@ -8,19 +8,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.heroes_fight.data.domain.model.hero.HeroModel
-import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
-class CardsCollectionFragment : Fragment() {
+class CardsCollectionFragment @Inject constructor(private var viewModel: CardsCollectionViewModel) :
+    Fragment() {
 
     private lateinit var binding: FragmentCardsCollectionBinding
     private lateinit var adapter: CardsCollectionAdapter
-    private lateinit var viewModel: CardsCollectionViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +33,6 @@ class CardsCollectionFragment : Fragment() {
 
         setupAdapter()
 
-        viewModel = CardsCollectionViewModel(GetHeroByIdUseCase())
         viewModel.getCardsList()
 
         observeViewModel()

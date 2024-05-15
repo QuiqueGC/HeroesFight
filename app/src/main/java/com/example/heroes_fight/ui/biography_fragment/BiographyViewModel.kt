@@ -11,8 +11,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BiographyViewModel(
+class BiographyViewModel @Inject constructor(
     private val getHeroBiographyByIdUseCase: GetHeroBiographyByIdUseCase,
     private val getHeroImgByIdUseCase: GetHeroImgByIdUseCase
 ) : ViewModel() {

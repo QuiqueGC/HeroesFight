@@ -4,13 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.random.Random
 
-class MainMenuViewModel(private val getHeroByIdUseCase: GetHeroByIdUseCase) : ViewModel() {
+@HiltViewModel
+class MainMenuViewModel @Inject constructor(private val getHeroByIdUseCase: GetHeroByIdUseCase) :
+    ViewModel() {
 
 
     private val _uiState = MutableStateFlow<MainMenuUiState>(MainMenuUiState.Loading)

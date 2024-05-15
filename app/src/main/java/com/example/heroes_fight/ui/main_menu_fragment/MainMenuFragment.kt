@@ -12,14 +12,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
-import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import com.example.heroes_fight.databinding.FragmentMainMenuBinding
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainMenuFragment : Fragment() {
+class MainMenuFragment @Inject constructor() : Fragment() {
+
 
     private lateinit var binding: FragmentMainMenuBinding
     private lateinit var viewModel: MainMenuViewModel
+
 
     //variable temporal
     private var idHero = 0
@@ -27,7 +29,7 @@ class MainMenuFragment : Fragment() {
     private var isGoodCard: Boolean? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = MainMenuViewModel(GetHeroByIdUseCase())
+
         viewModel.getHeroById()
     }
 

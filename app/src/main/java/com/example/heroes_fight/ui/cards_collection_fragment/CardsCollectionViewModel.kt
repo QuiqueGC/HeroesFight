@@ -10,8 +10,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CardsCollectionViewModel(private val getHeroByIdUseCase: GetHeroByIdUseCase) : ViewModel() {
+class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCase: GetHeroByIdUseCase) :
+    ViewModel() {
 
     private val _uiState = MutableStateFlow<CardsCollectionUiState>(CardsCollectionUiState.Loading)
     val uiState: StateFlow<CardsCollectionUiState> = _uiState

@@ -11,8 +11,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AppearanceViewModel(
+class AppearanceViewModel @Inject constructor(
     private val getAppearanceByIdUseCase: GetAppearanceByIdUseCase,
     private val getHeroImgByIdUseCase: GetHeroImgByIdUseCase
 ) : ViewModel() {

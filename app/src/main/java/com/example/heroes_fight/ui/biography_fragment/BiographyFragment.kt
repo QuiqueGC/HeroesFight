@@ -13,17 +13,17 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
-import com.example.heroes_fight.data.domain.use_case.GetHeroBiographyByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import com.example.heroes_fight.databinding.FragmentBiographyDetailBinding
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
-class BiographyFragment : Fragment() {
+class BiographyFragment @Inject constructor(private var viewModel: BiographyViewModel) :
+    Fragment() {
 
     private val args: BiographyFragmentArgs by navArgs()
     private lateinit var binding: FragmentBiographyDetailBinding
-    private lateinit var viewModel: BiographyViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +35,6 @@ class BiographyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = BiographyViewModel(GetHeroBiographyByIdUseCase(), GetHeroImgByIdUseCase())
         viewModel.getHeroData(args.idHero)
 
         observeViewModel()

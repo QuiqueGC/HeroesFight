@@ -7,22 +7,26 @@ import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.data.domain.repository.remote.DataSource
 import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object DataProvider : DataSource {
+@Singleton
+class DataProvider @Inject constructor(private val remoteDataSource: RemoteDataSource) :
+    DataSource {
 
     override suspend fun getHeroById(idHero: Int): BaseResponse<HeroModel> {
-        return RemoteDataSource.getHeroById(idHero)
+        return remoteDataSource.getHeroById(idHero)
     }
 
     override suspend fun getHeroBiographyById(idHero: Int): BaseResponse<BiographyModel> {
-        return RemoteDataSource.getHeroBiographyById(idHero)
+        return remoteDataSource.getHeroBiographyById(idHero)
     }
 
     override suspend fun getHeroImgById(idHero: Int): BaseResponse<ImgModel> {
-        return RemoteDataSource.getHeroImgById(idHero)
+        return remoteDataSource.getHeroImgById(idHero)
     }
 
     override suspend fun getAppearanceById(idHero: Int): BaseResponse<AppearanceModel> {
-        return RemoteDataSource.getAppearanceById(idHero)
+        return remoteDataSource.getAppearanceById(idHero)
     }
 }

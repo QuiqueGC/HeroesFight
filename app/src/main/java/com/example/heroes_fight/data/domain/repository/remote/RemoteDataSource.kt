@@ -10,8 +10,11 @@ import com.example.heroes_fight.data.domain.repository.remote.mapper.BiographyMa
 import com.example.heroes_fight.data.domain.repository.remote.mapper.HeroMapper
 import com.example.heroes_fight.data.domain.repository.remote.mapper.ImgMapper
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object RemoteDataSource : DataSource {
+@Singleton
+class RemoteDataSource @Inject constructor() : DataSource {
 
     private val apiCallService = ApiCallService(RetrofitClient.getApiServices())
     override suspend fun getHeroById(idHero: Int): BaseResponse<HeroModel> {
