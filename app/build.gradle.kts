@@ -4,6 +4,10 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
+
+    //daggerHilt
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -83,4 +87,12 @@ dependencies {
     ksp("com.github.bumptech.glide:ksp:4.16.0")
     implementation("com.caverock:androidsvg:1.4")
 
+    //daggerHilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+}
+
+//necesito el kapt para dagger, parece
+kapt {
+    correctErrorTypes = true
 }
