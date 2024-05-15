@@ -13,8 +13,9 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
-class MainMenuViewModel @Inject constructor(private val getHeroByIdUseCase: GetHeroByIdUseCase) :
-    ViewModel() {
+class MainMenuViewModel @Inject constructor(
+    private val getHeroByIdUseCase: GetHeroByIdUseCase
+) : ViewModel() {
 
 
     private val _uiState = MutableStateFlow<MainMenuUiState>(MainMenuUiState.Loading)

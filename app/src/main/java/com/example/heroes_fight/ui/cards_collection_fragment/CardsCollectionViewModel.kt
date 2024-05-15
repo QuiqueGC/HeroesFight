@@ -6,12 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCase: GetHeroByIdUseCase) :
     ViewModel() {
 

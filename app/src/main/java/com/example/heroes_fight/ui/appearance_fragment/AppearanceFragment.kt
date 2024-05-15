@@ -15,12 +15,14 @@ import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.databinding.FragmentAppearanceBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AppearanceFragment : Fragment() {
 
     private val viewModel: AppearanceViewModel by viewModels()
-    
+
     private val args: AppearanceFragmentArgs by navArgs()
     private lateinit var binding: FragmentAppearanceBinding
     override fun onCreateView(

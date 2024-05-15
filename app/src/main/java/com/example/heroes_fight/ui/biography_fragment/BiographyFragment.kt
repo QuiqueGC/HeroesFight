@@ -15,9 +15,11 @@ import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.databinding.FragmentBiographyDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class BiographyFragment : Fragment() {
 
 
