@@ -12,16 +12,21 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
+import com.example.heroes_fight.data.domain.repository.DataProvider
+import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
+import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import com.example.heroes_fight.databinding.FragmentMainMenuBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainMenuFragment @Inject constructor() : Fragment() {
+@AndroidEntryPoint
+class MainMenuFragment @Inject constructor(private var viewModel: MainMenuViewModel) : Fragment() {
+
+    constructor() : this(MainMenuViewModel(GetHeroByIdUseCase(DataProvider(RemoteDataSource()))))
 
 
     private lateinit var binding: FragmentMainMenuBinding
-    private lateinit var viewModel: MainMenuViewModel
-
 
     //variable temporal
     private var idHero = 0
@@ -29,7 +34,6 @@ class MainMenuFragment @Inject constructor() : Fragment() {
     private var isGoodCard: Boolean? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel.getHeroById()
     }
 

@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.heroes_fight.data.domain.repository.DataProvider
+import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
+import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,6 +19,8 @@ import javax.inject.Inject
 
 class CardsCollectionFragment @Inject constructor(private var viewModel: CardsCollectionViewModel) :
     Fragment() {
+
+    constructor() : this(CardsCollectionViewModel(GetHeroByIdUseCase(DataProvider(RemoteDataSource()))))
 
     private lateinit var binding: FragmentCardsCollectionBinding
     private lateinit var adapter: CardsCollectionAdapter

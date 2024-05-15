@@ -13,6 +13,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
+import com.example.heroes_fight.data.domain.repository.DataProvider
+import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
+import com.example.heroes_fight.data.domain.use_case.GetAppearanceByIdUseCase
+import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import com.example.heroes_fight.databinding.FragmentAppearanceBinding
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,6 +24,13 @@ import javax.inject.Inject
 class AppearanceFragment @Inject constructor(
     private val viewModel: AppearanceViewModel
 ) : Fragment() {
+
+    constructor() : this(
+        AppearanceViewModel(
+            GetAppearanceByIdUseCase(DataProvider(RemoteDataSource())),
+            GetHeroImgByIdUseCase(DataProvider(RemoteDataSource()))
+        )
+    )
 
     private val args: AppearanceFragmentArgs by navArgs()
     private lateinit var binding: FragmentAppearanceBinding

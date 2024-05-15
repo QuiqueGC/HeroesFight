@@ -13,6 +13,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
+import com.example.heroes_fight.data.domain.repository.DataProvider
+import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
+import com.example.heroes_fight.data.domain.use_case.GetHeroBiographyByIdUseCase
+import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import com.example.heroes_fight.databinding.FragmentBiographyDetailBinding
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,6 +24,13 @@ import javax.inject.Inject
 
 class BiographyFragment @Inject constructor(private var viewModel: BiographyViewModel) :
     Fragment() {
+
+    constructor() : this(
+        BiographyViewModel(
+            GetHeroBiographyByIdUseCase(DataProvider(RemoteDataSource())),
+            GetHeroImgByIdUseCase(DataProvider(RemoteDataSource()))
+        )
+    )
 
     private val args: BiographyFragmentArgs by navArgs()
     private lateinit var binding: FragmentBiographyDetailBinding
