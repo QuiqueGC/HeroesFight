@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -13,25 +14,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
-import com.example.heroes_fight.data.domain.repository.DataProvider
-import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
-import com.example.heroes_fight.data.domain.use_case.GetAppearanceByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import com.example.heroes_fight.databinding.FragmentAppearanceBinding
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class AppearanceFragment @Inject constructor(
-    private val viewModel: AppearanceViewModel
-) : Fragment() {
+class AppearanceFragment : Fragment() {
 
-    constructor() : this(
-        AppearanceViewModel(
-            GetAppearanceByIdUseCase(DataProvider(RemoteDataSource())),
-            GetHeroImgByIdUseCase(DataProvider(RemoteDataSource()))
-        )
-    )
-
+    private val viewModel: AppearanceViewModel by viewModels()
+    
     private val args: AppearanceFragmentArgs by navArgs()
     private lateinit var binding: FragmentAppearanceBinding
     override fun onCreateView(

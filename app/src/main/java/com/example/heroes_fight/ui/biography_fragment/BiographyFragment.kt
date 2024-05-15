@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -13,24 +14,14 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
-import com.example.heroes_fight.data.domain.repository.DataProvider
-import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
-import com.example.heroes_fight.data.domain.use_case.GetHeroBiographyByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import com.example.heroes_fight.databinding.FragmentBiographyDetailBinding
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
-class BiographyFragment @Inject constructor(private var viewModel: BiographyViewModel) :
-    Fragment() {
+class BiographyFragment : Fragment() {
 
-    constructor() : this(
-        BiographyViewModel(
-            GetHeroBiographyByIdUseCase(DataProvider(RemoteDataSource())),
-            GetHeroImgByIdUseCase(DataProvider(RemoteDataSource()))
-        )
-    )
+
+    private val viewModel: BiographyViewModel by viewModels()
 
     private val args: BiographyFragmentArgs by navArgs()
     private lateinit var binding: FragmentBiographyDetailBinding

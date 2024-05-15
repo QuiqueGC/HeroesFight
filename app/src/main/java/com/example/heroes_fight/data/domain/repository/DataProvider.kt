@@ -11,8 +11,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DataProvider @Inject constructor(private val remoteDataSource: RemoteDataSource) :
-    DataSource {
+class DataProvider @Inject constructor(
+    private val remoteDataSource: RemoteDataSource
+) : DataSource {
 
     override suspend fun getHeroById(idHero: Int): BaseResponse<HeroModel> {
         return remoteDataSource.getHeroById(idHero)

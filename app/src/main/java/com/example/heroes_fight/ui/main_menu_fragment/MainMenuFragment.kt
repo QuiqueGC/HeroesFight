@@ -6,31 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
-import com.example.heroes_fight.data.domain.repository.DataProvider
-import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
-import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import com.example.heroes_fight.databinding.FragmentMainMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainMenuFragment @Inject constructor(private var viewModel: MainMenuViewModel) : Fragment() {
+class MainMenuFragment : Fragment() {
 
-    constructor() : this(MainMenuViewModel(GetHeroByIdUseCase(DataProvider(RemoteDataSource()))))
-
+    private val viewModel: MainMenuViewModel by viewModels()
 
     private lateinit var binding: FragmentMainMenuBinding
 
     //variable temporal
     private var idHero = 0
-
     private var isGoodCard: Boolean? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
