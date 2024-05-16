@@ -14,14 +14,14 @@ import com.example.heroes_fight.databinding.ItemCardHeroSmallBinding
 
 class CardsCollectionAdapter(
     private val context: Context,
-    //private val listener: CardListener,
+    private val listener: CardListener,
     private var cardsList: MutableList<HeroModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    /*interface CardListener {
-        fun onClick()
-    }*/
+    interface CardListener {
+        fun onClick(position: Int)
+    }
 
     private val HERO_BAD = 0
     private val HERO_GOOD = 1
@@ -71,6 +71,9 @@ class CardsCollectionAdapter(
                         .apply(RequestOptions().centerCrop())
                         .into(imgHero)
                 }
+                holder.binding.root.setOnClickListener {
+                    listener.onClick(position)
+                }
             }
 
             is HeroBadViewHolder -> {
@@ -89,6 +92,9 @@ class CardsCollectionAdapter(
                         .apply(RequestOptions().centerCrop())
                         .into(imgHero)
                 }
+                holder.binding.root.setOnClickListener {
+                    listener.onClick(position)
+                }
             }
         }
     }
@@ -97,7 +103,7 @@ class CardsCollectionAdapter(
         return when (cardsList[position].alignment) {
             "bad" -> HERO_BAD
             "good" -> HERO_GOOD
-            else -> HERO_GOOD//throw IllegalArgumentException("Tipo de elemento desconocido")
+            else -> HERO_BAD//throw IllegalArgumentException("Tipo de elemento desconocido")
         }
     }
 

@@ -8,21 +8,47 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.heroes_fight.R
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class CardsCollectionFragment : Fragment() {
+class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener {
 
 
     private val viewModel: CardsCollectionViewModel by viewModels()
 
     private lateinit var binding: FragmentCardsCollectionBinding
     private lateinit var adapter: CardsCollectionAdapter
+
+    private var idSelectedHero = 0
+    private var isGoodCard: Boolean? = null
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        adapter = CardsCollectionAdapter(requireContext(), this, mutableListOf())
+        viewModel.getCardsList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (isGoodCard != null) {
+            when (isGoodCard!!) {
+                true -> binding.cardIncludedGood.card.visibility = View.VISIBLE
+                false -> binding.cardIncludedBad.card.visibility = View.VISIBLE
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +63,53 @@ class CardsCollectionFragment : Fragment() {
 
         setupAdapter()
 
-        viewModel.getCardsList()
-
         observeViewModel()
+
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.cardIncludedGood.btnBiography.setOnClickListener {
+            findNavController().navigate(
+                CardsCollectionFragmentDirections.actionCardsCollectionFragmentToCardDetailFragment(
+                    idSelectedHero
+                )
+            )
+        }
+
+        binding.cardIncludedGood.btnAppearance.setOnClickListener {
+            findNavController().navigate(
+                CardsCollectionFragmentDirections.actionCardsCollectionFragmentToAppearanceFragment(
+                    idSelectedHero
+                )
+            )
+        }
+
+        binding.cardIncludedBad.btnAppearance.setOnClickListener {
+            findNavController().navigate(
+                CardsCollectionFragmentDirections.actionCardsCollectionFragmentToAppearanceFragment(
+                    idSelectedHero
+                )
+            )
+        }
+
+        binding.cardIncludedBad.btnBiography.setOnClickListener {
+            findNavController().navigate(
+                CardsCollectionFragmentDirections.actionCardsCollectionFragmentToCardDetailFragment(
+                    idSelectedHero
+                )
+            )
+        }
+
+
+
+        binding.cardIncludedGood.card.setOnClickListener {
+            it.visibility = View.GONE
+        }
+
+        binding.cardIncludedBad.card.setOnClickListener {
+            it.visibility = View.GONE
+        }
     }
 
     private fun observeViewModel() {
@@ -63,13 +133,62 @@ class CardsCollectionFragment : Fragment() {
                         ).show()
                     }
                 }
+            }
+        }
 
+
+        lifecycleScope.launch {
+            viewModel.selectedHero.collect { selectedHero ->
+
+                idSelectedHero = selectedHero.id
+
+                if (selectedHero.alignment == "good") {
+
+                    isGoodCard = true
+
+                    with(binding.cardIncludedGood) {
+                        tvId.text = selectedHero.serialNum
+                        tvName.text = selectedHero.name
+                        tvStrengthContent.text = selectedHero.strength
+                        tvCombatContent.text = selectedHero.combat
+                        tvIntelligenceContent.text = selectedHero.intelligence
+                        tvSpeedContent.text = selectedHero.speed
+                        tvDurabilityContent.text = selectedHero.durability
+                        tvPowerContent.text = selectedHero.power
+                        Glide.with(requireContext())
+                            .load(selectedHero.image)
+                            .error(R.drawable.fight)
+                            .apply(RequestOptions().centerCrop())
+                            .into(imgHero)
+                    }
+                    binding.cardIncludedGood.card.visibility = View.VISIBLE
+
+                } else if (selectedHero.alignment == "bad") {
+
+                    isGoodCard = false
+
+                    with(binding.cardIncludedBad) {
+                        tvId.text = selectedHero.serialNum
+                        tvName.text = selectedHero.name
+                        tvStrengthContent.text = selectedHero.strength
+                        tvCombatContent.text = selectedHero.combat
+                        tvIntelligenceContent.text = selectedHero.intelligence
+                        tvSpeedContent.text = selectedHero.speed
+                        tvDurabilityContent.text = selectedHero.durability
+                        tvPowerContent.text = selectedHero.power
+                        Glide.with(requireContext())
+                            .load(selectedHero.image)
+                            .error(R.drawable.fight)
+                            .apply(RequestOptions().centerCrop())
+                            .into(imgHero)
+                    }
+                    binding.cardIncludedBad.card.visibility = View.VISIBLE
+                }
             }
         }
     }
 
     private fun setupAdapter() {
-        adapter = CardsCollectionAdapter(requireContext(), mutableListOf())
         val listManager = GridLayoutManager(requireContext(), 2)
 
         with(binding) {
@@ -93,5 +212,10 @@ class CardsCollectionFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onClick(position: Int) {
+
+        viewModel.getHeroFromList(position)
     }
 }
