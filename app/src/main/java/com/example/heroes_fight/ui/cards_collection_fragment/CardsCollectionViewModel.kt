@@ -7,7 +7,9 @@ import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,22 +24,26 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
 
 
     private val cardsList = mutableListOf<HeroModel>()
-    private var idHero = 1
+    private var loops = 1
+    private var idHero = 0
     private var pageSize = 10
 
     fun getCardsList() {
+        val deferreds = ArrayList<Deferred<Unit>>()
         viewModelScope.launch {
             _uiState.emit(CardsCollectionUiState.Loading)
             Log.i("quique", "Empieza el bucle")
 
             do {
-                Log.i("quique", "vuelta nº ${idHero}")
+                Log.i("quique", "vuelta nº ${loops}")
                 val deferred = async { getHeroById() }
+                deferreds.add(deferred)
+                Log.i("quique", "${loops}")
+                loops++
+            } while (loops < pageSize)
 
-                deferred.await()
-
-            } while (idHero < pageSize)
-
+            deferreds.awaitAll()
+            cardsList.sortBy { it.id }
             pageSize += pageSize
 
             for (hero in cardsList) {
@@ -50,14 +56,14 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
 
 
     private suspend fun getHeroById() {
+        idHero++
+        Log.i("quique", "El id que paso a la llamada es -> ${idHero}")
         val baseResponse = getHeroByIdUseCase(idHero)
         if (baseResponse is BaseResponse.Success) {
             Log.i("quique", "El baseResponse ha sido SUCCESS")
             cardsList.add(baseResponse.data)
-            idHero++
         } else {
             Log.i("quique", "El baseResponse ha sido ERROR")
         }
-
     }
 }
