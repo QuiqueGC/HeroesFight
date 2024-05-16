@@ -88,8 +88,8 @@ dependencies {
     implementation("com.caverock:androidsvg:1.4")
 
     //daggerHilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
 }
 
 //necesito el kapt para dagger, parece
