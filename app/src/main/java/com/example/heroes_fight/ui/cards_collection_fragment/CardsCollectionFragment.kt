@@ -11,10 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.example.heroes_fight.R
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
+import com.example.heroes_fight.utils.CardsFiller
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -101,8 +99,6 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
             )
         }
 
-
-
         binding.cardIncludedGood.card.setOnClickListener {
             it.visibility = View.GONE
         }
@@ -143,50 +139,27 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                 idSelectedHero = selectedHero.id
 
                 if (selectedHero.alignment == "good") {
-
                     isGoodCard = true
-
-                    with(binding.cardIncludedGood) {
-                        tvId.text = selectedHero.serialNum
-                        tvName.text = selectedHero.name
-                        tvStrengthContent.text = selectedHero.strength
-                        tvCombatContent.text = selectedHero.combat
-                        tvIntelligenceContent.text = selectedHero.intelligence
-                        tvSpeedContent.text = selectedHero.speed
-                        tvDurabilityContent.text = selectedHero.durability
-                        tvPowerContent.text = selectedHero.power
-                        Glide.with(requireContext())
-                            .load(selectedHero.image)
-                            .error(R.drawable.fight)
-                            .apply(RequestOptions().centerCrop())
-                            .into(imgHero)
-                    }
+                    CardsFiller.fillDataIntoGoodCard(
+                        binding.cardIncludedGood,
+                        selectedHero,
+                        requireContext()
+                    )
                     binding.cardIncludedGood.card.visibility = View.VISIBLE
 
                 } else if (selectedHero.alignment == "bad") {
-
                     isGoodCard = false
-
-                    with(binding.cardIncludedBad) {
-                        tvId.text = selectedHero.serialNum
-                        tvName.text = selectedHero.name
-                        tvStrengthContent.text = selectedHero.strength
-                        tvCombatContent.text = selectedHero.combat
-                        tvIntelligenceContent.text = selectedHero.intelligence
-                        tvSpeedContent.text = selectedHero.speed
-                        tvDurabilityContent.text = selectedHero.durability
-                        tvPowerContent.text = selectedHero.power
-                        Glide.with(requireContext())
-                            .load(selectedHero.image)
-                            .error(R.drawable.fight)
-                            .apply(RequestOptions().centerCrop())
-                            .into(imgHero)
-                    }
+                    CardsFiller.fillDataIntoBadCard(
+                        binding.cardIncludedBad,
+                        selectedHero,
+                        requireContext()
+                    )
                     binding.cardIncludedBad.card.visibility = View.VISIBLE
                 }
             }
         }
     }
+
 
     private fun setupAdapter() {
         val listManager = GridLayoutManager(requireContext(), 2)
@@ -215,7 +188,6 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     }
 
     override fun onClick(position: Int) {
-
         viewModel.getHeroFromList(position)
     }
 }
