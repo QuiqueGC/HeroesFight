@@ -7,9 +7,25 @@
     android:background="@drawable/background_menu"
     tools:context=".ui.main_menu_fragment.MainMenuFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:text="Heroes Fight!"
+        android:paddingVertical="@dimen/marginCommon"
+        android:textSize="80sp"
+        android:textColor="@color/blueGood"
+        android:textAlignment="center"
+        android:layout_marginTop="64dp"
+        android:layout_marginHorizontal="@dimen/marginCommon"
+        android:background="#C5C7D1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btnFight"
-        android:layout_width="120dp"
+        android:layout_width="160dp"
         android:layout_height="120dp"
         android:text="FIGHT!!!"
         android:layout_marginBottom="64dp"
@@ -23,7 +39,7 @@
         android:layout_height="48dp"
         android:src="@drawable/ic_list"
         android:layout_marginStart="@dimen/marginLarge"
-        android:layout_marginBottom="@dimen/marginLarge"
+        android:layout_marginBottom="64dp"
         app:layout_constraintStart_toEndOf="@id/btnFight"
         app:layout_constraintBottom_toBottomOf="@id/btnFight" />
 
@@ -43,9 +59,9 @@
         android:layout_height="48dp"
         android:src="@drawable/ic_360"
         android:layout_marginEnd="@dimen/marginLarge"
-        android:layout_marginBottom="@dimen/marginLarge"
         app:layout_constraintEnd_toStartOf="@id/btnFight"
-        app:layout_constraintBottom_toBottomOf="@id/btnFight" />
+        app:layout_constraintTop_toTopOf="@id/btnList"
+        app:layout_constraintBottom_toBottomOf="@id/btnList" />
 
     <ImageButton
         android:id="@+id/btnGuide"
