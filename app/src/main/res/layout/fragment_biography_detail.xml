@@ -67,8 +67,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/marginCommon"
-            app:layout_constraintBottom_toBottomOf="@id/tvNameHero"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="6dp"
             app:layout_constraintStart_toEndOf="@id/glVertical"
             app:layout_constraintTop_toTopOf="@id/tvNameHero"
             tools:text="El nombre de este señor" />
@@ -82,7 +82,7 @@
             android:text="Full name"
             app:layout_constraintEnd_toEndOf="@id/tvNameHero"
             app:layout_constraintStart_toStartOf="@id/tvNameHero"
-            app:layout_constraintTop_toBottomOf="@id/tvNameHero" />
+            app:layout_constraintTop_toBottomOf="@id/tvNameHeroContent" />
 
         <TextView
             android:id="@+id/tvFullNameHeroContent"
@@ -166,6 +166,13 @@
             app:layout_constraintTop_toTopOf="@id/tvPlaceOfBirthHero"
             tools:text="El nombre de este señor" />
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierPlaceOfBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tvPlaceOfBirthHero,tvPlaceOfBirthHeroContent" />
+
 
         <TextView
             android:id="@+id/tvFirstAppearanceHero"
@@ -176,7 +183,7 @@
             android:text="First appearance"
             app:layout_constraintEnd_toEndOf="@id/tvNameHero"
             app:layout_constraintStart_toStartOf="@id/tvNameHero"
-            app:layout_constraintTop_toBottomOf="@id/tvPlaceOfBirthHeroContent" />
+            app:layout_constraintTop_toBottomOf="@id/barrierPlaceOfBirth" />
 
         <TextView
             android:id="@+id/tvFirstAppearanceHeroContent"
