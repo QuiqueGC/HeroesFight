@@ -3,7 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_menu"
     tools:context=".ui.new_main_menu_fragment.NewMainMenuFragment">
 
+    <Button
+        android:id="@+id/btnFight"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="FIGHT!!!"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
+    <ImageButton
+        android:id="@+id/btnList"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_list"
+        android:layout_marginStart="@dimen/marginLarge"
+        android:layout_marginBottom="@dimen/marginLarge"
+        app:layout_constraintStart_toEndOf="@id/btnFight"
+        app:layout_constraintBottom_toBottomOf="@id/btnFight" />
+
+    <ImageButton
+        android:id="@+id/btnSearch"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_list"
+        android:layout_marginStart="@dimen/marginMax"
+        android:layout_marginBottom="@dimen/marginCommon"
+        app:layout_constraintStart_toStartOf="@id/btnList"
+        app:layout_constraintBottom_toTopOf="@id/btnList" />
+
+    <ImageButton
+        android:id="@+id/btnRandomCard"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_list"
+        android:layout_marginEnd="@dimen/marginLarge"
+        android:layout_marginBottom="@dimen/marginLarge"
+        app:layout_constraintEnd_toStartOf="@id/btnFight"
+        app:layout_constraintBottom_toBottomOf="@id/btnFight" />
+
+    <ImageButton
+        android:id="@+id/btnGuide"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_list"
+        android:layout_marginEnd="@dimen/marginMax"
+        android:layout_marginBottom="@dimen/marginCommon"
+        app:layout_constraintEnd_toEndOf="@id/btnRandomCard"
+        app:layout_constraintBottom_toTopOf="@id/btnList" />
 </androidx.constraintlayout.widget.ConstraintLayout>

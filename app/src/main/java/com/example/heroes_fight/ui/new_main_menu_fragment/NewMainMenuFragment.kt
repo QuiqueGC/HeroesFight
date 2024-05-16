@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.heroes_fight.databinding.FragmentNewMainMenuBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class NewMainMenuFragment : Fragment() {
 
     private lateinit var binding: FragmentNewMainMenuBinding
@@ -20,4 +23,15 @@ class NewMainMenuFragment : Fragment() {
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnList.setOnClickListener {
+            findNavController().navigate(NewMainMenuFragmentDirections.actionNewMainMenuFragmentToCardsCollectionFragment())
+        }
+
+        binding.btnRandomCard.setOnClickListener {
+            findNavController().navigate(NewMainMenuFragmentDirections.actionNewMainMenuFragmentToMainMenuFragment())
+        }
+    }
 }

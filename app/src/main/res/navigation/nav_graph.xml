@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph.xml"
-    app:startDestination="@id/mainMenuFragment">
+    app:startDestination="@id/newMainMenuFragment">
 
     <fragment
         android:id="@+id/mainMenuFragment"
@@ -43,4 +43,16 @@
         android:name="com.example.heroes_fight.ui.cards_collection_fragment.CardsCollectionFragment"
         android:label="fragment_cards_collection"
         tools:layout="@layout/fragment_cards_collection" />
+    <fragment
+        android:id="@+id/newMainMenuFragment"
+        android:name="com.example.heroes_fight.ui.new_main_menu_fragment.NewMainMenuFragment"
+        android:label="fragment_new_main_menu"
+        tools:layout="@layout/fragment_new_main_menu">
+        <action
+            android:id="@+id/action_newMainMenuFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+        <action
+            android:id="@+id/action_newMainMenuFragment_to_cardsCollectionFragment"
+            app:destination="@id/cardsCollectionFragment" />
+    </fragment>
 </navigation>

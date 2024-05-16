@@ -48,7 +48,6 @@ class MainMenuFragment : Fragment() {
         setupListeners()
     }
 
-
     override fun onResume() {
         super.onResume()
 
@@ -111,12 +110,6 @@ class MainMenuFragment : Fragment() {
                 MainMenuFragmentDirections.actionMainMenuFragmentToAppearanceFragment(
                     idHero
                 )
-            )
-        }
-
-        binding.btnGrid.setOnClickListener {
-            findNavController().navigate(
-                MainMenuFragmentDirections.actionMainMenuFragmentToCardsCollectionFragment()
             )
         }
     }
