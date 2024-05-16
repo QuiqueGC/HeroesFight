@@ -33,5 +33,9 @@ class MainMenuFragment : Fragment() {
         binding.btnRandomCard.setOnClickListener {
             findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToMainMenuFragment())
         }
+
+        binding.btnFight.setOnClickListener {
+            findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToFightFragment())
+        }
     }
 }

@@ -8,5 +8,6 @@
     <dimen name="marginMax">32dp</dimen>
     <dimen name="txtCommon">24sp</dimen>
     <dimen name="txtSmall">18sp</dimen>
+    <dimen name="tileSize">40dp</dimen>
 
 </resources>

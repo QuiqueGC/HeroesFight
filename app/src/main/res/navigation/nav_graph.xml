@@ -61,5 +61,13 @@
         <action
             android:id="@+id/action_newMainMenuFragment_to_cardsCollectionFragment"
             app:destination="@id/cardsCollectionFragment" />
+        <action
+            android:id="@+id/action_newMainMenuFragment_to_fightFragment"
+            app:destination="@id/fightFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/fightFragment"
+        android:name="com.example.heroes_fight.ui.fight_fragment.FightFragment"
+        android:label="fragment_fight"
+        tools:layout="@layout/fragment_fight" />
 </navigation>

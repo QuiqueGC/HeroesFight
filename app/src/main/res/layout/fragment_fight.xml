@@ -5,17 +5,1021 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_menu"
-    tools:context=".ui.fight_fragment.FightFragment">
+    tools:context=".ui.fight_fragment.FightFragment"
+    android:id="@+id/constraintLayout">
 
-    <!-- tablero de 12X20 a casillas de 24dp -->
+    <!-- tablero de 10X10 a casillas de @dimen/tileSize -->
     <View
         android:id="@+id/vFightTable"
-        android:layout_width="288dp"
-        android:layout_height="480dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:background="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <View
+        android:id="@+id/v1a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+    <View
+        android:id="@+id/v1j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toTopOf="@id/vFightTable" />
+
+
+    <View
+        android:id="@+id/v2a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v1a" />
+
+    <View
+        android:id="@+id/v2b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v1b" />
+
+    <View
+        android:id="@+id/v2c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v1c" />
+
+    <View
+        android:id="@+id/v2d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v1d" />
+
+    <View
+        android:id="@+id/v2e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v1e" />
+
+    <View
+        android:id="@+id/v2f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v1f" />
+
+    <View
+        android:id="@+id/v2g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v1g" />
+
+    <View
+        android:id="@+id/v2h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v1h" />
+
+    <View
+        android:id="@+id/v2i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v1i" />
+
+    <View
+        android:id="@+id/v2j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v1j" />
+
+
+    <View
+        android:id="@+id/v3a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v2a" />
+
+    <View
+        android:id="@+id/v3b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v3c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v3d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v3e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v3f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v3g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v3h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v3i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v3j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v2b" />
+
+    <View
+        android:id="@+id/v4a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v3a" />
+
+    <View
+        android:id="@+id/v4b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v3b" />
+
+    <View
+        android:id="@+id/v4c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v3c" />
+
+    <View
+        android:id="@+id/v4d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v3d" />
+
+    <View
+        android:id="@+id/v4e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v3e" />
+
+    <View
+        android:id="@+id/v4f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v3f" />
+
+    <View
+        android:id="@+id/v4g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v3g" />
+
+    <View
+        android:id="@+id/v4h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v3h" />
+
+    <View
+        android:id="@+id/v4i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v3i" />
+
+    <View
+        android:id="@+id/v4j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v3j" />
+
+    <View
+        android:id="@+id/v5a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v4a" />
+
+    <View
+        android:id="@+id/v5b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v4b" />
+
+    <View
+        android:id="@+id/v5c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v4c" />
+
+    <View
+        android:id="@+id/v5d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v4d" />
+
+    <View
+        android:id="@+id/v5e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v4e" />
+
+    <View
+        android:id="@+id/v5f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v4f" />
+
+    <View
+        android:id="@+id/v5g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v4g" />
+
+    <View
+        android:id="@+id/v5h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v4h" />
+
+    <View
+        android:id="@+id/v5i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v4i" />
+
+    <View
+        android:id="@+id/v5j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v4j" />
+
+    <View
+        android:id="@+id/v6a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v5a" />
+
+    <View
+        android:id="@+id/v6b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v5b" />
+
+    <View
+        android:id="@+id/v6c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v5c" />
+
+    <View
+        android:id="@+id/v6d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v5d" />
+
+    <View
+        android:id="@+id/v6e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v5e" />
+
+    <View
+        android:id="@+id/v6f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v5f" />
+
+    <View
+        android:id="@+id/v6g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v5g" />
+
+    <View
+        android:id="@+id/v6h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v5h" />
+
+    <View
+        android:id="@+id/v6i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v5i" />
+
+    <View
+        android:id="@+id/v6j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v5j" />
+
+    <View
+        android:id="@+id/v7a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v6a" />
+
+    <View
+        android:id="@+id/v7b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v6b" />
+
+    <View
+        android:id="@+id/v7c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v6c" />
+
+    <View
+        android:id="@+id/v7d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v6d" />
+
+    <View
+        android:id="@+id/v7e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v6e" />
+
+    <View
+        android:id="@+id/v7f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v6f" />
+
+    <View
+        android:id="@+id/v7g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v6g" />
+
+    <View
+        android:id="@+id/v7h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v6h" />
+
+    <View
+        android:id="@+id/v7i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v6i" />
+
+    <View
+        android:id="@+id/v7j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v6j" />
+
+    <View
+        android:id="@+id/v8a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v7a" />
+
+    <View
+        android:id="@+id/v8b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v7b" />
+
+    <View
+        android:id="@+id/v8c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v7c" />
+
+    <View
+        android:id="@+id/v8d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v7d" />
+
+    <View
+        android:id="@+id/v8e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v7e" />
+
+    <View
+        android:id="@+id/v8f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v7f" />
+
+    <View
+        android:id="@+id/v8g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v7g" />
+
+    <View
+        android:id="@+id/v8h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v7h" />
+
+    <View
+        android:id="@+id/v8i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v7i" />
+
+    <View
+        android:id="@+id/v8j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v7j" />
+
+    <View
+        android:id="@+id/v9a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v8a" />
+
+    <View
+        android:id="@+id/v9b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v8b" />
+
+    <View
+        android:id="@+id/v9c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v8c" />
+
+    <View
+        android:id="@+id/v9d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v8d" />
+
+    <View
+        android:id="@+id/v9e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v8e" />
+
+    <View
+        android:id="@+id/v9f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v8f" />
+
+    <View
+        android:id="@+id/v9g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v8g" />
+
+    <View
+        android:id="@+id/v9h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v8h" />
+
+    <View
+        android:id="@+id/v9i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v8i" />
+
+    <View
+        android:id="@+id/v9j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v8j" />
+
+    <View
+        android:id="@+id/v10a"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toStartOf="@id/vFightTable"
+        app:layout_constraintTop_toBottomOf="@id/v9a" />
+
+    <View
+        android:id="@+id/v10b"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1a"
+        app:layout_constraintTop_toBottomOf="@id/v9b" />
+
+    <View
+        android:id="@+id/v10c"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1b"
+        app:layout_constraintTop_toBottomOf="@id/v9c" />
+
+    <View
+        android:id="@+id/v10d"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1c"
+        app:layout_constraintTop_toBottomOf="@id/v9d" />
+
+    <View
+        android:id="@+id/v10e"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1d"
+        app:layout_constraintTop_toBottomOf="@id/v9e" />
+
+    <View
+        android:id="@+id/v10f"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1e"
+        app:layout_constraintTop_toBottomOf="@id/v9f" />
+
+    <View
+        android:id="@+id/v10g"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1f"
+        app:layout_constraintTop_toBottomOf="@id/v9g" />
+
+    <View
+        android:id="@+id/v10h"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1g"
+        app:layout_constraintTop_toBottomOf="@id/v9h" />
+
+    <View
+        android:id="@+id/v10i"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1h"
+        app:layout_constraintTop_toBottomOf="@id/v9i" />
+
+    <View
+        android:id="@+id/v10j"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/tile_base"
+        app:layout_constraintStart_toEndOf="@id/v1i"
+        app:layout_constraintTop_toBottomOf="@id/v9j" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
