@@ -14,9 +14,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RemoteDataSource @Inject constructor() : DataSource {
+class RemoteDataSource @Inject constructor(private val apiCallService: ApiCallService) :
+    DataSource {
 
-    private val apiCallService = ApiCallService(RetrofitClient.getApiServices())
+    //private val apiCallService = ApiCallService(RetrofitClient.getApiServices())
     override suspend fun getHeroById(idHero: Int): BaseResponse<HeroModel> {
         return when (val apiResult = apiCallService.getHeroById(idHero)) {
             is BaseResponse.Success -> BaseResponse.Success(HeroMapper().fromResponse(apiResult.data))

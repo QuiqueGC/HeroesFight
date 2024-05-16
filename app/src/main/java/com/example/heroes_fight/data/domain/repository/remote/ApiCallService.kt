@@ -9,8 +9,10 @@ import com.example.heroes_fight.data.domain.repository.remote.response.hero.Hero
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.HeroesListResponse
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.ImgResponse
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.StatsResponse
+import javax.inject.Inject
 
-class ApiCallService(private val remoteApiService: RemoteApiService) : BaseApiCallService() {
+class ApiCallService @Inject constructor(private val remoteApiService: RemoteApiService) :
+    BaseApiCallService() {
 
     suspend fun searchHeroByName(nameToFind: String): BaseResponse<HeroesListResponse> {
         return apiCall { remoteApiService.searchHeroByName(nameToFind) }

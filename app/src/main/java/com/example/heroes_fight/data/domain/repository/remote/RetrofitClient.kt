@@ -4,8 +4,10 @@ import com.example.heroes_fight.data.constants.Constants
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-object RetrofitClient {
+class RetrofitClient @Inject constructor() {
+
     private val retrofit: Retrofit
     private val remoteApiService: RemoteApiService
 
