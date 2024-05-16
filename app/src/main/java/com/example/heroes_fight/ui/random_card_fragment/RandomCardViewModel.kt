@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.main_menu_fragment
+package com.example.heroes_fight.ui.random_card_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,27 +13,27 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
-class MainMenuViewModel @Inject constructor(
+class RandomCardViewModel @Inject constructor(
     private val getHeroByIdUseCase: GetHeroByIdUseCase
 ) : ViewModel() {
 
 
-    private val _uiState = MutableStateFlow<MainMenuUiState>(MainMenuUiState.Loading)
-    val uiState: StateFlow<MainMenuUiState> = _uiState
+    private val _uiState = MutableStateFlow<RandomCardUiState>(RandomCardUiState.Loading)
+    val uiState: StateFlow<RandomCardUiState> = _uiState
 
     fun getHeroById() {
 
         viewModelScope.launch(Dispatchers.IO) {
-            _uiState.emit(MainMenuUiState.Loading)
+            _uiState.emit(RandomCardUiState.Loading)
 
             when (val baseResponse = getHeroByIdUseCase(Random.nextInt(1, 732))) {
 
                 is BaseResponse.Success -> {
-                    _uiState.emit(MainMenuUiState.Success(baseResponse.data))
+                    _uiState.emit(RandomCardUiState.Success(baseResponse.data))
                 }
 
                 is BaseResponse.Error -> {
-                    _uiState.emit(MainMenuUiState.Error(baseResponse.error))
+                    _uiState.emit(RandomCardUiState.Error(baseResponse.error))
                 }
             }
         }

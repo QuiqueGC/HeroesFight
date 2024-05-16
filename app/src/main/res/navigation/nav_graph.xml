@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/mainMenuFragment"
-        android:name="com.example.heroes_fight.ui.main_menu_fragment.MainMenuFragment"
+        android:name="com.example.heroes_fight.ui.random_card_fragment.RandomCardFragment"
         android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_main_menu">
+        tools:layout="@layout/fragment_random_card">
         <action
             android:id="@+id/action_mainMenuFragment_to_cardDetailFragment"
             app:destination="@id/cardDetailFragment" />
@@ -45,9 +45,9 @@
         tools:layout="@layout/fragment_cards_collection" />
     <fragment
         android:id="@+id/newMainMenuFragment"
-        android:name="com.example.heroes_fight.ui.new_main_menu_fragment.NewMainMenuFragment"
+        android:name="com.example.heroes_fight.ui.main_menu_fragment.MainMenuFragment"
         android:label="fragment_new_main_menu"
-        tools:layout="@layout/fragment_new_main_menu">
+        tools:layout="@layout/fragment_main_menu">
         <action
             android:id="@+id/action_newMainMenuFragment_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment" />
