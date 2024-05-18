@@ -6,6 +6,7 @@ import com.example.heroes_fight.data.domain.model.hero.HeroModel
 sealed class FightFragmentUiState {
 
     data object Loading : FightFragmentUiState()
-    class Success(val hero: HeroModel, val villain: HeroModel) : FightFragmentUiState()
+    class Success(val heroesList: ArrayList<HeroModel>, val villainsList: ArrayList<HeroModel>) :
+        FightFragmentUiState()
     class Error(val errorModel: ErrorModel) : FightFragmentUiState()
 }

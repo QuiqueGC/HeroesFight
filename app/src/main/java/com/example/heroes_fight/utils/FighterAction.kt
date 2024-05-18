@@ -5,6 +5,7 @@ enum class FighterAction {
     Attack,
     Defend,
     Support,
-    Sabotage
+    Sabotage,
+    WaitingForAction
 
 }

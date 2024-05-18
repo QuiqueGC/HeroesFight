@@ -15,6 +15,7 @@ import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.databinding.FragmentFightBinding
 import com.example.heroes_fight.utils.CardsFiller
+import com.example.heroes_fight.utils.FighterAction
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -26,14 +27,12 @@ class FightFragment : Fragment() {
     private val viewModel: FightFragmentViewModel by viewModels()
 
     private val board = Array(10) { arrayOfNulls<View>(9) }
-    private val listHeroes = ArrayList<HeroModel>()
-    private val listVillains = ArrayList<HeroModel>()
+    private val heroesList = ArrayList<HeroModel>()
+    private val villainsList = ArrayList<HeroModel>()
     private val ivHeroesList = ArrayList<ShapeableImageView>()
     private val ivVillainsList = ArrayList<ShapeableImageView>()
 
-
-    //empieza por uno porque hay una view antes de los tiles
-    private var indexOfChild = 1
+    private var fighterAction = FighterAction.WaitingForAction
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,7 +110,7 @@ class FightFragment : Fragment() {
             ivHeroesList[i].setOnClickListener {
                 CardsFiller.fillDataIntoGoodCard(
                     binding.cardIncludedGood,
-                    listHeroes[i],
+                    heroesList[i],
                     requireContext()
                 )
                 binding.cardIncludedGood.card.visibility = View.VISIBLE
@@ -121,7 +120,7 @@ class FightFragment : Fragment() {
                 ivVillainsList[i].setOnClickListener {
                     CardsFiller.fillDataIntoBadCard(
                         binding.cardIncludedBad,
-                        listVillains[0],
+                        villainsList[0],
                         requireContext()
                     )
                     binding.cardIncludedBad.card.visibility = View.VISIBLE
@@ -146,12 +145,12 @@ class FightFragment : Fragment() {
 
                     is FightFragmentUiState.Success -> {
                         showHeroesMiniatures(
-                            fightFragmentUiState.hero,
-                            fightFragmentUiState.villain
+                            fightFragmentUiState.heroesList,
+                            fightFragmentUiState.villainsList
                         )
                         addHeroesToLists(
-                            fightFragmentUiState.hero,
-                            fightFragmentUiState.villain
+                            fightFragmentUiState.heroesList,
+                            fightFragmentUiState.villainsList
                         )
                     }
                 }
@@ -159,31 +158,40 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun addHeroesToLists(hero: HeroModel, villain: HeroModel) {
-        listHeroes.add(hero)
-        listVillains.add(villain)
+    private fun addHeroesToLists(
+        heroesList: ArrayList<HeroModel>,
+        villainsList: ArrayList<HeroModel>
+    ) {
+        this.heroesList.addAll(heroesList)
+        this.villainsList.addAll(villainsList)
     }
 
-    private fun showHeroesMiniatures(hero: HeroModel, villain: HeroModel) {
-        with(binding) {
+    private fun showHeroesMiniatures(
+        heroesList: ArrayList<HeroModel>,
+        villainsList: ArrayList<HeroModel>
+    ) {
 
-            progressBar.visibility = View.GONE
+        for (i in 0 until heroesList.size) {
+            with(binding) {
+                progressBar.visibility = View.GONE
+                Glide.with(requireContext())
+                    .load(heroesList[i].image)
+                    .error(R.drawable.fight)
+                    .apply(RequestOptions().centerCrop())
+                    .into(ivHeroesList[i])
 
-            Glide.with(requireContext())
-                .load(hero.image)
-                .error(R.drawable.fight)
-                .apply(RequestOptions().centerCrop())
-                .into(imgHero)
-
-            Glide.with(requireContext())
-                .load(villain.image)
-                .error(R.drawable.fight)
-                .apply(RequestOptions().centerCrop())
-                .into(imgVillain)
+                Glide.with(requireContext())
+                    .load(villainsList[i].image)
+                    .error(R.drawable.fight)
+                    .apply(RequestOptions().centerCrop())
+                    .into(ivVillainsList[i])
+            }
         }
     }
 
     private fun setupBoard() {
+        //empieza por uno porque hay una view antes de los tiles
+        var indexOfChild = 1
         for (i in 0 until 10) {
             for (j in 0 until 9) {
                 board[i][j] = binding.root.getChildAt(indexOfChild)

@@ -3,6 +3,7 @@ package com.example.heroes_fight.ui.fight_fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.error.ErrorModel
+import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,9 @@ class FightFragmentViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<FightFragmentUiState>(FightFragmentUiState.Loading)
     val uiState: StateFlow<FightFragmentUiState> = _uiState
 
+    private val heroesList = ArrayList<HeroModel>()
+    private val villainList = ArrayList<HeroModel>()
+
 
     fun getRandomHeroes() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -29,10 +33,14 @@ class FightFragmentViewModel @Inject constructor(
             val baseResponseForVillain = getHeroByIdUseCase(Random.nextInt(1, 732))
 
             if (baseResponseForHero is BaseResponse.Success && baseResponseForVillain is BaseResponse.Success) {
+
+                heroesList.add(baseResponseForHero.data)
+                villainList.add(baseResponseForVillain.data)
+
                 _uiState.emit(
                     FightFragmentUiState.Success(
-                        baseResponseForHero.data,
-                        baseResponseForVillain.data
+                        heroesList,
+                        villainList
                     )
                 )
             } else {
