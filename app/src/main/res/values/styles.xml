@@ -60,4 +60,12 @@
         <item name="cornerSize">50%</item>
         <item name="cardElevation">50dp</item>
     </style>
+
+    <style name="tile">
+        <item name="android:layout_height">@dimen/tileSize</item>
+        <item name="android:layout_width">@dimen/tileSize</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/tile_base</item>
+    </style>
 </resources>

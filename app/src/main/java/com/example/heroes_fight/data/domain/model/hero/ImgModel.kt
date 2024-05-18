@@ -4,7 +4,7 @@ import com.example.heroes_fight.data.domain.model.BaseModel
 
 
 data class ImgModel(
-    var id: String = "",
-    var name: String = "",
-    var url: String = ""
+    val id: String = "",
+    val name: String = "",
+    val url: String = ""
 ) : BaseModel()
