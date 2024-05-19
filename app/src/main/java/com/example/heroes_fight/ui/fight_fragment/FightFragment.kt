@@ -467,8 +467,18 @@ class FightFragment : Fragment() {
         }
 
         // TODO: Esto tendrán que ser dos bucles para rellenar los array con todas las views
-        ivHeroesList.add(binding.imgHero)
-        ivVillainsList.add(binding.imgVillain)
+        with(binding) {
+            ivHeroesList.addAll(listOf(imgHero0, imgHero1, imgHero2, imgHero3, imgHero4))
+            ivVillainsList.addAll(
+                listOf(
+                    imgVillain0,
+                    imgVillain1,
+                    imgVillain2,
+                    imgVillain3,
+                    imgVillain4
+                )
+            )
+        }
     }
 
     private fun finishTurn() {

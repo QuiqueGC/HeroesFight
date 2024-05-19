@@ -585,7 +585,7 @@
 
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imgHero"
+        android:id="@+id/imgHero0"
         android:layout_width="@dimen/tileSize"
         android:layout_height="@dimen/tileSize"
         android:clickable="true"
@@ -597,7 +597,55 @@
         app:shapeAppearanceOverlay="@style/heroToBoard" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imgVillain"
+        android:id="@+id/imgHero1"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight"
+        app:layout_constraintStart_toStartOf="@id/v1b"
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        app:shapeAppearanceOverlay="@style/heroToBoard" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgHero2"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight"
+        app:layout_constraintStart_toStartOf="@id/v1c"
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        app:shapeAppearanceOverlay="@style/heroToBoard" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgHero3"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight"
+        app:layout_constraintStart_toStartOf="@id/v1d"
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        app:shapeAppearanceOverlay="@style/heroToBoard" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgHero4"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight"
+        app:layout_constraintStart_toStartOf="@id/v1e"
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        app:shapeAppearanceOverlay="@style/heroToBoard" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgVillain0"
         android:layout_width="@dimen/tileSize"
         android:layout_height="@dimen/tileSize"
         android:clickable="true"
@@ -605,6 +653,54 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v10i"
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        app:shapeAppearanceOverlay="@style/heroToBoard" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgVillain1"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight"
+        app:layout_constraintStart_toStartOf="@id/v10h"
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        app:shapeAppearanceOverlay="@style/heroToBoard" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgVillain2"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight"
+        app:layout_constraintStart_toStartOf="@id/v10g"
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        app:shapeAppearanceOverlay="@style/heroToBoard" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgVillain3"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight"
+        app:layout_constraintStart_toStartOf="@id/v10f"
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        app:shapeAppearanceOverlay="@style/heroToBoard" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgVillain4"
+        android:layout_width="@dimen/tileSize"
+        android:layout_height="@dimen/tileSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/fight"
+        app:layout_constraintStart_toStartOf="@id/v10e"
         app:layout_constraintTop_toTopOf="@id/v10i"
         app:shapeAppearanceOverlay="@style/heroToBoard" />
 

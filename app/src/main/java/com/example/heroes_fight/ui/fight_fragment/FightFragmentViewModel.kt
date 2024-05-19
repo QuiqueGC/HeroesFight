@@ -1,9 +1,9 @@
 package com.example.heroes_fight.ui.fight_fragment
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.common.Position
-import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetFighterByIdUseCase
@@ -46,35 +46,76 @@ class FightFragmentViewModel @Inject constructor(
     fun getRandomHeroes() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.emit(FightFragmentUiState.Loading)
-            val baseResponseForHero = getFighterByIdUseCase(Random.nextInt(1, 732))
-            val baseResponseForVillain = getFighterByIdUseCase(Random.nextInt(1, 732))
+            Log.i("quique", "COGE LA PRIMERA LISTA")
+            addHeroesToStartList()
 
-            if (baseResponseForHero is BaseResponse.Success && baseResponseForVillain is BaseResponse.Success) {
+            Log.i("quique", "COGE LA SEGUNDA LISTA")
+            addVillainsToStartList()
 
-                // TODO: dejo aquí hardcodeada la posición de los fighters
-                baseResponseForHero.data.position.y = 0
-                baseResponseForHero.data.position.x = 0
-                baseResponseForVillain.data.position.y = 9
-                baseResponseForVillain.data.position.x = 8
+            Log.i("quique", "METE TODOS LOS FIGHTERS EN LA LISTA COMÚN")
+            orderFightersBySpeed()
 
-                heroesList.add(baseResponseForHero.data)
-                villainList.add(baseResponseForVillain.data)
-
-                orderFightersBySpeed()
-
-                _uiState.emit(
-                    FightFragmentUiState.Success(
-                        heroesList,
-                        villainList
-                    )
+            Log.i("quique", "EMITE LAS LISTAS")
+            _uiState.emit(
+                FightFragmentUiState.Success(
+                    heroesList,
+                    villainList
                 )
+            )
 
-                _actualFighter.emit(allFightersList[0])
+            _actualFighter.emit(allFightersList[0])
 
-            } else {
-                _uiState.emit(FightFragmentUiState.Error(ErrorModel()))
+//            if (baseResponseForHero is BaseResponse.Success && baseResponseForVillain is BaseResponse.Success) {
+//
+//                // TODO: dejo aquí hardcodeada la posición de los fighters
+//                baseResponseForHero.data.position.y = 0
+//                baseResponseForHero.data.position.x = 0
+//                baseResponseForVillain.data.position.y = 9
+//                baseResponseForVillain.data.position.x = 8
+//
+//                heroesList.add(baseResponseForHero.data)
+//                villainList.add(baseResponseForVillain.data)
+//
+//                orderFightersBySpeed()
+//
+//                _uiState.emit(
+//                    FightFragmentUiState.Success(
+//                        heroesList,
+//                        villainList
+//                    )
+//                )
+//
+//                _actualFighter.emit(allFightersList[0])
+//
+//            } else {
+//                _uiState.emit(FightFragmentUiState.Error(ErrorModel()))
+//            }
+        }
+    }
+
+    private suspend fun addVillainsToStartList() {
+        var startXPosition = 8
+        for (i in 0..4) {
+            Log.i("quique", "vuelta nº $i")
+            val baseResponseForVillain = getFighterByIdUseCase(Random.nextInt(1, 732))
+            if (baseResponseForVillain is BaseResponse.Success) {
+                villainList.add(baseResponseForVillain.data)
+                villainList[i].position = Position(9, startXPosition)
+                startXPosition--
             }
         }
+
+    }
+
+    private suspend fun addHeroesToStartList() {
+        for (i in 0..4) {
+            Log.i("quique", "vuelta nº $i")
+            val baseResponseForHero = getFighterByIdUseCase(Random.nextInt(1, 732))
+            if (baseResponseForHero is BaseResponse.Success)
+                heroesList.add(baseResponseForHero.data)
+            heroesList[i].position = Position(0, i)
+        }
+
     }
 
     private fun orderFightersBySpeed() {
