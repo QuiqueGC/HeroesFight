@@ -72,7 +72,7 @@ class FightFragment : Fragment() {
 
         setupTilesListeners()
 
-        setupActionsListeners()
+        setupBtnActionsListeners()
 
         binding.cardIncludedBad.card.setOnClickListener {
             it.visibility = View.GONE
@@ -82,11 +82,20 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun setupActionsListeners() {
+    private fun setupBtnActionsListeners() {
         with(binding) {
             btnMove.setOnClickListener {
                 playerChoice = PlayerChoice.MOVE
-                tvInfo.text = "Selecciona la casilla a la que te quieres mover"
+                tvInfo.text = "Select the cell you want to move"
+            }
+
+            btnAttack.setOnClickListener {
+                tvInfo.text = "Select the enemy you want to attack"
+                playerChoice = PlayerChoice.ATTACK
+            }
+
+            btnPass.setOnClickListener {
+                finishTurn()
             }
         }
     }
@@ -141,20 +150,14 @@ class FightFragment : Fragment() {
 
         // Aplicar las nuevas restricciones al ConstraintLayout
         constraintSet.applyTo(binding.root)
-
-
-        // TODO: están aquí las cosas de final de turno, cuidado
-        playerChoice = PlayerChoice.WAITING_FOR_ACTION
-        indexOfActualHero = -1
-        viewModel.finishTurn()
-        binding.tvInfo.text = "Choice your action!"
     }
 
     private fun setupFightersListeners() {
         for (i in 0 until ivHeroesList.size) {
 
-            ivVillainsList[i].setOnClickListener {
-                if (heroesList[i].alignment == "bad") {
+            ivVillainsList[i].setOnClickListener { _ ->
+
+                if (villainsList[i].alignment == "bad") {
                     CardsFiller.fillDataIntoBadCard(
                         binding.cardIncludedBad,
                         villainsList[i],
@@ -198,6 +201,55 @@ class FightFragment : Fragment() {
                     binding.cardIncludedBad.btnAppearance.visibility = View.GONE
                     binding.cardIncludedBad.btnBiography.visibility = View.GONE
                 }
+            }
+
+            ivVillainsList[i].setOnLongClickListener {
+                when (playerChoice) {
+                    PlayerChoice.ATTACK -> {
+                        if (isHero) {
+                            viewModel.performAttack(villainsList[i])
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Don't attack your own team",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    else -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "Choice an action",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                true
+            }
+            ivHeroesList[i].setOnLongClickListener {
+                when (playerChoice) {
+                    PlayerChoice.ATTACK -> {
+                        if (!isHero) {
+                            viewModel.performAttack(heroesList[i])
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Don't attack your own team",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    else -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "Choice an action",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                true
             }
         }
     }
@@ -251,10 +303,19 @@ class FightFragment : Fragment() {
             viewModel.fighterMovement.collect { fighterCanMove ->
                 if (fighterCanMove) {
                     moveFighterView()
+                    binding.btnMove.isEnabled = false
                 } else {
                     Toast.makeText(requireContext(), "So far, bastard...", Toast.LENGTH_SHORT)
                         .show()
                 }
+            }
+        }
+
+
+        lifecycleScope.launch {
+            viewModel.actionResult.collect { resultMessage ->
+                Toast.makeText(requireContext(), resultMessage, Toast.LENGTH_LONG).show()
+                binding.btnAttack.isEnabled = false
             }
         }
     }
@@ -303,5 +364,15 @@ class FightFragment : Fragment() {
         // TODO: Esto tendrán que ser dos bucles para rellenar los array con todas las views
         ivHeroesList.add(binding.imgHero)
         ivVillainsList.add(binding.imgVillain)
+    }
+
+    private fun finishTurn() {
+        // TODO: están aquí las cosas de final de turno, cuidado
+        playerChoice = PlayerChoice.WAITING_FOR_ACTION
+        indexOfActualHero = -1
+        viewModel.finishTurn()
+        binding.tvInfo.text = "Choice your action!"
+        binding.btnMove.isEnabled = true
+        binding.btnAttack.isEnabled = true
     }
 }

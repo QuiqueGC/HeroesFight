@@ -31,6 +31,9 @@ class FightFragmentViewModel @Inject constructor(
     private val _fighterMovement = MutableSharedFlow<Boolean>()
     val fighterMovement: SharedFlow<Boolean> = _fighterMovement
 
+    private val _actionResult = MutableSharedFlow<String>()
+    val actionResult: SharedFlow<String> = _actionResult
+
     private val heroesList = ArrayList<HeroModel>()
     private val villainList = ArrayList<HeroModel>()
     private val allFightersList = ArrayList<HeroModel>()
@@ -89,6 +92,13 @@ class FightFragmentViewModel @Inject constructor(
     fun tryToMoveFighter(destinationPosition: Position) {
         viewModelScope.launch {
             _fighterMovement.emit(_actualFighter.value.move(destinationPosition))
+        }
+    }
+
+    fun performAttack(enemyToAttack: HeroModel) {
+        val resultOfAttack = _actualFighter.value.attack(enemyToAttack)
+        viewModelScope.launch {
+            _actionResult.emit(resultOfAttack)
         }
     }
 }
