@@ -16,7 +16,7 @@ import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.databinding.FragmentFightBinding
 import com.example.heroes_fight.utils.CardsFiller
-import com.example.heroes_fight.utils.FighterAction
+import com.example.heroes_fight.utils.PlayerChoice
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ class FightFragment : Fragment() {
     private val ivHeroesList = ArrayList<ShapeableImageView>()
     private val ivVillainsList = ArrayList<ShapeableImageView>()
 
-    private var fighterAction = FighterAction.WAITING_FOR_ACTION
+    private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
 
     private var indexOfActualHero = -1
     private var actualFighter = HeroModel()
@@ -85,7 +85,7 @@ class FightFragment : Fragment() {
     private fun setupActionsListeners() {
         with(binding) {
             btnMove.setOnClickListener {
-                fighterAction = FighterAction.MOVE
+                playerChoice = PlayerChoice.MOVE
                 tvInfo.text = "Selecciona la casilla a la que te quieres mover"
             }
         }
@@ -95,7 +95,7 @@ class FightFragment : Fragment() {
         for (i in 0 until 10) {
             for (j in 0 until 9) {
                 board[i][j]!!.setOnClickListener { _ ->
-                    if (fighterAction == FighterAction.MOVE) {
+                    if (playerChoice == PlayerChoice.MOVE) {
                         destinationPosition = Position(i, j)
                         viewModel.tryToMoveFighter(destinationPosition)
                     }
@@ -144,7 +144,7 @@ class FightFragment : Fragment() {
 
 
         // TODO: están aquí las cosas de final de turno, cuidado
-        fighterAction = FighterAction.WAITING_FOR_ACTION
+        playerChoice = PlayerChoice.WAITING_FOR_ACTION
         indexOfActualHero = -1
         viewModel.finishTurn()
         binding.tvInfo.text = "Choice your action!"
@@ -248,7 +248,7 @@ class FightFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.fighterCanMove.collect { fighterCanMove ->
+            viewModel.fighterMovement.collect { fighterCanMove ->
                 if (fighterCanMove) {
                     moveFighterView()
                 } else {

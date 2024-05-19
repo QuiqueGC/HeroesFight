@@ -1,6 +1,5 @@
 package com.example.heroes_fight.ui.fight_fragment
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.common.Position
@@ -29,8 +28,8 @@ class FightFragmentViewModel @Inject constructor(
     private val _actualFighter = MutableStateFlow(HeroModel())
     val actualFighter: StateFlow<HeroModel> = _actualFighter
 
-    private val _fighterCanMove = MutableSharedFlow<Boolean>()
-    val fighterCanMove: SharedFlow<Boolean> = _fighterCanMove
+    private val _fighterMovement = MutableSharedFlow<Boolean>()
+    val fighterMovement: SharedFlow<Boolean> = _fighterMovement
 
     private val heroesList = ArrayList<HeroModel>()
     private val villainList = ArrayList<HeroModel>()
@@ -87,51 +86,9 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun tryToMoveFighter(position: Position) {
-        val originValue = _actualFighter.value.position.y + _actualFighter.value.position.x
-        val destinationValue = position.y + position.x
-        val speed = if (_actualFighter.value.speed / 10 < 1) {
-            1
-        } else {
-            _actualFighter.value.speed / 10
-        }
-
+    fun tryToMoveFighter(destinationPosition: Position) {
         viewModelScope.launch {
-            if (originValue < destinationValue) {
-                Log.i("quique", "Posición destino ---> ${destinationValue}")
-                Log.i("quique", "Posición origen ---> ${originValue}")
-                Log.i("quique", "Speed ---> ${speed}")
-                if (originValue + speed >= destinationValue) {
-                    _fighterCanMove.emit(true)
-                    _actualFighter.value.position = Position(position.y, position.x)
-                    Log.i(
-                        "quique",
-                        "Posición y del que está en el flow ---> ${_actualFighter.value.position.y}"
-                    )
-                    Log.i("quique", "Posición y del otro --->  ${allFightersList[0].position.y}")
-                } else {
-                    _fighterCanMove.emit(false)
-                }
-            } else {
-                Log.i("quique", "Posición destino ---> ${destinationValue}")
-                Log.i("quique", "Posición origen ---> ${originValue}")
-                Log.i("quique", "Speed ---> ${speed}")
-                //no termino de entender por qué tengo que ponerle el +1 si en el caso
-                //positivo funciona perfectamente sin añadirle o quitarle (algo se me escapa...)
-                if (originValue - speed <= destinationValue + 1) {
-                    _fighterCanMove.emit(true)
-                    _actualFighter.value.position = Position(position.y, position.x)
-                    Log.i(
-                        "quique",
-                        "Posición y del que está en el flow ---> ${_actualFighter.value.position.y}"
-                    )
-                    Log.i("quique", "Posición y del otro --->  ${allFightersList[0].position.y}")
-                } else {
-                    _fighterCanMove.emit(false)
-                }
-            }
+            _fighterMovement.emit(_actualFighter.value.move(destinationPosition))
         }
-
-
     }
 }

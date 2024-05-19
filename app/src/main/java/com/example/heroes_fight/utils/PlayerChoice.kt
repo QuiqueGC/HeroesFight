@@ -1,6 +1,6 @@
 package com.example.heroes_fight.utils
 
-enum class FighterAction {
+enum class PlayerChoice {
     MOVE,
     ATTACK,
     DEFEND,
