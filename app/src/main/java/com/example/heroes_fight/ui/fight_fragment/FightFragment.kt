@@ -37,10 +37,11 @@ class FightFragment : Fragment() {
 
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
 
-    private var indexOfActualHero = -1
+    private var indexOfActualFighter = -1
     private var actualFighter = HeroModel()
-    private var isHero = true
+    private var actualFighterIsHero = true
     private var destinationPosition = Position()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getRandomHeroes()
@@ -120,28 +121,28 @@ class FightFragment : Fragment() {
         constraintSet.clone(binding.root)
 
         // Establecer nuevas restricciones
-        if (isHero) {
+        if (actualFighterIsHero) {
             constraintSet.connect(
-                ivHeroesList[indexOfActualHero].id,
+                ivHeroesList[indexOfActualFighter].id,
                 ConstraintSet.TOP,
                 board[destinationPosition.y][destinationPosition.x]!!.id,
                 ConstraintSet.TOP
             )
             constraintSet.connect(
-                ivHeroesList[indexOfActualHero].id,
+                ivHeroesList[indexOfActualFighter].id,
                 ConstraintSet.START,
                 board[destinationPosition.y][destinationPosition.x]!!.id,
                 ConstraintSet.START
             )
         } else {
             constraintSet.connect(
-                ivVillainsList[indexOfActualHero].id,
+                ivVillainsList[indexOfActualFighter].id,
                 ConstraintSet.TOP,
                 board[destinationPosition.y][destinationPosition.x]!!.id,
                 ConstraintSet.TOP
             )
             constraintSet.connect(
-                ivVillainsList[indexOfActualHero].id,
+                ivVillainsList[indexOfActualFighter].id,
                 ConstraintSet.START,
                 board[destinationPosition.y][destinationPosition.x]!!.id,
                 ConstraintSet.START
@@ -206,7 +207,7 @@ class FightFragment : Fragment() {
             ivVillainsList[i].setOnLongClickListener {
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> {
-                        if (isHero) {
+                        if (actualFighterIsHero) {
                             viewModel.performAttack(villainsList[i])
                         } else {
                             Toast.makeText(
@@ -230,7 +231,7 @@ class FightFragment : Fragment() {
             ivHeroesList[i].setOnLongClickListener {
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> {
-                        if (!isHero) {
+                        if (!actualFighterIsHero) {
                             viewModel.performAttack(heroesList[i])
                         } else {
                             Toast.makeText(
@@ -286,14 +287,14 @@ class FightFragment : Fragment() {
                     binding.tvTurn.text = "${actualFighter.name}'s turn"
 
                     this@FightFragment.actualFighter = actualFighter
-                    indexOfActualHero =
+                    indexOfActualFighter =
                         heroesList.indexOf(heroesList.find { it.id == actualFighter.id })
-                    isHero = true
+                    actualFighterIsHero = true
 
-                    if (indexOfActualHero == -1) {
-                        indexOfActualHero =
+                    if (indexOfActualFighter == -1) {
+                        indexOfActualFighter =
                             villainsList.indexOf(villainsList.find { it.id == actualFighter.id })
-                        isHero = false
+                        actualFighterIsHero = false
                     }
                 }
             }
@@ -318,6 +319,31 @@ class FightFragment : Fragment() {
                 binding.btnAttack.isEnabled = false
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.dyingFighter.collect { dyingFighter ->
+                val indexOfDyingFighter: Int
+
+                if (heroesList.contains(dyingFighter)) {
+                    indexOfDyingFighter = heroesList.indexOf(dyingFighter)
+                    heroesList.removeAt(indexOfDyingFighter)
+                    ivHeroesList[indexOfDyingFighter].visibility = View.GONE
+                    ivHeroesList.removeAt(indexOfDyingFighter)
+                } else {
+                    indexOfDyingFighter = villainsList.indexOf(dyingFighter)
+                    villainsList.removeAt(indexOfDyingFighter)
+                    ivVillainsList[indexOfDyingFighter].visibility = View.GONE
+                    ivVillainsList.removeAt(indexOfDyingFighter)
+                }
+
+                if (heroesList.isEmpty() || villainsList.isEmpty()) {
+                    // TODO: Esto es un finish de prueba
+                    Toast.makeText(requireContext(), "FINISHHHHHHH", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+
     }
 
     private fun addHeroesToLists(
@@ -369,7 +395,7 @@ class FightFragment : Fragment() {
     private fun finishTurn() {
         // TODO: están aquí las cosas de final de turno, cuidado
         playerChoice = PlayerChoice.WAITING_FOR_ACTION
-        indexOfActualHero = -1
+        indexOfActualFighter = -1
         viewModel.finishTurn()
         binding.tvInfo.text = "Choice your action!"
         binding.btnMove.isEnabled = true

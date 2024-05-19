@@ -34,6 +34,10 @@ class FightFragmentViewModel @Inject constructor(
     private val _actionResult = MutableSharedFlow<String>()
     val actionResult: SharedFlow<String> = _actionResult
 
+    private val _dyingFighter = MutableSharedFlow<HeroModel>()
+    val dyingFighter: SharedFlow<HeroModel> = _dyingFighter
+
+
     private val heroesList = ArrayList<HeroModel>()
     private val villainList = ArrayList<HeroModel>()
     private val allFightersList = ArrayList<HeroModel>()
@@ -100,5 +104,22 @@ class FightFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             _actionResult.emit(resultOfAttack)
         }
+
+        if (enemyToAttack.durability <= 0) {
+
+            viewModelScope.launch {
+                _dyingFighter.emit(enemyToAttack)
+            }
+            removeFighterFromLists(enemyToAttack)
+        }
+    }
+
+    private fun removeFighterFromLists(enemyToAttack: HeroModel) {
+        if (villainList.contains(enemyToAttack)) {
+            villainList.remove(enemyToAttack)
+        } else {
+            heroesList.remove(enemyToAttack)
+        }
+        allFightersList.remove(enemyToAttack)
     }
 }
