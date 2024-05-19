@@ -561,7 +561,6 @@
         android:id="@+id/tvTurn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Turno de Manolo"
         android:textColor="@color/redBad"
         android:textSize="32sp"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -574,7 +573,7 @@
         android:id="@+id/tvInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ha atacado y hecho un daño de..."
+        android:text="Choice your action"
         android:textColor="@color/redBad"
         android:textSize="20sp"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -603,8 +602,8 @@
         android:focusable="true"
         android:scaleType="centerCrop"
         tools:src="@drawable/fight"
-        app:layout_constraintEnd_toEndOf="@id/vBoard"
-        app:layout_constraintBottom_toBottomOf="@id/vBoard"
+        app:layout_constraintStart_toStartOf="@id/v10i"
+        app:layout_constraintTop_toTopOf="@id/v10i"
         app:shapeAppearanceOverlay="@style/heroToBoard" />
 
     <include

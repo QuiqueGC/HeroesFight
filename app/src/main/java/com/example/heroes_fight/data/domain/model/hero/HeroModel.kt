@@ -1,6 +1,7 @@
 package com.example.heroes_fight.data.domain.model.hero
 
 import com.example.heroes_fight.data.domain.model.BaseModel
+import com.example.heroes_fight.data.domain.model.common.Position
 
 data class HeroModel(
     val id: Int = 0,
@@ -8,13 +9,12 @@ data class HeroModel(
     val name: String = "",
     val alignment: String = "",
     val image: String = "",
-    var intelligence: String = "",
-    var strength: String = "",
-    var speed: String = "",
-    var durability: String = "",
-    var power: String = "",
-    var combat: String = "",
-    var xPosition: Int = 0,
-    var yPosition: Int = 0
+    var intelligence: Int = 0,
+    var strength: Int = 0,
+    var speed: Int = 0,
+    var durability: Int = 0,
+    var power: Int = 0,
+    var combat: Int = 0,
+    var position: Position = Position()
 
 ) : BaseModel()

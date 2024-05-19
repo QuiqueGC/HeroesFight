@@ -153,12 +153,12 @@ class RandomCardFragment : Fragment() {
             with(binding.cardSmallIncludedBad) {
                 tvId.text = heroModel.serialNum
                 tvName.text = heroModel.name
-                tvStrengthContent.text = heroModel.strength
-                tvCombatContent.text = heroModel.combat
-                tvIntelligenceContent.text = heroModel.intelligence
-                tvSpeedContent.text = heroModel.speed
-                tvDurabilityContent.text = heroModel.durability
-                tvPowerContent.text = heroModel.power
+                tvStrengthContent.text = heroModel.strength.toString()
+                tvCombatContent.text = heroModel.combat.toString()
+                tvIntelligenceContent.text = heroModel.intelligence.toString()
+                tvSpeedContent.text = heroModel.speed.toString()
+                tvDurabilityContent.text = heroModel.durability.toString()
+                tvPowerContent.text = heroModel.power.toString()
                 Glide.with(requireContext())
                     .load(heroModel.image)
                     .error(R.drawable.fight)
@@ -169,12 +169,12 @@ class RandomCardFragment : Fragment() {
             with(binding.cardIncludedBad) {
                 tvId.text = heroModel.serialNum
                 tvName.text = heroModel.name
-                tvStrengthContent.text = heroModel.strength
-                tvCombatContent.text = heroModel.combat
-                tvIntelligenceContent.text = heroModel.intelligence
-                tvSpeedContent.text = heroModel.speed
-                tvDurabilityContent.text = heroModel.durability
-                tvPowerContent.text = heroModel.power
+                tvStrengthContent.text = heroModel.strength.toString()
+                tvCombatContent.text = heroModel.combat.toString()
+                tvIntelligenceContent.text = heroModel.intelligence.toString()
+                tvSpeedContent.text = heroModel.speed.toString()
+                tvDurabilityContent.text = heroModel.durability.toString()
+                tvPowerContent.text = heroModel.power.toString()
                 Glide.with(requireContext())
                     .load(heroModel.image)
                     .error(R.drawable.fight)
@@ -191,12 +191,12 @@ class RandomCardFragment : Fragment() {
             with(binding.cardSmallIncludedGood) {
                 tvId.text = heroModel.serialNum
                 tvName.text = heroModel.name
-                tvStrengthContent.text = heroModel.strength
-                tvCombatContent.text = heroModel.combat
-                tvIntelligenceContent.text = heroModel.intelligence
-                tvSpeedContent.text = heroModel.speed
-                tvDurabilityContent.text = heroModel.durability
-                tvPowerContent.text = heroModel.power
+                tvStrengthContent.text = heroModel.strength.toString()
+                tvCombatContent.text = heroModel.combat.toString()
+                tvIntelligenceContent.text = heroModel.intelligence.toString()
+                tvSpeedContent.text = heroModel.speed.toString()
+                tvDurabilityContent.text = heroModel.durability.toString()
+                tvPowerContent.text = heroModel.power.toString()
                 Glide.with(requireContext())
                     .load(heroModel.image)
                     .error(R.drawable.fight)
@@ -207,12 +207,12 @@ class RandomCardFragment : Fragment() {
             with(binding.cardIncludedGood) {
                 tvId.text = heroModel.serialNum
                 tvName.text = heroModel.name
-                tvStrengthContent.text = heroModel.strength
-                tvCombatContent.text = heroModel.combat
-                tvIntelligenceContent.text = heroModel.intelligence
-                tvSpeedContent.text = heroModel.speed
-                tvDurabilityContent.text = heroModel.durability
-                tvPowerContent.text = heroModel.power
+                tvStrengthContent.text = heroModel.strength.toString()
+                tvCombatContent.text = heroModel.combat.toString()
+                tvIntelligenceContent.text = heroModel.intelligence.toString()
+                tvSpeedContent.text = heroModel.speed.toString()
+                tvDurabilityContent.text = heroModel.durability.toString()
+                tvPowerContent.text = heroModel.power.toString()
                 Glide.with(requireContext())
                     .load(heroModel.image)
                     .error(R.drawable.fight)

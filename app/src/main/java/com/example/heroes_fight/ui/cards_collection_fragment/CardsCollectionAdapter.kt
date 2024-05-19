@@ -59,12 +59,12 @@ class CardsCollectionAdapter(
                 with(holder.binding) {
                     tvId.text = cardsList[position].serialNum
                     tvName.text = cardsList[position].name
-                    tvStrengthContent.text = cardsList[position].strength
-                    tvCombatContent.text = cardsList[position].combat
-                    tvIntelligenceContent.text = cardsList[position].intelligence
-                    tvSpeedContent.text = cardsList[position].speed
-                    tvDurabilityContent.text = cardsList[position].durability
-                    tvPowerContent.text = cardsList[position].power
+                    tvStrengthContent.text = cardsList[position].strength.toString()
+                    tvCombatContent.text = cardsList[position].combat.toString()
+                    tvIntelligenceContent.text = cardsList[position].intelligence.toString()
+                    tvSpeedContent.text = cardsList[position].speed.toString()
+                    tvDurabilityContent.text = cardsList[position].durability.toString()
+                    tvPowerContent.text = cardsList[position].power.toString()
                     Glide.with(context)
                         .load(cardsList[position].image)
                         .error(R.drawable.fight)
@@ -80,12 +80,12 @@ class CardsCollectionAdapter(
                 with(holder.binding) {
                     tvId.text = cardsList[position].serialNum
                     tvName.text = cardsList[position].name
-                    tvStrengthContent.text = cardsList[position].strength
-                    tvCombatContent.text = cardsList[position].combat
-                    tvIntelligenceContent.text = cardsList[position].intelligence
-                    tvSpeedContent.text = cardsList[position].speed
-                    tvDurabilityContent.text = cardsList[position].durability
-                    tvPowerContent.text = cardsList[position].power
+                    tvStrengthContent.text = cardsList[position].strength.toString()
+                    tvCombatContent.text = cardsList[position].combat.toString()
+                    tvIntelligenceContent.text = cardsList[position].intelligence.toString()
+                    tvSpeedContent.text = cardsList[position].speed.toString()
+                    tvDurabilityContent.text = cardsList[position].durability.toString()
+                    tvPowerContent.text = cardsList[position].power.toString()
                     Glide.with(context)
                         .load(cardsList[position].image)
                         .error(R.drawable.fight)

@@ -1,7 +1,6 @@
 package com.example.heroes_fight.ui.fight_fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
+import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.databinding.FragmentFightBinding
 import com.example.heroes_fight.utils.CardsFiller
@@ -37,7 +37,10 @@ class FightFragment : Fragment() {
 
     private var fighterAction = FighterAction.WAITING_FOR_ACTION
 
-
+    private var indexOfActualHero = -1
+    private var actualFighter = HeroModel()
+    private var isHero = true
+    private var destinationPosition = Position()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getRandomHeroes()
@@ -89,40 +92,61 @@ class FightFragment : Fragment() {
     }
 
     private fun setupTilesListeners() {
-
         for (i in 0 until 10) {
             for (j in 0 until 9) {
-                board[i][j]!!.setOnClickListener { imgTile ->
-
+                board[i][j]!!.setOnClickListener { _ ->
                     if (fighterAction == FighterAction.MOVE) {
-
-                        Log.i("quique", "la posición Y es ->$i")
-                        Log.i("quique", "la posición X es ->$j")
-                        // Crear un ConstraintSet
-                        val constraintSet = ConstraintSet()
-                        // Clonar las restricciones existentes del ConstraintLayout
-                        constraintSet.clone(binding.root)
-
-                        // Establecer nuevas restricciones
-                        constraintSet.connect(
-                            binding.imgHero.id,
-                            ConstraintSet.TOP,
-                            imgTile.id,
-                            ConstraintSet.TOP
-                        )
-                        constraintSet.connect(
-                            binding.imgHero.id,
-                            ConstraintSet.START,
-                            imgTile.id,
-                            ConstraintSet.START
-                        )
-
-                        // Aplicar las nuevas restricciones al ConstraintLayout
-                        constraintSet.applyTo(binding.root)
+                        destinationPosition = Position(i, j)
+                        viewModel.tryToMoveFighter(destinationPosition)
                     }
                 }
             }
         }
+    }
+
+    private fun moveFighterView() {
+        // Crear un ConstraintSet
+        val constraintSet = ConstraintSet()
+        // Clonar las restricciones existentes del ConstraintLayout
+        constraintSet.clone(binding.root)
+
+        // Establecer nuevas restricciones
+        if (isHero) {
+            constraintSet.connect(
+                ivHeroesList[indexOfActualHero].id,
+                ConstraintSet.TOP,
+                board[destinationPosition.y][destinationPosition.x]!!.id,
+                ConstraintSet.TOP
+            )
+            constraintSet.connect(
+                ivHeroesList[indexOfActualHero].id,
+                ConstraintSet.START,
+                board[destinationPosition.y][destinationPosition.x]!!.id,
+                ConstraintSet.START
+            )
+        } else {
+            constraintSet.connect(
+                ivVillainsList[indexOfActualHero].id,
+                ConstraintSet.TOP,
+                board[destinationPosition.y][destinationPosition.x]!!.id,
+                ConstraintSet.TOP
+            )
+            constraintSet.connect(
+                ivVillainsList[indexOfActualHero].id,
+                ConstraintSet.START,
+                board[destinationPosition.y][destinationPosition.x]!!.id,
+                ConstraintSet.START
+            )
+        }
+
+        // Aplicar las nuevas restricciones al ConstraintLayout
+        constraintSet.applyTo(binding.root)
+
+
+        // TODO: están aquí las cosas de final de turno, cuidado
+        fighterAction = FighterAction.WAITING_FOR_ACTION
+        indexOfActualHero = -1
+        viewModel.finishTurn()
     }
 
     private fun setupFightersListeners() {
@@ -151,7 +175,6 @@ class FightFragment : Fragment() {
 
                 }
             }
-
 
             ivHeroesList[i].setOnClickListener {
                 if (heroesList[i].alignment == "good") {
@@ -200,6 +223,36 @@ class FightFragment : Fragment() {
                             fightFragmentUiState.villainsList
                         )
                     }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.actualFighter.collect { actualFighter ->
+                if (actualFighter.id != 0) {
+                    binding.tvTurn.text = "${actualFighter.name}'s turn"
+
+                    this@FightFragment.actualFighter = actualFighter
+                    indexOfActualHero =
+                        heroesList.indexOf(heroesList.find { it.id == actualFighter.id })
+                    isHero = true
+
+                    if (indexOfActualHero == -1) {
+                        indexOfActualHero =
+                            villainsList.indexOf(villainsList.find { it.id == actualFighter.id })
+                        isHero = false
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.fighterCanMove.collect { fighterCanMove ->
+                if (fighterCanMove) {
+                    moveFighterView()
+                } else {
+                    Toast.makeText(requireContext(), "So far, bastard...", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

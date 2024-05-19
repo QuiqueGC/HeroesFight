@@ -14,12 +14,12 @@ object CardsFiller {
         with(card) {
             tvId.text = heroModel.serialNum
             tvName.text = heroModel.name
-            tvStrengthContent.text = heroModel.strength
-            tvCombatContent.text = heroModel.combat
-            tvIntelligenceContent.text = heroModel.intelligence
-            tvSpeedContent.text = heroModel.speed
-            tvDurabilityContent.text = heroModel.durability
-            tvPowerContent.text = heroModel.power
+            tvStrengthContent.text = heroModel.strength.toString()
+            tvCombatContent.text = heroModel.combat.toString()
+            tvIntelligenceContent.text = heroModel.intelligence.toString()
+            tvSpeedContent.text = heroModel.speed.toString()
+            tvDurabilityContent.text = heroModel.durability.toString()
+            tvPowerContent.text = heroModel.power.toString()
             Glide.with(context)
                 .load(heroModel.image)
                 .error(R.drawable.fight)
@@ -32,12 +32,12 @@ object CardsFiller {
         with(card) {
             tvId.text = heroModel.serialNum
             tvName.text = heroModel.name
-            tvStrengthContent.text = heroModel.strength
-            tvCombatContent.text = heroModel.combat
-            tvIntelligenceContent.text = heroModel.intelligence
-            tvSpeedContent.text = heroModel.speed
-            tvDurabilityContent.text = heroModel.durability
-            tvPowerContent.text = heroModel.power
+            tvStrengthContent.text = heroModel.strength.toString()
+            tvCombatContent.text = heroModel.combat.toString()
+            tvIntelligenceContent.text = heroModel.intelligence.toString()
+            tvSpeedContent.text = heroModel.speed.toString()
+            tvDurabilityContent.text = heroModel.durability.toString()
+            tvPowerContent.text = heroModel.power.toString()
             Glide.with(context)
                 .load(heroModel.image)
                 .error(R.drawable.fight)
