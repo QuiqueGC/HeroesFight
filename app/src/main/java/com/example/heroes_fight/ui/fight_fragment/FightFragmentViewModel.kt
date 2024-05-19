@@ -64,32 +64,6 @@ class FightFragmentViewModel @Inject constructor(
             )
 
             _actualFighter.emit(allFightersList[0])
-
-//            if (baseResponseForHero is BaseResponse.Success && baseResponseForVillain is BaseResponse.Success) {
-//
-//                // TODO: dejo aquí hardcodeada la posición de los fighters
-//                baseResponseForHero.data.position.y = 0
-//                baseResponseForHero.data.position.x = 0
-//                baseResponseForVillain.data.position.y = 9
-//                baseResponseForVillain.data.position.x = 8
-//
-//                heroesList.add(baseResponseForHero.data)
-//                villainList.add(baseResponseForVillain.data)
-//
-//                orderFightersBySpeed()
-//
-//                _uiState.emit(
-//                    FightFragmentUiState.Success(
-//                        heroesList,
-//                        villainList
-//                    )
-//                )
-//
-//                _actualFighter.emit(allFightersList[0])
-//
-//            } else {
-//                _uiState.emit(FightFragmentUiState.Error(ErrorModel()))
-//            }
         }
     }
 
@@ -154,7 +128,7 @@ class FightFragmentViewModel @Inject constructor(
             }
 
             if (enemyToAttack.durability <= 0) {
-
+                allFightersList.remove(enemyToAttack)
                 viewModelScope.launch {
                     _dyingFighter.emit(enemyToAttack)
                 }
