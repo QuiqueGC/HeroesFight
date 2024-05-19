@@ -48,7 +48,7 @@ class FightFragmentViewModel @Inject constructor(
                 baseResponseForHero.data.position.y = 0
                 baseResponseForHero.data.position.x = 0
                 baseResponseForVillain.data.position.y = 9
-                baseResponseForVillain.data.position.x = 9
+                baseResponseForVillain.data.position.x = 8
 
                 heroesList.add(baseResponseForHero.data)
                 villainList.add(baseResponseForVillain.data)
