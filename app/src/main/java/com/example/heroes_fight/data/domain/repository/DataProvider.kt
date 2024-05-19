@@ -1,5 +1,6 @@
 package com.example.heroes_fight.data.domain.repository
 
+import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
@@ -29,5 +30,9 @@ class DataProvider @Inject constructor(
 
     override suspend fun getAppearanceById(idHero: Int): BaseResponse<AppearanceModel> {
         return remoteDataSource.getAppearanceById(idHero)
+    }
+
+    override suspend fun getFighterById(idHero: Int): BaseResponse<FighterModel> {
+        return remoteDataSource.getFighterById(idHero)
     }
 }

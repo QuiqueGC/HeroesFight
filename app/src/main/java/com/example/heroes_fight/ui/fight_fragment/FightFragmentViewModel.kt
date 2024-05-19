@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.error.ErrorModel
-import com.example.heroes_fight.data.domain.model.hero.HeroModel
+import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
-import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
+import com.example.heroes_fight.data.domain.use_case.GetFighterByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,14 +19,14 @@ import kotlin.random.Random
 
 @HiltViewModel
 class FightFragmentViewModel @Inject constructor(
-    private val getHeroByIdUseCase: GetHeroByIdUseCase
+    private val getFighterByIdUseCase: GetFighterByIdUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<FightFragmentUiState>(FightFragmentUiState.Loading)
     val uiState: StateFlow<FightFragmentUiState> = _uiState
 
-    private val _actualFighter = MutableStateFlow(HeroModel())
-    val actualFighter: StateFlow<HeroModel> = _actualFighter
+    private val _actualFighter = MutableStateFlow(FighterModel())
+    val actualFighter: StateFlow<FighterModel> = _actualFighter
 
     private val _fighterMovement = MutableSharedFlow<Boolean>()
     val fighterMovement: SharedFlow<Boolean> = _fighterMovement
@@ -34,20 +34,20 @@ class FightFragmentViewModel @Inject constructor(
     private val _actionResult = MutableSharedFlow<String>()
     val actionResult: SharedFlow<String> = _actionResult
 
-    private val _dyingFighter = MutableSharedFlow<HeroModel>()
-    val dyingFighter: SharedFlow<HeroModel> = _dyingFighter
+    private val _dyingFighter = MutableSharedFlow<FighterModel>()
+    val dyingFighter: SharedFlow<FighterModel> = _dyingFighter
 
 
-    private val heroesList = ArrayList<HeroModel>()
-    private val villainList = ArrayList<HeroModel>()
-    private val allFightersList = ArrayList<HeroModel>()
+    private val heroesList = ArrayList<FighterModel>()
+    private val villainList = ArrayList<FighterModel>()
+    private val allFightersList = ArrayList<FighterModel>()
 
 
     fun getRandomHeroes() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.emit(FightFragmentUiState.Loading)
-            val baseResponseForHero = getHeroByIdUseCase(Random.nextInt(1, 732))
-            val baseResponseForVillain = getHeroByIdUseCase(Random.nextInt(1, 732))
+            val baseResponseForHero = getFighterByIdUseCase(Random.nextInt(1, 732))
+            val baseResponseForVillain = getFighterByIdUseCase(Random.nextInt(1, 732))
 
             if (baseResponseForHero is BaseResponse.Success && baseResponseForVillain is BaseResponse.Success) {
 
@@ -99,7 +99,7 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun performAttack(enemyToAttack: HeroModel) {
+    fun performAttack(enemyToAttack: FighterModel) {
         val resultOfAttack = _actualFighter.value.attack(enemyToAttack)
         viewModelScope.launch {
             _actionResult.emit(resultOfAttack)
@@ -114,7 +114,7 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun removeFighterFromLists(enemyToAttack: HeroModel) {
+    private fun removeFighterFromLists(enemyToAttack: FighterModel) {
         if (villainList.contains(enemyToAttack)) {
             villainList.remove(enemyToAttack)
         } else {

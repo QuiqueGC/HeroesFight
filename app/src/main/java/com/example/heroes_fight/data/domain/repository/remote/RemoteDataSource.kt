@@ -1,12 +1,14 @@
 package com.example.heroes_fight.data.domain.repository.remote
 
 import com.example.heroes_fight.data.domain.model.error.ErrorModel
+import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.data.domain.repository.remote.mapper.AppearanceMapper
 import com.example.heroes_fight.data.domain.repository.remote.mapper.BiographyMapper
+import com.example.heroes_fight.data.domain.repository.remote.mapper.FighterMapper
 import com.example.heroes_fight.data.domain.repository.remote.mapper.HeroMapper
 import com.example.heroes_fight.data.domain.repository.remote.mapper.ImgMapper
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
@@ -47,6 +49,13 @@ class RemoteDataSource @Inject constructor(private val apiCallService: ApiCallSe
                 )
             )
 
+            is BaseResponse.Error -> BaseResponse.Error(ErrorModel())
+        }
+    }
+
+    override suspend fun getFighterById(idHero: Int): BaseResponse<FighterModel> {
+        return when (val apiResult = apiCallService.getHeroById(idHero)) {
+            is BaseResponse.Success -> BaseResponse.Success(FighterMapper().fromResponse(apiResult.data))
             is BaseResponse.Error -> BaseResponse.Error(ErrorModel())
         }
     }

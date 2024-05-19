@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.common.Position
-import com.example.heroes_fight.data.domain.model.hero.HeroModel
+import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.databinding.FragmentFightBinding
 import com.example.heroes_fight.utils.CardsFiller
 import com.example.heroes_fight.utils.PlayerChoice
@@ -30,15 +30,15 @@ class FightFragment : Fragment() {
     private val viewModel: FightFragmentViewModel by viewModels()
 
     private val board = Array(10) { arrayOfNulls<View>(9) }
-    private val heroesList = ArrayList<HeroModel>()
-    private val villainsList = ArrayList<HeroModel>()
+    private val heroesList = ArrayList<FighterModel>()
+    private val villainsList = ArrayList<FighterModel>()
     private val ivHeroesList = ArrayList<ShapeableImageView>()
     private val ivVillainsList = ArrayList<ShapeableImageView>()
 
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
 
     private var indexOfActualFighter = -1
-    private var actualFighter = HeroModel()
+    private var actualFighter = FighterModel()
     private var actualFighterIsHero = true
     private var destinationPosition = Position()
 
@@ -347,16 +347,16 @@ class FightFragment : Fragment() {
     }
 
     private fun addHeroesToLists(
-        heroesList: ArrayList<HeroModel>,
-        villainsList: ArrayList<HeroModel>
+        heroesList: ArrayList<FighterModel>,
+        villainsList: ArrayList<FighterModel>
     ) {
         this.heroesList.addAll(heroesList)
         this.villainsList.addAll(villainsList)
     }
 
     private fun showHeroesMiniatures(
-        heroesList: ArrayList<HeroModel>,
-        villainsList: ArrayList<HeroModel>
+        heroesList: ArrayList<FighterModel>,
+        villainsList: ArrayList<FighterModel>
     ) {
 
         for (i in 0 until heroesList.size) {
