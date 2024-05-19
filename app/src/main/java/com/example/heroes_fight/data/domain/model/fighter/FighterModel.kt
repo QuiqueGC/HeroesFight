@@ -157,8 +157,11 @@ class FighterModel(
             val enemyDefenceDifference = enemy.defenceRoll()
             Log.i("quique", "La tiradad del enemigo de defensa es -> $enemyDefenceDifference")
             if (attackDifference >= enemyDefenceDifference) {
-
-                result = resolveDamage(attackDifference - enemyDefenceDifference, enemy)
+                var damageBonus = attackDifference - enemyDefenceDifference
+                if (damageBonus > 20) {
+                    damageBonus = 20
+                }
+                result = resolveDamage(damageBonus, enemy)
 
             } else {
                 enemy.durability -= 5
