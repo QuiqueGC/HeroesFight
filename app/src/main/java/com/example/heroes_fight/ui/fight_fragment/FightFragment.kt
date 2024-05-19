@@ -95,6 +95,21 @@ class FightFragment : Fragment() {
                 playerChoice = PlayerChoice.ATTACK
             }
 
+            btnDefend.setOnClickListener {
+                tvInfo.text = "Select your own hero to confirm"
+                playerChoice = PlayerChoice.DEFEND
+            }
+
+            btnSupport.setOnClickListener {
+                tvInfo.text = "Select the ally you want to support"
+                playerChoice = PlayerChoice.SUPPORT
+            }
+
+            btnSabotage.setOnClickListener {
+                tvInfo.text = "Select the enemy you want to sabotage"
+                playerChoice = PlayerChoice.SABOTAGE
+            }
+
             btnPass.setOnClickListener {
                 finishTurn()
             }
@@ -206,18 +221,8 @@ class FightFragment : Fragment() {
 
             ivVillainsList[i].setOnLongClickListener {
                 when (playerChoice) {
-                    PlayerChoice.ATTACK -> {
-                        if (actualFighterIsHero) {
-                            viewModel.performAttack(villainsList[i])
-                        } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Don't attack your own team",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
+                    PlayerChoice.ATTACK -> performAttackToVillain(i)
+                    PlayerChoice.SABOTAGE -> performSabotageToVillain(i)
                     else -> {
                         Toast.makeText(
                             requireContext(),
@@ -230,18 +235,8 @@ class FightFragment : Fragment() {
             }
             ivHeroesList[i].setOnLongClickListener {
                 when (playerChoice) {
-                    PlayerChoice.ATTACK -> {
-                        if (!actualFighterIsHero) {
-                            viewModel.performAttack(heroesList[i])
-                        } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Don't attack your own team",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
+                    PlayerChoice.ATTACK -> performAttackToHero(i)
+                    PlayerChoice.SABOTAGE -> performSabotageToHero(i)
                     else -> {
                         Toast.makeText(
                             requireContext(),
@@ -252,6 +247,55 @@ class FightFragment : Fragment() {
                 }
                 true
             }
+
+        }
+    }
+
+    private fun performSabotageToHero(indexOfFighterSelected: Int) {
+        if (!actualFighterIsHero) {
+            viewModel.performSabotage(heroesList[indexOfFighterSelected])
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Don't sabotage your own team",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun performSabotageToVillain(indexOfFighterSelected: Int) {
+        if (actualFighterIsHero) {
+            viewModel.performSabotage(villainsList[indexOfFighterSelected])
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Don't sabotage your own team",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun performAttackToHero(indexOfFighterSelected: Int) {
+        if (!actualFighterIsHero) {
+            viewModel.performAttack(heroesList[indexOfFighterSelected])
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Don't attack your own team",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun performAttackToVillain(indexOfFighterSelected: Int) {
+        if (actualFighterIsHero) {
+            viewModel.performAttack(villainsList[indexOfFighterSelected])
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Don't attack your own team",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -284,8 +328,14 @@ class FightFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.actualFighter.collect { actualFighter ->
                 if (actualFighter.id != 0) {
-                    binding.tvTurn.text = "${actualFighter.name}'s turn"
 
+                    if (actualFighter.isSabotaged) {
+                        binding.tvTurn.text = "${actualFighter.name}'s turn, but was sabotaged"
+                        disableActionButtons()
+                        binding.btnMove.isEnabled = false
+                    } else {
+                        binding.tvTurn.text = "${actualFighter.name}'s turn"
+                    }
                     this@FightFragment.actualFighter = actualFighter
                     indexOfActualFighter =
                         heroesList.indexOf(heroesList.find { it.id == actualFighter.id })
@@ -304,6 +354,7 @@ class FightFragment : Fragment() {
             viewModel.fighterMovement.collect { fighterCanMove ->
                 if (fighterCanMove) {
                     moveFighterView()
+                    binding.tvInfo.text = "Choice your action"
                     binding.btnMove.isEnabled = false
                 } else {
                     Toast.makeText(requireContext(), "So far, bastard...", Toast.LENGTH_SHORT)
@@ -315,8 +366,9 @@ class FightFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.actionResult.collect { resultMessage ->
-                Toast.makeText(requireContext(), resultMessage, Toast.LENGTH_LONG).show()
-                binding.btnAttack.isEnabled = false
+                binding.tvInfo.text = resultMessage
+                //Toast.makeText(requireContext(), resultMessage, Toast.LENGTH_LONG).show()
+                disableActionButtons()
             }
         }
 
@@ -342,9 +394,8 @@ class FightFragment : Fragment() {
                 }
             }
         }
-
-
     }
+
 
     private fun addHeroesToLists(
         heroesList: ArrayList<FighterModel>,
@@ -394,11 +445,29 @@ class FightFragment : Fragment() {
 
     private fun finishTurn() {
         // TODO: están aquí las cosas de final de turno, cuidado
+        enableButtons()
         playerChoice = PlayerChoice.WAITING_FOR_ACTION
         indexOfActualFighter = -1
         viewModel.finishTurn()
         binding.tvInfo.text = "Choice your action!"
-        binding.btnMove.isEnabled = true
-        binding.btnAttack.isEnabled = true
+    }
+
+    private fun disableActionButtons() {
+        with(binding) {
+            btnSabotage.isEnabled = false
+            btnSupport.isEnabled = false
+            btnDefend.isEnabled = false
+            btnAttack.isEnabled = false
+        }
+    }
+
+    private fun enableButtons() {
+        with(binding) {
+            btnMove.isEnabled = true
+            btnSabotage.isEnabled = true
+            btnSupport.isEnabled = true
+            btnDefend.isEnabled = true
+            btnAttack.isEnabled = true
+        }
     }
 }

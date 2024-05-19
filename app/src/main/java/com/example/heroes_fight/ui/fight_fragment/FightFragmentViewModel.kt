@@ -84,37 +84,55 @@ class FightFragmentViewModel @Inject constructor(
     }
 
     fun finishTurn() {
+        _actualFighter.value.refreshDataToNextTurn()
         allFightersList.removeFirst()
         if (allFightersList.isEmpty()) {
             orderFightersBySpeed()
         }
+
+        _actualFighter.value.removeDefenseBonus()
+
         viewModelScope.launch {
             _actualFighter.emit(allFightersList[0])
         }
     }
 
     fun tryToMoveFighter(destinationPosition: Position) {
-        viewModelScope.launch {
-            _fighterMovement.emit(_actualFighter.value.move(destinationPosition))
+        if (!_actualFighter.value.movementPerformed) {
+            viewModelScope.launch {
+                _fighterMovement.emit(_actualFighter.value.move(destinationPosition))
+            }
         }
     }
 
     fun performAttack(enemyToAttack: FighterModel) {
-        val resultOfAttack = _actualFighter.value.attack(enemyToAttack)
-        viewModelScope.launch {
-            _actionResult.emit(resultOfAttack)
+        if (!_actualFighter.value.actionPerformed) {
+            val resultOfAttack = _actualFighter.value.attack(enemyToAttack)
+            viewModelScope.launch {
+                _actionResult.emit(resultOfAttack)
+            }
+
+            if (enemyToAttack.durability <= 0) {
+
+                viewModelScope.launch {
+                    _dyingFighter.emit(enemyToAttack)
+                }
+                removeDeadFighterFromLists(enemyToAttack)
+            }
         }
 
-        if (enemyToAttack.durability <= 0) {
+    }
 
+    fun performSabotage(enemyToSabotage: FighterModel) {
+        if (!_actualFighter.value.actionPerformed) {
+            val resultOfSabotage = _actualFighter.value.sabotage(enemyToSabotage)
             viewModelScope.launch {
-                _dyingFighter.emit(enemyToAttack)
+                _actionResult.emit(resultOfSabotage)
             }
-            removeFighterFromLists(enemyToAttack)
         }
     }
 
-    private fun removeFighterFromLists(enemyToAttack: FighterModel) {
+    private fun removeDeadFighterFromLists(enemyToAttack: FighterModel) {
         if (villainList.contains(enemyToAttack)) {
             villainList.remove(enemyToAttack)
         } else {
