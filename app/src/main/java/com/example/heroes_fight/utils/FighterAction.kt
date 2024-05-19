@@ -1,11 +1,11 @@
 package com.example.heroes_fight.utils
 
 enum class FighterAction {
-    Move,
-    Attack,
-    Defend,
-    Support,
-    Sabotage,
-    WaitingForAction
+    MOVE,
+    ATTACK,
+    DEFEND,
+    SUPPORT,
+    SABOTAGE,
+    WAITING_FOR_ACTION
 
 }

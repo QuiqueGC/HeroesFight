@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.fight_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class FightFragment : Fragment() {
 
+    //EL BIDIMENSIONAL HACE [Y][X] Y NO AL REVÉS
+
     private lateinit var binding: FragmentFightBinding
     private val viewModel: FightFragmentViewModel by viewModels()
 
@@ -32,7 +35,7 @@ class FightFragment : Fragment() {
     private val ivHeroesList = ArrayList<ShapeableImageView>()
     private val ivVillainsList = ArrayList<ShapeableImageView>()
 
-    private var fighterAction = FighterAction.WaitingForAction
+    private var fighterAction = FighterAction.WAITING_FOR_ACTION
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +67,9 @@ class FightFragment : Fragment() {
 
         setupFightersListeners()
 
-        setupBoardListeners()
+        setupTilesListeners()
+
+        setupActionsListeners()
 
         binding.cardIncludedBad.card.setOnClickListener {
             it.visibility = View.GONE
@@ -74,32 +79,47 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun setupBoardListeners() {
+    private fun setupActionsListeners() {
+        with(binding) {
+            btnMove.setOnClickListener {
+                fighterAction = FighterAction.MOVE
+                tvInfo.text = "Selecciona la casilla a la que te quieres mover"
+            }
+        }
+    }
+
+    private fun setupTilesListeners() {
+
         for (i in 0 until 10) {
             for (j in 0 until 9) {
                 board[i][j]!!.setOnClickListener { imgTile ->
 
-                    // Crear un ConstraintSet
-                    val constraintSet = ConstraintSet()
-                    // Clonar las restricciones existentes del ConstraintLayout
-                    constraintSet.clone(binding.root)
+                    if (fighterAction == FighterAction.MOVE) {
 
-                    // Establecer nuevas restricciones
-                    constraintSet.connect(
-                        binding.imgHero.id,
-                        ConstraintSet.TOP,
-                        imgTile.id,
-                        ConstraintSet.TOP
-                    )
-                    constraintSet.connect(
-                        binding.imgHero.id,
-                        ConstraintSet.START,
-                        imgTile.id,
-                        ConstraintSet.START
-                    )
+                        Log.i("quique", "la posición Y es ->$i")
+                        Log.i("quique", "la posición X es ->$j")
+                        // Crear un ConstraintSet
+                        val constraintSet = ConstraintSet()
+                        // Clonar las restricciones existentes del ConstraintLayout
+                        constraintSet.clone(binding.root)
 
-                    // Aplicar las nuevas restricciones al ConstraintLayout
-                    constraintSet.applyTo(binding.root)
+                        // Establecer nuevas restricciones
+                        constraintSet.connect(
+                            binding.imgHero.id,
+                            ConstraintSet.TOP,
+                            imgTile.id,
+                            ConstraintSet.TOP
+                        )
+                        constraintSet.connect(
+                            binding.imgHero.id,
+                            ConstraintSet.START,
+                            imgTile.id,
+                            ConstraintSet.START
+                        )
+
+                        // Aplicar las nuevas restricciones al ConstraintLayout
+                        constraintSet.applyTo(binding.root)
+                    }
                 }
             }
         }
@@ -107,20 +127,47 @@ class FightFragment : Fragment() {
 
     private fun setupFightersListeners() {
         for (i in 0 until ivHeroesList.size) {
-            ivHeroesList[i].setOnClickListener {
-                CardsFiller.fillDataIntoGoodCard(
-                    binding.cardIncludedGood,
-                    heroesList[i],
-                    requireContext()
-                )
-                binding.cardIncludedGood.card.visibility = View.VISIBLE
-                binding.cardIncludedGood.btnAppearance.visibility = View.GONE
-                binding.cardIncludedGood.btnBiography.visibility = View.GONE
 
-                ivVillainsList[i].setOnClickListener {
+            ivVillainsList[i].setOnClickListener {
+                if (heroesList[i].alignment == "bad") {
                     CardsFiller.fillDataIntoBadCard(
                         binding.cardIncludedBad,
-                        villainsList[0],
+                        villainsList[i],
+                        requireContext()
+                    )
+                    binding.cardIncludedBad.card.visibility = View.VISIBLE
+                    binding.cardIncludedBad.btnAppearance.visibility = View.GONE
+                    binding.cardIncludedBad.btnBiography.visibility = View.GONE
+
+                } else {
+                    CardsFiller.fillDataIntoGoodCard(
+                        binding.cardIncludedGood,
+                        villainsList[i],
+                        requireContext()
+                    )
+                    binding.cardIncludedGood.card.visibility = View.VISIBLE
+                    binding.cardIncludedGood.btnAppearance.visibility = View.GONE
+                    binding.cardIncludedGood.btnBiography.visibility = View.GONE
+
+                }
+            }
+
+
+            ivHeroesList[i].setOnClickListener {
+                if (heroesList[i].alignment == "good") {
+                    CardsFiller.fillDataIntoGoodCard(
+                        binding.cardIncludedGood,
+                        heroesList[i],
+                        requireContext()
+                    )
+                    binding.cardIncludedGood.card.visibility = View.VISIBLE
+                    binding.cardIncludedGood.btnAppearance.visibility = View.GONE
+                    binding.cardIncludedGood.btnBiography.visibility = View.GONE
+
+                } else {
+                    CardsFiller.fillDataIntoBadCard(
+                        binding.cardIncludedBad,
+                        heroesList[i],
                         requireContext()
                     )
                     binding.cardIncludedBad.card.visibility = View.VISIBLE
@@ -198,6 +245,7 @@ class FightFragment : Fragment() {
                 indexOfChild++
             }
         }
+
         // TODO: Esto tendrán que ser dos bucles para rellenar los array con todas las views
         ivHeroesList.add(binding.imgHero)
         ivVillainsList.add(binding.imgVillain)
