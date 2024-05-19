@@ -90,14 +90,17 @@ class FightFragmentViewModel @Inject constructor(
     fun tryToMoveFighter(position: Position) {
         val originValue = _actualFighter.value.position.y + _actualFighter.value.position.x
         val destinationValue = position.y + position.x
-        val speed = if (_actualFighter.value.speed / 10 < 10) {
-            10
+        val speed = if (_actualFighter.value.speed / 10 < 1) {
+            1
         } else {
             _actualFighter.value.speed / 10
         }
 
         viewModelScope.launch {
             if (originValue < destinationValue) {
+                Log.i("quique", "Posición destino ---> ${destinationValue}")
+                Log.i("quique", "Posición origen ---> ${originValue}")
+                Log.i("quique", "Speed ---> ${speed}")
                 if (originValue + speed >= destinationValue) {
                     _fighterCanMove.emit(true)
                     _actualFighter.value.position = Position(position.y, position.x)
@@ -110,7 +113,12 @@ class FightFragmentViewModel @Inject constructor(
                     _fighterCanMove.emit(false)
                 }
             } else {
-                if (originValue - speed <= destinationValue) {
+                Log.i("quique", "Posición destino ---> ${destinationValue}")
+                Log.i("quique", "Posición origen ---> ${originValue}")
+                Log.i("quique", "Speed ---> ${speed}")
+                //no termino de entender por qué tengo que ponerle el +1 si en el caso
+                //positivo funciona perfectamente sin añadirle o quitarle (algo se me escapa...)
+                if (originValue - speed <= destinationValue + 1) {
                     _fighterCanMove.emit(true)
                     _actualFighter.value.position = Position(position.y, position.x)
                     Log.i(

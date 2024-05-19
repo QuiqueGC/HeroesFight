@@ -147,6 +147,7 @@ class FightFragment : Fragment() {
         fighterAction = FighterAction.WAITING_FOR_ACTION
         indexOfActualHero = -1
         viewModel.finishTurn()
+        binding.tvInfo.text = "Choice your action!"
     }
 
     private fun setupFightersListeners() {

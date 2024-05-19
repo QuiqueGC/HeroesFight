@@ -563,6 +563,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/redBad"
         android:textSize="32sp"
+        android:background="@color/white"
         android:fontFamily="@font/fighting_spirit_2_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -575,6 +576,7 @@
         android:layout_height="wrap_content"
         android:text="Choice your action"
         android:textColor="@color/redBad"
+        android:background="@color/white"
         android:textSize="20sp"
         android:fontFamily="@font/fighting_spirit_2_bold"
         app:layout_constraintTop_toBottomOf="@id/tvTurn"
@@ -632,12 +634,72 @@
         android:id="@+id/btnMove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Move"
-        android:textSize="24sp"
+        android:text="Mov"
+        android:textSize="16sp"
         android:fontFamily="@font/fighting_spirit_2_bold"
         app:layout_constraintTop_toBottomOf="@id/vBoard"
+        app:layout_constraintBottom_toTopOf="@id/btnSupport"
+        app:layout_constraintEnd_toStartOf="@id/btnAttack"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnAttack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Atck!"
+        android:textSize="16sp"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        app:layout_constraintTop_toBottomOf="@id/vBoard"
+        app:layout_constraintBottom_toTopOf="@id/btnSabotage"
+        app:layout_constraintStart_toEndOf="@id/btnMove"
+        app:layout_constraintEnd_toStartOf="@id/btnDefend" />
+
+    <Button
+        android:id="@+id/btnDefend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Def"
+        android:textSize="16sp"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        app:layout_constraintTop_toBottomOf="@id/vBoard"
+        app:layout_constraintBottom_toTopOf="@id/btnSabotage"
+        app:layout_constraintStart_toEndOf="@id/btnAttack"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnSupport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sup"
+        android:textSize="16sp"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        app:layout_constraintTop_toBottomOf="@id/btnMove"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSabotage" />
+
+    <Button
+        android:id="@+id/btnSabotage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sab"
+        android:textSize="16sp"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        app:layout_constraintTop_toBottomOf="@id/btnAttack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnSupport"
+        app:layout_constraintEnd_toStartOf="@id/btnPass" />
+
+    <Button
+        android:id="@+id/btnPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pass"
+        android:textSize="16sp"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        app:layout_constraintTop_toBottomOf="@id/btnAttack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnSabotage"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
