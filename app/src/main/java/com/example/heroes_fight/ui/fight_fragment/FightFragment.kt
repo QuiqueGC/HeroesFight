@@ -355,6 +355,14 @@ class FightFragment : Fragment() {
             viewModel.actualFighter.collect { actualFighter ->
                 if (actualFighter.id != 0) {
 
+                    binding.tvInfo.text = "Choice your action"
+
+                    Glide.with(requireContext())
+                        .load(actualFighter.image)
+                        .error(R.drawable.fight)
+                        .apply(RequestOptions().centerCrop())
+                        .into(binding.imgActualFighter)
+
                     if (actualFighter.isSabotaged) {
                         binding.tvTurn.text = "${actualFighter.name}'s turn, but was sabotaged"
                         disableActionButtons()
@@ -406,14 +414,14 @@ class FightFragment : Fragment() {
 
                 if (heroesList.contains(dyingFighter)) {
                     indexOfDyingFighter = heroesList.indexOf(dyingFighter)
-                    heroesList.removeAt(indexOfDyingFighter)
+                    //heroesList.removeAt(indexOfDyingFighter)
                     ivHeroesList[indexOfDyingFighter].visibility = View.GONE
-                    ivHeroesList.removeAt(indexOfDyingFighter)
+                    //ivHeroesList.removeAt(indexOfDyingFighter)
                 } else {
                     indexOfDyingFighter = villainsList.indexOf(dyingFighter)
-                    villainsList.removeAt(indexOfDyingFighter)
+                    //villainsList.removeAt(indexOfDyingFighter)
                     ivVillainsList[indexOfDyingFighter].visibility = View.GONE
-                    ivVillainsList.removeAt(indexOfDyingFighter)
+                    //ivVillainsList.removeAt(indexOfDyingFighter)
                 }
 
                 if (heroesList.isEmpty() || villainsList.isEmpty()) {
@@ -487,7 +495,6 @@ class FightFragment : Fragment() {
         playerChoice = PlayerChoice.WAITING_FOR_ACTION
         indexOfActualFighter = -1
         viewModel.finishTurn()
-        binding.tvInfo.text = "Choice your action!"
     }
 
     private fun disableActionButtons() {

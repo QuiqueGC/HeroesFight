@@ -55,10 +55,25 @@
         <item name="android:fontFamily">@font/fighting_spirit_2</item>
     </style>
 
-    <style name="heroToBoard">
+    <style name="heroInBoardShapeOverlay">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
         <item name="cardElevation">50dp</item>
+    </style>
+
+    <style name="heroInBoardStyle">
+        <item name="strokeColor">@color/blueGood</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:layout_width">@dimen/tileSize</item>
+        <item name="android:layout_height">@dimen/tileSize</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="shapeAppearanceOverlay">@style/heroInBoardShapeOverlay</item>
+    </style>
+
+    <style name="villainInBoardStyle" parent="heroInBoardStyle">
+        <item name="strokeColor">@color/redBad</item>
     </style>
 
     <style name="tile">

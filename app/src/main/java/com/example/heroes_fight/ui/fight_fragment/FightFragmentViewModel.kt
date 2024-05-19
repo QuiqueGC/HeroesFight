@@ -121,6 +121,7 @@ class FightFragmentViewModel @Inject constructor(
     private fun orderFightersBySpeed() {
         allFightersList.addAll(heroesList)
         allFightersList.addAll(villainList)
+        allFightersList.removeAll { it.durability <= 0 }
         allFightersList.sortByDescending { it.speed }
     }
 
@@ -157,7 +158,7 @@ class FightFragmentViewModel @Inject constructor(
                 viewModelScope.launch {
                     _dyingFighter.emit(enemyToAttack)
                 }
-                removeDeadFighterFromLists(enemyToAttack)
+                //removeDeadFighterFromLists(enemyToAttack)
             }
         }
 
