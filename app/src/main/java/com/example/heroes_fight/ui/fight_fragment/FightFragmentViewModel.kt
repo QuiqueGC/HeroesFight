@@ -90,10 +90,9 @@ class FightFragmentViewModel @Inject constructor(
             orderFightersBySpeed()
         }
 
-        _actualFighter.value.removeDefenseBonus()
-
         viewModelScope.launch {
             _actualFighter.emit(allFightersList[0])
+            _actualFighter.value.removeDefenseBonus()
         }
     }
 
@@ -139,5 +138,12 @@ class FightFragmentViewModel @Inject constructor(
             heroesList.remove(enemyToAttack)
         }
         allFightersList.remove(enemyToAttack)
+    }
+
+    fun performDefense() {
+        val resultOfDefense = _actualFighter.value.defense()
+        viewModelScope.launch {
+            _actionResult.emit(resultOfDefense)
+        }
     }
 }

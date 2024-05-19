@@ -174,7 +174,7 @@ class FightFragment : Fragment() {
             ivVillainsList[i].setOnClickListener { _ ->
 
                 if (villainsList[i].alignment == "bad") {
-                    CardsFiller.fillDataIntoBadCard(
+                    CardsFiller.fillDataIntoVillainFighterCard(
                         binding.cardIncludedBad,
                         villainsList[i],
                         requireContext()
@@ -184,7 +184,7 @@ class FightFragment : Fragment() {
                     binding.cardIncludedBad.btnBiography.visibility = View.GONE
 
                 } else {
-                    CardsFiller.fillDataIntoGoodCard(
+                    CardsFiller.fillDataIntoHeroFighterCard(
                         binding.cardIncludedGood,
                         villainsList[i],
                         requireContext()
@@ -198,7 +198,7 @@ class FightFragment : Fragment() {
 
             ivHeroesList[i].setOnClickListener {
                 if (heroesList[i].alignment == "good") {
-                    CardsFiller.fillDataIntoGoodCard(
+                    CardsFiller.fillDataIntoHeroFighterCard(
                         binding.cardIncludedGood,
                         heroesList[i],
                         requireContext()
@@ -208,7 +208,7 @@ class FightFragment : Fragment() {
                     binding.cardIncludedGood.btnBiography.visibility = View.GONE
 
                 } else {
-                    CardsFiller.fillDataIntoBadCard(
+                    CardsFiller.fillDataIntoVillainFighterCard(
                         binding.cardIncludedBad,
                         heroesList[i],
                         requireContext()
@@ -223,6 +223,7 @@ class FightFragment : Fragment() {
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttackToVillain(i)
                     PlayerChoice.SABOTAGE -> performSabotageToVillain(i)
+                    PlayerChoice.DEFEND -> performDefenseToVillain(i)
                     else -> {
                         Toast.makeText(
                             requireContext(),
@@ -237,6 +238,7 @@ class FightFragment : Fragment() {
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttackToHero(i)
                     PlayerChoice.SABOTAGE -> performSabotageToHero(i)
+                    PlayerChoice.DEFEND -> performDefenseToHero(i)
                     else -> {
                         Toast.makeText(
                             requireContext(),
@@ -248,6 +250,30 @@ class FightFragment : Fragment() {
                 true
             }
 
+        }
+    }
+
+    private fun performDefenseToHero(indexOfFighterSelected: Int) {
+        if (heroesList[indexOfFighterSelected] == actualFighter) {
+            viewModel.performDefense()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Only can use in himself",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun performDefenseToVillain(indexOfFighterSelected: Int) {
+        if (villainsList[indexOfFighterSelected] == actualFighter) {
+            viewModel.performDefense()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Only can use in himself",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -368,7 +394,9 @@ class FightFragment : Fragment() {
             viewModel.actionResult.collect { resultMessage ->
                 binding.tvInfo.text = resultMessage
                 //Toast.makeText(requireContext(), resultMessage, Toast.LENGTH_LONG).show()
-                disableActionButtons()
+                if (actualFighter.actionPerformed) {
+                    disableActionButtons()
+                }
             }
         }
 

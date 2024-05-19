@@ -113,6 +113,12 @@ class FighterModel(
         return result
     }
 
+    override fun defense(): String {
+        defenseBonus = 20
+        actionPerformed = true
+        return "$name is prepared for enemy attacks"
+    }
+
     private fun resolveSabotage(enemy: FighterModel): String {
         val sabotageRoll = Random.nextInt(1, 101)
         val result: String
@@ -178,8 +184,8 @@ class FighterModel(
 
     override fun defenceRoll(): Int {
         val defenceRoll = Random.nextInt(1, 101)
-        return if (defenceRoll < combat) {
-            combat - defenceRoll
+        return if (defenceRoll < combat + defenseBonus) {
+            combat - defenceRoll + defenseBonus
         } else {
             0
         }

@@ -13,4 +13,6 @@ interface FighterActions {
     fun intelligenceRoll(): Int
 
     fun sabotage(enemy: FighterModel): String
+
+    fun defense(): String
 }
