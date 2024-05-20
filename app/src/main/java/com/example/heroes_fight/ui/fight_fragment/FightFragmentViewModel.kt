@@ -132,7 +132,6 @@ class FightFragmentViewModel @Inject constructor(
                 viewModelScope.launch {
                     _dyingFighter.emit(enemyToAttack)
                 }
-                //removeDeadFighterFromLists(enemyToAttack)
             }
         }
 
@@ -147,13 +146,13 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun removeDeadFighterFromLists(enemyToAttack: FighterModel) {
-        if (villainList.contains(enemyToAttack)) {
-            villainList.remove(enemyToAttack)
-        } else {
-            heroesList.remove(enemyToAttack)
+    fun performSupport(allyToSupport: FighterModel) {
+        if (!_actualFighter.value.actionPerformed) {
+            val resultOfSabotage = _actualFighter.value.support(allyToSupport)
+            viewModelScope.launch {
+                _actionResult.emit(resultOfSabotage)
+            }
         }
-        allFightersList.remove(enemyToAttack)
     }
 
     fun performDefense() {

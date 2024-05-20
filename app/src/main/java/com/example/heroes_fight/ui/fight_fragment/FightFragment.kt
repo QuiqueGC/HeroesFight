@@ -224,6 +224,7 @@ class FightFragment : Fragment() {
                     PlayerChoice.ATTACK -> performAttackToVillain(i)
                     PlayerChoice.SABOTAGE -> performSabotageToVillain(i)
                     PlayerChoice.DEFEND -> performDefenseToVillain(i)
+                    PlayerChoice.SUPPORT -> performSupportToVillain(i)
                     else -> {
                         Toast.makeText(
                             requireContext(),
@@ -239,6 +240,7 @@ class FightFragment : Fragment() {
                     PlayerChoice.ATTACK -> performAttackToHero(i)
                     PlayerChoice.SABOTAGE -> performSabotageToHero(i)
                     PlayerChoice.DEFEND -> performDefenseToHero(i)
+                    PlayerChoice.SUPPORT -> performSupportToHero(i)
                     else -> {
                         Toast.makeText(
                             requireContext(),
@@ -250,6 +252,30 @@ class FightFragment : Fragment() {
                 true
             }
 
+        }
+    }
+
+    private fun performSupportToHero(indexOfFighterSelected: Int) {
+        if (actualFighterIsHero) {
+            viewModel.performSupport(heroesList[indexOfFighterSelected])
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Don't support the enemy",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun performSupportToVillain(indexOfFighterSelected: Int) {
+        if (!actualFighterIsHero) {
+            viewModel.performSupport(villainsList[indexOfFighterSelected])
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Don't support the enemy",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -390,6 +416,7 @@ class FightFragment : Fragment() {
                     moveFighterView()
                     binding.tvInfo.text = "Choice your action"
                     binding.btnMove.isEnabled = false
+                    binding.btnDefend.isEnabled = false
                 } else {
                     Toast.makeText(requireContext(), "So far, bastard...", Toast.LENGTH_SHORT)
                         .show()
@@ -400,10 +427,14 @@ class FightFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.actionResult.collect { resultMessage ->
+
                 binding.tvInfo.text = resultMessage
-                //Toast.makeText(requireContext(), resultMessage, Toast.LENGTH_LONG).show()
+
                 if (actualFighter.actionPerformed) {
                     disableActionButtons()
+                }
+                if (actualFighter.movementPerformed) {
+                    binding.btnMove.isEnabled = false
                 }
             }
         }
@@ -414,19 +445,10 @@ class FightFragment : Fragment() {
 
                 if (heroesList.contains(dyingFighter)) {
                     indexOfDyingFighter = heroesList.indexOf(dyingFighter)
-                    //heroesList.removeAt(indexOfDyingFighter)
                     ivHeroesList[indexOfDyingFighter].visibility = View.GONE
-                    //ivHeroesList.removeAt(indexOfDyingFighter)
                 } else {
                     indexOfDyingFighter = villainsList.indexOf(dyingFighter)
-                    //villainsList.removeAt(indexOfDyingFighter)
                     ivVillainsList[indexOfDyingFighter].visibility = View.GONE
-                    //ivVillainsList.removeAt(indexOfDyingFighter)
-                }
-
-                if (heroesList.isEmpty() || villainsList.isEmpty()) {
-                    // TODO: Esto es un finish de prueba
-                    Toast.makeText(requireContext(), "FINISHHHHHHH", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -448,7 +470,9 @@ class FightFragment : Fragment() {
 
         for (i in 0 until heroesList.size) {
             with(binding) {
+
                 progressBar.visibility = View.GONE
+
                 Glide.with(requireContext())
                     .load(heroesList[i].image)
                     .error(R.drawable.fight)
@@ -474,7 +498,6 @@ class FightFragment : Fragment() {
             }
         }
 
-        // TODO: Esto tendrán que ser dos bucles para rellenar los array con todas las views
         with(binding) {
             ivHeroesList.addAll(listOf(imgHero0, imgHero1, imgHero2, imgHero3, imgHero4))
             ivVillainsList.addAll(
@@ -490,7 +513,6 @@ class FightFragment : Fragment() {
     }
 
     private fun finishTurn() {
-        // TODO: están aquí las cosas de final de turno, cuidado
         enableButtons()
         playerChoice = PlayerChoice.WAITING_FOR_ACTION
         indexOfActualFighter = -1

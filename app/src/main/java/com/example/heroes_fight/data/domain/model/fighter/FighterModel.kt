@@ -114,9 +114,38 @@ class FighterModel(
         return result
     }
 
+    override fun support(ally: FighterModel): String {
+        val heroPositionValue = position.y + position.x
+        val allyPositionValue = ally.position.y + ally.position.x
+        val result: String
+
+        if (heroPositionValue < allyPositionValue) {
+            result = if (allyPositionValue - heroPositionValue == 1) {
+
+                resolveSupport(ally)
+
+            } else {
+                "${ally.name} is so far"
+            }
+
+        } else {
+
+            result = if (heroPositionValue - allyPositionValue == 1) {
+
+                resolveSupport(ally)
+
+            } else {
+                "${ally.name} is so far"
+            }
+        }
+        return result
+
+    }
+
     override fun defense(): String {
-        defenseBonus = 20
+        defenseBonus = 35
         actionPerformed = true
+        movementPerformed = true
         return "$name is prepared for enemy attacks"
     }
 
@@ -125,11 +154,11 @@ class FighterModel(
         val result: String
 
         if (sabotageRoll <= intelligence) {
-            val attackDifference = intelligence - sabotageRoll
+            val sabotageDifference = intelligence - sabotageRoll
 
-            val enemyDefenceDifference = enemy.intelligenceRoll()
+            val enemySabotageDifference = enemy.intelligenceRoll()
 
-            if (attackDifference >= enemyDefenceDifference) {
+            if (sabotageDifference >= enemySabotageDifference) {
 
                 enemy.isSabotaged = true
 
@@ -146,15 +175,38 @@ class FighterModel(
         return result
     }
 
+    private fun resolveSupport(ally: FighterModel): String {
+        val supportRoll = Random.nextInt(1, 101)
+        val result: String
+
+        if (supportRoll <= intelligence) {
+            var supportDifference = intelligence - supportRoll
+
+            if (supportDifference > 30) {
+                supportDifference = 30
+            }
+
+            ally.combatBonus = supportDifference
+            result = "${ally.name} is more powerful right now"
+
+        } else {
+            result = "$name failed supporting ${ally.name}"
+        }
+
+        actionPerformed = true
+        return result
+    }
+
     private fun resolveAttack(enemy: FighterModel): String {
         val attackRoll = Random.nextInt(1, 101)
         Log.i("quique", "resultado de la tirada de ataque -> $attackRoll")
         Log.i("quique", "El valor de combat es -> $combat")
         val result: String
 
-        if (attackRoll <= combat) {
-            val attackDifference = combat - attackRoll
-            val enemyDefenceDifference = enemy.defenceRoll()
+        if (attackRoll <= combat + combatBonus) {
+            val attackDifference = combat - attackRoll + combatBonus
+
+            val enemyDefenceDifference = enemy.defenseRoll()
             Log.i("quique", "La tiradad del enemigo de defensa es -> $enemyDefenceDifference")
             if (attackDifference >= enemyDefenceDifference) {
                 var damageBonus = attackDifference - enemyDefenceDifference
@@ -194,12 +246,12 @@ class FighterModel(
     }
 
 
-    override fun defenceRoll(): Int {
+    override fun defenseRoll(): Int {
         val defenceRoll = Random.nextInt(1, 101)
         Log.i("quique", "La tiradad del enemigo de defensa es -> $defenceRoll")
         Log.i("quique", "El combat del defensor es de -> $combat")
-        return if (defenceRoll < combat + defenseBonus) {
-            combat - defenceRoll + defenseBonus
+        return if (defenceRoll < combat + defenseBonus + combatBonus) {
+            combat - defenceRoll + defenseBonus + combatBonus
             Log.i(
                 "quique",
                 "El resultado de combat - defenceRoll + defenseBonus en la siguiente línea"

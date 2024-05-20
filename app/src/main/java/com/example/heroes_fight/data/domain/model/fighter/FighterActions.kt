@@ -8,11 +8,12 @@ interface FighterActions {
 
     fun attack(enemy: FighterModel): String
 
-    fun defenceRoll(): Int
+    fun defenseRoll(): Int
 
     fun intelligenceRoll(): Int
 
     fun sabotage(enemy: FighterModel): String
 
     fun defense(): String
+    fun support(ally: FighterModel): String
 }
