@@ -22,7 +22,8 @@ class FighterModel(
     var defenseBonus: Int = 0,
     var actionPerformed: Boolean = false,
     var movementPerformed: Boolean = false,
-    var isSabotaged: Boolean = false
+    var isSabotaged: Boolean = false,
+    var isHero: Boolean = true
 ) : HeroModel(
     id,
     serialNum,
@@ -165,7 +166,7 @@ class FighterModel(
                 result = "${enemy.name} was sabotaged"
 
             } else {
-                result = "${enemy.name} was more smarter"
+                result = "${enemy.name} was smarter and sabotage didn't work"
             }
         } else {
             result = "$name failed the try of sabotage"

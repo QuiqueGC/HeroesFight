@@ -75,10 +75,10 @@ class FightFragmentViewModel @Inject constructor(
             if (baseResponseForVillain is BaseResponse.Success) {
                 villainList.add(baseResponseForVillain.data)
                 villainList[i].position = Position(9, startXPosition)
+                villainList[i].isHero = false
                 startXPosition--
             }
         }
-
     }
 
     private suspend fun addHeroesToStartList() {
@@ -88,8 +88,8 @@ class FightFragmentViewModel @Inject constructor(
             if (baseResponseForHero is BaseResponse.Success)
                 heroesList.add(baseResponseForHero.data)
             heroesList[i].position = Position(0, i)
+            heroesList[i].isHero = true
         }
-
     }
 
     private fun orderFightersBySpeed() {

@@ -30,16 +30,15 @@ class FightFragment : Fragment() {
     private val viewModel: FightFragmentViewModel by viewModels()
 
     private val board = Array(10) { arrayOfNulls<View>(9) }
+
     private val heroesList = ArrayList<FighterModel>()
     private val villainsList = ArrayList<FighterModel>()
     private val ivHeroesList = ArrayList<ShapeableImageView>()
     private val ivVillainsList = ArrayList<ShapeableImageView>()
 
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
-
     private var indexOfActualFighter = -1
     private var actualFighter = FighterModel()
-    private var actualFighterIsHero = true
     private var destinationPosition = Position()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +63,6 @@ class FightFragment : Fragment() {
         observeViewModel()
 
         setupListeners()
-
     }
 
     private fun setupListeners() {
@@ -87,29 +85,24 @@ class FightFragment : Fragment() {
         with(binding) {
             btnMove.setOnClickListener {
                 playerChoice = PlayerChoice.MOVE
-                tvInfo.text = "Select the cell you want to move"
+                tvInfo.text = getString(R.string.selectCellToMove)
             }
-
             btnAttack.setOnClickListener {
-                tvInfo.text = "Select the enemy you want to attack"
+                tvInfo.text = getString(R.string.selectEnemyToAttack)
                 playerChoice = PlayerChoice.ATTACK
             }
-
             btnDefend.setOnClickListener {
-                tvInfo.text = "Select your own hero to confirm"
+                tvInfo.text = getString(R.string.selectOwnHero)
                 playerChoice = PlayerChoice.DEFEND
             }
-
             btnSupport.setOnClickListener {
-                tvInfo.text = "Select the ally you want to support"
+                tvInfo.text = getString(R.string.selectAllyToSupport)
                 playerChoice = PlayerChoice.SUPPORT
             }
-
             btnSabotage.setOnClickListener {
-                tvInfo.text = "Select the enemy you want to sabotage"
+                tvInfo.text = getString(R.string.selectEnemyToSabotage)
                 playerChoice = PlayerChoice.SABOTAGE
             }
-
             btnPass.setOnClickListener {
                 finishTurn()
             }
@@ -130,123 +123,66 @@ class FightFragment : Fragment() {
     }
 
     private fun moveFighterView() {
-        // Crear un ConstraintSet
         val constraintSet = ConstraintSet()
-        // Clonar las restricciones existentes del ConstraintLayout
+
         constraintSet.clone(binding.root)
 
-        // Establecer nuevas restricciones
-        if (actualFighterIsHero) {
-            constraintSet.connect(
-                ivHeroesList[indexOfActualFighter].id,
-                ConstraintSet.TOP,
-                board[destinationPosition.y][destinationPosition.x]!!.id,
-                ConstraintSet.TOP
-            )
-            constraintSet.connect(
-                ivHeroesList[indexOfActualFighter].id,
-                ConstraintSet.START,
-                board[destinationPosition.y][destinationPosition.x]!!.id,
-                ConstraintSet.START
-            )
+        if (actualFighter.isHero) {
+            moveHeroOrVillain(constraintSet, ivHeroesList)
         } else {
-            constraintSet.connect(
-                ivVillainsList[indexOfActualFighter].id,
-                ConstraintSet.TOP,
-                board[destinationPosition.y][destinationPosition.x]!!.id,
-                ConstraintSet.TOP
-            )
-            constraintSet.connect(
-                ivVillainsList[indexOfActualFighter].id,
-                ConstraintSet.START,
-                board[destinationPosition.y][destinationPosition.x]!!.id,
-                ConstraintSet.START
-            )
+            moveHeroOrVillain(constraintSet, ivVillainsList)
         }
-
-        // Aplicar las nuevas restricciones al ConstraintLayout
         constraintSet.applyTo(binding.root)
+    }
+
+    private fun moveHeroOrVillain(
+        constraintSet: ConstraintSet,
+        ivFightersList: java.util.ArrayList<ShapeableImageView>
+    ) {
+        constraintSet.connect(
+            ivFightersList[indexOfActualFighter].id,
+            ConstraintSet.TOP,
+            board[destinationPosition.y][destinationPosition.x]!!.id,
+            ConstraintSet.TOP
+        )
+        constraintSet.connect(
+            ivFightersList[indexOfActualFighter].id,
+            ConstraintSet.START,
+            board[destinationPosition.y][destinationPosition.x]!!.id,
+            ConstraintSet.START
+        )
     }
 
     private fun setupFightersListeners() {
         for (i in 0 until ivHeroesList.size) {
 
             ivVillainsList[i].setOnClickListener { _ ->
-
-                if (villainsList[i].alignment == "bad") {
-                    CardsFiller.fillDataIntoVillainFighterCard(
-                        binding.cardIncludedBad,
-                        villainsList[i],
-                        requireContext()
-                    )
-                    binding.cardIncludedBad.card.visibility = View.VISIBLE
-                    binding.cardIncludedBad.btnAppearance.visibility = View.GONE
-                    binding.cardIncludedBad.btnBiography.visibility = View.GONE
-
-                } else {
-                    CardsFiller.fillDataIntoHeroFighterCard(
-                        binding.cardIncludedGood,
-                        villainsList[i],
-                        requireContext()
-                    )
-                    binding.cardIncludedGood.card.visibility = View.VISIBLE
-                    binding.cardIncludedGood.btnAppearance.visibility = View.GONE
-                    binding.cardIncludedGood.btnBiography.visibility = View.GONE
-
-                }
+                showVillainCard(i)
             }
-
             ivHeroesList[i].setOnClickListener {
-                if (heroesList[i].alignment == "good") {
-                    CardsFiller.fillDataIntoHeroFighterCard(
-                        binding.cardIncludedGood,
-                        heroesList[i],
-                        requireContext()
-                    )
-                    binding.cardIncludedGood.card.visibility = View.VISIBLE
-                    binding.cardIncludedGood.btnAppearance.visibility = View.GONE
-                    binding.cardIncludedGood.btnBiography.visibility = View.GONE
-
-                } else {
-                    CardsFiller.fillDataIntoVillainFighterCard(
-                        binding.cardIncludedBad,
-                        heroesList[i],
-                        requireContext()
-                    )
-                    binding.cardIncludedBad.card.visibility = View.VISIBLE
-                    binding.cardIncludedBad.btnAppearance.visibility = View.GONE
-                    binding.cardIncludedBad.btnBiography.visibility = View.GONE
-                }
+                showHeroCard(i)
             }
 
             ivVillainsList[i].setOnLongClickListener {
                 when (playerChoice) {
-                    PlayerChoice.ATTACK -> performAttackToVillain(i)
-                    PlayerChoice.SABOTAGE -> performSabotageToVillain(i)
-                    PlayerChoice.DEFEND -> performDefenseToVillain(i)
-                    PlayerChoice.SUPPORT -> performSupportToVillain(i)
+                    PlayerChoice.ATTACK -> performAttack(i, false)
+                    PlayerChoice.SABOTAGE -> performSabotage(i, false)
+                    PlayerChoice.DEFEND -> performDefense(i, false)
+                    PlayerChoice.SUPPORT -> performSupport(i, false)
                     else -> {
-                        Toast.makeText(
-                            requireContext(),
-                            "Choice an action",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showToast("Choice an action")
                     }
                 }
                 true
             }
             ivHeroesList[i].setOnLongClickListener {
                 when (playerChoice) {
-                    PlayerChoice.ATTACK -> performAttackToHero(i)
-                    PlayerChoice.SABOTAGE -> performSabotageToHero(i)
-                    PlayerChoice.DEFEND -> performDefenseToHero(i)
-                    PlayerChoice.SUPPORT -> performSupportToHero(i)
+                    PlayerChoice.ATTACK -> performAttack(i, true)
+                    PlayerChoice.SABOTAGE -> performSabotage(i, true)
+                    PlayerChoice.DEFEND -> performDefense(i, true)
+                    PlayerChoice.SUPPORT -> performSupport(i, true)
                     else -> {
-                        Toast.makeText(
-                            requireContext(),
-                            "Choice an action",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showToast("Choice an action")
                     }
                 }
                 true
@@ -255,99 +191,43 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun performSupportToHero(indexOfFighterSelected: Int) {
-        if (actualFighterIsHero) {
+    private fun performSupport(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
+        if (actualFighter.isHero && isClickOnHero) {
             viewModel.performSupport(heroesList[indexOfFighterSelected])
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Don't support the enemy",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun performSupportToVillain(indexOfFighterSelected: Int) {
-        if (!actualFighterIsHero) {
+        } else if (!actualFighter.isHero && !isClickOnHero) {
             viewModel.performSupport(villainsList[indexOfFighterSelected])
         } else {
-            Toast.makeText(
-                requireContext(),
-                "Don't support the enemy",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast("Don't support the enemy")
         }
     }
 
-    private fun performDefenseToHero(indexOfFighterSelected: Int) {
-        if (heroesList[indexOfFighterSelected] == actualFighter) {
+    private fun performDefense(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
+        if (isClickOnHero && heroesList[indexOfFighterSelected] == actualFighter) {
+            viewModel.performDefense()
+        } else if (!isClickOnHero && villainsList[indexOfFighterSelected] == actualFighter) {
             viewModel.performDefense()
         } else {
-            Toast.makeText(
-                requireContext(),
-                "Only can use in himself",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast("Only can use in himself")
         }
     }
 
-    private fun performDefenseToVillain(indexOfFighterSelected: Int) {
-        if (villainsList[indexOfFighterSelected] == actualFighter) {
-            viewModel.performDefense()
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Only can use in himself",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun performSabotageToHero(indexOfFighterSelected: Int) {
-        if (!actualFighterIsHero) {
-            viewModel.performSabotage(heroesList[indexOfFighterSelected])
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Don't sabotage your own team",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun performSabotageToVillain(indexOfFighterSelected: Int) {
-        if (actualFighterIsHero) {
+    private fun performSabotage(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
+        if (actualFighter.isHero && !isClickOnHero) {
             viewModel.performSabotage(villainsList[indexOfFighterSelected])
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Don't sabotage your own team",
-                Toast.LENGTH_SHORT
-            ).show()
+        } else if (!actualFighter.isHero && isClickOnHero)
+            viewModel.performSabotage(heroesList[indexOfFighterSelected])
+        else {
+            showToast("Don't sabotage your own team")
         }
     }
 
-    private fun performAttackToHero(indexOfFighterSelected: Int) {
-        if (!actualFighterIsHero) {
+    private fun performAttack(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
+        if (!actualFighter.isHero && isClickOnHero) {
             viewModel.performAttack(heroesList[indexOfFighterSelected])
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Don't attack your own team",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun performAttackToVillain(indexOfFighterSelected: Int) {
-        if (actualFighterIsHero) {
+        } else if (actualFighter.isHero && !isClickOnHero) {
             viewModel.performAttack(villainsList[indexOfFighterSelected])
         } else {
-            Toast.makeText(
-                requireContext(),
-                "Don't attack your own team",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast("Don't attack your own team")
         }
     }
 
@@ -357,11 +237,7 @@ class FightFragment : Fragment() {
 
                 when (fightFragmentUiState) {
                     is FightFragmentUiState.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is FightFragmentUiState.Error -> Toast.makeText(
-                        requireContext(),
-                        "ERROR ERROR ERROR",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    is FightFragmentUiState.Error -> showToast("ERROR ERROR ERROR")
 
                     is FightFragmentUiState.Success -> {
                         showHeroesMiniatures(
@@ -380,32 +256,13 @@ class FightFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.actualFighter.collect { actualFighter ->
                 if (actualFighter.id != 0) {
-
-                    binding.tvInfo.text = "Choice your action"
-
-                    Glide.with(requireContext())
-                        .load(actualFighter.image)
-                        .error(R.drawable.fight)
-                        .apply(RequestOptions().centerCrop())
-                        .into(binding.imgActualFighter)
-
-                    if (actualFighter.isSabotaged) {
-                        binding.tvTurn.text = "${actualFighter.name}'s turn, but was sabotaged"
-                        disableActionButtons()
-                        binding.btnMove.isEnabled = false
-                    } else {
-                        binding.tvTurn.text = "${actualFighter.name}'s turn"
-                    }
+                    binding.tvInfo.text = getString(R.string.choiceAction)
+                    showImgWithGlide(actualFighter.image, binding.imgActualFighter)
                     this@FightFragment.actualFighter = actualFighter
-                    indexOfActualFighter =
-                        heroesList.indexOf(heroesList.find { it.id == actualFighter.id })
-                    actualFighterIsHero = true
 
-                    if (indexOfActualFighter == -1) {
-                        indexOfActualFighter =
-                            villainsList.indexOf(villainsList.find { it.id == actualFighter.id })
-                        actualFighterIsHero = false
-                    }
+                    checkIfSabotaged()
+
+                    extractActualFighterIndex()
                 }
             }
         }
@@ -414,20 +271,17 @@ class FightFragment : Fragment() {
             viewModel.fighterMovement.collect { fighterCanMove ->
                 if (fighterCanMove) {
                     moveFighterView()
-                    binding.tvInfo.text = "Choice your action"
+                    binding.tvInfo.text = getString(R.string.choiceAction)
                     binding.btnMove.isEnabled = false
                     binding.btnDefend.isEnabled = false
                 } else {
-                    Toast.makeText(requireContext(), "So far, bastard...", Toast.LENGTH_SHORT)
-                        .show()
+                    showToast("So far, bastard...")
                 }
             }
         }
 
-
         lifecycleScope.launch {
             viewModel.actionResult.collect { resultMessage ->
-
                 binding.tvInfo.text = resultMessage
 
                 if (actualFighter.actionPerformed) {
@@ -454,6 +308,23 @@ class FightFragment : Fragment() {
         }
     }
 
+    private fun extractActualFighterIndex() {
+        indexOfActualFighter = if (actualFighter.isHero) {
+            heroesList.indexOf(heroesList.find { it.id == actualFighter.id })
+        } else {
+            villainsList.indexOf(villainsList.find { it.id == actualFighter.id })
+        }
+    }
+
+    private fun checkIfSabotaged() {
+        if (actualFighter.isSabotaged) {
+            binding.tvTurn.text = getString(R.string.sabotagedTurn, actualFighter.name)
+            disableActionButtons()
+            binding.btnMove.isEnabled = false
+        } else {
+            binding.tvTurn.text = getString(R.string.newTurn, actualFighter.name)
+        }
+    }
 
     private fun addHeroesToLists(
         heroesList: ArrayList<FighterModel>,
@@ -467,23 +338,11 @@ class FightFragment : Fragment() {
         heroesList: ArrayList<FighterModel>,
         villainsList: ArrayList<FighterModel>
     ) {
-
         for (i in 0 until heroesList.size) {
             with(binding) {
-
                 progressBar.visibility = View.GONE
-
-                Glide.with(requireContext())
-                    .load(heroesList[i].image)
-                    .error(R.drawable.fight)
-                    .apply(RequestOptions().centerCrop())
-                    .into(ivHeroesList[i])
-
-                Glide.with(requireContext())
-                    .load(villainsList[i].image)
-                    .error(R.drawable.fight)
-                    .apply(RequestOptions().centerCrop())
-                    .into(ivVillainsList[i])
+                showImgWithGlide(heroesList[i].image, ivHeroesList[i])
+                showImgWithGlide(villainsList[i].image, ivVillainsList[i])
             }
         }
     }
@@ -497,7 +356,6 @@ class FightFragment : Fragment() {
                 indexOfChild++
             }
         }
-
         with(binding) {
             ivHeroesList.addAll(listOf(imgHero0, imgHero1, imgHero2, imgHero3, imgHero4))
             ivVillainsList.addAll(
@@ -536,5 +394,39 @@ class FightFragment : Fragment() {
             btnDefend.isEnabled = true
             btnAttack.isEnabled = true
         }
+    }
+
+    private fun showToast(textToShow: String) {
+        Toast.makeText(requireContext(), textToShow, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showImgWithGlide(url: String, imageView: ShapeableImageView) {
+        Glide.with(requireContext())
+            .load(url)
+            .error(R.drawable.fight)
+            .apply(RequestOptions().centerCrop())
+            .into(imageView)
+    }
+
+    private fun showHeroCard(indexOfHero: Int) {
+        CardsFiller.fillDataIntoHeroFighterCard(
+            binding.cardIncludedGood,
+            heroesList[indexOfHero],
+            requireContext()
+        )
+        binding.cardIncludedGood.card.visibility = View.VISIBLE
+        binding.cardIncludedGood.btnAppearance.visibility = View.GONE
+        binding.cardIncludedGood.btnBiography.visibility = View.GONE
+    }
+
+    private fun showVillainCard(indexOfVillain: Int) {
+        CardsFiller.fillDataIntoVillainFighterCard(
+            binding.cardIncludedBad,
+            villainsList[indexOfVillain],
+            requireContext()
+        )
+        binding.cardIncludedBad.card.visibility = View.VISIBLE
+        binding.cardIncludedBad.btnAppearance.visibility = View.GONE
+        binding.cardIncludedBad.btnBiography.visibility = View.GONE
     }
 }

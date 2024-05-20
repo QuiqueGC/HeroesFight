@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">HeroesFight</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="selectCellToMove">Select the cell you want to move</string>
+    <string name="selectEnemyToAttack">Select the enemy you want to attack</string>
+    <string name="selectOwnHero">Select your own hero to confirm</string>
+    <string name="selectAllyToSupport">Select the ally you want to support</string>
+    <string name="selectEnemyToSabotage">Select the enemy you want to sabotage</string>
+    <string name="choiceAction">Choice your action</string>
+    <string name="sabotagedTurn">%1$s\'s turn, but was sabotaged</string>
+    <string name="newTurn">%1$s\'s turn</string>
 </resources>
