@@ -17,8 +17,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        style="@style/tile"
         android:id="@+id/v1a"
+        style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
         app:layout_constraintTop_toTopOf="@id/vBoard" />
 
@@ -557,111 +557,108 @@
         app:layout_constraintTop_toBottomOf="@id/v9i" />
 
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imgActualFighter"
-        tools:src="@drawable/fight"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        app:shapeAppearanceOverlay="@style/heroInBoardShapeOverlay"
-        app:layout_constraintStart_toStartOf="@id/tvTurn"
-        app:layout_constraintEnd_toEndOf="@id/tvTurn"
-        app:layout_constraintBottom_toTopOf="@id/tvTurn" />
+    <include
+        android:id="@+id/linearInitiative"
+        layout="@layout/linear_list_initiative"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/imgInitiativeSize" />
+
 
     <TextView
         android:id="@+id/tvTurn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/redBad"
-        android:textSize="28sp"
+        android:layout_marginTop="72dp"
         android:background="@color/white"
         android:fontFamily="@font/fighting_spirit_2_bold"
-        android:layout_marginTop="72dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/redBad"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/redBad"
         android:background="@color/white"
-        android:textSize="20sp"
         android:fontFamily="@font/fighting_spirit_2_bold"
-        app:layout_constraintTop_toBottomOf="@id/tvTurn"
+        android:textColor="@color/redBad"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvTurn" />
 
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgHero0"
         style="@style/heroInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgHero1"
         style="@style/heroInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v1b"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgHero2"
-        tools:src="@drawable/fight"
         style="@style/heroInBoardStyle"
         app:layout_constraintStart_toStartOf="@id/v1c"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgHero3"
         style="@style/heroInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v1d"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgHero4"
         style="@style/heroInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v1e"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgVillain0"
         style="@style/villainInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v10i"
-        app:layout_constraintTop_toTopOf="@id/v10i" />
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgVillain1"
         style="@style/villainInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v10h"
-        app:layout_constraintTop_toTopOf="@id/v10i" />
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgVillain2"
         style="@style/villainInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v10g"
-        app:layout_constraintTop_toTopOf="@id/v10i" />
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgVillain3"
         style="@style/villainInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v10f"
-        app:layout_constraintTop_toTopOf="@id/v10i" />
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        tools:src="@drawable/fight" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgVillain4"
         style="@style/villainInBoardStyle"
-        tools:src="@drawable/fight"
         app:layout_constraintStart_toStartOf="@id/v10e"
-        app:layout_constraintTop_toTopOf="@id/v10i" />
+        app:layout_constraintTop_toTopOf="@id/v10i"
+        tools:src="@drawable/fight" />
 
     <include
         android:id="@+id/cardIncludedGood"
@@ -689,82 +686,82 @@
         android:id="@+id/btnMove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fighting_spirit_2_bold"
         android:text="Mov"
         android:textSize="16sp"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        app:layout_constraintTop_toBottomOf="@id/vBoard"
         app:layout_constraintBottom_toTopOf="@id/btnSupport"
         app:layout_constraintEnd_toStartOf="@id/btnAttack"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
     <Button
         android:id="@+id/btnAttack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fighting_spirit_2_bold"
         android:text="Atck!"
         android:textSize="16sp"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        app:layout_constraintTop_toBottomOf="@id/vBoard"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
+        app:layout_constraintEnd_toStartOf="@id/btnDefend"
         app:layout_constraintStart_toEndOf="@id/btnMove"
-        app:layout_constraintEnd_toStartOf="@id/btnDefend" />
+        app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
     <Button
         android:id="@+id/btnDefend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fighting_spirit_2_bold"
         android:text="Def"
         android:textSize="16sp"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        app:layout_constraintTop_toBottomOf="@id/vBoard"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnAttack"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
     <Button
         android:id="@+id/btnSupport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fighting_spirit_2_bold"
         android:text="Sup"
         android:textSize="16sp"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        app:layout_constraintTop_toBottomOf="@id/btnMove"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSabotage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnSabotage" />
+        app:layout_constraintTop_toBottomOf="@id/btnMove" />
 
     <Button
         android:id="@+id/btnSabotage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fighting_spirit_2_bold"
         android:text="Sab"
         android:textSize="16sp"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        app:layout_constraintTop_toBottomOf="@id/btnAttack"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnPass"
         app:layout_constraintStart_toEndOf="@id/btnSupport"
-        app:layout_constraintEnd_toStartOf="@id/btnPass" />
+        app:layout_constraintTop_toBottomOf="@id/btnAttack" />
 
     <Button
         android:id="@+id/btnPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fighting_spirit_2_bold"
         android:text="Pass"
         android:textSize="16sp"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        app:layout_constraintTop_toBottomOf="@id/btnAttack"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnSabotage"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btnAttack" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

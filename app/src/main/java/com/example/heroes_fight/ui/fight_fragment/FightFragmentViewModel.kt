@@ -59,7 +59,8 @@ class FightFragmentViewModel @Inject constructor(
             _uiState.emit(
                 FightFragmentUiState.Success(
                     heroesList,
-                    villainList
+                    villainList,
+                    allFightersList
                 )
             )
 

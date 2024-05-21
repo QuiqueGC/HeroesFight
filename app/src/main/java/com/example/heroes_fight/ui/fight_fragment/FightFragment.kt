@@ -36,9 +36,11 @@ class FightFragment : Fragment() {
     private val villainsList = ArrayList<FighterModel>()
     private val ivHeroesList = ArrayList<ShapeableImageView>()
     private val ivVillainsList = ArrayList<ShapeableImageView>()
+    private val ivAllFightersList = ArrayList<ShapeableImageView>()
 
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
     private var indexOfActualFighter = -1
+    private var initiativeIndex = 0
     private var actualFighter = FighterModel()
     private var destinationPosition = Position()
 
@@ -85,29 +87,63 @@ class FightFragment : Fragment() {
     private fun setupBtnActionsListeners() {
         with(binding) {
             btnMove.setOnClickListener {
+                repaintBoard()
                 playerChoice = PlayerChoice.MOVE
                 tvInfo.text = getString(R.string.selectCellToMove)
                 paintAccessibleTiles()
             }
             btnAttack.setOnClickListener {
+                repaintBoard()
                 tvInfo.text = getString(R.string.selectEnemyToAttack)
                 playerChoice = PlayerChoice.ATTACK
+                paintMeleeDistance()
             }
             btnDefend.setOnClickListener {
+                repaintBoard()
                 tvInfo.text = getString(R.string.selectOwnHero)
                 playerChoice = PlayerChoice.DEFEND
+                board[actualFighter.position.y][actualFighter.position.x]!!.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
             }
             btnSupport.setOnClickListener {
+                repaintBoard()
                 tvInfo.text = getString(R.string.selectAllyToSupport)
                 playerChoice = PlayerChoice.SUPPORT
+                paintMeleeDistance()
             }
             btnSabotage.setOnClickListener {
+                repaintBoard()
                 tvInfo.text = getString(R.string.selectEnemyToSabotage)
                 playerChoice = PlayerChoice.SABOTAGE
+                paintMeleeDistance()
             }
             btnPass.setOnClickListener {
+                repaintBoard()
                 finishTurn()
             }
+        }
+    }
+
+    private fun paintMeleeDistance() {
+        with(actualFighter.position) {
+            if (y > 0) {
+                board[y - 1][x]!!.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+            }
+            if (x > 0) {
+                board[y][x - 1]!!.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+            }
+            if (y < 9) {
+                board[y + 1][x]!!.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+            }
+            if (x < 9) {
+                board[y][x + 1]!!.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+            }
+            board[y][x]!!.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
         }
     }
 
@@ -280,6 +316,8 @@ class FightFragment : Fragment() {
                             fightFragmentUiState.heroesList,
                             fightFragmentUiState.villainsList
                         )
+                        putHeroesInTheInitiativeList(fightFragmentUiState.allFightersSorted)
+
                     }
                 }
             }
@@ -289,12 +327,16 @@ class FightFragment : Fragment() {
             viewModel.actualFighter.collect { actualFighter ->
                 if (actualFighter.id != 0) {
                     binding.tvInfo.text = getString(R.string.choiceAction)
-                    showImgWithGlide(actualFighter.image, binding.imgActualFighter)
+
                     this@FightFragment.actualFighter = actualFighter
 
                     checkIfSabotaged()
 
                     extractActualFighterIndex()
+
+                    changeBorderOfActualFighter()
+
+                    setBorderAtInitiativeList()
                 }
             }
         }
@@ -341,12 +383,45 @@ class FightFragment : Fragment() {
         }
     }
 
+    private fun setBorderAtInitiativeList() {
+        ivAllFightersList[initiativeIndex].strokeWidth = 20f
+        ivAllFightersList[initiativeIndex].setStrokeColorResource(R.color.greenTurn)
+
+        if (initiativeIndex != 0) {
+            ivAllFightersList[initiativeIndex - 1].strokeWidth = 0f
+        } else {
+            ivAllFightersList[9].strokeWidth = 0f
+        }
+
+
+    }
+
+    private fun changeBorderOfActualFighter() {
+        if (actualFighter.isHero) {
+            ivHeroesList[indexOfActualFighter].setStrokeColorResource(R.color.greenTurn)
+        } else {
+            ivVillainsList[indexOfActualFighter].setStrokeColorResource(R.color.greenTurn)
+        }
+    }
+
+    private fun putHeroesInTheInitiativeList(allFightersSorted: java.util.ArrayList<FighterModel>) {
+        for (i in 0 until allFightersSorted.size) {
+            ivAllFightersList.add(binding.linearInitiative.linearLayout.getChildAt(i) as ShapeableImageView)
+            showImgWithGlide(
+                allFightersSorted[i].image,
+                binding.linearInitiative.linearLayout.getChildAt(i) as ShapeableImageView
+            )
+        }
+    }
+
     private fun extractActualFighterIndex() {
         indexOfActualFighter = if (actualFighter.isHero) {
             heroesList.indexOf(heroesList.find { it.id == actualFighter.id })
         } else {
             villainsList.indexOf(villainsList.find { it.id == actualFighter.id })
         }
+
+
     }
 
     private fun checkIfSabotaged() {
@@ -404,9 +479,18 @@ class FightFragment : Fragment() {
     }
 
     private fun finishTurn() {
+        if (actualFighter.isHero) {
+            ivHeroesList[indexOfActualFighter].setStrokeColorResource(R.color.blueGood)
+        } else {
+            ivVillainsList[indexOfActualFighter].setStrokeColorResource(R.color.redBad)
+        }
         enableButtons()
         playerChoice = PlayerChoice.WAITING_FOR_ACTION
         indexOfActualFighter = -1
+        initiativeIndex++
+        if (initiativeIndex > 9) {
+            initiativeIndex = 0
+        }
         viewModel.finishTurn()
     }
 

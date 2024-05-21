@@ -8,7 +8,8 @@ sealed class FightFragmentUiState {
     data object Loading : FightFragmentUiState()
     class Success(
         val heroesList: ArrayList<FighterModel>,
-        val villainsList: ArrayList<FighterModel>
+        val villainsList: ArrayList<FighterModel>,
+        val allFightersSorted: ArrayList<FighterModel>
     ) :
         FightFragmentUiState()
     class Error(val errorModel: ErrorModel) : FightFragmentUiState()
