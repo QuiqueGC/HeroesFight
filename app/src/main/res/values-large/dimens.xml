@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="marginMin">8dp</dimen>
+    <dimen name="marginSmall">16dp</dimen>
+    <dimen name="marginCommon">32dp</dimen>
+    <dimen name="marginLarge">48dp</dimen>
+    <dimen name="marginMax">64dp</dimen>
+    <dimen name="txtCommon">48sp</dimen>
+    <dimen name="txtSmall">36sp</dimen>
+    <dimen name="tileSize">80dp</dimen>
+    <dimen name="boardWidth">720dp</dimen>
+    <dimen name="boardHeight">800dp</dimen>
+    <dimen name="cardWidth">680dp</dimen>
+    <dimen name="cardHeight">1320dp</dimen>
+    <dimen name="cardStatsWidth">550dp</dimen>
+    <dimen name="cardStatsHeight">400dp</dimen>
+
+</resources>

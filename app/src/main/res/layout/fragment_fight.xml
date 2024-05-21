@@ -9,8 +9,8 @@
 
     <View
         android:id="@+id/vBoard"
-        android:layout_width="360dp"
-        android:layout_height="400dp"
+        android:layout_width="@dimen/boardWidth"
+        android:layout_height="@dimen/boardHeight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -666,8 +666,8 @@
     <include
         android:id="@+id/cardIncludedGood"
         layout="@layout/item_card_hero"
-        android:layout_width="340dp"
-        android:layout_height="660dp"
+        android:layout_width="@dimen/cardWidth"
+        android:layout_height="@dimen/cardHeight"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -677,8 +677,8 @@
     <include
         android:id="@+id/cardIncludedBad"
         layout="@layout/item_card_hero_bad"
-        android:layout_width="340dp"
-        android:layout_height="660dp"
+        android:layout_width="@dimen/cardWidth"
+        android:layout_height="@dimen/cardHeight"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

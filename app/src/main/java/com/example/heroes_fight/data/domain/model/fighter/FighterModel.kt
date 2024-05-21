@@ -17,7 +17,7 @@ class FighterModel(
     durability: Int = 0,
     power: Int = 0,
     combat: Int = 0,
-    private var movementCapacity: Int = 1,
+    var movementCapacity: Int = 1,
     var position: Position = Position(),
     var combatBonus: Int = 0,
     var defenseBonus: Int = 0,

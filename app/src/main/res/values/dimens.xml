@@ -9,5 +9,11 @@
     <dimen name="txtCommon">24sp</dimen>
     <dimen name="txtSmall">18sp</dimen>
     <dimen name="tileSize">40dp</dimen>
+    <dimen name="boardWidth">360dp</dimen>
+    <dimen name="boardHeight">400dp</dimen>
+    <dimen name="cardWidth">340dp</dimen>
+    <dimen name="cardHeight">660dp</dimen>
+    <dimen name="cardStatsWidth">275dp</dimen>
+    <dimen name="cardStatsHeight">200dp</dimen>
 
 </resources>

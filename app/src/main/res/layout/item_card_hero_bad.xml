@@ -2,9 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="340dp"
+    android:layout_width="@dimen/cardWidth"
     android:id="@+id/card"
-    android:layout_height="660dp"
+    android:layout_height="@dimen/cardHeight"
     app:cardCornerRadius="10dp"
     app:cardElevation="100dp"
     android:layout_gravity="center">
@@ -58,8 +58,8 @@
 
         <View
             android:id="@+id/vCardStats"
-            android:layout_width="275dp"
-            android:layout_height="200dp"
+            android:layout_width="@dimen/cardStatsWidth"
+            android:layout_height="@dimen/cardStatsHeight"
             android:layout_marginTop="@dimen/marginLarge"
             android:background="@drawable/background_stats"
             app:layout_constraintEnd_toEndOf="parent"

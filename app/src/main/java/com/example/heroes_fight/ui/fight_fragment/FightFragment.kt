@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -86,6 +87,7 @@ class FightFragment : Fragment() {
             btnMove.setOnClickListener {
                 playerChoice = PlayerChoice.MOVE
                 tvInfo.text = getString(R.string.selectCellToMove)
+                paintAccessibleTiles()
             }
             btnAttack.setOnClickListener {
                 tvInfo.text = getString(R.string.selectEnemyToAttack)
@@ -105,6 +107,36 @@ class FightFragment : Fragment() {
             }
             btnPass.setOnClickListener {
                 finishTurn()
+            }
+        }
+    }
+
+    private fun paintAccessibleTiles() {
+        for (i in 0 until 10) {
+            for (j in 0 until 9) {
+                val actualTileValue = i + j
+                val originValue = actualFighter.position.y + actualFighter.position.x
+
+                if (originValue < actualTileValue) {
+                    if (originValue + actualFighter.movementCapacity >= actualTileValue) {
+                        board[i][j]!!.background =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+                    }
+                } else {
+                    if (originValue - actualFighter.movementCapacity <= actualTileValue) {
+                        board[i][j]!!.background =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun repaintBoard() {
+        for (i in 0 until 10) {
+            for (j in 0 until 9) {
+                board[i][j]!!.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_base)
             }
         }
     }
@@ -274,6 +306,7 @@ class FightFragment : Fragment() {
                     binding.tvInfo.text = getString(R.string.choiceAction)
                     binding.btnMove.isEnabled = false
                     binding.btnDefend.isEnabled = false
+                    repaintBoard()
                 } else {
                     showToast("So far, bastard...")
                 }
