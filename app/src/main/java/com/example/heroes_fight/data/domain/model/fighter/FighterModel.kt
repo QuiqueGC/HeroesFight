@@ -146,7 +146,7 @@ class FighterModel(
         defenseBonus = 35
         actionPerformed = true
         movementPerformed = true
-        return "$name is prepared for enemy attacks"
+        return "$name is prepared for enemy attacks (+$defenseBonus combat)"
     }
 
     private fun resolveSabotage(enemy: FighterModel): String {
@@ -162,7 +162,7 @@ class FighterModel(
 
                 enemy.isSabotaged = true
 
-                result = "${enemy.name} was sabotaged"
+                result = "${enemy.name} was sabotaged and will lose the next turn"
 
             } else {
                 result = "${enemy.name} was smarter and sabotage didn't work"
@@ -187,7 +187,7 @@ class FighterModel(
             }
 
             ally.combatBonus = supportDifference
-            result = "${ally.name} is more powerful right now"
+            result = "${ally.name} is more powerful right now (+$supportDifference combat)"
 
         } else {
             result = "$name failed supporting ${ally.name}"
@@ -233,14 +233,17 @@ class FighterModel(
         Log.i("quique", "La fuerza es -> $strength")
         val result: String
         if (damageRoll <= strength) {
-            val damage = strength - damageRoll + damageBonus
+            var damage = strength - damageRoll + damageBonus
             Log.i("quique", "El daño final es -> $damage")
+            if (damage < 10) {
+                damage = 10
+            }
             enemy.durability -= damage
             result = "$name inflicted $damage of damage to ${enemy.name}"
 
         } else {
-            enemy.durability -= 10
-            result = "$name didn't used strength enough and just caused 10 of damage"
+            enemy.durability -= 8
+            result = "$name didn't used strength enough and just caused 8 of damage"
         }
         return result
     }
