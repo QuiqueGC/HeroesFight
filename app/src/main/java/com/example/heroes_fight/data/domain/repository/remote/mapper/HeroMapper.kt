@@ -7,9 +7,6 @@ import kotlin.random.Random
 class HeroMapper : ResponseMapper<HeroResponse, HeroModel> {
     override fun fromResponse(response: HeroResponse): HeroModel {
 
-
-        createSerialNum(response.id)
-
         return HeroModel(
             response.id?.toInt() ?: 0,
             createSerialNum(response.id),

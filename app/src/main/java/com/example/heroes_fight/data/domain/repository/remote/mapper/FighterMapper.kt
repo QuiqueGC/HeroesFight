@@ -7,7 +7,7 @@ import kotlin.random.Random
 class FighterMapper : ResponseMapper<HeroResponse, FighterModel> {
     override fun fromResponse(response: HeroResponse): FighterModel {
 
-        createSerialNum(response.id)
+        val speed = addedStatValueInNullCase(response.powerstats?.speed)
 
         return FighterModel(
             response.id?.toInt() ?: 0,
@@ -17,10 +17,11 @@ class FighterMapper : ResponseMapper<HeroResponse, FighterModel> {
             response.image?.url ?: "",
             addedStatValueInNullCase(response.powerstats?.intelligence),
             addedStatValueInNullCase(response.powerstats?.strength),
-            addedStatValueInNullCase(response.powerstats?.speed),
+            speed,
             addedStatValueInNullCase(response.powerstats?.durability),
             addedStatValueInNullCase(response.powerstats?.power),
-            addedStatValueInNullCase(response.powerstats?.combat)
+            addedStatValueInNullCase(response.powerstats?.combat),
+            setMovementCapacity(speed)
         )
     }
 
@@ -42,6 +43,14 @@ class FighterMapper : ResponseMapper<HeroResponse, FighterModel> {
             Random.nextInt(5, 51)
         } else {
             statToChange.toInt()
+        }
+    }
+
+    private fun setMovementCapacity(speed: Int): Int {
+        return if (speed / 10 < 1) {
+            1
+        } else {
+            speed / 10
         }
     }
 }

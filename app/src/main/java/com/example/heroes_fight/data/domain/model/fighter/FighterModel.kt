@@ -17,6 +17,7 @@ class FighterModel(
     durability: Int = 0,
     power: Int = 0,
     combat: Int = 0,
+    private var movementCapacity: Int = 1,
     var position: Position = Position(),
     var combatBonus: Int = 0,
     var defenseBonus: Int = 0,
@@ -41,8 +42,6 @@ class FighterModel(
         var canMove = false
         val originValue = position.y + position.x
         val destinationValue = destinationPosition.y + destinationPosition.x
-        val movementCapacity = setMovementCapacity()
-
 
         if (originValue < destinationValue) {
             if (originValue + movementCapacity >= destinationValue) {
@@ -268,14 +267,6 @@ class FighterModel(
             intelligence - intelligenceRoll
         } else {
             0
-        }
-    }
-
-    private fun setMovementCapacity(): Int {
-        return if (speed / 10 < 1) {
-            1
-        } else {
-            speed / 10
         }
     }
 
