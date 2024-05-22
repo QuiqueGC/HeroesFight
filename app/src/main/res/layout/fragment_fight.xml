@@ -684,6 +684,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btnPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:text="Pass"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/vBoard"
+        app:layout_constraintEnd_toEndOf="@id/vBoard" />
+
+    <Button
         android:id="@+id/btnMove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -739,22 +749,22 @@
         android:text="Sab"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnPass"
+        app:layout_constraintEnd_toStartOf="@id/btnShot"
         app:layout_constraintStart_toEndOf="@id/btnSupport"
         app:layout_constraintTop_toBottomOf="@id/btnAttack" />
 
+
     <Button
-        android:id="@+id/btnPass"
+        android:id="@+id/btnShot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="Pass"
+        android:text="Shot"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnSabotage"
         app:layout_constraintTop_toBottomOf="@id/btnAttack" />
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

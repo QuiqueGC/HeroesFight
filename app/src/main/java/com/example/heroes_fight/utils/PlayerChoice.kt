@@ -6,6 +6,7 @@ enum class PlayerChoice {
     DEFEND,
     SUPPORT,
     SABOTAGE,
-    WAITING_FOR_ACTION
+    WAITING_FOR_ACTION,
+    SHOT
 
 }

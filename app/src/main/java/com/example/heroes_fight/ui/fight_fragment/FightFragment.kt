@@ -35,6 +35,7 @@ class FightFragment : Fragment() {
 
     private val heroesList = ArrayList<FighterModel>()
     private val villainsList = ArrayList<FighterModel>()
+    private var allFightersList = ArrayList<FighterModel>()
     private val ivHeroesList = ArrayList<ShapeableImageView>()
     private val ivVillainsList = ArrayList<ShapeableImageView>()
     private val ivAllFightersList = ArrayList<ShapeableImageView>()
@@ -44,6 +45,8 @@ class FightFragment : Fragment() {
     private var initiativeIndex = 0
     private var actualFighter = FighterModel()
     private var destinationPosition = Position()
+
+    private var isFirstTurn = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +96,7 @@ class FightFragment : Fragment() {
                 repaintBoard()
                 playerChoice = PlayerChoice.MOVE
                 tvInfo.text = getString(R.string.selectCellToMove)
-                paintAccessibleTiles()
+                paintAccessibleTiles(actualFighter.movementCapacity)
             }
             btnAttack.setOnClickListener {
                 repaintBoard()
@@ -124,6 +127,13 @@ class FightFragment : Fragment() {
                 repaintBoard()
                 finishTurn()
             }
+
+            btnShot.setOnClickListener {
+                repaintBoard()
+                tvInfo.text = getString(R.string.selectEnemyToShot)
+                playerChoice = PlayerChoice.SHOT
+                paintAccessibleTiles(actualFighter.distanceToShot)
+            }
         }
     }
 
@@ -148,7 +158,7 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun paintAccessibleTiles() {
+    private fun paintAccessibleTiles(statOfFighterToUse: Int) {
         Log.i("quique", "NUEVA RONDA")
         for (i in 0 until 10) {
             for (j in 0 until 9) {
@@ -156,9 +166,9 @@ class FightFragment : Fragment() {
                 var result: Int
                 with(actualFighter.position) {
                     if (x < j && y < i) {
-                        if (x + actualFighter.movementCapacity >= j) {
+                        if (x + statOfFighterToUse >= j) {
                             difference = j - x
-                            result = actualFighter.movementCapacity - difference
+                            result = statOfFighterToUse - difference
 
                             if (y + result >= i) {
                                 board[i][j]!!.background =
@@ -169,9 +179,9 @@ class FightFragment : Fragment() {
                             }
                         }
                     } else if (x > j && y > i) {
-                        if (x - actualFighter.movementCapacity <= j) {
+                        if (x - statOfFighterToUse <= j) {
                             difference = x - j
-                            result = actualFighter.movementCapacity - difference
+                            result = statOfFighterToUse - difference
                             if (y - result <= i) {
                                 board[i][j]!!.background =
                                     ContextCompat.getDrawable(
@@ -181,9 +191,9 @@ class FightFragment : Fragment() {
                             }
                         }
                     } else if (x < j && y > i) {
-                        if (x + actualFighter.movementCapacity >= j) {
+                        if (x + statOfFighterToUse >= j) {
                             difference = j - x
-                            result = actualFighter.movementCapacity - difference
+                            result = statOfFighterToUse - difference
                             if (y - result <= i) {
                                 board[i][j]!!.background =
                                     ContextCompat.getDrawable(
@@ -193,9 +203,9 @@ class FightFragment : Fragment() {
                             }
                         }
                     } else if (x > j && y < i) {
-                        if (x - actualFighter.movementCapacity <= j) {
+                        if (x - statOfFighterToUse <= j) {
                             difference = x - j
-                            result = actualFighter.movementCapacity - difference
+                            result = statOfFighterToUse - difference
                             if (y + result >= i) {
                                 board[i][j]!!.background =
                                     ContextCompat.getDrawable(
@@ -205,22 +215,22 @@ class FightFragment : Fragment() {
                             }
                         }
                     } else if (x == j && y < i) {
-                        if (y + actualFighter.movementCapacity >= i) {
+                        if (y + statOfFighterToUse >= i) {
                             board[i][j]!!.background =
                                 ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
                         }
                     } else if (x == j && y > i) {
-                        if (y - actualFighter.movementCapacity <= i) {
+                        if (y - statOfFighterToUse <= i) {
                             board[i][j]!!.background =
                                 ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
                         }
                     } else if (x < j && y == i) {
-                        if (x + actualFighter.movementCapacity >= j) {
+                        if (x + statOfFighterToUse >= j) {
                             board[i][j]!!.background =
                                 ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
                         }
                     } else if (x > j && y == i) {
-                        if (x - actualFighter.movementCapacity <= j) {
+                        if (x - statOfFighterToUse <= j) {
                             board[i][j]!!.background =
                                 ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
                         }
@@ -302,6 +312,7 @@ class FightFragment : Fragment() {
                     PlayerChoice.SABOTAGE -> performSabotage(i, false)
                     PlayerChoice.DEFEND -> performDefense(i, false)
                     PlayerChoice.SUPPORT -> performSupport(i, false)
+                    PlayerChoice.SHOT -> performShot(i, false)
                     else -> {
                         showToast("Choice an action")
                     }
@@ -314,6 +325,7 @@ class FightFragment : Fragment() {
                     PlayerChoice.SABOTAGE -> performSabotage(i, true)
                     PlayerChoice.DEFEND -> performDefense(i, true)
                     PlayerChoice.SUPPORT -> performSupport(i, true)
+                    PlayerChoice.SHOT -> performShot(i, true)
                     else -> {
                         showToast("Choice an action")
                     }
@@ -361,6 +373,16 @@ class FightFragment : Fragment() {
             viewModel.performAttack(villainsList[indexOfFighterSelected])
         } else {
             showToast("Don't attack your own team")
+        }
+    }
+
+    private fun performShot(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
+        if (!actualFighter.isHero && isClickOnHero) {
+            viewModel.performShot(heroesList[indexOfFighterSelected])
+        } else if (actualFighter.isHero && !isClickOnHero) {
+            viewModel.performShot(villainsList[indexOfFighterSelected])
+        } else {
+            showToast("Don't shot your own team")
         }
     }
 
@@ -428,6 +450,7 @@ class FightFragment : Fragment() {
 
                 if (actualFighter.actionPerformed) {
                     disableActionButtons()
+                    repaintBoard()
                 }
                 if (actualFighter.movementPerformed) {
                     binding.btnMove.isEnabled = false
@@ -446,14 +469,28 @@ class FightFragment : Fragment() {
                     indexOfDyingFighter = villainsList.indexOf(dyingFighter)
                     ivVillainsList[indexOfDyingFighter].visibility = View.GONE
                 }
+
+                removeOfInitiativeList(dyingFighter)
             }
         }
     }
 
+    private fun removeOfInitiativeList(dyingFighter: FighterModel) {
+        val dyingFighterFiltered = allFightersList.filter { it.id == dyingFighter.id }
+        val indexOfDyingFighter = allFightersList.indexOf(dyingFighterFiltered[0])
+        ivAllFightersList[indexOfDyingFighter].visibility = View.GONE
+        ivAllFightersList.removeAt(indexOfDyingFighter)
+        allFightersList.removeAt(indexOfDyingFighter)
+        initiativeIndex = allFightersList.indexOf(actualFighter)
+    }
+
     private fun showAllViews() {
+        if (isFirstTurn) {
         binding.linearInitiative.root.visibility = View.VISIBLE
         ivHeroesList.forEach { it.visibility = View.VISIBLE }
         ivVillainsList.forEach { it.visibility = View.VISIBLE }
+            isFirstTurn = false
+        }
     }
 
     private fun setBorderAtInitiativeList() {
@@ -463,7 +500,7 @@ class FightFragment : Fragment() {
         if (initiativeIndex != 0) {
             ivAllFightersList[initiativeIndex - 1].strokeWidth = 0f
         } else {
-            ivAllFightersList[9].strokeWidth = 0f
+            ivAllFightersList[ivAllFightersList.size - 1].strokeWidth = 0f
         }
 
 
@@ -477,7 +514,9 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun putHeroesInTheInitiativeList(allFightersSorted: java.util.ArrayList<FighterModel>) {
+    private fun putHeroesInTheInitiativeList(allFightersSorted: ArrayList<FighterModel>) {
+        allFightersList.addAll(allFightersSorted)
+
         for (i in 0 until allFightersSorted.size) {
             ivAllFightersList.add(binding.linearInitiative.linearLayout.getChildAt(i) as ShapeableImageView)
             showImgWithGlide(
@@ -559,7 +598,7 @@ class FightFragment : Fragment() {
         playerChoice = PlayerChoice.WAITING_FOR_ACTION
         indexOfActualFighter = -1
         initiativeIndex++
-        if (initiativeIndex > 9) {
+        if (initiativeIndex > ivAllFightersList.size - 1) {
             initiativeIndex = 0
         }
         viewModel.finishTurn()
@@ -571,6 +610,7 @@ class FightFragment : Fragment() {
             btnSupport.isEnabled = false
             btnDefend.isEnabled = false
             btnAttack.isEnabled = false
+            btnShot.isEnabled = false
         }
     }
 
@@ -581,6 +621,7 @@ class FightFragment : Fragment() {
             btnSupport.isEnabled = true
             btnDefend.isEnabled = true
             btnAttack.isEnabled = true
+            btnShot.isEnabled = true
         }
     }
 

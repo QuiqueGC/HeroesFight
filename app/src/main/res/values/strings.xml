@@ -10,4 +10,5 @@
     <string name="choiceAction">Choice your action</string>
     <string name="sabotagedTurn">%1$s\'s turn, but was sabotaged</string>
     <string name="newTurn">%1$s\'s turn</string>
+    <string name="selectEnemyToShot">Select the enemy you want to shot</string>
 </resources>

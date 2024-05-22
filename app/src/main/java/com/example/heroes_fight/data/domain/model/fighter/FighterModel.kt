@@ -18,6 +18,7 @@ class FighterModel(
     power: Int = 0,
     combat: Int = 0,
     var movementCapacity: Int = 1,
+    var distanceToShot: Int = 1,
     var position: Position = Position(),
     var combatBonus: Int = 0,
     var defenseBonus: Int = 0,
@@ -139,6 +140,99 @@ class FighterModel(
         }
         return result
     }
+
+
+    override fun speedRoll(): Int {
+        val speedRoll = Random.nextInt(1, 101)
+        Log.i("quique", "La tiradad del enemigo de defensa es -> $speedRoll")
+        Log.i("quique", "El combat del defensor es de -> $combat")
+        return if (speedRoll < 90 && speedRoll < speed) {
+            speed - speedRoll
+            Log.i(
+                "quique",
+                "El resultado de combat - defenceRoll + defenseBonus en la siguiente línea"
+            )
+        } else {
+            0
+        }
+    }
+
+    override fun shot(enemy: FighterModel): String {
+        var difference: Int
+        var resultOfDistanceDifference: Int
+        var result: String = "Tengo que inicializar la variable no sé por qué"
+
+        with(position) {
+            if (x < enemy.position.x && y < enemy.position.y) {
+                if (x + distanceToShot >= enemy.position.x) {
+                    difference = enemy.position.x - x
+                    resultOfDistanceDifference = distanceToShot - difference
+
+                    if (y + resultOfDistanceDifference >= enemy.position.y) {
+
+                        result = resolveShot(enemy)
+                    }
+                }
+            } else if (x > enemy.position.x && y > enemy.position.y) {
+                if (x - distanceToShot <= enemy.position.x) {
+                    difference = x - enemy.position.x
+                    resultOfDistanceDifference = distanceToShot - difference
+                    if (y - resultOfDistanceDifference <= enemy.position.y) {
+
+                        result = resolveShot(enemy)
+                    }
+                }
+            } else if (x < enemy.position.x && y > enemy.position.y) {
+                if (x + distanceToShot >= enemy.position.x) {
+                    difference = enemy.position.x - x
+                    resultOfDistanceDifference = distanceToShot - difference
+                    if (y - resultOfDistanceDifference <= enemy.position.y) {
+
+                        result = resolveShot(enemy)
+                    }
+                }
+            } else if (x > enemy.position.x && y < enemy.position.y) {
+                if (x - distanceToShot <= enemy.position.x) {
+                    difference = x - enemy.position.x
+                    resultOfDistanceDifference = distanceToShot - difference
+                    if (y + resultOfDistanceDifference >= enemy.position.y) {
+
+
+                        result = resolveShot(enemy)
+                    }
+                }
+            } else if (x == enemy.position.x && y < enemy.position.y) {
+                if (y + distanceToShot >= enemy.position.y) {
+
+
+                    result = resolveShot(enemy)
+                }
+            } else if (x == enemy.position.x && y > enemy.position.y) {
+                if (y - distanceToShot <= enemy.position.y) {
+
+
+                    result = resolveShot(enemy)
+                }
+            } else if (x < enemy.position.x && y == enemy.position.y) {
+                if (x + distanceToShot >= enemy.position.x) {
+
+
+                    result = resolveShot(enemy)
+                }
+            } else if (x > enemy.position.x && y == enemy.position.y) {
+                if (x - distanceToShot <= enemy.position.x) {
+
+
+                    result = resolveShot(enemy)
+                }
+            } else {
+                result = "${enemy.name} is to far"
+            }
+        }
+        return result
+    }
+
+
 
     override fun sabotage(enemy: FighterModel): String {
         val heroPositionValue = position.y + position.x
@@ -278,6 +372,38 @@ class FighterModel(
         actionPerformed = true
         return result
     }
+
+    private fun resolveShot(enemy: FighterModel): String {
+        val shotRoll = Random.nextInt(1, 101)
+        Log.i("quique", "resultado de la tirada de disparo -> $shotRoll")
+        Log.i("quique", "El valor de power es -> $power")
+        val result: String
+        actionPerformed = true
+        if (shotRoll <= 90 && shotRoll <= power) {
+            val shotDifference = power - shotRoll
+
+            val enemySpeedDifference = enemy.speedRoll()
+            Log.i("quique", "La tiradad del enemigo de speed es -> $enemySpeedDifference")
+            if (shotDifference >= enemySpeedDifference) {
+                val damage = (shotDifference - enemySpeedDifference) / 3
+
+                enemy.durability -= damage
+                result = "$name inflicted $damage of damage to ${enemy.name}"
+
+
+            } else {
+
+                result = "${enemy.name} dodged the shot and don't received damage"
+
+            }
+        } else {
+            result = "$name failed the shot"
+
+        }
+
+        return result
+    }
+
 
     private fun resolveDamage(damageBonus: Int, enemy: FighterModel): String {
         val damageRoll = Random.nextInt(1, 101)

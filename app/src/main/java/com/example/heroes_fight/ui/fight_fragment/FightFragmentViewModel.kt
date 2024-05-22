@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.abs
 
 @HiltViewModel
 class FightFragmentViewModel @Inject constructor(
@@ -44,9 +45,9 @@ class FightFragmentViewModel @Inject constructor(
 
 
     fun getRandomHeroes() {
+        var isBalanced = false
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.emit(FightFragmentUiState.Loading)
-
             do {
                 var repeatedFighter = false
                 allFightersList = ArrayList()
@@ -59,13 +60,24 @@ class FightFragmentViewModel @Inject constructor(
 
                 Log.i("quique", "METE TODOS LOS FIGHTERS EN LA LISTA COMÚN")
                 orderFightersBySpeed()
+                Log.i("quique", "VALORES CALCULADOS")
+                val powerHeroes = getAllPower(heroesList)
+                Log.i("quique", "Valor de héroes -> $powerHeroes")
+                val powerVillains = getAllPower(villainList)
+                Log.i("quique", "Valor de villanos -> $powerVillains")
+                val difference = abs(powerHeroes - powerVillains)
+                Log.i("quique", "Diferencia -> $difference")
+                if (difference <= 150) {
+                    isBalanced = true
+                }
 
                 if (allFightersList.groupBy { it.id }.count() < 10) {
                     repeatedFighter = true
                 }
 
-            } while (repeatedFighter)
+            } while (repeatedFighter || !isBalanced)
 
+            Log.i("quique", "YA SALIÓ DEL BUCLE. VER LOS DOS ÚLTIMOS VALORES")
 
             Log.i("quique", "EMITE LAS LISTAS")
             _uiState.emit(
@@ -78,6 +90,16 @@ class FightFragmentViewModel @Inject constructor(
 
             _actualFighter.emit(allFightersList[0])
         }
+    }
+
+    private fun getAllPower(heroesList: java.util.ArrayList<FighterModel>): Int {
+        var totalPowerStats = 0
+        for (fighter in heroesList) {
+            with(fighter) {
+                totalPowerStats += intelligence + speed + durability + strength + combat
+            }
+        }
+        return totalPowerStats
     }
 
     private suspend fun addVillainsToStartList() {
@@ -130,7 +152,22 @@ class FightFragmentViewModel @Inject constructor(
                 }
             }
         }
+    }
 
+    fun performShot(enemyToAttack: FighterModel) {
+        if (!_actualFighter.value.actionPerformed) {
+            val resultOfShot = _actualFighter.value.shot(enemyToAttack)
+            viewModelScope.launch {
+                _actionResult.emit(resultOfShot)
+            }
+
+            if (enemyToAttack.durability <= 0) {
+                allFightersList.remove(enemyToAttack)
+                viewModelScope.launch {
+                    _dyingFighter.emit(enemyToAttack)
+                }
+            }
+        }
     }
 
     fun performSabotage(enemyToSabotage: FighterModel) {
