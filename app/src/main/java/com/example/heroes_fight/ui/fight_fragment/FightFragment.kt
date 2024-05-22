@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.fight_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -142,26 +143,85 @@ class FightFragment : Fragment() {
                 board[y][x + 1]!!.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
             }
-            board[y][x]!!.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
         }
     }
 
     private fun paintAccessibleTiles() {
+        Log.i("quique", "NUEVA RONDA")
         for (i in 0 until 10) {
             for (j in 0 until 9) {
-                val actualTileValue = i + j
-                val originValue = actualFighter.position.y + actualFighter.position.x
+                var difference: Int
+                var result: Int
+                with(actualFighter.position) {
+                    if (x < j && y < i) {
+                        if (x + actualFighter.movementCapacity >= j) {
+                            difference = j - x
+                            result = actualFighter.movementCapacity - difference
 
-                if (originValue < actualTileValue) {
-                    if (originValue + actualFighter.movementCapacity >= actualTileValue) {
-                        board[i][j]!!.background =
-                            ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-                    }
-                } else {
-                    if (originValue - actualFighter.movementCapacity <= actualTileValue) {
-                        board[i][j]!!.background =
-                            ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+                            if (y + result >= i) {
+                                board[i][j]!!.background =
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.tile_to_move
+                                    )
+                            }
+                        }
+                    } else if (x > j && y > i) {
+                        if (x - actualFighter.movementCapacity <= j) {
+                            difference = x - j
+                            result = actualFighter.movementCapacity - difference
+                            if (y - result <= i) {
+                                board[i][j]!!.background =
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.tile_to_move
+                                    )
+                            }
+                        }
+                    } else if (x < j && y > i) {
+                        if (x + actualFighter.movementCapacity >= j) {
+                            difference = j - x
+                            result = actualFighter.movementCapacity - difference
+                            if (y - result <= i) {
+                                board[i][j]!!.background =
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.tile_to_move
+                                    )
+                            }
+                        }
+                    } else if (x > j && y < i) {
+                        if (x - actualFighter.movementCapacity <= j) {
+                            difference = x - j
+                            result = actualFighter.movementCapacity - difference
+                            if (y + result >= i) {
+                                board[i][j]!!.background =
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.tile_to_move
+                                    )
+                            }
+                        }
+                    } else if (x == j && y < i) {
+                        if (y + actualFighter.movementCapacity >= i) {
+                            board[i][j]!!.background =
+                                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+                        }
+                    } else if (x == j && y > i) {
+                        if (y - actualFighter.movementCapacity <= i) {
+                            board[i][j]!!.background =
+                                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+                        }
+                    } else if (x < j && y == i) {
+                        if (x + actualFighter.movementCapacity >= j) {
+                            board[i][j]!!.background =
+                                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+                        }
+                    } else if (x > j && y == i) {
+                        if (x - actualFighter.movementCapacity <= j) {
+                            board[i][j]!!.background =
+                                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+                        }
                     }
                 }
             }
@@ -428,8 +488,6 @@ class FightFragment : Fragment() {
         } else {
             villainsList.indexOf(villainsList.find { it.id == actualFighter.id })
         }
-
-
     }
 
     private fun checkIfSabotaged() {

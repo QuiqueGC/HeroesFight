@@ -40,22 +40,74 @@ class FighterModel(
 ), FighterActions {
     override fun move(destinationPosition: Position): Boolean {
         var canMove = false
-        val originValue = position.y + position.x
-        val destinationValue = destinationPosition.y + destinationPosition.x
+        var difference: Int
+        var result: Int
+        with(position) {
+            if (x < destinationPosition.x && y < destinationPosition.y) {
+                if (x + movementCapacity >= destinationPosition.x) {
+                    difference = destinationPosition.x - x
+                    result = movementCapacity - difference
 
-        if (originValue < destinationValue) {
-            if (originValue + movementCapacity >= destinationValue) {
-                canMove = true
-                position = Position(destinationPosition.y, destinationPosition.x)
-                movementPerformed = true
-            }
-
-        } else {
-
-            if (originValue - movementCapacity <= destinationValue) {
-                canMove = true
-                position = Position(destinationPosition.y, destinationPosition.x)
-                movementPerformed = true
+                    if (y + result >= destinationPosition.y) {
+                        canMove = true
+                        position = Position(destinationPosition.y, destinationPosition.x)
+                        movementPerformed = true
+                    }
+                }
+            } else if (x > destinationPosition.x && y > destinationPosition.y) {
+                if (x - movementCapacity <= destinationPosition.x) {
+                    difference = x - destinationPosition.x
+                    result = movementCapacity - difference
+                    if (y - result <= destinationPosition.y) {
+                        canMove = true
+                        position = Position(destinationPosition.y, destinationPosition.x)
+                        movementPerformed = true
+                    }
+                }
+            } else if (x < destinationPosition.x && y > destinationPosition.y) {
+                if (x + movementCapacity >= destinationPosition.x) {
+                    difference = destinationPosition.x - x
+                    result = movementCapacity - difference
+                    if (y - result <= destinationPosition.y) {
+                        canMove = true
+                        position = Position(destinationPosition.y, destinationPosition.x)
+                        movementPerformed = true
+                    }
+                }
+            } else if (x > destinationPosition.x && y < destinationPosition.y) {
+                if (x - movementCapacity <= destinationPosition.x) {
+                    difference = x - destinationPosition.x
+                    result = movementCapacity - difference
+                    if (y + result >= destinationPosition.y) {
+                        canMove = true
+                        position = Position(destinationPosition.y, destinationPosition.x)
+                        movementPerformed = true
+                    }
+                }
+            } else if (x == destinationPosition.x && y < destinationPosition.y) {
+                if (y + movementCapacity >= destinationPosition.y) {
+                    canMove = true
+                    position = Position(destinationPosition.y, destinationPosition.x)
+                    movementPerformed = true
+                }
+            } else if (x == destinationPosition.x && y > destinationPosition.y) {
+                if (y - movementCapacity <= destinationPosition.y) {
+                    canMove = true
+                    position = Position(destinationPosition.y, destinationPosition.x)
+                    movementPerformed = true
+                }
+            } else if (x < destinationPosition.x && y == destinationPosition.y) {
+                if (x + movementCapacity >= destinationPosition.x) {
+                    canMove = true
+                    position = Position(destinationPosition.y, destinationPosition.x)
+                    movementPerformed = true
+                }
+            } else if (x > destinationPosition.x && y == destinationPosition.y) {
+                if (x - movementCapacity <= destinationPosition.x) {
+                    canMove = true
+                    position = Position(destinationPosition.y, destinationPosition.x)
+                    movementPerformed = true
+                }
             }
         }
         return canMove
