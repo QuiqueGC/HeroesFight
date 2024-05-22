@@ -286,9 +286,12 @@ class FightFragment : Fragment() {
 
             ivVillainsList[i].setOnClickListener { _ ->
                 showVillainCard(i)
+                binding.btnPass.isEnabled = false
+
             }
             ivHeroesList[i].setOnClickListener {
                 showHeroCard(i)
+                binding.btnPass.isEnabled = false
             }
 
             ivVillainsList[i].setOnLongClickListener {
