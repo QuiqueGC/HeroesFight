@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
-import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
-import com.example.heroes_fight.data.domain.use_case.GetFighterByIdUseCase
+import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
+import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,11 +15,11 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class FightFragmentViewModel @Inject constructor(
-    private val getFighterByIdUseCase: GetFighterByIdUseCase
+    private val getVillainListUseCase: GetVillainListUseCase,
+    private val getHeroesListUseCase: GetHeroesListUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<FightFragmentUiState>(FightFragmentUiState.Loading)
@@ -38,22 +38,34 @@ class FightFragmentViewModel @Inject constructor(
     val dyingFighter: SharedFlow<FighterModel> = _dyingFighter
 
 
-    private val heroesList = ArrayList<FighterModel>()
-    private val villainList = ArrayList<FighterModel>()
-    private val allFightersList = ArrayList<FighterModel>()
+    private var heroesList = ArrayList<FighterModel>()
+    private var villainList = ArrayList<FighterModel>()
+    private var allFightersList = ArrayList<FighterModel>()
 
 
     fun getRandomHeroes() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.emit(FightFragmentUiState.Loading)
-            Log.i("quique", "COGE LA PRIMERA LISTA")
-            addHeroesToStartList()
 
-            Log.i("quique", "COGE LA SEGUNDA LISTA")
-            addVillainsToStartList()
+            do {
+                var repeatedFighter = false
+                allFightersList = ArrayList()
 
-            Log.i("quique", "METE TODOS LOS FIGHTERS EN LA LISTA COMÚN")
-            orderFightersBySpeed()
+                Log.i("quique", "COGE LA PRIMERA LISTA")
+                addHeroesToStartList()
+
+                Log.i("quique", "COGE LA SEGUNDA LISTA")
+                addVillainsToStartList()
+
+                Log.i("quique", "METE TODOS LOS FIGHTERS EN LA LISTA COMÚN")
+                orderFightersBySpeed()
+
+                if (allFightersList.groupBy { it.id }.count() < 10) {
+                    repeatedFighter = true
+                }
+
+            } while (repeatedFighter)
+
 
             Log.i("quique", "EMITE LAS LISTAS")
             _uiState.emit(
@@ -69,28 +81,11 @@ class FightFragmentViewModel @Inject constructor(
     }
 
     private suspend fun addVillainsToStartList() {
-        var startXPosition = 8
-        for (i in 0..4) {
-            Log.i("quique", "vuelta nº $i")
-            val baseResponseForVillain = getFighterByIdUseCase(Random.nextInt(1, 732))
-            if (baseResponseForVillain is BaseResponse.Success) {
-                villainList.add(baseResponseForVillain.data)
-                villainList[i].position = Position(9, startXPosition)
-                villainList[i].isHero = false
-                startXPosition--
-            }
-        }
+        villainList = getVillainListUseCase()
     }
 
     private suspend fun addHeroesToStartList() {
-        for (i in 0..4) {
-            Log.i("quique", "vuelta nº $i")
-            val baseResponseForHero = getFighterByIdUseCase(Random.nextInt(1, 732))
-            if (baseResponseForHero is BaseResponse.Success)
-                heroesList.add(baseResponseForHero.data)
-            heroesList[i].position = Position(0, i)
-            heroesList[i].isHero = true
-        }
+        heroesList = getHeroesListUseCase()
     }
 
     private fun orderFightersBySpeed() {
