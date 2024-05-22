@@ -15,43 +15,43 @@
         android:orientation="horizontal">
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/heroInInitiativeList"
+            style="@style/fighterInInitiativeList"
             tools:src="@drawable/fight" />
     </LinearLayout>
 

@@ -337,6 +337,8 @@ class FightFragment : Fragment() {
                     changeBorderOfActualFighter()
 
                     setBorderAtInitiativeList()
+
+                    showAllViews()
                 }
             }
         }
@@ -381,6 +383,12 @@ class FightFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showAllViews() {
+        binding.linearInitiative.root.visibility = View.VISIBLE
+        ivHeroesList.forEach { it.visibility = View.VISIBLE }
+        ivVillainsList.forEach { it.visibility = View.VISIBLE }
     }
 
     private fun setBorderAtInitiativeList() {

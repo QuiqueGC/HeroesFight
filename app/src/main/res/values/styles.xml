@@ -65,7 +65,7 @@
         <item name="cardElevation">50dp</item>
     </style>
 
-    <style name="heroInInitiativeList">
+    <style name="fighterInInitiativeList">
         <item name="strokeWidth">8dp</item>
         <item name="android:layout_width">@dimen/imgInitiativeSize</item>
         <item name="android:layout_height">@dimen/imgInitiativeSize</item>
@@ -77,6 +77,7 @@
     </style>
 
     <style name="heroInBoardStyle">
+        <item name="android:visibility">gone</item>
         <item name="strokeColor">@color/blueGood</item>
         <item name="strokeWidth">4dp</item>
         <item name="android:layout_width">@dimen/tileSize</item>

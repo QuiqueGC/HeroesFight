@@ -153,7 +153,7 @@ class FighterModel(
         val sabotageRoll = Random.nextInt(1, 101)
         val result: String
 
-        if (sabotageRoll <= intelligence) {
+        if (sabotageRoll < 90 && sabotageRoll <= intelligence) {
             val sabotageDifference = intelligence - sabotageRoll
 
             val enemySabotageDifference = enemy.intelligenceRoll()
@@ -179,7 +179,7 @@ class FighterModel(
         val supportRoll = Random.nextInt(1, 101)
         val result: String
 
-        if (supportRoll <= intelligence) {
+        if (supportRoll < 90 && supportRoll <= intelligence) {
             var supportDifference = intelligence - supportRoll
 
             if (supportDifference > 30) {
@@ -203,7 +203,7 @@ class FighterModel(
         Log.i("quique", "El valor de combat es -> $combat")
         val result: String
 
-        if (attackRoll <= combat + combatBonus) {
+        if (attackRoll <= 90 && attackRoll <= combat + combatBonus) {
             val attackDifference = combat - attackRoll + combatBonus
 
             val enemyDefenceDifference = enemy.defenseRoll()
@@ -253,7 +253,7 @@ class FighterModel(
         val defenceRoll = Random.nextInt(1, 101)
         Log.i("quique", "La tiradad del enemigo de defensa es -> $defenceRoll")
         Log.i("quique", "El combat del defensor es de -> $combat")
-        return if (defenceRoll < combat + defenseBonus + combatBonus) {
+        return if (defenceRoll < 90 && defenceRoll < combat + defenseBonus + combatBonus) {
             combat - defenceRoll + defenseBonus + combatBonus
             Log.i(
                 "quique",
@@ -266,7 +266,7 @@ class FighterModel(
 
     override fun intelligenceRoll(): Int {
         val intelligenceRoll = Random.nextInt(1, 101)
-        return if (intelligenceRoll < intelligence) {
+        return if (intelligenceRoll < 90 && intelligenceRoll < intelligence) {
             intelligence - intelligenceRoll
         } else {
             0
