@@ -79,11 +79,11 @@ class FightFragment : Fragment() {
 
         binding.cardIncludedBad.card.setOnClickListener {
             it.visibility = View.GONE
-            binding.btnPass.visibility = View.VISIBLE
+            binding.btnPass.isEnabled = true
         }
         binding.cardIncludedGood.card.setOnClickListener {
             it.visibility = View.GONE
-            binding.btnPass.visibility = View.VISIBLE
+            binding.btnPass.isEnabled = true
         }
     }
 
