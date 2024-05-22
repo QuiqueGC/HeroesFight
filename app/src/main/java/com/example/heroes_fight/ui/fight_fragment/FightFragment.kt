@@ -589,7 +589,7 @@ class FightFragment : Fragment() {
     private fun showImgWithGlide(url: String, imageView: ShapeableImageView) {
         Glide.with(requireContext())
             .load(url)
-            .error(R.drawable.fight)
+            .error(R.drawable.question_mark)
             .apply(RequestOptions().centerCrop())
             .into(imageView)
     }
