@@ -161,7 +161,7 @@ class RandomCardFragment : Fragment() {
                 tvPowerContent.text = heroModel.power.toString()
                 Glide.with(requireContext())
                     .load(heroModel.image)
-                    .error(R.drawable.fight)
+                    .error(R.drawable.question_mark)
                     .apply(RequestOptions().centerCrop())
                     .into(imgHero)
             }
@@ -177,7 +177,7 @@ class RandomCardFragment : Fragment() {
                 tvPowerContent.text = heroModel.power.toString()
                 Glide.with(requireContext())
                     .load(heroModel.image)
-                    .error(R.drawable.fight)
+                    .error(R.drawable.question_mark)
                     .apply(RequestOptions().centerCrop())
                     .into(imgHero)
             }
@@ -199,7 +199,7 @@ class RandomCardFragment : Fragment() {
                 tvPowerContent.text = heroModel.power.toString()
                 Glide.with(requireContext())
                     .load(heroModel.image)
-                    .error(R.drawable.fight)
+                    .error(R.drawable.question_mark)
                     .apply(RequestOptions().centerCrop())
                     .into(imgHero)
             }
@@ -215,7 +215,7 @@ class RandomCardFragment : Fragment() {
                 tvPowerContent.text = heroModel.power.toString()
                 Glide.with(requireContext())
                     .load(heroModel.image)
-                    .error(R.drawable.fight)
+                    .error(R.drawable.question_mark)
                     .apply(RequestOptions().centerCrop())
                     .into(imgHero)
             }

@@ -90,7 +90,7 @@ object CardsFiller {
             tvPowerContent.text = fighterModel.power.toString()
             Glide.with(context)
                 .load(fighterModel.image)
-                .error(R.drawable.fight)
+                .error(R.drawable.question_mark)
                 .apply(RequestOptions().centerCrop())
                 .into(imgHero)
         }

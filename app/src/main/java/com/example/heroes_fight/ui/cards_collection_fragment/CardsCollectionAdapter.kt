@@ -67,7 +67,7 @@ class CardsCollectionAdapter(
                     tvPowerContent.text = cardsList[position].power.toString()
                     Glide.with(context)
                         .load(cardsList[position].image)
-                        .error(R.drawable.fight)
+                        .error(R.drawable.question_mark)
                         .apply(RequestOptions().centerCrop())
                         .into(imgHero)
                 }
@@ -88,7 +88,7 @@ class CardsCollectionAdapter(
                     tvPowerContent.text = cardsList[position].power.toString()
                     Glide.with(context)
                         .load(cardsList[position].image)
-                        .error(R.drawable.fight)
+                        .error(R.drawable.question_mark)
                         .apply(RequestOptions().centerCrop())
                         .into(imgHero)
                 }

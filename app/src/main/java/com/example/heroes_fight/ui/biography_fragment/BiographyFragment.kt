@@ -79,7 +79,7 @@ class BiographyFragment : Fragment() {
             Glide.with(requireContext())
                 .load(imgModel.url)
                 .apply(RequestOptions().centerCrop())
-                .error(R.drawable.fight)
+                .error(R.drawable.question_mark)
                 .into(imgHero)
         }
     }
