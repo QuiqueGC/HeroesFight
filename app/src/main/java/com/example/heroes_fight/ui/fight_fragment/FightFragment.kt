@@ -332,7 +332,6 @@ class FightFragment : Fragment() {
                 }
                 true
             }
-
         }
     }
 
@@ -502,7 +501,6 @@ class FightFragment : Fragment() {
         } else {
             ivAllFightersList[ivAllFightersList.size - 1].strokeWidth = 0f
         }
-
 
     }
 

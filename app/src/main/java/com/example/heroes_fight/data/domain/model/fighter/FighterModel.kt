@@ -160,7 +160,7 @@ class FighterModel(
     override fun shot(enemy: FighterModel): String {
         var difference: Int
         var resultOfDistanceDifference: Int
-        var result: String = "Tengo que inicializar la variable no sé por qué"
+        var result = "${enemy.name} is to far"
 
         with(position) {
             if (x < enemy.position.x && y < enemy.position.y) {
@@ -222,12 +222,10 @@ class FighterModel(
             } else if (x > enemy.position.x && y == enemy.position.y) {
                 if (x - distanceToShot <= enemy.position.x) {
 
-
                     result = resolveShot(enemy)
                 }
-            } else {
-                result = "${enemy.name} is to far"
             }
+
         }
         return result
     }
@@ -385,7 +383,7 @@ class FighterModel(
             val enemySpeedDifference = enemy.speedRoll()
             Log.i("quique", "La tiradad del enemigo de speed es -> $enemySpeedDifference")
             if (shotDifference >= enemySpeedDifference) {
-                val damage = (shotDifference - enemySpeedDifference) / 3
+                val damage = (shotDifference - enemySpeedDifference) / 4
 
                 enemy.durability -= damage
                 result = "$name inflicted $damage of damage to ${enemy.name}"

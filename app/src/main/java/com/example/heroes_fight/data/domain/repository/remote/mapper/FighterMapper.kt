@@ -8,7 +8,7 @@ class FighterMapper : ResponseMapper<HeroResponse, FighterModel> {
     override fun fromResponse(response: HeroResponse): FighterModel {
 
         val speed = addedStatValueInNullCase(response.powerstats?.speed)
-        val distance = addedStatValueInNullCase(response.powerstats?.speed)
+        val distanceToShot = addedStatValueInNullCase(response.powerstats?.power)
 
         return FighterModel(
             response.id?.toInt() ?: 0,
@@ -23,7 +23,7 @@ class FighterMapper : ResponseMapper<HeroResponse, FighterModel> {
             addedStatValueInNullCase(response.powerstats?.power),
             addedStatValueInNullCase(response.powerstats?.combat),
             setCapacityToMax10(speed),
-            setCapacityToMax10(distance)
+            setCapacityToMax10(distanceToShot)
         )
     }
 
@@ -48,11 +48,11 @@ class FighterMapper : ResponseMapper<HeroResponse, FighterModel> {
         }
     }
 
-    private fun setCapacityToMax10(speed: Int): Int {
-        return if (speed / 10 < 1) {
+    private fun setCapacityToMax10(statToDivide: Int): Int {
+        return if (statToDivide / 10 < 1) {
             1
         } else {
-            speed / 10
+            statToDivide / 10
         }
     }
 }

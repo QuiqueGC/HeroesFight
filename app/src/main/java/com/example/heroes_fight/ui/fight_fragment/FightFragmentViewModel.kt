@@ -96,7 +96,7 @@ class FightFragmentViewModel @Inject constructor(
         var totalPowerStats = 0
         for (fighter in heroesList) {
             with(fighter) {
-                totalPowerStats += intelligence + speed + durability + strength + combat
+                totalPowerStats += intelligence + speed + durability + strength + combat + power
             }
         }
         return totalPowerStats
