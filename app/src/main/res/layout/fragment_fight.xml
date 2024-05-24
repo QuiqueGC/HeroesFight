@@ -557,126 +557,143 @@
         app:layout_constraintTop_toBottomOf="@id/v9i" />
 
     <include
-        android:visibility="gone"
         android:id="@+id/linearInitiative"
         layout="@layout/linear_list_initiative"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/imgInitiativeSize" />
+        android:layout_height="@dimen/imgInitiativeSize"
+        android:visibility="gone" />
+
+
+    <ImageView
+        android:id="@+id/ivSpeechBubble"
+        android:visibility="gone"
+        android:layout_width="@dimen/speechBubbleWidth"
+        android:layout_height="@dimen/speechBubbleHeight"
+        android:scaleType="centerInside"
+        android:src="@drawable/speech_bubble_background4"
+        app:layout_constraintBottom_toTopOf="@id/vBoard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvTurn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:background="@color/white"
+        android:layout_marginHorizontal="@dimen/marginTxtInBubble"
+        android:layout_marginTop="@dimen/marginTxtInBubble"
         android:fontFamily="@font/fighting_spirit_2_bold"
-        android:textColor="@color/redBad"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAlignment="center"
+        android:textColor="@color/blueGood"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/ivSpeechBubble"
+        app:layout_constraintStart_toStartOf="@id/ivSpeechBubble"
+        app:layout_constraintTop_toTopOf="@id/ivSpeechBubble"
+        tools:text="Manolo's turn" />
 
     <TextView
         android:id="@+id/tvInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/marginTxtInBubble"
+        android:layout_marginTop="@dimen/marginMin"
+        android:fontFamily="@font/fighting_spirit_2"
+        android:textAlignment="center"
         android:textColor="@color/redBad"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTurn" />
+        app:layout_constraintBottom_toBottomOf="@id/ivSpeechBubble"
+        app:layout_constraintEnd_toEndOf="@id/ivSpeechBubble"
+        app:layout_constraintStart_toStartOf="@id/ivSpeechBubble"
+        app:layout_constraintTop_toBottomOf="@id/tvTurn"
+        tools:text="Manolo did 450 damage to each hero" />
 
     <ImageView
         android:id="@+id/ivRock0"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock1"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock2"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock3"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock4"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock5"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock6"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock7"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock8"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock9"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock10"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock11"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock12"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock13"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock14"
         style="@style/rock"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -853,6 +870,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnSabotage"
         app:layout_constraintTop_toBottomOf="@id/btnAttack" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

@@ -416,6 +416,7 @@ class FightFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.actualFighter.collect { actualFighter ->
                 if (actualFighter.id != 0) {
+                    binding.ivSpeechBubble.visibility = View.VISIBLE
                     binding.tvInfo.text = getString(R.string.choiceAction)
 
                     this@FightFragment.actualFighter = actualFighter
