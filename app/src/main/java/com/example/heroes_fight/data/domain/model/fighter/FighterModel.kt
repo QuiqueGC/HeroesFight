@@ -5,6 +5,7 @@ import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.utils.Bresenham
+import kotlin.math.abs
 import kotlin.random.Random
 
 class FighterModel(
@@ -195,6 +196,8 @@ class FighterModel(
                         if (fighter.isHero != isHero) {
                             Log.i("quique", "${fighter.name} ESTÁ EN EL MEDIO")
                             thereIsAnotherFighter = true
+                        } else if (abs((position.x + position.y) - (fighter.position.x + fighter.position.y)) > 1) {
+                            thereIsAnotherFighter = true
                         }
                     }
                 }
@@ -270,7 +273,7 @@ class FighterModel(
         } else if (thereIsRock) {
             result = "The enemy is under cover"
         } else {
-            result = "The enemy is covered by his ally"
+            result = "The enemy is behind other fighter"
         }
 
         return result
@@ -429,7 +432,7 @@ class FighterModel(
             val enemySpeedDifference = enemy.speedRoll()
             Log.i("quique", "La tiradad del enemigo de speed es -> $enemySpeedDifference")
             if (shotDifference >= enemySpeedDifference) {
-                var damage = (shotDifference - enemySpeedDifference) / 4
+                var damage = (shotDifference - enemySpeedDifference) / 5
                 if (damage < 1) {
                     damage = 1
                 }

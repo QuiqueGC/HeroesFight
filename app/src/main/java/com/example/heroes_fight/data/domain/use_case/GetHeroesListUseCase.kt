@@ -14,10 +14,12 @@ class GetHeroesListUseCase @Inject constructor(private val getFighterByIdUseCase
         for (i in 0..4) {
             Log.i("quique", "vuelta nº $i")
             val baseResponseForHero = getFighterByIdUseCase(Random.nextInt(1, 732))
-            if (baseResponseForHero is BaseResponse.Success)
+            if (baseResponseForHero is BaseResponse.Success) {
                 heroesList.add(baseResponseForHero.data)
-            heroesList[i].position = Position(0, i)
-            heroesList[i].isHero = true
+                heroesList[i].position = Position(0, i)
+                heroesList[i].isHero = true
+            }
+
         }
         return heroesList
     }

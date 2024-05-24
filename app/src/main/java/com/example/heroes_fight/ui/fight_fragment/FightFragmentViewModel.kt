@@ -159,7 +159,7 @@ class FightFragmentViewModel @Inject constructor(
         val allFightersToCheck = ArrayList<FighterModel>()
         allFightersToCheck.addAll(heroesList)
         allFightersToCheck.addAll(villainList)
-
+        allFightersToCheck.removeAll { it.durability <= 0 }
         if (!_actualFighter.value.actionPerformed) {
             val resultOfShot = _actualFighter.value.shot(enemyToAttack, rocks, allFightersToCheck)
 

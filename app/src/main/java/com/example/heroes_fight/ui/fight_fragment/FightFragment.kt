@@ -159,7 +159,7 @@ class FightFragment : Fragment() {
                 board[y + 1][x]!!.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
             }
-            if (x < 9) {
+            if (x < 8) {
                 board[y][x + 1]!!.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
             }
