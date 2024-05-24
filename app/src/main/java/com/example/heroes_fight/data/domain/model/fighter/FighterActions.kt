@@ -1,6 +1,7 @@
 package com.example.heroes_fight.data.domain.model.fighter
 
 import com.example.heroes_fight.data.domain.model.common.Position
+import com.example.heroes_fight.data.domain.model.common.RockModel
 
 interface FighterActions {
 
@@ -19,5 +20,9 @@ interface FighterActions {
     fun defense(): String
     fun support(ally: FighterModel): String
 
-    fun shot(enemy: FighterModel): String
+    fun shot(
+        enemy: FighterModel,
+        rocks: ArrayList<RockModel>,
+        allFightersList: ArrayList<FighterModel>
+    ): String
 }

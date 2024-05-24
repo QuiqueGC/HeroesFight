@@ -2,7 +2,9 @@ package com.example.heroes_fight.data.domain.model.fighter
 
 import android.util.Log
 import com.example.heroes_fight.data.domain.model.common.Position
+import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
+import com.example.heroes_fight.utils.Bresenham
 import kotlin.random.Random
 
 class FighterModel(
@@ -157,76 +159,120 @@ class FighterModel(
         }
     }
 
-    override fun shot(enemy: FighterModel): String {
+    override fun shot(
+        enemy: FighterModel,
+        rocks: ArrayList<RockModel>,
+        allFightersList: ArrayList<FighterModel>
+    ): String {
         var difference: Int
         var resultOfDistanceDifference: Int
         var result = "${enemy.name} is to far"
+        val cellsInTheBulletTrajectory =
+            Bresenham.calculateBulletTrajectory(position, enemy.position)
+        var thereIsRock = false
+        var thereIsAnotherFighter = false
 
-        with(position) {
-            if (x < enemy.position.x && y < enemy.position.y) {
-                if (x + distanceToShot >= enemy.position.x) {
-                    difference = enemy.position.x - x
-                    resultOfDistanceDifference = distanceToShot - difference
-
-                    if (y + resultOfDistanceDifference >= enemy.position.y) {
-
-                        result = resolveShot(enemy)
-                    }
-                }
-            } else if (x > enemy.position.x && y > enemy.position.y) {
-                if (x - distanceToShot <= enemy.position.x) {
-                    difference = x - enemy.position.x
-                    resultOfDistanceDifference = distanceToShot - difference
-                    if (y - resultOfDistanceDifference <= enemy.position.y) {
-
-                        result = resolveShot(enemy)
-                    }
-                }
-            } else if (x < enemy.position.x && y > enemy.position.y) {
-                if (x + distanceToShot >= enemy.position.x) {
-                    difference = enemy.position.x - x
-                    resultOfDistanceDifference = distanceToShot - difference
-                    if (y - resultOfDistanceDifference <= enemy.position.y) {
-
-                        result = resolveShot(enemy)
-                    }
-                }
-            } else if (x > enemy.position.x && y < enemy.position.y) {
-                if (x - distanceToShot <= enemy.position.x) {
-                    difference = x - enemy.position.x
-                    resultOfDistanceDifference = distanceToShot - difference
-                    if (y + resultOfDistanceDifference >= enemy.position.y) {
-
-
-                        result = resolveShot(enemy)
-                    }
-                }
-            } else if (x == enemy.position.x && y < enemy.position.y) {
-                if (y + distanceToShot >= enemy.position.y) {
-
-
-                    result = resolveShot(enemy)
-                }
-            } else if (x == enemy.position.x && y > enemy.position.y) {
-                if (y - distanceToShot <= enemy.position.y) {
-
-
-                    result = resolveShot(enemy)
-                }
-            } else if (x < enemy.position.x && y == enemy.position.y) {
-                if (x + distanceToShot >= enemy.position.x) {
-
-
-                    result = resolveShot(enemy)
-                }
-            } else if (x > enemy.position.x && y == enemy.position.y) {
-                if (x - distanceToShot <= enemy.position.x) {
-
-                    result = resolveShot(enemy)
+        for (rock in rocks) {
+            for (cell in cellsInTheBulletTrajectory) {
+                if (cell.y == rock.position.y && cell.x == rock.position.x) {
+                    thereIsRock = true
                 }
             }
-
         }
+
+        Log.i("quique", "CHEQUEO DE HUMANOS EN MEDIO")
+        Log.i("quique", "CHEQUEO DE HUMANOS EN MEDIO")
+        for (fighter in allFightersList) {
+            if (fighter.name != name && fighter.name != enemy.name) {
+                Log.i(
+                    "quique",
+                    "Héroe ${fighter.name}, con posición: ${fighter.position.y}, ${fighter.position.x}"
+                )
+                Log.i("quique", "AHORA VIENEN LAS CELDAS A COMPARARSE CON LA POSICIÓN DEL HÉROE")
+                for (cell in cellsInTheBulletTrajectory) {
+                    Log.i("quique", "Posición de la celda ${cell.y}, ${cell.x}")
+                    if (cell.y == fighter.position.y && cell.x == fighter.position.x) {
+                        if (fighter.isHero != isHero) {
+                            Log.i("quique", "${fighter.name} ESTÁ EN EL MEDIO")
+                            thereIsAnotherFighter = true
+                        }
+                    }
+                }
+            }
+        }
+
+
+        if (!thereIsRock && !thereIsAnotherFighter) {
+            with(position) {
+                if (x < enemy.position.x && y < enemy.position.y) {
+                    if (x + distanceToShot >= enemy.position.x) {
+                        difference = enemy.position.x - x
+                        resultOfDistanceDifference = distanceToShot - difference
+
+                        if (y + resultOfDistanceDifference >= enemy.position.y) {
+
+                            result = resolveShot(enemy)
+                        }
+                    }
+                } else if (x > enemy.position.x && y > enemy.position.y) {
+                    if (x - distanceToShot <= enemy.position.x) {
+                        difference = x - enemy.position.x
+                        resultOfDistanceDifference = distanceToShot - difference
+                        if (y - resultOfDistanceDifference <= enemy.position.y) {
+
+                            result = resolveShot(enemy)
+                        }
+                    }
+                } else if (x < enemy.position.x && y > enemy.position.y) {
+                    if (x + distanceToShot >= enemy.position.x) {
+                        difference = enemy.position.x - x
+                        resultOfDistanceDifference = distanceToShot - difference
+                        if (y - resultOfDistanceDifference <= enemy.position.y) {
+
+                            result = resolveShot(enemy)
+                        }
+                    }
+                } else if (x > enemy.position.x && y < enemy.position.y) {
+                    if (x - distanceToShot <= enemy.position.x) {
+                        difference = x - enemy.position.x
+                        resultOfDistanceDifference = distanceToShot - difference
+                        if (y + resultOfDistanceDifference >= enemy.position.y) {
+
+
+                            result = resolveShot(enemy)
+                        }
+                    }
+                } else if (x == enemy.position.x && y < enemy.position.y) {
+                    if (y + distanceToShot >= enemy.position.y) {
+
+
+                        result = resolveShot(enemy)
+                    }
+                } else if (x == enemy.position.x && y > enemy.position.y) {
+                    if (y - distanceToShot <= enemy.position.y) {
+
+
+                        result = resolveShot(enemy)
+                    }
+                } else if (x < enemy.position.x && y == enemy.position.y) {
+                    if (x + distanceToShot >= enemy.position.x) {
+
+
+                        result = resolveShot(enemy)
+                    }
+                } else if (x > enemy.position.x && y == enemy.position.y) {
+                    if (x - distanceToShot <= enemy.position.x) {
+
+                        result = resolveShot(enemy)
+                    }
+                }
+            }
+        } else if (thereIsRock) {
+            result = "The enemy is under cover"
+        } else {
+            result = "The enemy is covered by his ally"
+        }
+
         return result
     }
 
@@ -383,8 +429,10 @@ class FighterModel(
             val enemySpeedDifference = enemy.speedRoll()
             Log.i("quique", "La tiradad del enemigo de speed es -> $enemySpeedDifference")
             if (shotDifference >= enemySpeedDifference) {
-                val damage = (shotDifference - enemySpeedDifference) / 4
-
+                var damage = (shotDifference - enemySpeedDifference) / 4
+                if (damage < 1) {
+                    damage = 1
+                }
                 enemy.durability -= damage
                 result = "$name inflicted $damage of damage to ${enemy.name}"
 

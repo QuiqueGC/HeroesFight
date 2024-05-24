@@ -16,5 +16,5 @@
     <dimen name="cardStatsWidth">275dp</dimen>
     <dimen name="cardStatsHeight">200dp</dimen>
     <dimen name="imgInitiativeSize">64dp</dimen>
-    <dimen name="imgHeroInsideCard">140dp</dimen>
+    <dimen name="imgHeroInsideCard">280dp</dimen>
 </resources>

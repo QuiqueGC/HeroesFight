@@ -99,4 +99,12 @@
         <item name="android:focusable">true</item>
         <item name="android:background">@drawable/tile_base</item>
     </style>
+
+    <style name="rock" parent="tile">
+        <item name="android:src">@drawable/obstacle_rock</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:importantForAccessibility">no</item>
+
+    </style>
 </resources>

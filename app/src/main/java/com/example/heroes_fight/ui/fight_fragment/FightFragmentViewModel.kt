@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.common.Position
+import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
@@ -154,9 +155,14 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun performShot(enemyToAttack: FighterModel) {
+    fun performShot(enemyToAttack: FighterModel, rocks: ArrayList<RockModel>) {
+        val allFightersToCheck = ArrayList<FighterModel>()
+        allFightersToCheck.addAll(heroesList)
+        allFightersToCheck.addAll(villainList)
+
         if (!_actualFighter.value.actionPerformed) {
-            val resultOfShot = _actualFighter.value.shot(enemyToAttack)
+            val resultOfShot = _actualFighter.value.shot(enemyToAttack, rocks, allFightersToCheck)
+
             viewModelScope.launch {
                 _actionResult.emit(resultOfShot)
             }

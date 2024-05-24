@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
 import com.example.heroes_fight.data.domain.model.common.Position
+import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.databinding.FragmentFightBinding
 import com.example.heroes_fight.utils.CardsFiller
@@ -22,6 +24,7 @@ import com.example.heroes_fight.utils.PlayerChoice
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class FightFragment : Fragment() {
@@ -39,6 +42,10 @@ class FightFragment : Fragment() {
     private val ivHeroesList = ArrayList<ShapeableImageView>()
     private val ivVillainsList = ArrayList<ShapeableImageView>()
     private val ivAllFightersList = ArrayList<ShapeableImageView>()
+
+    // TODO: prueba disparos
+    private val rocks = ArrayList<RockModel>()
+    private val ivRocks = ArrayList<ImageView>()
 
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
     private var indexOfActualFighter = -1
@@ -64,6 +71,7 @@ class FightFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         setupBoard()
 
@@ -313,9 +321,7 @@ class FightFragment : Fragment() {
                     PlayerChoice.DEFEND -> performDefense(i, false)
                     PlayerChoice.SUPPORT -> performSupport(i, false)
                     PlayerChoice.SHOT -> performShot(i, false)
-                    else -> {
-                        showToast("Choice an action")
-                    }
+                    else -> showToast("Choice an action")
                 }
                 true
             }
@@ -326,9 +332,7 @@ class FightFragment : Fragment() {
                     PlayerChoice.DEFEND -> performDefense(i, true)
                     PlayerChoice.SUPPORT -> performSupport(i, true)
                     PlayerChoice.SHOT -> performShot(i, true)
-                    else -> {
-                        showToast("Choice an action")
-                    }
+                    else -> showToast("Choice an action")
                 }
                 true
             }
@@ -377,9 +381,9 @@ class FightFragment : Fragment() {
 
     private fun performShot(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
         if (!actualFighter.isHero && isClickOnHero) {
-            viewModel.performShot(heroesList[indexOfFighterSelected])
+            viewModel.performShot(heroesList[indexOfFighterSelected], rocks)
         } else if (actualFighter.isHero && !isClickOnHero) {
-            viewModel.performShot(villainsList[indexOfFighterSelected])
+            viewModel.performShot(villainsList[indexOfFighterSelected], rocks)
         } else {
             showToast("Don't shot your own team")
         }
@@ -485,9 +489,9 @@ class FightFragment : Fragment() {
 
     private fun showAllViews() {
         if (isFirstTurn) {
-        binding.linearInitiative.root.visibility = View.VISIBLE
-        ivHeroesList.forEach { it.visibility = View.VISIBLE }
-        ivVillainsList.forEach { it.visibility = View.VISIBLE }
+            binding.linearInitiative.root.visibility = View.VISIBLE
+            ivHeroesList.forEach { it.visibility = View.VISIBLE }
+            ivVillainsList.forEach { it.visibility = View.VISIBLE }
             isFirstTurn = false
         }
     }
@@ -583,6 +587,69 @@ class FightFragment : Fragment() {
                     imgVillain4
                 )
             )
+            ivRocks.addAll(
+                listOf(
+                    ivRock0,
+                    ivRock1,
+                    ivRock2,
+                    ivRock3,
+                    ivRock4,
+                    ivRock5,
+                    ivRock6,
+                    ivRock7,
+                    ivRock8,
+                    ivRock9,
+                    ivRock10,
+                    ivRock11,
+                    ivRock12,
+                    ivRock13,
+                    ivRock14
+                )
+            )
+        }
+
+        // TODO: esta función no debería estar aquí
+        //  tengo que refactorizar el código antes
+        //  de seguir avanzando con otra cosa
+        getRocks()
+
+        putRocks()
+    }
+
+    private fun putRocks() {
+        for (i in 0 until rocks.size) {
+
+            ivRocks[i].visibility = View.VISIBLE
+
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(binding.root)
+
+            constraintSet.connect(
+                ivRocks[i].id,
+                ConstraintSet.TOP,
+                board[rocks[i].position.y][rocks[i].position.x]!!.id,
+                ConstraintSet.TOP
+            )
+            constraintSet.connect(
+                ivRocks[i].id,
+                ConstraintSet.START,
+                board[rocks[i].position.y][rocks[i].position.x]!!.id,
+                ConstraintSet.START
+            )
+            Log.i(
+                "quique",
+                "Posición de la roca nº $i, y = ${rocks[i].position.y}, x = ${rocks[i].position.x}"
+            )
+            constraintSet.applyTo(binding.root)
+        }
+    }
+
+    private fun getRocks() {
+        val randomQuantityRocks = Random.nextInt(8, 16)
+        for (i in 1..randomQuantityRocks) {
+            val randomY = Random.nextInt(1, 9)
+            val randomX = Random.nextInt(0, 9)
+            rocks.add(RockModel(Position(randomY, randomX)))
         }
     }
 
