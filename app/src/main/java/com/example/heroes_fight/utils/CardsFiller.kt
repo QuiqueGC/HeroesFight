@@ -1,6 +1,7 @@
 package com.example.heroes_fight.utils
 
 import android.content.Context
+import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
@@ -53,17 +54,30 @@ object CardsFiller {
         fighterModel: FighterModel,
         context: Context
     ) {
-        val actualCombatValue: Int =
-            fighterModel.combat + fighterModel.combatBonus + fighterModel.defenseBonus
+
         with(card) {
+            ivBonus.visibility = View.VISIBLE
+            ivDefense.visibility = View.VISIBLE
+            tvBonusValue.visibility = View.VISIBLE
+            tvDefenseValue.visibility = View.VISIBLE
+            btnBiography.visibility = View.GONE
+            btnAppearance.visibility = View.GONE
+
             tvId.text = fighterModel.serialNum
             tvName.text = fighterModel.name
             tvStrengthContent.text = fighterModel.strength.toString()
-            tvCombatContent.text = actualCombatValue.toString()
+            tvCombatContent.text = fighterModel.combat.toString()
             tvIntelligenceContent.text = fighterModel.intelligence.toString()
             tvSpeedContent.text = fighterModel.speed.toString()
             tvDurabilityContent.text = fighterModel.durability.toString()
             tvPowerContent.text = fighterModel.power.toString()
+            tvBonusValue.text = "+${fighterModel.combatBonus}"
+            tvDefenseValue.text = "+${fighterModel.defenseBonus}"
+            if (fighterModel.isSabotaged) {
+                ivSabotaged.visibility = View.VISIBLE
+            } else {
+                ivSabotaged.visibility = View.GONE
+            }
             Glide.with(context)
                 .load(fighterModel.image)
                 .error(R.drawable.fight)
@@ -77,17 +91,30 @@ object CardsFiller {
         fighterModel: FighterModel,
         context: Context
     ) {
-        val actualCombatValue: Int =
-            fighterModel.combat + fighterModel.combatBonus + fighterModel.defenseBonus
+
         with(card) {
+            ivBonus.visibility = View.VISIBLE
+            ivDefense.visibility = View.VISIBLE
+            tvBonusValue.visibility = View.VISIBLE
+            tvDefenseValue.visibility = View.VISIBLE
+            btnBiography.visibility = View.GONE
+            btnAppearance.visibility = View.GONE
+
             tvId.text = fighterModel.serialNum
             tvName.text = fighterModel.name
             tvStrengthContent.text = fighterModel.strength.toString()
-            tvCombatContent.text = actualCombatValue.toString()
+            tvCombatContent.text = fighterModel.combat.toString()
             tvIntelligenceContent.text = fighterModel.intelligence.toString()
             tvSpeedContent.text = fighterModel.speed.toString()
             tvDurabilityContent.text = fighterModel.durability.toString()
             tvPowerContent.text = fighterModel.power.toString()
+            tvBonusValue.text = "+${fighterModel.combatBonus}"
+            tvDefenseValue.text = "+${fighterModel.defenseBonus}"
+            if (fighterModel.isSabotaged) {
+                ivSabotaged.visibility = View.VISIBLE
+            } else {
+                ivSabotaged.visibility = View.GONE
+            }
             Glide.with(context)
                 .load(fighterModel.image)
                 .error(R.drawable.question_mark)

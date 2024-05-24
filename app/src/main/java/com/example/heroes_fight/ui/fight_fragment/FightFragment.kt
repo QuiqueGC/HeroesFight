@@ -709,8 +709,6 @@ class FightFragment : Fragment() {
             requireContext()
         )
         binding.cardIncludedGood.card.visibility = View.VISIBLE
-        binding.cardIncludedGood.btnAppearance.visibility = View.GONE
-        binding.cardIncludedGood.btnBiography.visibility = View.GONE
     }
 
     private fun showVillainCard(indexOfVillain: Int) {
@@ -720,7 +718,5 @@ class FightFragment : Fragment() {
             requireContext()
         )
         binding.cardIncludedBad.card.visibility = View.VISIBLE
-        binding.cardIncludedBad.btnAppearance.visibility = View.GONE
-        binding.cardIncludedBad.btnBiography.visibility = View.GONE
     }
 }

@@ -12,7 +12,7 @@
     <dimen name="boardWidth">720dp</dimen>
     <dimen name="boardHeight">800dp</dimen>
     <dimen name="cardWidth">680dp</dimen>
-    <dimen name="cardHeight">1320dp</dimen>
+    <dimen name="cardHeight">1200dp</dimen>
     <dimen name="cardStatsWidth">550dp</dimen>
     <dimen name="cardStatsHeight">400dp</dimen>
     <dimen name="imgInitiativeSize">128dp</dimen>

@@ -241,5 +241,64 @@
             android:layout_marginStart="@dimen/marginCommon"
             android:layout_marginBottom="@dimen/marginCommon" />
 
+        <TextView
+            android:id="@+id/tvDefenseValue"
+            style="@style/txtBoldWhiteSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/ivDefense"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats"
+            tools:text="+35" />
+
+        <ImageView
+            android:id="@+id/ivDefense"
+            android:layout_width="@dimen/tileSize"
+            android:layout_height="@dimen/tileSize"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/marginCommon"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats"
+            android:src="@drawable/ic_shield" />
+
+
+        <TextView
+            android:id="@+id/tvBonusValue"
+            style="@style/txtBoldWhiteSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/marginCommon"
+            app:layout_constraintEnd_toStartOf="@id/glCenterVertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats"
+            tools:text="+35" />
+
+        <ImageView
+            android:id="@+id/ivBonus"
+            android:layout_width="@dimen/tileSize"
+            android:layout_height="@dimen/tileSize"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/tvBonusValue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats"
+            android:src="@drawable/ic_bonus" />
+
+        <ImageView
+            android:id="@+id/ivSabotaged"
+            android:layout_width="@dimen/cardStatsHeight"
+            android:layout_height="@dimen/cardStatsHeight"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toTopOf="@id/vCardStats"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintBottom_toBottomOf="@id/vCardStats"
+            android:src="@drawable/ic_sabotaged" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
