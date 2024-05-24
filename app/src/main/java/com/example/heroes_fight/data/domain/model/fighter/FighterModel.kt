@@ -145,21 +145,6 @@ class FighterModel(
     }
 
 
-    override fun speedRoll(): Int {
-        val speedRoll = Random.nextInt(1, 101)
-        Log.i("quique", "La tiradad del enemigo de defensa es -> $speedRoll")
-        Log.i("quique", "El combat del defensor es de -> $combat")
-        return if (speedRoll < 90 && speedRoll < speed) {
-            speed - speedRoll
-            Log.i(
-                "quique",
-                "El resultado de combat - defenceRoll + defenseBonus en la siguiente línea"
-            )
-        } else {
-            0
-        }
-    }
-
     override fun shot(
         enemy: FighterModel,
         rocks: ArrayList<RockModel>,
@@ -349,7 +334,7 @@ class FighterModel(
         if (sabotageRoll < 90 && sabotageRoll <= intelligence) {
             val sabotageDifference = intelligence - sabotageRoll
 
-            val enemySabotageDifference = enemy.intelligenceRoll()
+            val enemySabotageDifference = enemy.getIntelligenceRoll()
 
             if (sabotageDifference >= enemySabotageDifference) {
 
@@ -399,7 +384,7 @@ class FighterModel(
         if (attackRoll <= 90 && attackRoll <= combat + combatBonus) {
             val attackDifference = combat - attackRoll + combatBonus
 
-            val enemyDefenceDifference = enemy.defenseRoll()
+            val enemyDefenceDifference = enemy.getDefenseRoll()
             Log.i("quique", "La tiradad del enemigo de defensa es -> $enemyDefenceDifference")
             if (attackDifference >= enemyDefenceDifference) {
                 var damageBonus = attackDifference - enemyDefenceDifference
@@ -429,7 +414,7 @@ class FighterModel(
         if (shotRoll <= 90 && shotRoll <= power) {
             val shotDifference = power - shotRoll
 
-            val enemySpeedDifference = enemy.speedRoll()
+            val enemySpeedDifference = enemy.getDodgeRoll()
             Log.i("quique", "La tiradad del enemigo de speed es -> $enemySpeedDifference")
             if (shotDifference >= enemySpeedDifference) {
                 var damage = (shotDifference - enemySpeedDifference) / 5
@@ -476,12 +461,12 @@ class FighterModel(
     }
 
 
-    override fun defenseRoll(): Int {
-        val defenceRoll = Random.nextInt(1, 101)
-        Log.i("quique", "La tiradad del enemigo de defensa es -> $defenceRoll")
+    override fun getDefenseRoll(): Int {
+        val defenseRoll = Random.nextInt(1, 101)
+        Log.i("quique", "La tiradad del enemigo de defensa es -> $defenseRoll")
         Log.i("quique", "El combat del defensor es de -> $combat")
-        return if (defenceRoll < 90 && defenceRoll < combat + defenseBonus + combatBonus) {
-            combat - defenceRoll + defenseBonus + combatBonus
+        return if (defenseRoll < 90 && defenseRoll < combat + defenseBonus + combatBonus) {
+            combat - defenseRoll + defenseBonus + combatBonus
             Log.i(
                 "quique",
                 "El resultado de combat - defenceRoll + defenseBonus en la siguiente línea"
@@ -491,10 +476,25 @@ class FighterModel(
         }
     }
 
-    override fun intelligenceRoll(): Int {
+    override fun getIntelligenceRoll(): Int {
         val intelligenceRoll = Random.nextInt(1, 101)
         return if (intelligenceRoll < 90 && intelligenceRoll < intelligence) {
             intelligence - intelligenceRoll
+        } else {
+            0
+        }
+    }
+
+    override fun getDodgeRoll(): Int {
+        val speedRoll = Random.nextInt(1, 101)
+        Log.i("quique", "La tiradad del enemigo de defensa es -> $speedRoll")
+        Log.i("quique", "El combat del defensor es de -> $combat")
+        return if (speedRoll < 90 && speedRoll < speed + defenseBonus) {
+            speed - speedRoll + defenseBonus
+            Log.i(
+                "quique",
+                "El resultado de combat - defenceRoll + defenseBonus en la siguiente línea"
+            )
         } else {
             0
         }

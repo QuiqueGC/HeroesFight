@@ -9,11 +9,11 @@ interface FighterActions {
 
     fun attack(enemy: FighterModel): String
 
-    fun defenseRoll(): Int
+    fun getDefenseRoll(): Int
 
-    fun intelligenceRoll(): Int
+    fun getIntelligenceRoll(): Int
 
-    fun speedRoll(): Int
+    fun getDodgeRoll(): Int
 
     fun sabotage(enemy: FighterModel): String
 
