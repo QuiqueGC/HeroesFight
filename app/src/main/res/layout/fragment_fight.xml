@@ -794,78 +794,67 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:text="Pass"
+        android:backgroundTint="@color/redBad"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/vBoard"
         app:layout_constraintEnd_toEndOf="@id/vBoard" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnMove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="Mov"
-        android:textSize="16sp"
+        style="@style/actionBtn"
+        android:textOn="Mov"
+        android:textOff="Mov"
         app:layout_constraintBottom_toTopOf="@id/btnSupport"
         app:layout_constraintEnd_toStartOf="@id/btnAttack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnAttack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="Atck!"
-        android:textSize="16sp"
+        style="@style/actionBtn"
+        android:textOn="Atck!"
+        android:textOff="Atck!"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toStartOf="@id/btnDefend"
         app:layout_constraintStart_toEndOf="@id/btnMove"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnDefend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="Def"
-        android:textSize="16sp"
+        style="@style/actionBtn"
+        android:textOn="Def"
+        android:textOff="Def"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnAttack"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnSupport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="Sup"
-        android:textSize="16sp"
+        style="@style/actionBtn"
+        android:textOn="Sup"
+        android:textOff="Sup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnSabotage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnMove" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnSabotage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="Sab"
-        android:textSize="16sp"
+        style="@style/actionBtn"
+        android:textOn="Sab"
+        android:textOff="Sab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnShot"
         app:layout_constraintStart_toEndOf="@id/btnSupport"
         app:layout_constraintTop_toBottomOf="@id/btnAttack" />
 
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnShot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="Shot"
-        android:textSize="16sp"
+        style="@style/actionBtn"
+        android:textOn="Shot"
+        android:textOff="Shot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnSabotage"
