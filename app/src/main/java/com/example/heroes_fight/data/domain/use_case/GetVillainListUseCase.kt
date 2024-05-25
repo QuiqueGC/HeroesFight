@@ -9,9 +9,9 @@ import kotlin.random.Random
 
 class GetVillainListUseCase @Inject constructor(private val getFighterByIdUseCase: GetFighterByIdUseCase) {
 
-    suspend operator fun invoke(): ArrayList<FighterModel> {
+    suspend operator fun invoke(): MutableList<FighterModel> {
         var startXPosition = 8
-        val villainList = ArrayList<FighterModel>()
+        val villainList = mutableListOf<FighterModel>()
         for (i in 0..4) {
             Log.i("quique", "vuelta nº $i")
             val baseResponseForVillain = getFighterByIdUseCase(Random.nextInt(1, 732))

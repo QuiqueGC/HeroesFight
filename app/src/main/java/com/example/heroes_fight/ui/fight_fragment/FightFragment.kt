@@ -592,10 +592,10 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun putHeroesInTheInitiativeList(allFightersSorted: ArrayList<FighterModel>) {
+    private fun putHeroesInTheInitiativeList(allFightersSorted: List<FighterModel>) {
         allFightersList.addAll(allFightersSorted)
 
-        for (i in 0 until allFightersSorted.size) {
+        for (i in allFightersSorted.indices) {
             ivAllFightersList.add(binding.linearInitiative.linearLayout.getChildAt(i) as ShapeableImageView)
             showImgWithGlide(
                 allFightersSorted[i].image,
@@ -631,8 +631,8 @@ class FightFragment : Fragment() {
     }
 
     private fun showHeroesMiniatures(
-        heroesList: ArrayList<FighterModel>,
-        villainsList: ArrayList<FighterModel>
+        heroesList: List<FighterModel>,
+        villainsList: List<FighterModel>
     ) {
         for (i in 0 until heroesList.size) {
             with(binding) {
