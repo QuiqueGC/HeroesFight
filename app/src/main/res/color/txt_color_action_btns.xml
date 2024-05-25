@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- res/color/button_text_color_selector.xml -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:state_enabled="false" android:color="#22FFFFFF" />
 
-    <item android:state_checked="true" android:color="@color/blueGood" />
-
-    <item android:state_checked="false" android:color="@color/redBad" />
+    <item android:state_enabled="true" android:color="@color/white" />
 </selector>

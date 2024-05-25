@@ -106,118 +106,93 @@ class FightFragment : Fragment() {
     private fun setupBtnActionsListeners() {
         with(binding) {
             btnMove.setOnClickListener {
-                if (btnMove.isChecked) {
+                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
                     repaintBoard()
                     playerChoice = PlayerChoice.MOVE
                     tvInfo.text = getString(R.string.selectCellToMove)
                     paintAccessibleTiles(actualFighter.movementCapacity)
-                    btnAttack.isChecked = false
-                    btnDefend.isChecked = false
-                    btnSupport.isChecked = false
-                    btnSabotage.isChecked = false
-                    btnShot.isChecked = false
-                } else {
-                    repaintBoard()
-                    playerChoice = PlayerChoice.WAITING_FOR_ACTION
-                    binding.tvInfo.text = "Choice your action"
-                }
+                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
             }
 
             btnAttack.setOnClickListener {
-                if (btnAttack.isChecked) {
+                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
                     repaintBoard()
                     tvInfo.text = getString(R.string.selectEnemyToAttack)
                     playerChoice = PlayerChoice.ATTACK
                     paintMeleeDistance()
-                    btnMove.isChecked = false
-                    btnDefend.isChecked = false
-                    btnSupport.isChecked = false
-                    btnSabotage.isChecked = false
-                    btnShot.isChecked = false
-                } else {
-                    repaintBoard()
-                    playerChoice = PlayerChoice.WAITING_FOR_ACTION
-                    binding.tvInfo.text = "Choice your action"
-                }
-
+                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
             }
             btnDefend.setOnClickListener {
-                if (btnDefend.isChecked) {
+                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
                     repaintBoard()
                     tvInfo.text = getString(R.string.selectOwnHero)
                     playerChoice = PlayerChoice.DEFEND
                     board[actualFighter.position.y][actualFighter.position.x]!!.background =
                         ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-                    btnMove.isChecked = false
-                    btnAttack.isChecked = false
-                    btnSupport.isChecked = false
-                    btnSabotage.isChecked = false
-                    btnShot.isChecked = false
-                } else {
-                    repaintBoard()
-                    playerChoice = PlayerChoice.WAITING_FOR_ACTION
-                    binding.tvInfo.text = "Choice your action"
+
+                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
                 }
-            }
+
             btnSupport.setOnClickListener {
-                if (btnSupport.isChecked) {
+                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
                     repaintBoard()
                     tvInfo.text = getString(R.string.selectAllyToSupport)
                     playerChoice = PlayerChoice.SUPPORT
                     paintMeleeDistance()
-                    btnMove.isChecked = false
-                    btnAttack.isChecked = false
-                    btnDefend.isChecked = false
-                    btnSabotage.isChecked = false
-                    btnShot.isChecked = false
-                } else {
-                    repaintBoard()
-                    playerChoice = PlayerChoice.WAITING_FOR_ACTION
-                    binding.tvInfo.text = "Choice your action"
-                }
-
+                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
             }
             btnSabotage.setOnClickListener {
-                if (btnSabotage.isChecked) {
+                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
                     repaintBoard()
                     tvInfo.text = getString(R.string.selectEnemyToSabotage)
                     playerChoice = PlayerChoice.SABOTAGE
                     paintMeleeDistance()
-                    btnMove.isChecked = false
-                    btnAttack.isChecked = false
-                    btnDefend.isChecked = false
-                    btnSupport.isChecked = false
-                    btnShot.isChecked = false
-                } else {
-                    repaintBoard()
-                    playerChoice = PlayerChoice.WAITING_FOR_ACTION
-                    binding.tvInfo.text = "Choice your action"
-                }
-
+                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
             }
 
             btnShot.setOnClickListener {
-                if (btnShot.isChecked) {
+                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
                     repaintBoard()
                     tvInfo.text = getString(R.string.selectEnemyToShot)
                     playerChoice = PlayerChoice.SHOT
                     paintAccessibleTiles(actualFighter.distanceToShot)
-                    btnMove.isChecked = false
-                    btnAttack.isChecked = false
-                    btnDefend.isChecked = false
-                    btnSupport.isChecked = false
-                    btnSabotage.isChecked = false
-                } else {
-                    repaintBoard()
-                    playerChoice = PlayerChoice.WAITING_FOR_ACTION
-                    binding.tvInfo.text = "Choice your action"
-                }
-
+                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
             }
 
             btnPass.setOnClickListener {
                 repaintBoard()
                 finishTurn()
+                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
+                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
+
             }
         }
     }
@@ -493,7 +468,7 @@ class FightFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.actualFighter.collect { actualFighter ->
                 if (actualFighter.id != 0) {
-                    binding.ivSpeechBubble.visibility = View.VISIBLE
+
                     binding.tvInfo.text = getString(R.string.choiceAction)
 
                     this@FightFragment.actualFighter = actualFighter
@@ -518,7 +493,6 @@ class FightFragment : Fragment() {
                     binding.tvInfo.text = getString(R.string.choiceAction)
                     binding.btnMove.isEnabled = false
                     binding.btnMove.visibility = View.INVISIBLE
-
                     binding.btnDefend.isEnabled = false
                     binding.btnDefend.visibility = View.INVISIBLE
 
@@ -527,6 +501,7 @@ class FightFragment : Fragment() {
                     }
 
                     repaintBoard()
+
                 } else {
                     showToast("So far, bastard...")
                 }
@@ -540,18 +515,13 @@ class FightFragment : Fragment() {
                 if (actualFighter.actionPerformed) {
                     disableActionButtons()
                     repaintBoard()
-                    binding.imgReferee.visibility = View.VISIBLE
-                    binding.ivSpeechBubble.visibility = View.VISIBLE
                     binding.tvInfo.text = resultMessage
-                    binding.tvInfo.visibility = View.VISIBLE
-                    binding.tvTurn.visibility = View.GONE
 
                 } else {
                     showToast(resultMessage)
                 }
                 if (actualFighter.movementPerformed) {
                     binding.btnMove.isEnabled = false
-                    binding.btnMove.visibility = View.INVISIBLE
                 }
                 if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
                     binding.btnPass.setBackgroundColor(resources.getColor(R.color.greenTurn))
@@ -568,20 +538,15 @@ class FightFragment : Fragment() {
 
                     binding.imgReferee.visibility = View.VISIBLE
                     binding.ivSpeechBubble.visibility = View.VISIBLE
-                    binding.tvInfo.text =
+                    binding.tvKilledFighter.text =
                         "${actualFighter.name} has killed " + heroesList[indexOfDyingFighter].name + "!!!"
-                    binding.tvInfo.visibility = View.VISIBLE
-                    binding.tvTurn.visibility = View.GONE
-
                 } else {
                     indexOfDyingFighter = villainsList.indexOf(dyingFighter)
                     ivVillainsList[indexOfDyingFighter].visibility = View.GONE
                     binding.imgReferee.visibility = View.VISIBLE
                     binding.ivSpeechBubble.visibility = View.VISIBLE
-                    binding.tvInfo.text =
+                    binding.tvKilledFighter.text =
                         "${actualFighter.name} has killed " + villainsList[indexOfDyingFighter].name + "!!!"
-                    binding.tvInfo.visibility = View.VISIBLE
-                    binding.tvTurn.visibility = View.GONE
                 }
 
                 removeOfInitiativeList(dyingFighter)
@@ -649,18 +614,10 @@ class FightFragment : Fragment() {
 
     private fun checkIfSabotaged() {
         if (actualFighter.isSabotaged) {
-            binding.imgReferee.visibility = View.VISIBLE
-            binding.ivSpeechBubble.visibility = View.VISIBLE
-            binding.tvInfo.visibility = View.GONE
-            binding.tvTurn.visibility = View.VISIBLE
             binding.tvTurn.text = getString(R.string.sabotagedTurn, actualFighter.name)
             disableActionButtons()
             binding.btnMove.isEnabled = false
         } else {
-            binding.imgReferee.visibility = View.VISIBLE
-            binding.ivSpeechBubble.visibility = View.VISIBLE
-            binding.tvInfo.visibility = View.GONE
-            binding.tvTurn.visibility = View.VISIBLE
             binding.tvTurn.text = getString(R.string.newTurn, actualFighter.name)
         }
     }
@@ -810,22 +767,16 @@ class FightFragment : Fragment() {
     private fun enableButtons() {
         with(binding) {
             btnMove.isEnabled = true
-            btnMove.isChecked = false
             btnMove.visibility = View.VISIBLE
             btnSabotage.isEnabled = true
-            btnSabotage.isChecked = false
             btnSabotage.visibility = View.VISIBLE
             btnSupport.isEnabled = true
-            btnSupport.isChecked = false
             btnSupport.visibility = View.VISIBLE
             btnDefend.isEnabled = true
-            btnDefend.isChecked = false
             btnDefend.visibility = View.VISIBLE
             btnAttack.isEnabled = true
-            btnAttack.isChecked = false
             btnAttack.visibility = View.VISIBLE
             btnShot.isEnabled = true
-            btnShot.isChecked = false
             btnShot.visibility = View.VISIBLE
         }
     }

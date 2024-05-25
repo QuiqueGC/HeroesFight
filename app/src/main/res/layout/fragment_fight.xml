@@ -559,6 +559,7 @@
     <include
         android:id="@+id/linearInitiative"
         layout="@layout/linear_list_initiative"
+        android:layout_marginTop="@dimen/marginLarge"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/imgInitiativeSize"
         android:visibility="gone" />
@@ -729,7 +730,7 @@
         android:id="@+id/imgReferee"
         android:layout_width="256dp"
         android:layout_height="256dp"
-
+        android:visibility="gone"
         android:clickable="true"
         android:focusable="true"
         android:scaleType="centerCrop"
@@ -742,6 +743,7 @@
         android:layout_width="@dimen/speechBubbleWidth"
         android:layout_height="@dimen/speechBubbleHeight"
         android:layout_marginBottom="-64dp"
+        android:visibility="gone"
         android:scaleType="centerInside"
         android:src="@drawable/speech_bubble_background4"
         app:layout_constraintBottom_toTopOf="@id/imgReferee"
@@ -749,7 +751,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvTurn"
+        android:id="@+id/tvKilledFighter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/marginTxtInBubble"
@@ -757,25 +759,39 @@
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:textAlignment="center"
         android:textColor="@color/redBad"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/ivSpeechBubble"
         app:layout_constraintStart_toStartOf="@id/ivSpeechBubble"
         app:layout_constraintTop_toTopOf="@id/ivSpeechBubble"
+        tools:text="Manolo did 450 damage to each hero" />
+
+    <TextView
+        android:id="@+id/tvTurn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginCommon"
+        android:layout_marginTop="@dimen/marginLarge"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:textAlignment="center"
+        android:textColor="@color/redBad"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnPass"
+        app:layout_constraintTop_toBottomOf="@id/linearInitiative"
         tools:text="Manolo's turn" />
 
     <TextView
         android:id="@+id/tvInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/marginTxtInBubble"
-        android:layout_marginTop="@dimen/marginTxtInBubble"
         android:fontFamily="@font/fighting_spirit_2_bold"
+        android:background="@color/white"
         android:textAlignment="center"
         android:textColor="@color/redBad"
-        app:layout_constraintEnd_toEndOf="@id/ivSpeechBubble"
-        app:layout_constraintStart_toStartOf="@id/ivSpeechBubble"
-        app:layout_constraintTop_toTopOf="@id/ivSpeechBubble"
+        app:layout_constraintEnd_toEndOf="@id/tvTurn"
+        app:layout_constraintStart_toStartOf="@id/tvTurn"
+        app:layout_constraintTop_toBottomOf="@id/tvTurn"
         tools:text="Manolo did 450 damage to each hero" />
 
     <include
@@ -811,62 +827,56 @@
         app:layout_constraintBottom_toTopOf="@id/vBoard"
         app:layout_constraintEnd_toEndOf="@id/vBoard" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/btnMove"
         style="@style/actionBtn"
-        android:textOff="Mov"
-        android:textOn="Mov"
+        android:text="Mov"
         app:layout_constraintBottom_toTopOf="@id/btnSupport"
         app:layout_constraintEnd_toStartOf="@id/btnAttack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/btnAttack"
         style="@style/actionBtn"
-        android:textOff="Atck!"
-        android:textOn="Atck!"
+        android:text="Atck!"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toStartOf="@id/btnDefend"
         app:layout_constraintStart_toEndOf="@id/btnMove"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/btnDefend"
         style="@style/actionBtn"
-        android:textOff="Def"
-        android:textOn="Def"
+        android:text="Def"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnAttack"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/btnSupport"
         style="@style/actionBtn"
-        android:textOff="Sup"
-        android:textOn="Sup"
+        android:text="Sup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnSabotage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnMove" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/btnSabotage"
         style="@style/actionBtn"
-        android:textOff="Sab"
-        android:textOn="Sab"
+        android:text="Sab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnShot"
         app:layout_constraintStart_toEndOf="@id/btnSupport"
         app:layout_constraintTop_toBottomOf="@id/btnAttack" />
 
 
-    <ToggleButton
+    <Button
         android:id="@+id/btnShot"
         style="@style/actionBtn"
-        android:textOff="Shot"
-        android:textOn="Shot"
+        android:text="Shot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnSabotage"
