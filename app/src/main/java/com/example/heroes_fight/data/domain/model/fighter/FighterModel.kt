@@ -444,11 +444,11 @@ class FighterModel(
         Log.i("quique", "La tiradad de daño es -> $damageRoll")
         Log.i("quique", "La fuerza es -> $strength")
         val result: String
-        if (damageRoll <= strength) {
-            var damage = strength - damageRoll + damageBonus
+        if (damageRoll <= strength + damageBonus) {
+            var damage = strength - damageRoll
             Log.i("quique", "El daño final es -> $damage")
             if (damage < 10) {
-                damage = 10
+                damage = Random.nextInt(10, 16)
             }
             enemy.durability -= damage
             result = "$name inflicted $damage of damage to ${enemy.name}"
