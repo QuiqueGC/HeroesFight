@@ -96,6 +96,11 @@ class FightFragment : Fragment() {
             it.visibility = View.GONE
             binding.btnPass.isEnabled = true
         }
+
+        binding.imgReferee.setOnClickListener {
+            it.visibility = View.GONE
+            binding.ivSpeechBubble.visibility = View.GONE
+        }
     }
 
     private fun setupBtnActionsListeners() {
@@ -530,11 +535,19 @@ class FightFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.actionResult.collect { resultMessage ->
-                binding.tvInfo.text = resultMessage
+
 
                 if (actualFighter.actionPerformed) {
                     disableActionButtons()
                     repaintBoard()
+                    binding.imgReferee.visibility = View.VISIBLE
+                    binding.ivSpeechBubble.visibility = View.VISIBLE
+                    binding.tvInfo.text = resultMessage
+                    binding.tvInfo.visibility = View.VISIBLE
+                    binding.tvTurn.visibility = View.GONE
+
+                } else {
+                    showToast(resultMessage)
                 }
                 if (actualFighter.movementPerformed) {
                     binding.btnMove.isEnabled = false
@@ -549,13 +562,26 @@ class FightFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.dyingFighter.collect { dyingFighter ->
                 val indexOfDyingFighter: Int
-
                 if (heroesList.contains(dyingFighter)) {
                     indexOfDyingFighter = heroesList.indexOf(dyingFighter)
                     ivHeroesList[indexOfDyingFighter].visibility = View.GONE
+
+                    binding.imgReferee.visibility = View.VISIBLE
+                    binding.ivSpeechBubble.visibility = View.VISIBLE
+                    binding.tvInfo.text =
+                        "${actualFighter.name} has killed " + heroesList[indexOfDyingFighter].name + "!!!"
+                    binding.tvInfo.visibility = View.VISIBLE
+                    binding.tvTurn.visibility = View.GONE
+
                 } else {
                     indexOfDyingFighter = villainsList.indexOf(dyingFighter)
                     ivVillainsList[indexOfDyingFighter].visibility = View.GONE
+                    binding.imgReferee.visibility = View.VISIBLE
+                    binding.ivSpeechBubble.visibility = View.VISIBLE
+                    binding.tvInfo.text =
+                        "${actualFighter.name} has killed " + villainsList[indexOfDyingFighter].name + "!!!"
+                    binding.tvInfo.visibility = View.VISIBLE
+                    binding.tvTurn.visibility = View.GONE
                 }
 
                 removeOfInitiativeList(dyingFighter)
@@ -623,10 +649,18 @@ class FightFragment : Fragment() {
 
     private fun checkIfSabotaged() {
         if (actualFighter.isSabotaged) {
+            binding.imgReferee.visibility = View.VISIBLE
+            binding.ivSpeechBubble.visibility = View.VISIBLE
+            binding.tvInfo.visibility = View.GONE
+            binding.tvTurn.visibility = View.VISIBLE
             binding.tvTurn.text = getString(R.string.sabotagedTurn, actualFighter.name)
             disableActionButtons()
             binding.btnMove.isEnabled = false
         } else {
+            binding.imgReferee.visibility = View.VISIBLE
+            binding.ivSpeechBubble.visibility = View.VISIBLE
+            binding.tvInfo.visibility = View.GONE
+            binding.tvTurn.visibility = View.VISIBLE
             binding.tvTurn.text = getString(R.string.newTurn, actualFighter.name)
         }
     }

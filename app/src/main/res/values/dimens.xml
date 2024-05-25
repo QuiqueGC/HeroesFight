@@ -19,8 +19,8 @@
     <dimen name="imgHeroInsideCard">280dp</dimen>
 
 
-    <dimen name="marginTxtInBubble">48dp</dimen>
-    <dimen name="speechBubbleHeight">180dp</dimen>
-    <dimen name="speechBubbleWidth">240dp</dimen>
+    <dimen name="marginTxtInBubble">76dp</dimen>
+    <dimen name="speechBubbleHeight">260dp</dimen>
+    <dimen name="speechBubbleWidth">320</dimen>
 
 </resources>
