@@ -8,6 +8,7 @@ import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
+import com.example.heroes_fight.utils.BoardManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,7 +22,8 @@ import kotlin.math.abs
 @HiltViewModel
 class FightFragmentViewModel @Inject constructor(
     private val getVillainListUseCase: GetVillainListUseCase,
-    private val getHeroesListUseCase: GetHeroesListUseCase
+    private val getHeroesListUseCase: GetHeroesListUseCase,
+    private val boardManager: BoardManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<FightFragmentUiState>(FightFragmentUiState.Loading)
@@ -199,5 +201,12 @@ class FightFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             _actionResult.emit(resultOfDefense)
         }
+    }
+
+    fun getAccessibleTiles(
+        distanceToCalculate: Int,
+        originPosition: Position
+    ): Array<Array<Boolean?>> {
+        return boardManager.getAccessibleTiles(distanceToCalculate, originPosition)
     }
 }

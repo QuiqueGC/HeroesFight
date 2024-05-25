@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
+import com.example.heroes_fight.data.constants.Constants
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
@@ -107,10 +108,10 @@ class FightFragment : Fragment() {
         with(binding) {
             btnMove.setOnClickListener {
                 it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                    repaintBoard()
-                    playerChoice = PlayerChoice.MOVE
-                    tvInfo.text = getString(R.string.selectCellToMove)
-                    paintAccessibleTiles(actualFighter.movementCapacity)
+                repaintBoard()
+                playerChoice = PlayerChoice.MOVE
+                tvInfo.text = getString(R.string.selectCellToMove)
+                paintAccessibleTiles(actualFighter.movementCapacity)
                 btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
@@ -120,10 +121,10 @@ class FightFragment : Fragment() {
 
             btnAttack.setOnClickListener {
                 it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                    repaintBoard()
-                    tvInfo.text = getString(R.string.selectEnemyToAttack)
-                    playerChoice = PlayerChoice.ATTACK
-                    paintMeleeDistance()
+                repaintBoard()
+                tvInfo.text = getString(R.string.selectEnemyToAttack)
+                playerChoice = PlayerChoice.ATTACK
+                paintAccessibleTiles(Constants.MELEE_DISTANCE)
                 btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
@@ -132,25 +133,25 @@ class FightFragment : Fragment() {
             }
             btnDefend.setOnClickListener {
                 it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                    repaintBoard()
-                    tvInfo.text = getString(R.string.selectOwnHero)
-                    playerChoice = PlayerChoice.DEFEND
-                    board[actualFighter.position.y][actualFighter.position.x]!!.background =
-                        ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
+                repaintBoard()
+                tvInfo.text = getString(R.string.selectOwnHero)
+                playerChoice = PlayerChoice.DEFEND
+                board[actualFighter.position.y][actualFighter.position.x]!!.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
 
                 btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
-                }
+            }
 
             btnSupport.setOnClickListener {
                 it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                    repaintBoard()
-                    tvInfo.text = getString(R.string.selectAllyToSupport)
-                    playerChoice = PlayerChoice.SUPPORT
-                    paintMeleeDistance()
+                repaintBoard()
+                tvInfo.text = getString(R.string.selectAllyToSupport)
+                playerChoice = PlayerChoice.SUPPORT
+                paintAccessibleTiles(Constants.MELEE_DISTANCE)
                 btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
@@ -159,10 +160,10 @@ class FightFragment : Fragment() {
             }
             btnSabotage.setOnClickListener {
                 it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                    repaintBoard()
-                    tvInfo.text = getString(R.string.selectEnemyToSabotage)
-                    playerChoice = PlayerChoice.SABOTAGE
-                    paintMeleeDistance()
+                repaintBoard()
+                tvInfo.text = getString(R.string.selectEnemyToSabotage)
+                playerChoice = PlayerChoice.SABOTAGE
+                paintAccessibleTiles(Constants.MELEE_DISTANCE)
                 btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
@@ -172,10 +173,10 @@ class FightFragment : Fragment() {
 
             btnShot.setOnClickListener {
                 it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                    repaintBoard()
-                    tvInfo.text = getString(R.string.selectEnemyToShot)
-                    playerChoice = PlayerChoice.SHOT
-                    paintAccessibleTiles(actualFighter.distanceToShot)
+                repaintBoard()
+                tvInfo.text = getString(R.string.selectEnemyToShot)
+                playerChoice = PlayerChoice.SHOT
+                paintAccessibleTiles(actualFighter.distanceToShot)
                 btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
@@ -192,109 +193,19 @@ class FightFragment : Fragment() {
                 btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
                 btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
-
             }
         }
     }
 
-    private fun paintMeleeDistance() {
-        with(actualFighter.position) {
-            if (y > 0) {
-                board[y - 1][x]!!.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-            }
-            if (x > 0) {
-                board[y][x - 1]!!.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-            }
-            if (y < 9) {
-                board[y + 1][x]!!.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-            }
-            if (x < 8) {
-                board[y][x + 1]!!.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-            }
-        }
-    }
 
-    private fun paintAccessibleTiles(statOfFighterToUse: Int) {
-        Log.i("quique", "NUEVA RONDA")
+    private fun paintAccessibleTiles(statOrDistanceToCalculate: Int) {
+        val boardOfMarkedTiles =
+            viewModel.getAccessibleTiles(statOrDistanceToCalculate, actualFighter.position)
         for (i in 0 until 10) {
             for (j in 0 until 9) {
-                var difference: Int
-                var result: Int
-                with(actualFighter.position) {
-                    if (x < j && y < i) {
-                        if (x + statOfFighterToUse >= j) {
-                            difference = j - x
-                            result = statOfFighterToUse - difference
-
-                            if (y + result >= i) {
-                                board[i][j]!!.background =
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.tile_to_move
-                                    )
-                            }
-                        }
-                    } else if (x > j && y > i) {
-                        if (x - statOfFighterToUse <= j) {
-                            difference = x - j
-                            result = statOfFighterToUse - difference
-                            if (y - result <= i) {
-                                board[i][j]!!.background =
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.tile_to_move
-                                    )
-                            }
-                        }
-                    } else if (x < j && y > i) {
-                        if (x + statOfFighterToUse >= j) {
-                            difference = j - x
-                            result = statOfFighterToUse - difference
-                            if (y - result <= i) {
-                                board[i][j]!!.background =
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.tile_to_move
-                                    )
-                            }
-                        }
-                    } else if (x > j && y < i) {
-                        if (x - statOfFighterToUse <= j) {
-                            difference = x - j
-                            result = statOfFighterToUse - difference
-                            if (y + result >= i) {
-                                board[i][j]!!.background =
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.tile_to_move
-                                    )
-                            }
-                        }
-                    } else if (x == j && y < i) {
-                        if (y + statOfFighterToUse >= i) {
-                            board[i][j]!!.background =
-                                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-                        }
-                    } else if (x == j && y > i) {
-                        if (y - statOfFighterToUse <= i) {
-                            board[i][j]!!.background =
-                                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-                        }
-                    } else if (x < j && y == i) {
-                        if (x + statOfFighterToUse >= j) {
-                            board[i][j]!!.background =
-                                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-                        }
-                    } else if (x > j && y == i) {
-                        if (x - statOfFighterToUse <= j) {
-                            board[i][j]!!.background =
-                                ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-                        }
-                    }
+                if (boardOfMarkedTiles[i][j]!!) {
+                    board[i][j]!!.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
                 }
             }
         }
