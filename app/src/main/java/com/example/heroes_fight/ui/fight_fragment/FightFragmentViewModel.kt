@@ -40,9 +40,9 @@ class FightFragmentViewModel @Inject constructor(
     val dyingFighter: SharedFlow<FighterModel> = _dyingFighter
 
 
-    private var heroesList = ArrayList<FighterModel>()
-    private var villainList = ArrayList<FighterModel>()
-    private var allFightersList = ArrayList<FighterModel>()
+    private var heroesList = mutableListOf<FighterModel>()
+    private var villainList = mutableListOf<FighterModel>()
+    private var allFightersList = mutableListOf<FighterModel>()
 
 
     fun getRandomHeroes() {
@@ -51,7 +51,7 @@ class FightFragmentViewModel @Inject constructor(
             _uiState.emit(FightFragmentUiState.Loading)
             do {
                 var repeatedFighter = false
-                allFightersList = ArrayList()
+                allFightersList = mutableListOf()
 
                 Log.i("quique", "COGE LA PRIMERA LISTA")
                 addHeroesToStartList()
@@ -93,7 +93,7 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun getAllPower(heroesList: java.util.ArrayList<FighterModel>): Int {
+    private fun getAllPower(heroesList: List<FighterModel>): Int {
         var totalPowerStats = 0
         for (fighter in heroesList) {
             with(fighter) {
@@ -155,8 +155,8 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun performShot(enemyToAttack: FighterModel, rocks: ArrayList<RockModel>) {
-        val allFightersToCheck = ArrayList<FighterModel>()
+    fun performShot(enemyToAttack: FighterModel, rocks: List<RockModel>) {
+        val allFightersToCheck = mutableListOf<FighterModel>()
         allFightersToCheck.addAll(heroesList)
         allFightersToCheck.addAll(villainList)
         allFightersToCheck.removeAll { it.durability <= 0 }

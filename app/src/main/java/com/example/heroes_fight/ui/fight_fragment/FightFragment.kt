@@ -34,14 +34,14 @@ class FightFragment : Fragment() {
     private lateinit var binding: FragmentFightBinding
     private val viewModel: FightFragmentViewModel by viewModels()
 
-    private val board = Array(10) { arrayOfNulls<View>(9) }
+    private val board = List(10) { arrayOfNulls<View>(9) }
 
-    private val heroesList = ArrayList<FighterModel>()
-    private val villainsList = ArrayList<FighterModel>()
-    private var allFightersList = ArrayList<FighterModel>()
-    private val ivHeroesList = ArrayList<ShapeableImageView>()
-    private val ivVillainsList = ArrayList<ShapeableImageView>()
-    private val ivAllFightersList = ArrayList<ShapeableImageView>()
+    private val heroesList = mutableListOf<FighterModel>()
+    private val villainsList = mutableListOf<FighterModel>()
+    private var allFightersList = mutableListOf<FighterModel>()
+    private val ivHeroesList = mutableListOf<ShapeableImageView>()
+    private val ivVillainsList = mutableListOf<ShapeableImageView>()
+    private val ivAllFightersList = mutableListOf<ShapeableImageView>()
 
     // TODO: prueba disparos
     private val rocks = ArrayList<RockModel>()
@@ -337,7 +337,7 @@ class FightFragment : Fragment() {
 
     private fun moveHeroOrVillain(
         constraintSet: ConstraintSet,
-        ivFightersList: java.util.ArrayList<ShapeableImageView>
+        ivFightersList: List<ShapeableImageView>
     ) {
         constraintSet.connect(
             ivFightersList[indexOfActualFighter].id,
@@ -623,8 +623,8 @@ class FightFragment : Fragment() {
     }
 
     private fun addHeroesToLists(
-        heroesList: ArrayList<FighterModel>,
-        villainsList: ArrayList<FighterModel>
+        heroesList: List<FighterModel>,
+        villainsList: List<FighterModel>
     ) {
         this.heroesList.addAll(heroesList)
         this.villainsList.addAll(villainsList)

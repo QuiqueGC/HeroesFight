@@ -22,7 +22,7 @@ interface FighterActions {
 
     fun shot(
         enemy: FighterModel,
-        rocks: ArrayList<RockModel>,
-        allFightersList: ArrayList<FighterModel>
+        rocks: List<RockModel>,
+        allFightersList: List<FighterModel>
     ): String
 }
