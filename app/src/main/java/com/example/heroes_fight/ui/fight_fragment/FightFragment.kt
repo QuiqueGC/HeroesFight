@@ -422,7 +422,6 @@ class FightFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.actionResult.collect { resultMessage ->
 
-
                 if (actualFighter.actionPerformed) {
                     disableActionButtons()
                     repaintBoard()
@@ -447,27 +446,31 @@ class FightFragment : Fragment() {
                     indexOfDyingFighter = heroesList.indexOf(dyingFighter)
                     ivHeroesList[indexOfDyingFighter].visibility = View.GONE
 
-                    binding.imgReferee.visibility = View.VISIBLE
-                    binding.ivSpeechBubble.visibility = View.VISIBLE
-                    binding.tvKilledFighter.text =
+                    showReferee(
                         "${actualFighter.name} has killed " + heroesList[indexOfDyingFighter].name + "!!!"
+                    )
+
                 } else {
                     indexOfDyingFighter = villainsList.indexOf(dyingFighter)
                     ivVillainsList[indexOfDyingFighter].visibility = View.GONE
-                    binding.imgReferee.visibility = View.VISIBLE
-                    binding.ivSpeechBubble.visibility = View.VISIBLE
-                    binding.tvKilledFighter.text =
+                    showReferee(
                         "${actualFighter.name} has killed " + villainsList[indexOfDyingFighter].name + "!!!"
+                    )
                 }
-
                 removeOfInitiativeList(dyingFighter)
             }
         }
     }
 
+    private fun showReferee(sentenceToSay: String) {
+        binding.imgReferee.visibility = View.VISIBLE
+        binding.ivSpeechBubble.visibility = View.VISIBLE
+        binding.tvKilledFighter.text = sentenceToSay
+    }
+
     private fun removeOfInitiativeList(dyingFighter: FighterModel) {
         val dyingFighterFiltered = allFightersList.filter { it.id == dyingFighter.id }
-        val indexOfDyingFighter = allFightersList.indexOf(dyingFighterFiltered[0])
+        val indexOfDyingFighter = allFightersList.indexOf(dyingFighterFiltered.first())
         ivAllFightersList[indexOfDyingFighter].visibility = View.GONE
         ivAllFightersList.removeAt(indexOfDyingFighter)
         allFightersList.removeAt(indexOfDyingFighter)
