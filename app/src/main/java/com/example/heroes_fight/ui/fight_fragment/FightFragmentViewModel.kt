@@ -3,12 +3,14 @@ package com.example.heroes_fight.ui.fight_fragment
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.heroes_fight.data.constants.MyConstants
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
-import com.example.heroes_fight.utils.BoardManager
+import com.example.heroes_fight.data.utils.BoardManager
+import com.example.heroes_fight.data.utils.PlayerChoice
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -31,9 +33,6 @@ class FightFragmentViewModel @Inject constructor(
 
     private val _actualFighter = MutableStateFlow(FighterModel())
     val actualFighter: StateFlow<FighterModel> = _actualFighter
-
-    private val _fighterMovement = MutableSharedFlow<Boolean>()
-    val fighterMovement: SharedFlow<Boolean> = _fighterMovement
 
     private val _actionResult = MutableSharedFlow<String>()
     val actionResult: SharedFlow<String> = _actionResult
@@ -133,11 +132,11 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun tryToMoveFighter(destinationPosition: Position) {
-        if (!_actualFighter.value.movementPerformed) {
-            viewModelScope.launch {
-                _fighterMovement.emit(_actualFighter.value.move(destinationPosition))
-            }
+    fun performMovement(destinationPosition: Position): Boolean {
+        return if (!_actualFighter.value.movementPerformed) {
+            _actualFighter.value.move(destinationPosition)
+        } else {
+            false
         }
     }
 
@@ -203,10 +202,27 @@ class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun getAccessibleTiles(
-        distanceToCalculate: Int,
-        originPosition: Position
-    ): Array<Array<Boolean?>> {
-        return boardManager.getAccessibleTiles(distanceToCalculate, originPosition)
+    fun getAccessibleTiles(playerChoice: PlayerChoice): Array<Array<Boolean?>> {
+        return when (playerChoice) {
+            PlayerChoice.MOVE -> boardManager.getAccessibleTiles(
+                _actualFighter.value.movementCapacity,
+                _actualFighter.value.position
+            )
+
+            PlayerChoice.SHOT -> boardManager.getAccessibleTiles(
+                _actualFighter.value.distanceToShot,
+                _actualFighter.value.position
+            )
+
+            else -> boardManager.getAccessibleTiles(
+                MyConstants.MELEE_DISTANCE,
+                _actualFighter.value.position
+            )
+
+        }
+    }
+
+    fun getRocks(): MutableList<RockModel> {
+        return boardManager.getRocks()
     }
 }

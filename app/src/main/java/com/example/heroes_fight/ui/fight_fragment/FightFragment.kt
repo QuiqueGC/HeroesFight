@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
@@ -15,17 +16,18 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
-import com.example.heroes_fight.data.constants.Constants
+import com.example.heroes_fight.data.constants.MyConstants.BOARD_MAX_COLUMNS
+import com.example.heroes_fight.data.constants.MyConstants.BOARD_MAX_LINES
+import com.example.heroes_fight.data.constants.MyConstants.MAX_ROCKS
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
+import com.example.heroes_fight.data.utils.CardsFiller
+import com.example.heroes_fight.data.utils.PlayerChoice
 import com.example.heroes_fight.databinding.FragmentFightBinding
-import com.example.heroes_fight.utils.CardsFiller
-import com.example.heroes_fight.utils.PlayerChoice
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class FightFragment : Fragment() {
@@ -43,10 +45,9 @@ class FightFragment : Fragment() {
     private val ivHeroesList = mutableListOf<ShapeableImageView>()
     private val ivVillainsList = mutableListOf<ShapeableImageView>()
     private val ivAllFightersList = mutableListOf<ShapeableImageView>()
-
-    // TODO: prueba disparos
-    private val rocks = ArrayList<RockModel>()
-    private val ivRocks = ArrayList<ImageView>()
+    private val actionButtonsList = mutableListOf<Button>()
+    private val rocks = mutableListOf<RockModel>()
+    private val ivRocks = mutableListOf<ImageView>()
 
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
     private var indexOfActualFighter = -1
@@ -66,13 +67,23 @@ class FightFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFightBinding.inflate(inflater, container, false)
+        addActionButtonsToList()
         return binding.root
+    }
+
+    private fun addActionButtonsToList() {
+        with(binding) {
+            actionButtonsList.addAll(
+                listOf(
+                    btnAttack, btnShot, btnMove, btnDefend, btnSupport, btnSabotage
+                )
+            )
+        }
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         setupBoard()
 
@@ -89,121 +100,104 @@ class FightFragment : Fragment() {
 
         setupBtnActionsListeners()
 
-        binding.cardIncludedBad.card.setOnClickListener {
-            it.visibility = View.GONE
-            binding.btnPass.isEnabled = true
-        }
-        binding.cardIncludedGood.card.setOnClickListener {
-            it.visibility = View.GONE
-            binding.btnPass.isEnabled = true
-        }
-
-        binding.imgReferee.setOnClickListener {
-            it.visibility = View.GONE
-            binding.ivSpeechBubble.visibility = View.GONE
+        with(binding) {
+            cardIncludedBad.card.setOnClickListener {
+                it.visibility = View.GONE
+            }
+            cardIncludedGood.card.setOnClickListener {
+                it.visibility = View.GONE
+            }
+            imgReferee.setOnClickListener {
+                it.visibility = View.GONE
+                ivSpeechBubble.visibility = View.GONE
+            }
+            ivSpeechBubble.setOnClickListener {
+                it.visibility = View.GONE
+                imgReferee.visibility = View.GONE
+            }
         }
     }
 
     private fun setupBtnActionsListeners() {
         with(binding) {
             btnMove.setOnClickListener {
-                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                repaintBoard()
+                refreshBoard()
                 playerChoice = PlayerChoice.MOVE
                 tvInfo.text = getString(R.string.selectCellToMove)
-                paintAccessibleTiles(actualFighter.movementCapacity)
-                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
+                paintAccessibleTiles()
+                setColorActionButtons(btnMove)
             }
 
             btnAttack.setOnClickListener {
-                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                repaintBoard()
+                refreshBoard()
                 tvInfo.text = getString(R.string.selectEnemyToAttack)
                 playerChoice = PlayerChoice.ATTACK
-                paintAccessibleTiles(Constants.MELEE_DISTANCE)
-                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
+                paintAccessibleTiles()
+                setColorActionButtons(btnAttack)
             }
             btnDefend.setOnClickListener {
-                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                repaintBoard()
+                refreshBoard()
                 tvInfo.text = getString(R.string.selectOwnHero)
                 playerChoice = PlayerChoice.DEFEND
-                board[actualFighter.position.y][actualFighter.position.x]!!.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
-
-                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
+                setColorActionButtons(btnDefend)
             }
 
             btnSupport.setOnClickListener {
-                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                repaintBoard()
+                refreshBoard()
                 tvInfo.text = getString(R.string.selectAllyToSupport)
                 playerChoice = PlayerChoice.SUPPORT
-                paintAccessibleTiles(Constants.MELEE_DISTANCE)
-                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
+                paintAccessibleTiles()
+                setColorActionButtons(btnSupport)
             }
             btnSabotage.setOnClickListener {
-                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                repaintBoard()
+                refreshBoard()
                 tvInfo.text = getString(R.string.selectEnemyToSabotage)
                 playerChoice = PlayerChoice.SABOTAGE
-                paintAccessibleTiles(Constants.MELEE_DISTANCE)
-                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
+                paintAccessibleTiles()
+                setColorActionButtons(btnSabotage)
             }
 
             btnShot.setOnClickListener {
-                it.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                repaintBoard()
+                refreshBoard()
                 tvInfo.text = getString(R.string.selectEnemyToShot)
                 playerChoice = PlayerChoice.SHOT
-                paintAccessibleTiles(actualFighter.distanceToShot)
-                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
+                paintAccessibleTiles()
+                setColorActionButtons(btnShot)
             }
 
             btnPass.setOnClickListener {
-                repaintBoard()
+                refreshBoard()
                 finishTurn()
-                btnAttack.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnDefend.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSupport.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnSabotage.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnMove.setBackgroundColor(resources.getColor(R.color.blueGood))
-                btnShot.setBackgroundColor(resources.getColor(R.color.blueGood))
+                setColorActionButtons(null)
             }
         }
     }
 
+    private fun setColorActionButtons(selectedButton: Button?) {
+        for (btn in actionButtonsList) {
+            if (btn != selectedButton) {
+                btn.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.blueGood
+                    )
+                )
+            } else {
+                btn.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.greenTurn
+                    )
+                )
+            }
+        }
+    }
 
-    private fun paintAccessibleTiles(statOrDistanceToCalculate: Int) {
-        val boardOfMarkedTiles =
-            viewModel.getAccessibleTiles(statOrDistanceToCalculate, actualFighter.position)
-        for (i in 0 until 10) {
-            for (j in 0 until 9) {
-                if (boardOfMarkedTiles[i][j]!!) {
+    private fun paintAccessibleTiles() {
+        val markedTiles = viewModel.getAccessibleTiles(playerChoice)
+        for (i in 0 until BOARD_MAX_LINES) {
+            for (j in 0 until BOARD_MAX_COLUMNS) {
+                if (markedTiles[i][j]!!) {
                     board[i][j]!!.background =
                         ContextCompat.getDrawable(requireContext(), R.drawable.tile_to_move)
                 }
@@ -211,22 +205,27 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun repaintBoard() {
-        for (i in 0 until 10) {
-            for (j in 0 until 9) {
-                board[i][j]!!.background =
+    private fun refreshBoard() {
+        for (line in board) {
+            for (column in line) {
+                column!!.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.tile_base)
             }
         }
     }
 
     private fun setupTilesListeners() {
-        for (i in 0 until 10) {
-            for (j in 0 until 9) {
+        for (i in 0 until BOARD_MAX_LINES) {
+            for (j in 0 until BOARD_MAX_COLUMNS) {
                 board[i][j]!!.setOnClickListener { _ ->
                     if (playerChoice == PlayerChoice.MOVE) {
                         destinationPosition = Position(i, j)
-                        viewModel.tryToMoveFighter(destinationPosition)
+                        if (viewModel.performMovement(destinationPosition)) {
+                            moveFighterView()
+                            updateBoardAfterMovement()
+                        } else {
+                            showToast("So far, bastard...")
+                        }
                     }
                 }
             }
@@ -264,17 +263,33 @@ class FightFragment : Fragment() {
         )
     }
 
+    private fun updateBoardAfterMovement() {
+        binding.tvInfo.text = getString(R.string.choiceAction)
+        binding.btnMove.isEnabled = false
+        binding.btnMove.visibility = View.INVISIBLE
+        binding.btnDefend.isEnabled = false
+        binding.btnDefend.visibility = View.INVISIBLE
+
+        refreshBoard()
+
+        if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
+            binding.btnPass.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.greenTurn
+                )
+            )
+        }
+    }
+
     private fun setupFightersListeners() {
         for (i in 0 until ivHeroesList.size) {
 
             ivVillainsList[i].setOnClickListener { _ ->
                 showVillainCard(i)
-                binding.btnPass.isEnabled = false
-
             }
             ivHeroesList[i].setOnClickListener {
                 showHeroCard(i)
-                binding.btnPass.isEnabled = false
             }
 
             ivVillainsList[i].setOnLongClickListener {
@@ -365,11 +380,11 @@ class FightFragment : Fragment() {
                             fightFragmentUiState.heroesList,
                             fightFragmentUiState.villainsList
                         )
-                        addHeroesToLists(
+                        addFightersToLists(
                             fightFragmentUiState.heroesList,
                             fightFragmentUiState.villainsList
                         )
-                        putHeroesInTheInitiativeList(fightFragmentUiState.allFightersSorted)
+                        putFightersInTheInitiativeList(fightFragmentUiState.allFightersSorted)
 
                     }
                 }
@@ -397,34 +412,13 @@ class FightFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.fighterMovement.collect { fighterCanMove ->
-                if (fighterCanMove) {
-                    moveFighterView()
-                    binding.tvInfo.text = getString(R.string.choiceAction)
-                    binding.btnMove.isEnabled = false
-                    binding.btnMove.visibility = View.INVISIBLE
-                    binding.btnDefend.isEnabled = false
-                    binding.btnDefend.visibility = View.INVISIBLE
-
-                    if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
-                        binding.btnPass.setBackgroundColor(resources.getColor(R.color.greenTurn))
-                    }
-
-                    repaintBoard()
-
-                } else {
-                    showToast("So far, bastard...")
-                }
-            }
-        }
 
         lifecycleScope.launch {
             viewModel.actionResult.collect { resultMessage ->
 
                 if (actualFighter.actionPerformed) {
-                    disableActionButtons()
-                    repaintBoard()
+                    disableActionButtons(binding.btnMove)
+                    refreshBoard()
                     binding.tvInfo.text = resultMessage
 
                 } else {
@@ -432,9 +426,15 @@ class FightFragment : Fragment() {
                 }
                 if (actualFighter.movementPerformed) {
                     binding.btnMove.isEnabled = false
+                    binding.btnMove.visibility = View.GONE
                 }
                 if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
-                    binding.btnPass.setBackgroundColor(resources.getColor(R.color.greenTurn))
+                    binding.btnPass.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.greenTurn
+                        )
+                    )
                 }
             }
         }
@@ -506,7 +506,7 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun putHeroesInTheInitiativeList(allFightersSorted: List<FighterModel>) {
+    private fun putFightersInTheInitiativeList(allFightersSorted: List<FighterModel>) {
         allFightersList.addAll(allFightersSorted)
 
         for (i in allFightersSorted.indices) {
@@ -529,14 +529,13 @@ class FightFragment : Fragment() {
     private fun checkIfSabotaged() {
         if (actualFighter.isSabotaged) {
             binding.tvTurn.text = getString(R.string.sabotagedTurn, actualFighter.name)
-            disableActionButtons()
-            binding.btnMove.isEnabled = false
+            disableActionButtons(null)
         } else {
             binding.tvTurn.text = getString(R.string.newTurn, actualFighter.name)
         }
     }
 
-    private fun addHeroesToLists(
+    private fun addFightersToLists(
         heroesList: List<FighterModel>,
         villainsList: List<FighterModel>
     ) {
@@ -548,7 +547,7 @@ class FightFragment : Fragment() {
         heroesList: List<FighterModel>,
         villainsList: List<FighterModel>
     ) {
-        for (i in 0 until heroesList.size) {
+        for (i in heroesList.indices) {
             with(binding) {
                 progressBar.visibility = View.GONE
                 showImgWithGlide(heroesList[i].image, ivHeroesList[i])
@@ -560,8 +559,8 @@ class FightFragment : Fragment() {
     private fun setupBoard() {
         //empieza por uno porque hay una view antes de los tiles
         var indexOfChild = 1
-        for (i in 0 until 10) {
-            for (j in 0 until 9) {
+        for (i in 0 until BOARD_MAX_LINES) {
+            for (j in 0 until BOARD_MAX_COLUMNS) {
                 board[i][j] = binding.root.getChildAt(indexOfChild)
                 indexOfChild++
             }
@@ -577,37 +576,31 @@ class FightFragment : Fragment() {
                     imgVillain4
                 )
             )
-            ivRocks.addAll(
-                listOf(
-                    ivRock0,
-                    ivRock1,
-                    ivRock2,
-                    ivRock3,
-                    ivRock4,
-                    ivRock5,
-                    ivRock6,
-                    ivRock7,
-                    ivRock8,
-                    ivRock9,
-                    ivRock10,
-                    ivRock11,
-                    ivRock12,
-                    ivRock13,
-                    ivRock14
-                )
-            )
+
         }
-
-        // TODO: esta función no debería estar aquí
-        //  tengo que refactorizar el código antes
-        //  de seguir avanzando con otra cosa
-        getRocks()
-
-        putRocks()
+        insertRockViewsAtList()
+        rocks.addAll(viewModel.getRocks())
+        showRocks()
     }
 
-    private fun putRocks() {
-        for (i in 0 until rocks.size) {
+    private fun insertRockViewsAtList() {
+        var indexOfFirstElement = -1
+        var loops = 0
+        do {
+            if (binding.root.getChildAt(loops) == binding.ivRock0) {
+                indexOfFirstElement = loops
+            }
+            loops++
+        } while (indexOfFirstElement == -1)
+
+        for (i in 0 until MAX_ROCKS) {
+            ivRocks.add(binding.root.getChildAt(indexOfFirstElement) as ImageView)
+            indexOfFirstElement++
+        }
+    }
+
+    private fun showRocks() {
+        for (i in rocks.indices) {
 
             ivRocks[i].visibility = View.VISIBLE
 
@@ -634,14 +627,6 @@ class FightFragment : Fragment() {
         }
     }
 
-    private fun getRocks() {
-        val randomQuantityRocks = Random.nextInt(8, 16)
-        for (i in 1..randomQuantityRocks) {
-            val randomY = Random.nextInt(1, 9)
-            val randomX = Random.nextInt(0, 9)
-            rocks.add(RockModel(Position(randomY, randomX)))
-        }
-    }
 
     private fun finishTurn() {
         if (actualFighter.isHero) {
@@ -657,41 +642,29 @@ class FightFragment : Fragment() {
             initiativeIndex = 0
         }
 
-        binding.btnPass.setBackgroundColor(resources.getColor(R.color.redBad))
-
+        binding.btnPass.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.redBad
+            )
+        )
 
         viewModel.finishTurn()
     }
 
-    private fun disableActionButtons() {
-        with(binding) {
-            btnSabotage.isEnabled = false
-            btnSabotage.visibility = View.INVISIBLE
-            btnSupport.isEnabled = false
-            btnSupport.visibility = View.INVISIBLE
-            btnDefend.isEnabled = false
-            btnDefend.visibility = View.INVISIBLE
-            btnAttack.isEnabled = false
-            btnAttack.visibility = View.INVISIBLE
-            btnShot.isEnabled = false
-            btnShot.visibility = View.INVISIBLE
+    private fun disableActionButtons(noDisableButton: Button?) {
+        for (btn in actionButtonsList) {
+            if (btn != noDisableButton) {
+                btn.isEnabled = false
+                btn.visibility = View.INVISIBLE
+            }
         }
     }
 
     private fun enableButtons() {
-        with(binding) {
-            btnMove.isEnabled = true
-            btnMove.visibility = View.VISIBLE
-            btnSabotage.isEnabled = true
-            btnSabotage.visibility = View.VISIBLE
-            btnSupport.isEnabled = true
-            btnSupport.visibility = View.VISIBLE
-            btnDefend.isEnabled = true
-            btnDefend.visibility = View.VISIBLE
-            btnAttack.isEnabled = true
-            btnAttack.visibility = View.VISIBLE
-            btnShot.isEnabled = true
-            btnShot.visibility = View.VISIBLE
+        for (btn in actionButtonsList) {
+            btn.isEnabled = true
+            btn.visibility = View.VISIBLE
         }
     }
 

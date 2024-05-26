@@ -1,6 +1,6 @@
 package com.example.heroes_fight.di
 
-import com.example.heroes_fight.data.constants.Constants
+import com.example.heroes_fight.data.constants.MyConstants
 import com.example.heroes_fight.data.domain.repository.remote.RemoteApiService
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -21,7 +21,7 @@ object NetworkModule {
         val gson = GsonBuilder().setLenient().create()
 
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(MyConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }

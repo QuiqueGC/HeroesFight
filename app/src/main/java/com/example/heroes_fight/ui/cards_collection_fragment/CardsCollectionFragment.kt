@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.heroes_fight.data.utils.CardsFiller
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
-import com.example.heroes_fight.utils.CardsFiller
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

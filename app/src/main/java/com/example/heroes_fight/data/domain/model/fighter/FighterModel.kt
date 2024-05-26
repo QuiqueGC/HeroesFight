@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
-import com.example.heroes_fight.utils.Bresenham
+import com.example.heroes_fight.data.utils.Bresenham
 import kotlin.math.abs
 import kotlin.random.Random
 

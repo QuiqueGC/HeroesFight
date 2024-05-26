@@ -1,4 +1,4 @@
-package com.example.heroes_fight.utils
+package com.example.heroes_fight.data.utils
 
 import android.content.Context
 import android.view.View

@@ -1,4 +1,4 @@
-package com.example.heroes_fight.utils
+package com.example.heroes_fight.data.utils
 
 import android.util.Log
 import com.example.heroes_fight.data.domain.model.common.Position
