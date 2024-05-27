@@ -41,9 +41,9 @@ class FightFragmentViewModel @Inject constructor(
     val dyingFighter: SharedFlow<FighterModel> = _dyingFighter
 
 
-    private var heroesList = mutableListOf<FighterModel>()
-    private var villainList = mutableListOf<FighterModel>()
-    private var allFightersList = mutableListOf<FighterModel>()
+    private var heroes = mutableListOf<FighterModel>()
+    private var villains = mutableListOf<FighterModel>()
+    private var allFighters = mutableListOf<FighterModel>()
 
 
     fun getRandomHeroes() {
@@ -52,7 +52,7 @@ class FightFragmentViewModel @Inject constructor(
             _uiState.emit(FightFragmentUiState.Loading)
             do {
                 var repeatedFighter = false
-                allFightersList = mutableListOf()
+                allFighters = mutableListOf()
 
                 Log.i("quique", "COGE LA PRIMERA LISTA")
                 addHeroesToStartList()
@@ -63,9 +63,9 @@ class FightFragmentViewModel @Inject constructor(
                 Log.i("quique", "METE TODOS LOS FIGHTERS EN LA LISTA COMÚN")
                 orderFightersBySpeed()
                 Log.i("quique", "VALORES CALCULADOS")
-                val powerHeroes = getAllPower(heroesList)
+                val powerHeroes = getAllPower(heroes)
                 Log.i("quique", "Valor de héroes -> $powerHeroes")
-                val powerVillains = getAllPower(villainList)
+                val powerVillains = getAllPower(villains)
                 Log.i("quique", "Valor de villanos -> $powerVillains")
                 val difference = abs(powerHeroes - powerVillains)
                 Log.i("quique", "Diferencia -> $difference")
@@ -73,7 +73,7 @@ class FightFragmentViewModel @Inject constructor(
                     isBalanced = true
                 }
 
-                if (allFightersList.groupBy { it.id }.count() < 10) {
+                if (allFighters.groupBy { it.id }.count() < 10) {
                     repeatedFighter = true
                 }
 
@@ -84,13 +84,13 @@ class FightFragmentViewModel @Inject constructor(
             Log.i("quique", "EMITE LAS LISTAS")
             _uiState.emit(
                 FightFragmentUiState.Success(
-                    heroesList,
-                    villainList,
-                    allFightersList
+                    heroes,
+                    villains,
+                    allFighters
                 )
             )
 
-            _actualFighter.emit(allFightersList[0])
+            _actualFighter.emit(allFighters[0])
         }
     }
 
@@ -105,29 +105,29 @@ class FightFragmentViewModel @Inject constructor(
     }
 
     private suspend fun addVillainsToStartList() {
-        villainList = getVillainListUseCase()
+        villains = getVillainListUseCase()
     }
 
     private suspend fun addHeroesToStartList() {
-        heroesList = getHeroesListUseCase()
+        heroes = getHeroesListUseCase()
     }
 
     private fun orderFightersBySpeed() {
-        allFightersList.addAll(heroesList)
-        allFightersList.addAll(villainList)
-        allFightersList.removeAll { it.durability <= 0 }
-        allFightersList.sortByDescending { it.speed }
+        allFighters.addAll(heroes)
+        allFighters.addAll(villains)
+        allFighters.removeAll { it.durability <= 0 }
+        allFighters.sortByDescending { it.speed }
     }
 
     fun finishTurn() {
         _actualFighter.value.refreshDataToNextTurn()
-        allFightersList.removeFirst()
-        if (allFightersList.isEmpty()) {
+        allFighters.removeFirst()
+        if (allFighters.isEmpty()) {
             orderFightersBySpeed()
         }
 
         viewModelScope.launch {
-            _actualFighter.emit(allFightersList[0])
+            _actualFighter.emit(allFighters[0])
             _actualFighter.value.removeDefenseBonus()
         }
     }
@@ -148,7 +148,7 @@ class FightFragmentViewModel @Inject constructor(
             }
 
             if (enemyToAttack.durability <= 0) {
-                allFightersList.remove(enemyToAttack)
+                allFighters.remove(enemyToAttack)
                 viewModelScope.launch {
                     _dyingFighter.emit(enemyToAttack)
                 }
@@ -158,8 +158,8 @@ class FightFragmentViewModel @Inject constructor(
 
     fun performShot(enemyToAttack: FighterModel, rocks: List<RockModel>) {
         val allFightersToCheck = mutableListOf<FighterModel>()
-        allFightersToCheck.addAll(heroesList)
-        allFightersToCheck.addAll(villainList)
+        allFightersToCheck.addAll(heroes)
+        allFightersToCheck.addAll(villains)
         allFightersToCheck.removeAll { it.durability <= 0 }
         if (!_actualFighter.value.actionPerformed) {
             val resultOfShot = _actualFighter.value.shot(enemyToAttack, rocks, allFightersToCheck)
@@ -169,7 +169,7 @@ class FightFragmentViewModel @Inject constructor(
             }
 
             if (enemyToAttack.durability <= 0) {
-                allFightersList.remove(enemyToAttack)
+                allFighters.remove(enemyToAttack)
                 viewModelScope.launch {
                     _dyingFighter.emit(enemyToAttack)
                 }

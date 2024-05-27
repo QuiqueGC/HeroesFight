@@ -39,13 +39,13 @@ class FightFragment : Fragment() {
 
     private val board = List(10) { arrayOfNulls<View>(9) }
 
-    private val heroesList = mutableListOf<FighterModel>()
-    private val villainsList = mutableListOf<FighterModel>()
-    private var allFightersList = mutableListOf<FighterModel>()
-    private val ivHeroesList = mutableListOf<ShapeableImageView>()
-    private val ivVillainsList = mutableListOf<ShapeableImageView>()
-    private val ivAllFightersList = mutableListOf<ShapeableImageView>()
-    private val actionButtonsList = mutableListOf<Button>()
+    private val heroes = mutableListOf<FighterModel>()
+    private val villains = mutableListOf<FighterModel>()
+    private var allFighters = mutableListOf<FighterModel>()
+    private val ivHeroes = mutableListOf<ShapeableImageView>()
+    private val ivVillains = mutableListOf<ShapeableImageView>()
+    private val ivAllFighters = mutableListOf<ShapeableImageView>()
+    private val actionButtons = mutableListOf<Button>()
     private val rocks = mutableListOf<RockModel>()
     private val ivRocks = mutableListOf<ImageView>()
 
@@ -73,7 +73,7 @@ class FightFragment : Fragment() {
 
     private fun addActionButtonsToList() {
         with(binding) {
-            actionButtonsList.addAll(
+            actionButtons.addAll(
                 listOf(
                     btnAttack, btnShot, btnMove, btnDefend, btnSupport, btnSabotage
                 )
@@ -174,7 +174,7 @@ class FightFragment : Fragment() {
     }
 
     private fun setColorActionButtons(selectedButton: Button?) {
-        for (btn in actionButtonsList) {
+        for (btn in actionButtons) {
             if (btn != selectedButton) {
                 btn.setBackgroundColor(
                     ContextCompat.getColor(
@@ -238,9 +238,9 @@ class FightFragment : Fragment() {
         constraintSet.clone(binding.root)
 
         if (actualFighter.isHero) {
-            moveHeroOrVillain(constraintSet, ivHeroesList)
+            moveHeroOrVillain(constraintSet, ivHeroes)
         } else {
-            moveHeroOrVillain(constraintSet, ivVillainsList)
+            moveHeroOrVillain(constraintSet, ivVillains)
         }
         constraintSet.applyTo(binding.root)
     }
@@ -283,16 +283,16 @@ class FightFragment : Fragment() {
     }
 
     private fun setupFightersListeners() {
-        for (i in 0 until ivHeroesList.size) {
+        for (i in 0 until ivHeroes.size) {
 
-            ivVillainsList[i].setOnClickListener { _ ->
+            ivVillains[i].setOnClickListener { _ ->
                 showVillainCard(i)
             }
-            ivHeroesList[i].setOnClickListener {
+            ivHeroes[i].setOnClickListener {
                 showHeroCard(i)
             }
 
-            ivVillainsList[i].setOnLongClickListener {
+            ivVillains[i].setOnLongClickListener {
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttack(i, false)
                     PlayerChoice.SABOTAGE -> performSabotage(i, false)
@@ -303,7 +303,7 @@ class FightFragment : Fragment() {
                 }
                 true
             }
-            ivHeroesList[i].setOnLongClickListener {
+            ivHeroes[i].setOnLongClickListener {
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttack(i, true)
                     PlayerChoice.SABOTAGE -> performSabotage(i, true)
@@ -319,18 +319,18 @@ class FightFragment : Fragment() {
 
     private fun performSupport(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
         if (actualFighter.isHero && isClickOnHero) {
-            viewModel.performSupport(heroesList[indexOfFighterSelected])
+            viewModel.performSupport(heroes[indexOfFighterSelected])
         } else if (!actualFighter.isHero && !isClickOnHero) {
-            viewModel.performSupport(villainsList[indexOfFighterSelected])
+            viewModel.performSupport(villains[indexOfFighterSelected])
         } else {
             showToast("Don't support the enemy")
         }
     }
 
     private fun performDefense(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
-        if (isClickOnHero && heroesList[indexOfFighterSelected] == actualFighter) {
+        if (isClickOnHero && heroes[indexOfFighterSelected] == actualFighter) {
             viewModel.performDefense()
-        } else if (!isClickOnHero && villainsList[indexOfFighterSelected] == actualFighter) {
+        } else if (!isClickOnHero && villains[indexOfFighterSelected] == actualFighter) {
             viewModel.performDefense()
         } else {
             showToast("Only can use in himself")
@@ -339,9 +339,9 @@ class FightFragment : Fragment() {
 
     private fun performSabotage(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
         if (actualFighter.isHero && !isClickOnHero) {
-            viewModel.performSabotage(villainsList[indexOfFighterSelected])
+            viewModel.performSabotage(villains[indexOfFighterSelected])
         } else if (!actualFighter.isHero && isClickOnHero)
-            viewModel.performSabotage(heroesList[indexOfFighterSelected])
+            viewModel.performSabotage(heroes[indexOfFighterSelected])
         else {
             showToast("Don't sabotage your own team")
         }
@@ -349,9 +349,9 @@ class FightFragment : Fragment() {
 
     private fun performAttack(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
         if (!actualFighter.isHero && isClickOnHero) {
-            viewModel.performAttack(heroesList[indexOfFighterSelected])
+            viewModel.performAttack(heroes[indexOfFighterSelected])
         } else if (actualFighter.isHero && !isClickOnHero) {
-            viewModel.performAttack(villainsList[indexOfFighterSelected])
+            viewModel.performAttack(villains[indexOfFighterSelected])
         } else {
             showToast("Don't attack your own team")
         }
@@ -359,9 +359,9 @@ class FightFragment : Fragment() {
 
     private fun performShot(indexOfFighterSelected: Int, isClickOnHero: Boolean) {
         if (!actualFighter.isHero && isClickOnHero) {
-            viewModel.performShot(heroesList[indexOfFighterSelected], rocks)
+            viewModel.performShot(heroes[indexOfFighterSelected], rocks)
         } else if (actualFighter.isHero && !isClickOnHero) {
-            viewModel.performShot(villainsList[indexOfFighterSelected], rocks)
+            viewModel.performShot(villains[indexOfFighterSelected], rocks)
         } else {
             showToast("Don't shot your own team")
         }
@@ -442,19 +442,19 @@ class FightFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.dyingFighter.collect { dyingFighter ->
                 val indexOfDyingFighter: Int
-                if (heroesList.contains(dyingFighter)) {
-                    indexOfDyingFighter = heroesList.indexOf(dyingFighter)
-                    ivHeroesList[indexOfDyingFighter].visibility = View.GONE
+                if (heroes.contains(dyingFighter)) {
+                    indexOfDyingFighter = heroes.indexOf(dyingFighter)
+                    ivHeroes[indexOfDyingFighter].visibility = View.GONE
 
                     showReferee(
-                        "${actualFighter.name} has killed " + heroesList[indexOfDyingFighter].name + "!!!"
+                        "${actualFighter.name} has killed " + heroes[indexOfDyingFighter].name + "!!!"
                     )
 
                 } else {
-                    indexOfDyingFighter = villainsList.indexOf(dyingFighter)
-                    ivVillainsList[indexOfDyingFighter].visibility = View.GONE
+                    indexOfDyingFighter = villains.indexOf(dyingFighter)
+                    ivVillains[indexOfDyingFighter].visibility = View.GONE
                     showReferee(
-                        "${actualFighter.name} has killed " + villainsList[indexOfDyingFighter].name + "!!!"
+                        "${actualFighter.name} has killed " + villains[indexOfDyingFighter].name + "!!!"
                     )
                 }
                 removeOfInitiativeList(dyingFighter)
@@ -469,48 +469,48 @@ class FightFragment : Fragment() {
     }
 
     private fun removeOfInitiativeList(dyingFighter: FighterModel) {
-        val dyingFighterFiltered = allFightersList.filter { it.id == dyingFighter.id }
-        val indexOfDyingFighter = allFightersList.indexOf(dyingFighterFiltered.first())
-        ivAllFightersList[indexOfDyingFighter].visibility = View.GONE
-        ivAllFightersList.removeAt(indexOfDyingFighter)
-        allFightersList.removeAt(indexOfDyingFighter)
-        initiativeIndex = allFightersList.indexOf(actualFighter)
+        val dyingFighterFiltered = allFighters.filter { it.id == dyingFighter.id }
+        val indexOfDyingFighter = allFighters.indexOf(dyingFighterFiltered.first())
+        ivAllFighters[indexOfDyingFighter].visibility = View.GONE
+        ivAllFighters.removeAt(indexOfDyingFighter)
+        allFighters.removeAt(indexOfDyingFighter)
+        initiativeIndex = allFighters.indexOf(actualFighter)
     }
 
     private fun showAllViews() {
         if (isFirstTurn) {
             binding.linearInitiative.root.visibility = View.VISIBLE
-            ivHeroesList.forEach { it.visibility = View.VISIBLE }
-            ivVillainsList.forEach { it.visibility = View.VISIBLE }
+            ivHeroes.forEach { it.visibility = View.VISIBLE }
+            ivVillains.forEach { it.visibility = View.VISIBLE }
             isFirstTurn = false
         }
     }
 
     private fun setBorderAtInitiativeList() {
-        ivAllFightersList[initiativeIndex].strokeWidth = 20f
-        ivAllFightersList[initiativeIndex].setStrokeColorResource(R.color.greenTurn)
+        ivAllFighters[initiativeIndex].strokeWidth = 20f
+        ivAllFighters[initiativeIndex].setStrokeColorResource(R.color.greenTurn)
 
         if (initiativeIndex != 0) {
-            ivAllFightersList[initiativeIndex - 1].strokeWidth = 0f
+            ivAllFighters[initiativeIndex - 1].strokeWidth = 0f
         } else {
-            ivAllFightersList[ivAllFightersList.size - 1].strokeWidth = 0f
+            ivAllFighters[ivAllFighters.size - 1].strokeWidth = 0f
         }
 
     }
 
     private fun changeBorderOfActualFighter() {
         if (actualFighter.isHero) {
-            ivHeroesList[indexOfActualFighter].setStrokeColorResource(R.color.greenTurn)
+            ivHeroes[indexOfActualFighter].setStrokeColorResource(R.color.greenTurn)
         } else {
-            ivVillainsList[indexOfActualFighter].setStrokeColorResource(R.color.greenTurn)
+            ivVillains[indexOfActualFighter].setStrokeColorResource(R.color.greenTurn)
         }
     }
 
     private fun putFightersInTheInitiativeList(allFightersSorted: List<FighterModel>) {
-        allFightersList.addAll(allFightersSorted)
+        allFighters.addAll(allFightersSorted)
 
         for (i in allFightersSorted.indices) {
-            ivAllFightersList.add(binding.linearInitiative.linearLayout.getChildAt(i) as ShapeableImageView)
+            ivAllFighters.add(binding.linearInitiative.linearLayout.getChildAt(i) as ShapeableImageView)
             showImgWithGlide(
                 allFightersSorted[i].image,
                 binding.linearInitiative.linearLayout.getChildAt(i) as ShapeableImageView
@@ -520,9 +520,9 @@ class FightFragment : Fragment() {
 
     private fun extractActualFighterIndex() {
         indexOfActualFighter = if (actualFighter.isHero) {
-            heroesList.indexOf(heroesList.find { it.id == actualFighter.id })
+            heroes.indexOf(heroes.find { it.id == actualFighter.id })
         } else {
-            villainsList.indexOf(villainsList.find { it.id == actualFighter.id })
+            villains.indexOf(villains.find { it.id == actualFighter.id })
         }
     }
 
@@ -539,8 +539,8 @@ class FightFragment : Fragment() {
         heroesList: List<FighterModel>,
         villainsList: List<FighterModel>
     ) {
-        this.heroesList.addAll(heroesList)
-        this.villainsList.addAll(villainsList)
+        this.heroes.addAll(heroesList)
+        this.villains.addAll(villainsList)
     }
 
     private fun showHeroesMiniatures(
@@ -550,8 +550,8 @@ class FightFragment : Fragment() {
         for (i in heroesList.indices) {
             with(binding) {
                 progressBar.visibility = View.GONE
-                showImgWithGlide(heroesList[i].image, ivHeroesList[i])
-                showImgWithGlide(villainsList[i].image, ivVillainsList[i])
+                showImgWithGlide(heroesList[i].image, ivHeroes[i])
+                showImgWithGlide(villainsList[i].image, ivVillains[i])
             }
         }
     }
@@ -566,8 +566,8 @@ class FightFragment : Fragment() {
             }
         }
         with(binding) {
-            ivHeroesList.addAll(listOf(imgHero0, imgHero1, imgHero2, imgHero3, imgHero4))
-            ivVillainsList.addAll(
+            ivHeroes.addAll(listOf(imgHero0, imgHero1, imgHero2, imgHero3, imgHero4))
+            ivVillains.addAll(
                 listOf(
                     imgVillain0,
                     imgVillain1,
@@ -630,15 +630,15 @@ class FightFragment : Fragment() {
 
     private fun finishTurn() {
         if (actualFighter.isHero) {
-            ivHeroesList[indexOfActualFighter].setStrokeColorResource(R.color.blueGood)
+            ivHeroes[indexOfActualFighter].setStrokeColorResource(R.color.blueGood)
         } else {
-            ivVillainsList[indexOfActualFighter].setStrokeColorResource(R.color.redBad)
+            ivVillains[indexOfActualFighter].setStrokeColorResource(R.color.redBad)
         }
         enableButtons()
         playerChoice = PlayerChoice.WAITING_FOR_ACTION
         indexOfActualFighter = -1
         initiativeIndex++
-        if (initiativeIndex > ivAllFightersList.size - 1) {
+        if (initiativeIndex > ivAllFighters.size - 1) {
             initiativeIndex = 0
         }
 
@@ -653,7 +653,7 @@ class FightFragment : Fragment() {
     }
 
     private fun disableActionButtons(noDisableButton: Button?) {
-        for (btn in actionButtonsList) {
+        for (btn in actionButtons) {
             if (btn != noDisableButton) {
                 btn.isEnabled = false
                 btn.visibility = View.INVISIBLE
@@ -662,7 +662,7 @@ class FightFragment : Fragment() {
     }
 
     private fun enableButtons() {
-        for (btn in actionButtonsList) {
+        for (btn in actionButtons) {
             btn.isEnabled = true
             btn.visibility = View.VISIBLE
         }
@@ -683,7 +683,7 @@ class FightFragment : Fragment() {
     private fun showHeroCard(indexOfHero: Int) {
         CardsFiller.fillDataIntoHeroFighterCard(
             binding.cardIncludedGood,
-            heroesList[indexOfHero],
+            heroes[indexOfHero],
             requireContext()
         )
         binding.cardIncludedGood.card.visibility = View.VISIBLE
@@ -692,7 +692,7 @@ class FightFragment : Fragment() {
     private fun showVillainCard(indexOfVillain: Int) {
         CardsFiller.fillDataIntoVillainFighterCard(
             binding.cardIncludedBad,
-            villainsList[indexOfVillain],
+            villains[indexOfVillain],
             requireContext()
         )
         binding.cardIncludedBad.card.visibility = View.VISIBLE
