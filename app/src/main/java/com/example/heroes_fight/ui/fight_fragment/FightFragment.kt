@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
@@ -458,6 +459,18 @@ class FightFragment : Fragment() {
                     )
                 }
                 removeOfInitiativeList(dyingFighter)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.finishBattle.collect {
+                if (it != null) {
+                    findNavController().navigate(
+                        FightFragmentDirections.actionFightFragmentToScoreFragment(
+                            it
+                        )
+                    )
+                }
             }
         }
     }

@@ -69,5 +69,21 @@
         android:id="@+id/fightFragment"
         android:name="com.example.heroes_fight.ui.fight_fragment.FightFragment"
         android:label="fragment_fight"
-        tools:layout="@layout/fragment_fight" />
+        tools:layout="@layout/fragment_fight">
+        <action
+            android:id="@+id/action_fightFragment_to_scoreFragment"
+            app:destination="@id/scoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scoreFragment"
+        android:name="com.example.heroes_fight.ui.score_fragment.ScoreFragment"
+        android:label="fragment_score"
+        tools:layout="@layout/fragment_score">
+        <action
+            android:id="@+id/action_scoreFragment_to_newMainMenuFragment"
+            app:destination="@id/newMainMenuFragment" />
+        <argument
+            android:name="scoreListModel"
+            app:argType="com.example.heroes_fight.data.domain.model.fighter.ScoreListModel" />
+    </fragment>
 </navigation>

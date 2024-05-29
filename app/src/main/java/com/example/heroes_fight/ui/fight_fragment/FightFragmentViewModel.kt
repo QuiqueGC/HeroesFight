@@ -7,6 +7,8 @@ import com.example.heroes_fight.data.constants.MyConstants
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
+import com.example.heroes_fight.data.domain.model.fighter.ScoreListModel
+import com.example.heroes_fight.data.domain.model.fighter.ScoreModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
 import com.example.heroes_fight.data.utils.BoardManager
@@ -39,6 +41,9 @@ class FightFragmentViewModel @Inject constructor(
 
     private val _dyingFighter = MutableSharedFlow<FighterModel>()
     val dyingFighter: SharedFlow<FighterModel> = _dyingFighter
+
+    private val _finishBattle = MutableStateFlow<ScoreListModel?>(null)
+    val finishBattle: StateFlow<ScoreListModel?> = _finishBattle
 
 
     private var heroes = mutableListOf<FighterModel>()
@@ -127,7 +132,7 @@ class FightFragmentViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            _actualFighter.emit(allFighters[0])
+            _actualFighter.emit(allFighters.first())
             _actualFighter.value.removeDefenseBonus()
         }
     }
@@ -148,10 +153,10 @@ class FightFragmentViewModel @Inject constructor(
             }
 
             if (enemyToAttack.durability <= 0) {
-                allFighters.remove(enemyToAttack)
-                viewModelScope.launch {
-                    _dyingFighter.emit(enemyToAttack)
-                }
+                _actualFighter.value.score.kills++
+                enemyToAttack.score.survived = false
+
+                checkIfFinishGameOrJustDie(enemyToAttack)
             }
         }
     }
@@ -169,10 +174,31 @@ class FightFragmentViewModel @Inject constructor(
             }
 
             if (enemyToAttack.durability <= 0) {
-                allFighters.remove(enemyToAttack)
-                viewModelScope.launch {
-                    _dyingFighter.emit(enemyToAttack)
-                }
+                _actualFighter.value.score.kills++
+                enemyToAttack.score.survived = false
+
+                checkIfFinishGameOrJustDie(enemyToAttack)
+            }
+        }
+    }
+
+    private fun checkIfFinishGameOrJustDie(enemyToAttack: FighterModel) {
+        if (heroes.none { it.score.survived }) {
+            val scores = mutableListOf<ScoreModel>()
+            villains.forEach { scores.add(it.score) }
+            viewModelScope.launch {
+                _finishBattle.emit(ScoreListModel(false, scores))
+            }
+        } else if (villains.none { it.score.survived }) {
+            val scores = mutableListOf<ScoreModel>()
+            heroes.forEach { scores.add(it.score) }
+            viewModelScope.launch {
+                _finishBattle.emit(ScoreListModel(false, scores))
+            }
+        } else {
+            allFighters.remove(enemyToAttack)
+            viewModelScope.launch {
+                _dyingFighter.emit(enemyToAttack)
             }
         }
     }
@@ -218,7 +244,6 @@ class FightFragmentViewModel @Inject constructor(
                 MyConstants.MELEE_DISTANCE,
                 _actualFighter.value.position
             )
-
         }
     }
 

@@ -28,7 +28,8 @@ class FighterModel(
     var actionPerformed: Boolean = false,
     var movementPerformed: Boolean = false,
     var isSabotaged: Boolean = false,
-    var isHero: Boolean = true
+    var isHero: Boolean = true,
+    val score: ScoreModel = ScoreModel(serialNum, name, image)
 ) : HeroModel(
     id,
     serialNum,
@@ -376,18 +377,25 @@ class FighterModel(
     }
 
     private fun resolveAttack(enemy: FighterModel): String {
+        score.meleeAtks++
         val attackRoll = Random.nextInt(1, 101)
-        Log.i("quique", "resultado de la tirada de ataque -> $attackRoll")
+        Log.i("diferencia", "La tirada de ataque A PALO SECO ES -> $attackRoll")
         Log.i("quique", "El valor de combat es -> $combat")
         val result: String
 
         if (attackRoll <= 90 && attackRoll <= combat + combatBonus) {
             val attackDifference = combat - attackRoll + combatBonus
 
-            val enemyDefenceDifference = enemy.getDefenseRoll()
-            Log.i("quique", "La tiradad del enemigo de defensa es -> $enemyDefenceDifference")
-            if (attackDifference >= enemyDefenceDifference) {
-                var damageBonus = attackDifference - enemyDefenceDifference
+            val enemyDefenseDifference = enemy.getDefenseRoll()
+            Log.i(
+                "diferencia",
+                "La diferencia del enemigo de defensa es -> $enemyDefenseDifference"
+            )
+            //Log.i("diferencia", "El combat del enemigo  es -> ${enemy.combat}")
+            Log.i("diferencia", "La diferencia de ataque es -> $attackDifference")
+            //Log.i("diferencia", "El combat  es -> $combat")
+            if (attackDifference >= enemyDefenseDifference) {
+                var damageBonus = attackDifference - enemyDefenseDifference
                 if (damageBonus > 20) {
                     damageBonus = 20
                 }
@@ -395,6 +403,9 @@ class FighterModel(
 
             } else {
                 enemy.durability -= 5
+                enemy.score.meleeDmgRec += 5
+                enemy.score.defAtks++
+                score.meleeDmg += 5
                 result = "${enemy.name} defended the attack and just received 5 of damage"
             }
         } else {
@@ -406,6 +417,7 @@ class FighterModel(
     }
 
     private fun resolveShot(enemy: FighterModel): String {
+        score.rangeAtks++
         val shotRoll = Random.nextInt(1, 101)
         Log.i("quique", "resultado de la tirada de disparo -> $shotRoll")
         Log.i("quique", "El valor de power es -> $power")
@@ -422,13 +434,14 @@ class FighterModel(
                     damage = 1
                 }
                 enemy.durability -= damage
+                enemy.score.rangeDmgRec += damage
+                score.rangeDmg += damage
                 result = "$name inflicted $damage of damage to ${enemy.name}"
 
 
             } else {
-
+                enemy.score.dodgedAtks++
                 result = "${enemy.name} dodged the shot and don't received damage"
-
             }
         } else {
             result = "$name failed the shot"
@@ -451,10 +464,14 @@ class FighterModel(
                 damage = Random.nextInt(10, 16)
             }
             enemy.durability -= damage
+            enemy.score.meleeDmgRec += damage
+            score.meleeDmg += damage
             result = "$name inflicted $damage of damage to ${enemy.name}"
 
         } else {
             enemy.durability -= 8
+            enemy.score.meleeDmgRec += 8
+            score.meleeDmg += 8
             result = "$name didn't used strength enough and just caused 8 of damage"
         }
         return result
@@ -463,23 +480,25 @@ class FighterModel(
 
     override fun getDefenseRoll(): Int {
         val defenseRoll = Random.nextInt(1, 101)
-        Log.i("quique", "La tiradad del enemigo de defensa es -> $defenseRoll")
-        Log.i("quique", "El combat del defensor es de -> $combat")
-        return if (defenseRoll < 90 && defenseRoll < combat + defenseBonus + combatBonus) {
-            combat - defenseRoll + defenseBonus + combatBonus
-            Log.i(
-                "quique",
-                "El resultado de combat - defenceRoll + defenseBonus en la siguiente línea"
-            )
+        Log.i("diferencia", "La tiradad del enemigo A PALO SECO de defensa es -> $defenseRoll")
+        Log.i("diferencia", "el combatBonus es -> $combatBonus")
+        Log.i("diferencia", "el defenseBonus es -> $defenseBonus")
+        Log.i("diferencia", "El combat del defensor es de -> $combat")
+        if (defenseRoll <= 90 && defenseRoll < combat + defenseBonus + combatBonus) {
+            val difference = combat - defenseRoll + defenseBonus + combatBonus
+            Log.i("diferencia", "El RESULTADO DE LA DIFERENCIA ANTES DE DEVOLVERLA -> $difference")
+            return difference
+
         } else {
-            0
+            return 0
         }
     }
 
     override fun getIntelligenceRoll(): Int {
         val intelligenceRoll = Random.nextInt(1, 101)
         return if (intelligenceRoll < 90 && intelligenceRoll < intelligence) {
-            intelligence - intelligenceRoll
+            val difference = intelligence - intelligenceRoll
+            difference
         } else {
             0
         }
@@ -490,11 +509,8 @@ class FighterModel(
         Log.i("quique", "La tiradad del enemigo de defensa es -> $speedRoll")
         Log.i("quique", "El combat del defensor es de -> $combat")
         return if (speedRoll < 90 && speedRoll < speed + defenseBonus) {
-            speed - speedRoll + defenseBonus
-            Log.i(
-                "quique",
-                "El resultado de combat - defenceRoll + defenseBonus en la siguiente línea"
-            )
+            val difference = speed - speedRoll + defenseBonus
+            difference
         } else {
             0
         }
