@@ -162,7 +162,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
 
 
     private fun setupAdapter() {
-        val listManager = GridLayoutManager(requireContext(), 2)
+        val listManager = GridLayoutManager(requireContext(), 4)
 
         with(binding) {
             recyclerView.setHasFixedSize(true)

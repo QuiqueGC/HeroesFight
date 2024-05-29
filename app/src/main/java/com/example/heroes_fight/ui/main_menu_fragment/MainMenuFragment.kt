@@ -30,10 +30,6 @@ class MainMenuFragment : Fragment() {
             findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToCardsCollectionFragment())
         }
 
-        binding.btnRandomCard.setOnClickListener {
-            findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToMainMenuFragment())
-        }
-
         binding.btnFight.setOnClickListener {
             findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToFightFragment())
         }

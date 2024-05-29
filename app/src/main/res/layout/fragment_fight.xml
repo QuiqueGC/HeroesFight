@@ -745,7 +745,7 @@
         android:layout_marginBottom="-64dp"
         android:visibility="gone"
         android:scaleType="centerInside"
-        android:src="@drawable/speech_bubble_background4"
+        android:src="@drawable/speech_bubble_background"
         app:layout_constraintBottom_toTopOf="@id/imgReferee"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -26,9 +26,9 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
     val selectedHero: StateFlow<HeroModel> = _selectedHero
 
     private val cardsList = mutableListOf<HeroModel>()
-    private var loops = 1
+    private var offset = 1
     private var idHero = 0
-    private var pageSize = 10
+    private var limit = 32
 
     fun getCardsList() {
         val deferreds = ArrayList<Deferred<Unit>>()
@@ -37,16 +37,16 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
             Log.i("quique", "Empieza el bucle")
 
             do {
-                Log.i("quique", "vuelta nº ${loops}")
+                Log.i("quique", "vuelta nº ${offset}")
                 val deferred = async { getHeroToList() }
                 deferreds.add(deferred)
-                Log.i("quique", "${loops}")
-                loops++
-            } while (loops < pageSize)
+                Log.i("quique", "${offset}")
+                offset++
+            } while (offset < limit)
 
             deferreds.awaitAll()
             cardsList.sortBy { it.id }
-            pageSize += pageSize
+            limit += limit
 
             for (hero in cardsList) {
                 Log.i("quique", "nombre del héroe -> ${hero.name}")

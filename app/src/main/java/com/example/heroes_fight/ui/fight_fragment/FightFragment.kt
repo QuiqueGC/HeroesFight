@@ -211,7 +211,7 @@ class FightFragment : Fragment() {
         for (line in board) {
             for (column in line) {
                 column!!.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_base)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.tile_base2)
             }
         }
     }
