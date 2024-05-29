@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/villain_win"
     tools:context=".ui.score_fragment.ScoreFragment">
-    
+
+    <TextView
+        android:id="@+id/tvWin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Villains won!"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:textColor="@color/white"
+        android:textSize="64sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="@dimen/marginLarge"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tvWin"
+        app:layout_constraintBottom_toTopOf="@id/btnBackToMenu"
+        tools:listitem="@layout/item_fighter_score" />
+
+    <Button
+        android:id="@+id/btnBackToMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/txtCommon"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:text="Back To Menu"
+        android:layout_marginBottom="@dimen/marginLarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

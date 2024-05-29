@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/marginLarge"
+    android:background="@drawable/background_card_bad">
+
+    <TextView
+        android:id="@+id/tvSerialNum"
+        style="@style/txtItemScoreWhiteBold"
+        android:textAlignment="center"
+        android:layout_marginBottom="@dimen/marginMin"
+        app:layout_constraintTop_toTopOf="@id/tvKills"
+        app:layout_constraintStart_toStartOf="@id/imgFighter"
+        app:layout_constraintEnd_toEndOf="@id/imgFighter"
+        tools:text="#765" />
+
+    <ImageView
+        android:id="@+id/imgFighter"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/marginCommon"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSerialNum"
+        app:layout_constraintBottom_toTopOf="@id/tvFighterName"
+        tools:src="@drawable/fight" />
+
+    <TextView
+        android:id="@+id/tvFighterName"
+        style="@style/txtItemScoreWhiteBold"
+        android:layout_width="0dp"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/marginMin"
+        app:layout_constraintStart_toStartOf="@id/imgFighter"
+        app:layout_constraintEnd_toEndOf="@id/imgFighter"
+        app:layout_constraintBottom_toBottomOf="@id/tvRangeDamageReceived"
+        tools:text="El Nombre De este Señor" />
+
+    <TextView
+        android:id="@+id/tvKills"
+        style="@style/txtItemScoreWhiteBold"
+        android:layout_marginStart="@dimen/marginLarge"
+        android:layout_marginTop="@dimen/marginLarge"
+        android:text="Kills"
+        app:layout_constraintStart_toEndOf="@id/imgFighter"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvKillsContent"
+        style="@style/txtItemScoreWhite"
+        android:layout_marginEnd="@dimen/marginLarge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvKills"
+        tools:text="3" />
+
+    <TextView
+        android:id="@+id/tvMeleeAttacks"
+        style="@style/txtItemScoreWhite"
+        android:text="Melee Atks"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvKills" />
+
+    <TextView
+        android:id="@+id/tvMeleeAttacksContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvMeleeAttacks"
+        tools:text="489" />
+
+    <TextView
+        android:id="@+id/tvMeleeDamage"
+        style="@style/txtItemScoreWhite"
+        android:text="Melee Dmg"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvMeleeAttacks" />
+
+    <TextView
+        android:id="@+id/tvMeleeDamageContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvMeleeDamage"
+        tools:text="525" />
+
+    <TextView
+        android:id="@+id/tvRangeAttacks"
+        style="@style/txtItemScoreWhite"
+        android:text="Range Atks"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvMeleeDamage" />
+
+    <TextView
+        android:id="@+id/tvRangeAttacksContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvRangeAttacks"
+        tools:text="32" />
+
+    <TextView
+        android:id="@+id/tvRangeDamage"
+        style="@style/txtItemScoreWhite"
+        android:text="Range Dmg"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvRangeAttacks" />
+
+    <TextView
+        android:id="@+id/tvRangeDamageContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvRangeDamage"
+        tools:text="329" />
+
+    <TextView
+        android:id="@+id/tvSurvived"
+        style="@style/txtItemScoreWhiteBold"
+        android:text="Survived"
+        android:layout_marginTop="@dimen/marginCommon"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvRangeDamage" />
+
+    <TextView
+        android:id="@+id/tvSurvivedContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvSurvived"
+        tools:text="Yes" />
+
+    <TextView
+        android:id="@+id/tvDefendedAttacks"
+        style="@style/txtItemScoreWhite"
+        android:text="Def Atks"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvSurvived" />
+
+    <TextView
+        android:id="@+id/tvDefendedAttacksContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvDefendedAttacks"
+        tools:text="64" />
+
+    <TextView
+        android:id="@+id/tvMeleeDamageReceived"
+        style="@style/txtItemScoreWhite"
+        android:text="Melee Dmg Rec"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvDefendedAttacks" />
+
+    <TextView
+        android:id="@+id/tvMeleeDamageReceivedContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvMeleeDamageReceived"
+        tools:text="694" />
+
+    <TextView
+        android:id="@+id/tvDodgedAttacks"
+        style="@style/txtItemScoreWhite"
+        android:text="Dodged atks"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvMeleeDamageReceived" />
+
+    <TextView
+        android:id="@+id/tvDodgedAttacksContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvDodgedAttacks"
+        tools:text="694" />
+
+    <TextView
+        android:id="@+id/tvRangeDamageReceived"
+        style="@style/txtItemScoreWhite"
+        android:text="Range dmg Rec"
+        android:layout_marginBottom="@dimen/marginCommon"
+        app:layout_constraintStart_toStartOf="@id/tvKills"
+        app:layout_constraintTop_toBottomOf="@id/tvDodgedAttacks"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tvRangeDamageReceivedContent"
+        style="@style/txtItemScoreWhite"
+        app:layout_constraintEnd_toEndOf="@id/tvKillsContent"
+        app:layout_constraintTop_toTopOf="@id/tvRangeDamageReceived"
+        tools:text="694" />
+</androidx.constraintlayout.widget.ConstraintLayout>

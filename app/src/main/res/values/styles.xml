@@ -12,6 +12,18 @@
         <item name="android:fontFamily">@font/fighting_spirit_2</item>
     </style>
 
+    <style name="txtItemScoreWhite" parent="txtRegularWhite">
+        <item name="android:textSize">@dimen/txtItemScore</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="txtItemScoreWhiteBold" parent="txtBoldWhite">
+        <item name="android:textSize">@dimen/txtItemScore</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="txtToFillDataOfHero" parent="txtRegularWhite">
         <item name="android:textSize">@dimen/txtSmall</item>
         <item name="android:fontFamily">@font/fighting_spirit_2_ital</item>

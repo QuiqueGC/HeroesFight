@@ -22,5 +22,6 @@
     <dimen name="marginTxtInBubble">76dp</dimen>
     <dimen name="speechBubbleHeight">260dp</dimen>
     <dimen name="speechBubbleWidth">320dp</dimen>
+    <dimen name="txtItemScore">20sp</dimen>
 
 </resources>
