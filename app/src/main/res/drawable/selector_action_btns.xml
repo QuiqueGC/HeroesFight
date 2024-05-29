@@ -1,4 +1,0 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Estado deshabilitado -->
-    <item android:state_enabled="false" android:drawable="@drawable/background_action_btns_disabled" />
-</selector>

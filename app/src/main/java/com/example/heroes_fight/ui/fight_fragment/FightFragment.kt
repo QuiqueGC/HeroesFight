@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
@@ -46,7 +47,7 @@ class FightFragment : Fragment() {
     private val ivHeroes = mutableListOf<ShapeableImageView>()
     private val ivVillains = mutableListOf<ShapeableImageView>()
     private val ivAllFighters = mutableListOf<ShapeableImageView>()
-    private val actionButtons = mutableListOf<Button>()
+    private val actionButtons = mutableListOf<ImageButton>()
     private val rocks = mutableListOf<RockModel>()
     private val ivRocks = mutableListOf<ImageView>()
 
@@ -126,7 +127,7 @@ class FightFragment : Fragment() {
                 playerChoice = PlayerChoice.MOVE
                 tvInfo.text = getString(R.string.selectCellToMove)
                 paintAccessibleTiles()
-                setColorActionButtons(btnMove)
+                //setColorActionButtons(btnMove)
             }
 
             btnAttack.setOnClickListener {
@@ -134,13 +135,13 @@ class FightFragment : Fragment() {
                 tvInfo.text = getString(R.string.selectEnemyToAttack)
                 playerChoice = PlayerChoice.ATTACK
                 paintAccessibleTiles()
-                setColorActionButtons(btnAttack)
+                //setColorActionButtons(btnAttack)
             }
             btnDefend.setOnClickListener {
                 refreshBoard()
                 tvInfo.text = getString(R.string.selectOwnHero)
                 playerChoice = PlayerChoice.DEFEND
-                setColorActionButtons(btnDefend)
+                //setColorActionButtons(btnDefend)
             }
 
             btnSupport.setOnClickListener {
@@ -148,14 +149,14 @@ class FightFragment : Fragment() {
                 tvInfo.text = getString(R.string.selectAllyToSupport)
                 playerChoice = PlayerChoice.SUPPORT
                 paintAccessibleTiles()
-                setColorActionButtons(btnSupport)
+                //setColorActionButtons(btnSupport)
             }
             btnSabotage.setOnClickListener {
                 refreshBoard()
                 tvInfo.text = getString(R.string.selectEnemyToSabotage)
                 playerChoice = PlayerChoice.SABOTAGE
                 paintAccessibleTiles()
-                setColorActionButtons(btnSabotage)
+                //setColorActionButtons(btnSabotage)
             }
 
             btnShot.setOnClickListener {
@@ -163,13 +164,13 @@ class FightFragment : Fragment() {
                 tvInfo.text = getString(R.string.selectEnemyToShot)
                 playerChoice = PlayerChoice.SHOT
                 paintAccessibleTiles()
-                setColorActionButtons(btnShot)
+                //setColorActionButtons(btnShot)
             }
 
             btnPass.setOnClickListener {
                 refreshBoard()
                 finishTurn()
-                setColorActionButtons(null)
+                //setColorActionButtons(null)
             }
         }
     }
@@ -274,12 +275,12 @@ class FightFragment : Fragment() {
         refreshBoard()
 
         if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
-            binding.btnPass.setBackgroundColor(
+            /*binding.btnPass.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.greenTurn
                 )
-            )
+            )*/
         }
     }
 
@@ -430,12 +431,12 @@ class FightFragment : Fragment() {
                     binding.btnMove.visibility = View.GONE
                 }
                 if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
-                    binding.btnPass.setBackgroundColor(
+                    /*binding.btnPass.setBackgroundColor(
                         ContextCompat.getColor(
                             requireContext(),
                             R.color.greenTurn
                         )
-                    )
+                    )*/
                 }
             }
         }
@@ -655,17 +656,17 @@ class FightFragment : Fragment() {
             initiativeIndex = 0
         }
 
-        binding.btnPass.setBackgroundColor(
+        /*binding.btnPass.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
-                R.color.redBad
+                R.color.transparent
             )
-        )
+        )*/
 
         viewModel.finishTurn()
     }
 
-    private fun disableActionButtons(noDisableButton: Button?) {
+    private fun disableActionButtons(noDisableButton: ImageButton?) {
         for (btn in actionButtons) {
             if (btn != noDisableButton) {
                 btn.isEnabled = false

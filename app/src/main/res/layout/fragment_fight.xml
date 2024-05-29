@@ -816,67 +816,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/redBad"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="Pass"
-        android:textSize="16sp"
+        style="@style/actionImageBtn"
+        android:src="@drawable/btn_pass"
         app:layout_constraintBottom_toTopOf="@id/vBoard"
         app:layout_constraintEnd_toEndOf="@id/vBoard" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnMove"
-        style="@style/actionBtn"
-        android:text="Mov"
+        style="@style/actionImageBtn"
+        android:src="@drawable/btn_move"
         app:layout_constraintBottom_toTopOf="@id/btnSupport"
         app:layout_constraintEnd_toStartOf="@id/btnAttack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnAttack"
-        style="@style/actionBtn"
-        android:text="Atck!"
+        style="@style/actionImageBtn"
+        android:src="@drawable/btn_attack"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toStartOf="@id/btnDefend"
         app:layout_constraintStart_toEndOf="@id/btnMove"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnDefend"
-        style="@style/actionBtn"
-        android:text="Def"
+        style="@style/actionImageBtn"
+        android:src="@drawable/btn_defend"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnAttack"
         app:layout_constraintTop_toBottomOf="@id/vBoard" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnSupport"
-        style="@style/actionBtn"
-        android:text="Sup"
+        style="@style/actionImageBtn"
+        android:src="@drawable/btn_support"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnSabotage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnMove" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnSabotage"
-        style="@style/actionBtn"
-        android:text="Sab"
+        style="@style/actionImageBtn"
+        android:src="@drawable/btn_sabotage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnShot"
         app:layout_constraintStart_toEndOf="@id/btnSupport"
         app:layout_constraintTop_toBottomOf="@id/btnAttack" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/btnShot"
-        style="@style/actionBtn"
-        android:text="Shot"
+        style="@style/actionImageBtn"
+        android:src="@drawable/btn_shot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnSabotage"

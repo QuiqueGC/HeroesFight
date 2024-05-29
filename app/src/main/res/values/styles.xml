@@ -128,4 +128,11 @@
         <item name="android:textColor">@color/redBad</item>
         <item name="android:backgroundTint">@color/blueGood</item>
     </style>
+
+    <style name="actionImageBtn">
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
 </resources>
