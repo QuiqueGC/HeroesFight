@@ -20,16 +20,19 @@
         tools:src="@drawable/fight" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/imgHero"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgHero">
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:paddingBottom="@dimen/marginLarge"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/imgHero"
+        app:layout_constraintEnd_toEndOf="@id/imgHero">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/marginCommon"
+            android:layout_marginVertical="@dimen/marginCommon"
             android:paddingBottom="@dimen/marginLarge"
             android:background="@drawable/background_bio_and_appearance">
 
@@ -187,10 +190,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/marginCommon"
+                android:layout_marginTop="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/glVertical"
                 app:layout_constraintTop_toTopOf="@id/tvEyeColorHero"
-                tools:text="El nombre de este señor" />
+                tools:text="El color de ojos" />
 
             <TextView
                 android:id="@+id/tvHairColorHero"
@@ -209,10 +213,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/marginCommon"
+                android:layout_marginTop="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/glVertical"
                 app:layout_constraintTop_toTopOf="@id/tvHairColorHero"
-                tools:text="El nombre de este señor" />
+                tools:text="El color de pelo" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
