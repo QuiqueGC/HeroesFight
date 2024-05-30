@@ -24,7 +24,7 @@ object CardsFiller {
             tvPowerContent.text = heroModel.power.toString()
             Glide.with(context)
                 .load(heroModel.image)
-                .error(R.drawable.fight)
+                .error(R.drawable.question_mark)
                 .apply(RequestOptions().centerCrop())
                 .into(imgHero)
         }
@@ -42,7 +42,7 @@ object CardsFiller {
             tvPowerContent.text = heroModel.power.toString()
             Glide.with(context)
                 .load(heroModel.image)
-                .error(R.drawable.fight)
+                .error(R.drawable.question_mark)
                 .apply(RequestOptions().centerCrop())
                 .into(imgHero)
         }

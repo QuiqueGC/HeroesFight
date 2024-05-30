@@ -4,38 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/villain_win"
     tools:context=".ui.biography_fragment.BiographyFragment">
-
 
     <ImageView
         android:id="@+id/imgHero"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_margin="@dimen/marginLarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/fight" />
-
-    
-    <ScrollView
-        app:layout_constraintTop_toBottomOf="@id/imgHero"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="0dp"
-        android:layout_width="0dp"
-        android:paddingBottom="@dimen/marginLarge"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@id/imgHero"
-        app:layout_constraintEnd_toEndOf="@id/imgHero">
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/marginCommon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/marginCommon"
         android:paddingBottom="@dimen/marginLarge"
-        android:background="@drawable/background_bio_and_appearance">
+        android:background="@drawable/background_bio_and_appearance_card">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/glVertical"
@@ -244,5 +229,4 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
