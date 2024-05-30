@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_dark_background"
+    android:background="@drawable/villain_win"
     tools:context=".ui.biography_fragment.BiographyFragment">
 
 
@@ -12,23 +12,27 @@
         android:id="@+id/imgHero"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:layout_margin="@dimen/marginLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="centerCrop"
         tools:src="@drawable/fight" />
+
     
     <ScrollView
         app:layout_constraintTop_toBottomOf="@id/imgHero"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_marginBottom="@dimen/marginCommon">
+        android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginCommon"
+        android:paddingBottom="@dimen/marginLarge"
+        android:background="@drawable/background_bio_and_appearance">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/glVertical"
@@ -209,7 +213,7 @@
             style="@style/txtBoldWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginCommon"
+            android:layout_marginVertical="@dimen/marginCommon"
             android:text="Publisher"
             app:layout_constraintEnd_toEndOf="@id/tvNameHero"
             app:layout_constraintStart_toStartOf="@id/tvNameHero"

@@ -244,6 +244,7 @@
         <TextView
             android:id="@+id/tvDefenseValue"
             style="@style/txtBoldWhiteSmall"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -268,6 +269,7 @@
         <TextView
             android:id="@+id/tvBonusValue"
             style="@style/txtBoldWhiteSmall"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"

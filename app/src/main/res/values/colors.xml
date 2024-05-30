@@ -6,4 +6,5 @@
     <color name="blueGood">#5D74EF</color>
     <color name="redBad">#5A0306</color>
     <color name="greenTurn">#0EEF06</color>
+    <color name="semiTransparent">#9F000000</color>
 </resources>

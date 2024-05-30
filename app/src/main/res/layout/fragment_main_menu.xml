@@ -8,6 +8,7 @@
     tools:context=".ui.main_menu_fragment.MainMenuFragment">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -44,6 +45,5 @@
         app:layout_constraintBottom_toTopOf="@id/btnFight"
         app:layout_constraintStart_toStartOf="@id/btnFight"
         app:layout_constraintEnd_toEndOf="@id/btnFight" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
