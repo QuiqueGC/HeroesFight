@@ -773,6 +773,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/marginCommon"
         android:layout_marginTop="@dimen/marginLarge"
+        android:visibility="invisible"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -788,6 +789,7 @@
         android:id="@+id/tvInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:background="@color/semiTransparent"
         android:textAlignment="center"
@@ -821,6 +823,7 @@
 
     <Button
         android:id="@+id/btnPass"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -831,6 +834,7 @@
 
     <Button
         android:id="@+id/btnMove"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -843,6 +847,7 @@
 
     <Button
         android:id="@+id/btnAttack"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -855,6 +860,7 @@
 
     <Button
         android:id="@+id/btnDefend"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -867,6 +873,7 @@
 
     <Button
         android:id="@+id/btnSupport"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -879,6 +886,7 @@
 
     <Button
         android:id="@+id/btnSabotage"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
@@ -892,6 +900,7 @@
 
     <Button
         android:id="@+id/btnShot"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"

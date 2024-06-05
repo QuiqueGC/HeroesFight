@@ -492,7 +492,13 @@ class FightFragment : Fragment() {
 
     private fun showAllViews() {
         if (isFirstTurn) {
-            binding.linearInitiative.root.visibility = View.VISIBLE
+            with(binding) {
+                tvTurn.visibility = View.VISIBLE
+                tvInfo.visibility = View.VISIBLE
+                linearInitiative.root.visibility = View.VISIBLE
+                btnPass.visibility = View.VISIBLE
+            }
+            actionButtons.forEach { it.visibility = View.VISIBLE }
             ivHeroes.forEach { it.visibility = View.VISIBLE }
             ivVillains.forEach { it.visibility = View.VISIBLE }
             isFirstTurn = false
