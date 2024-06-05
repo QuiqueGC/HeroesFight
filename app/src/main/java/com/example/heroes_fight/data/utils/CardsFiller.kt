@@ -56,8 +56,8 @@ object CardsFiller {
     ) {
 
         with(card) {
-            ivBonus.visibility = View.VISIBLE
-            ivDefense.visibility = View.VISIBLE
+            tvBonusCombat.visibility = View.VISIBLE
+            tvBonusDefense.visibility = View.VISIBLE
             tvBonusValue.visibility = View.VISIBLE
             tvDefenseValue.visibility = View.VISIBLE
             btnBiography.visibility = View.GONE
@@ -93,8 +93,8 @@ object CardsFiller {
     ) {
 
         with(card) {
-            ivBonus.visibility = View.VISIBLE
-            ivDefense.visibility = View.VISIBLE
+            tvBonusCombat.visibility = View.VISIBLE
+            tvBonusDefense.visibility = View.VISIBLE
             tvBonusValue.visibility = View.VISIBLE
             tvDefenseValue.visibility = View.VISIBLE
             btnBiography.visibility = View.GONE

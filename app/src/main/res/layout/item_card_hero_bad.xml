@@ -221,55 +221,60 @@
             app:layout_constraintTop_toTopOf="@id/tvCombat"
             tools:text="086" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btnBiography"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_announcement"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Biography"
+            android:textColor="@color/txtInfoBoxesColor"
+            android:fontFamily="@font/fighting_spirit_2"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="@dimen/marginCommon"
-            android:layout_marginBottom="@dimen/marginCommon" />
+            app:layout_constraintStart_toStartOf="@id/vCardStats" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btnAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_accessibility"
-            app:layout_constraintStart_toEndOf="@id/btnBiography"
+            android:text="Appearance"
+            android:textColor="@color/txtInfoBoxesColor"
+            android:fontFamily="@font/fighting_spirit_2"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="@dimen/marginCommon"
-            android:layout_marginBottom="@dimen/marginCommon" />
+            app:layout_constraintEnd_toEndOf="@id/vCardStats" />
 
         <TextView
             android:id="@+id/tvDefenseValue"
             style="@style/txtBoldWhiteSmall"
-            android:textSize="12sp"
+            android:textSize="@dimen/txtBonusSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@id/ivDefense"
+            android:layout_marginStart="@dimen/marginCommon"
+            app:layout_constraintStart_toEndOf="@id/tvBonusDefense"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vCardStats"
             tools:text="+35" />
 
-        <ImageView
-            android:id="@+id/ivDefense"
-            android:layout_width="@dimen/tileSize"
-            android:layout_height="@dimen/tileSize"
-            android:scaleType="centerCrop"
+        <TextView
+            android:id="@+id/tvBonusDefense"
+            style="@style/txtBoldWhiteSmall"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Defense Bonus"
+            android:textSize="@dimen/txtBonusSize"
             android:visibility="gone"
             android:layout_marginStart="@dimen/marginCommon"
             app:layout_constraintStart_toStartOf="@id/glCenterVertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vCardStats"
-            android:src="@drawable/ic_shield" />
+            app:layout_constraintTop_toBottomOf="@id/vCardStats" />
 
 
         <TextView
             android:id="@+id/tvBonusValue"
             style="@style/txtBoldWhiteSmall"
-            android:textSize="12sp"
+            android:textSize="@dimen/txtBonusSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -279,16 +284,19 @@
             app:layout_constraintTop_toBottomOf="@id/vCardStats"
             tools:text="+35" />
 
-        <ImageView
-            android:id="@+id/ivBonus"
-            android:layout_width="@dimen/tileSize"
-            android:layout_height="@dimen/tileSize"
-            android:scaleType="centerCrop"
+        <TextView
+            android:id="@+id/tvBonusCombat"
+            style="@style/txtBoldWhiteSmall"
+            android:text="Combat Bonus"
+            android:textSize="@dimen/txtBonusSize"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone"
+            android:layout_marginEnd="@dimen/marginCommon"
             app:layout_constraintEnd_toStartOf="@id/tvBonusValue"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vCardStats"
-            android:src="@drawable/ic_bonus" />
+            app:layout_constraintTop_toBottomOf="@id/vCardStats" />
 
         <ImageView
             android:id="@+id/ivSabotaged"
