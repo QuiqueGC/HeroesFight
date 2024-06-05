@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
@@ -47,7 +46,7 @@ class FightFragment : Fragment() {
     private val ivHeroes = mutableListOf<ShapeableImageView>()
     private val ivVillains = mutableListOf<ShapeableImageView>()
     private val ivAllFighters = mutableListOf<ShapeableImageView>()
-    private val actionButtons = mutableListOf<ImageButton>()
+    private val actionButtons = mutableListOf<Button>()
     private val rocks = mutableListOf<RockModel>()
     private val ivRocks = mutableListOf<ImageView>()
 
@@ -268,9 +267,9 @@ class FightFragment : Fragment() {
     private fun updateBoardAfterMovement() {
         binding.tvInfo.text = getString(R.string.choiceAction)
         binding.btnMove.isEnabled = false
-        binding.btnMove.visibility = View.INVISIBLE
+        //binding.btnMove.visibility = View.INVISIBLE
         binding.btnDefend.isEnabled = false
-        binding.btnDefend.visibility = View.INVISIBLE
+        //binding.btnDefend.visibility = View.INVISIBLE
 
         refreshBoard()
 
@@ -428,7 +427,7 @@ class FightFragment : Fragment() {
                 }
                 if (actualFighter.movementPerformed) {
                     binding.btnMove.isEnabled = false
-                    binding.btnMove.visibility = View.GONE
+                    //binding.btnMove.visibility = View.INVISIBLE
                 }
                 if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
                     /*binding.btnPass.setBackgroundColor(
@@ -666,11 +665,11 @@ class FightFragment : Fragment() {
         viewModel.finishTurn()
     }
 
-    private fun disableActionButtons(noDisableButton: ImageButton?) {
+    private fun disableActionButtons(noDisableButton: Button?) {
         for (btn in actionButtons) {
             if (btn != noDisableButton) {
                 btn.isEnabled = false
-                btn.visibility = View.INVISIBLE
+                //btn.visibility = View.INVISIBLE
             }
         }
     }
@@ -678,7 +677,7 @@ class FightFragment : Fragment() {
     private fun enableButtons() {
         for (btn in actionButtons) {
             btn.isEnabled = true
-            btn.visibility = View.VISIBLE
+            //btn.visibility = View.VISIBLE
         }
     }
 
