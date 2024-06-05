@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/villain_win"
     tools:context=".ui.score_fragment.ScoreFragment">
 
     <TextView
@@ -14,7 +13,7 @@
         android:text="Villains won!"
         android:layout_marginTop="64dp"
         android:fontFamily="@font/fighting_spirit_2_bold"
-        android:textColor="@color/white"
+        android:textColor="@color/txtInfoBoxesColor"
         android:textSize="64sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/txtCommon"
+        android:textColor="@color/white"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:text="Back To Menu"
         android:layout_marginBottom="@dimen/marginLarge"

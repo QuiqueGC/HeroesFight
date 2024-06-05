@@ -227,7 +227,6 @@
             android:layout_height="wrap_content"
             android:text="Biography"
             android:textColor="@color/txtInfoBoxesColor"
-            android:fontFamily="@font/fighting_spirit_2"
             app:layout_constraintTop_toBottomOf="@id/vCardStats"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/vCardStats" />
@@ -238,7 +237,6 @@
             android:layout_height="wrap_content"
             android:text="Appearance"
             android:textColor="@color/txtInfoBoxesColor"
-            android:fontFamily="@font/fighting_spirit_2"
             app:layout_constraintTop_toBottomOf="@id/vCardStats"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/vCardStats" />

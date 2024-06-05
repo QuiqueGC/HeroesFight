@@ -4,6 +4,7 @@
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">@color/redBad</item>
         <item name="android:windowBackground">@color/backgroundDark</item>
+        <item name="android:fontFamily">@font/fighting_spirit_2</item>
     </style>
 
 </resources>
