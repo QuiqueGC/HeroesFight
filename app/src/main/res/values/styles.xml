@@ -123,16 +123,11 @@
     <style name="actionBtn">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:visibility">gone</item>
         <item name="android:fontFamily">@font/fighting_spirit_2</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/redBad</item>
-        <item name="android:backgroundTint">@color/blueGood</item>
+        <item name="android:textColor">@color/txtInfoBoxesColor</item>
+        <!--        <item name="android:backgroundTint">@color/blueGood</item>-->
     </style>
 
-    <style name="actionImageBtn">
-        <item name="android:layout_height">80dp</item>
-        <item name="android:layout_width">80dp</item>
-        <item name="android:scaleType">centerInside</item>
-        <item name="android:background">@color/transparent</item>
-    </style>
 </resources>

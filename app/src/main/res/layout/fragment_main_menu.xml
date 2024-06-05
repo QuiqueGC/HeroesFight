@@ -4,43 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_menu"
     tools:context=".ui.main_menu_fragment.MainMenuFragment">
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
+        android:background="@drawable/background_info_boxes"
         android:text="Heroes Fight!"
         android:paddingVertical="@dimen/marginCommon"
         android:textSize="80sp"
-        android:textColor="@color/white"
+        android:textColor="@color/txtInfoBoxesColor"
         android:textAlignment="center"
         android:layout_marginTop="64dp"
+        android:layout_marginHorizontal="@dimen/marginCommon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btnFight"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:src="@drawable/btn_fight"
-        android:scaleType="centerCrop"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:textColor="@color/txtInfoBoxesColor"
+        android:textSize="24sp"
         android:layout_marginBottom="64dp"
-        android:background="@color/transparent"
+        android:text="Battle!!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btnList"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
         android:src="@drawable/btn_collection"
-        android:background="@color/transparent"
-        android:scaleType="centerCrop"
+        android:text="Collection"
+        android:textColor="@color/txtInfoBoxesColor"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:textSize="28sp"
         android:layout_marginBottom="@dimen/marginMax"
         app:layout_constraintBottom_toTopOf="@id/btnFight"
         app:layout_constraintStart_toStartOf="@id/btnFight"
