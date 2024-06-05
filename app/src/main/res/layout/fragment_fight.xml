@@ -885,14 +885,16 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="@android:style/Widget.Material.Light.ProgressBar.Large"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:indeterminateTint="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:progressTint="#020202"
+        android:indeterminateBehavior="repeat"
+        android:layout_marginBottom="@dimen/marginCommon"
+        android:layout_marginEnd="@dimen/marginCommon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+    />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

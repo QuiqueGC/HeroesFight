@@ -2,5 +2,5 @@
 <resources>
     <color name="txtInfoBoxesColor">#FFFFFFFF</color>
     <color name="startColorInfoBoxes">#000000</color>
-    <color name="endColorInfoBoxes">#5A0306</color>
+    <color name="colorPrimary">#5A0306</color>
 </resources>

@@ -9,7 +9,7 @@
     <color name="txtInfoBoxesColor">#000000</color>
     <color name="semiTransparent">#9F000000</color>
     <color name="startColorInfoBoxes">#FFFFFFFF</color>
-    <color name="endColorInfoBoxes">#478B91</color>
+    <color name="colorPrimary">#478B91</color>
     <color name="backgroundLight">#DADADA</color>
     <color name="backgroundDark">#353535</color>
 </resources>
