@@ -3,8 +3,7 @@
     <style name="Base.Theme.HeroesFight" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">@color/redBad</item>
-
-        <!--        <item name="android:windowBackground">@color/redBad</item>-->
+        <item name="android:windowBackground">@color/backgroundDark</item>
     </style>
 
 </resources>
