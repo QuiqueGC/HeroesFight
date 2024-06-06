@@ -430,12 +430,12 @@ class FightFragment : Fragment() {
                     //binding.btnMove.visibility = View.INVISIBLE
                 }
                 if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
-                    /*binding.btnPass.setBackgroundColor(
+                    binding.btnPass.setBackgroundColor(
                         ContextCompat.getColor(
                             requireContext(),
                             R.color.greenTurn
                         )
-                    )*/
+                    )
                 }
             }
         }
@@ -661,12 +661,12 @@ class FightFragment : Fragment() {
             initiativeIndex = 0
         }
 
-        /*binding.btnPass.setBackgroundColor(
+        binding.btnPass.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
-                R.color.transparent
+                R.color.colorPrimary
             )
-        )*/
+        )
 
         viewModel.finishTurn()
     }

@@ -29,8 +29,18 @@ class ScoreFragment : Fragment() {
 
         setupAdapter()
 
+        setTitle()
+
         binding.btnBackToMenu.setOnClickListener {
             findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToNewMainMenuFragment())
+        }
+    }
+
+    private fun setTitle() {
+        binding.tvWin.text = if (args.scoreListModel.areVillains) {
+            "Villains won"
+        } else {
+            "Heroes won"
         }
     }
 

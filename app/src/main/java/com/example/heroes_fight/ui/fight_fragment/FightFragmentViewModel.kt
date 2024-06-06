@@ -193,7 +193,7 @@ class FightFragmentViewModel @Inject constructor(
             val scores = mutableListOf<ScoreModel>()
             heroes.forEach { scores.add(it.score) }
             viewModelScope.launch {
-                _finishBattle.emit(ScoreListModel(false, scores))
+                _finishBattle.emit(ScoreListModel(true, scores))
             }
         } else {
             allFighters.remove(enemyToAttack)
