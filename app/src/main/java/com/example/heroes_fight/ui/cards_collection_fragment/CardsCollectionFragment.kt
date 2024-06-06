@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -40,7 +41,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     override fun onResume() {
         super.onResume()
         if (selectedHero.id > 0) {
-            setInfoInBigCard()
+            setInfoInBigCardAndShow()
         }
     }
 
@@ -63,44 +64,49 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     }
 
     private fun setupListeners() {
-        binding.cardIncludedGood.btnBiography.setOnClickListener {
-            findNavController().navigate(
-                CardsCollectionFragmentDirections.actionCardsCollectionFragmentToCardDetailFragment(
-                    selectedHero.id
+        with(binding) {
+
+            cardIncludedGood.btnBiography.setOnClickListener {
+                findNavController().navigate(
+                    CardsCollectionFragmentDirections.actionCardsCollectionFragmentToCardDetailFragment(
+                        selectedHero.id
+                    )
                 )
-            )
-        }
+            }
 
-        binding.cardIncludedGood.btnAppearance.setOnClickListener {
-            findNavController().navigate(
-                CardsCollectionFragmentDirections.actionCardsCollectionFragmentToAppearanceFragment(
-                    selectedHero.id
+            cardIncludedGood.btnAppearance.setOnClickListener {
+                findNavController().navigate(
+                    CardsCollectionFragmentDirections.actionCardsCollectionFragmentToAppearanceFragment(
+                        selectedHero.id
+                    )
                 )
-            )
-        }
+            }
 
-        binding.cardIncludedBad.btnAppearance.setOnClickListener {
-            findNavController().navigate(
-                CardsCollectionFragmentDirections.actionCardsCollectionFragmentToAppearanceFragment(
-                    selectedHero.id
+            cardIncludedBad.btnAppearance.setOnClickListener {
+                findNavController().navigate(
+                    CardsCollectionFragmentDirections.actionCardsCollectionFragmentToAppearanceFragment(
+                        selectedHero.id
+                    )
                 )
-            )
-        }
+            }
 
-        binding.cardIncludedBad.btnBiography.setOnClickListener {
-            findNavController().navigate(
-                CardsCollectionFragmentDirections.actionCardsCollectionFragmentToCardDetailFragment(
-                    selectedHero.id
+            cardIncludedBad.btnBiography.setOnClickListener {
+                findNavController().navigate(
+                    CardsCollectionFragmentDirections.actionCardsCollectionFragmentToCardDetailFragment(
+                        selectedHero.id
+                    )
                 )
-            )
-        }
+            }
 
-        binding.cardIncludedGood.card.setOnClickListener {
-            it.visibility = View.GONE
-        }
+            cardIncludedGood.card.setOnClickListener {
+                it.visibility = View.GONE
+                selectedHero = HeroModel()
+            }
 
-        binding.cardIncludedBad.card.setOnClickListener {
-            it.visibility = View.GONE
+            cardIncludedBad.card.setOnClickListener {
+                it.visibility = View.GONE
+                selectedHero = HeroModel()
+            }
         }
     }
 
@@ -157,11 +163,20 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     }
 
     override fun onClick(position: Int) {
-        selectedHero = viewModel.getHeroFromList(position)
-        setInfoInBigCard()
+
+        with(binding) {
+            if (cardIncludedBad.card.isVisible || cardIncludedGood.card.isVisible) {
+                cardIncludedBad.card.visibility = View.GONE
+                cardIncludedGood.card.visibility = View.GONE
+            }
+            selectedHero = viewModel.getHeroFromList(position)
+            setInfoInBigCardAndShow()
+
+        }
+
     }
 
-    private fun setInfoInBigCard() {
+    private fun setInfoInBigCardAndShow() {
         if (selectedHero.alignment == "good") {
 
             CardsFiller.fillDataIntoGoodCard(
