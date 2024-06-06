@@ -22,8 +22,6 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
     private val _uiState = MutableStateFlow<CardsCollectionUiState>(CardsCollectionUiState.Loading)
     val uiState: StateFlow<CardsCollectionUiState> = _uiState
 
-    private val _selectedHero = MutableStateFlow(HeroModel())
-    val selectedHero: StateFlow<HeroModel> = _selectedHero
 
     private val cardsList = mutableListOf<HeroModel>()
     private var offset = 1
@@ -68,9 +66,5 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
         }
     }
 
-    fun getHeroFromList(position: Int) {
-        viewModelScope.launch {
-            _selectedHero.emit(cardsList[position])
-        }
-    }
+    fun getHeroFromList(position: Int): HeroModel = cardsList[position]
 }

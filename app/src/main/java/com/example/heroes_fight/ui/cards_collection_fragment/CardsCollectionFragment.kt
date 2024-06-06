@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.utils.CardsFiller
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,8 +27,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     private lateinit var binding: FragmentCardsCollectionBinding
     private lateinit var adapter: CardsCollectionAdapter
 
-    private var idSelectedHero = 0
-    private var isGoodCard: Boolean? = null
+    private var selectedHero = HeroModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,12 +39,8 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
 
     override fun onResume() {
         super.onResume()
-
-        if (isGoodCard != null) {
-            when (isGoodCard!!) {
-                true -> binding.cardIncludedGood.card.visibility = View.VISIBLE
-                false -> binding.cardIncludedBad.card.visibility = View.VISIBLE
-            }
+        if (selectedHero.id > 0) {
+            setInfoInBigCard()
         }
     }
 
@@ -70,7 +66,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
         binding.cardIncludedGood.btnBiography.setOnClickListener {
             findNavController().navigate(
                 CardsCollectionFragmentDirections.actionCardsCollectionFragmentToCardDetailFragment(
-                    idSelectedHero
+                    selectedHero.id
                 )
             )
         }
@@ -78,7 +74,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
         binding.cardIncludedGood.btnAppearance.setOnClickListener {
             findNavController().navigate(
                 CardsCollectionFragmentDirections.actionCardsCollectionFragmentToAppearanceFragment(
-                    idSelectedHero
+                    selectedHero.id
                 )
             )
         }
@@ -86,7 +82,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
         binding.cardIncludedBad.btnAppearance.setOnClickListener {
             findNavController().navigate(
                 CardsCollectionFragmentDirections.actionCardsCollectionFragmentToAppearanceFragment(
-                    idSelectedHero
+                    selectedHero.id
                 )
             )
         }
@@ -94,7 +90,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
         binding.cardIncludedBad.btnBiography.setOnClickListener {
             findNavController().navigate(
                 CardsCollectionFragmentDirections.actionCardsCollectionFragmentToCardDetailFragment(
-                    idSelectedHero
+                    selectedHero.id
                 )
             )
         }
@@ -131,33 +127,6 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                 }
             }
         }
-
-
-        lifecycleScope.launch {
-            viewModel.selectedHero.collect { selectedHero ->
-
-                idSelectedHero = selectedHero.id
-
-                if (selectedHero.alignment == "good") {
-                    isGoodCard = true
-                    CardsFiller.fillDataIntoGoodCard(
-                        binding.cardIncludedGood,
-                        selectedHero,
-                        requireContext()
-                    )
-                    binding.cardIncludedGood.card.visibility = View.VISIBLE
-
-                } else if (selectedHero.alignment == "bad") {
-                    isGoodCard = false
-                    CardsFiller.fillDataIntoBadCard(
-                        binding.cardIncludedBad,
-                        selectedHero,
-                        requireContext()
-                    )
-                    binding.cardIncludedBad.card.visibility = View.VISIBLE
-                }
-            }
-        }
     }
 
 
@@ -188,6 +157,28 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     }
 
     override fun onClick(position: Int) {
-        viewModel.getHeroFromList(position)
+        selectedHero = viewModel.getHeroFromList(position)
+        setInfoInBigCard()
+    }
+
+    private fun setInfoInBigCard() {
+        if (selectedHero.alignment == "good") {
+
+            CardsFiller.fillDataIntoGoodCard(
+                binding.cardIncludedGood,
+                selectedHero,
+                requireContext()
+            )
+            binding.cardIncludedGood.card.visibility = View.VISIBLE
+
+        } else if (selectedHero.alignment == "bad") {
+
+            CardsFiller.fillDataIntoBadCard(
+                binding.cardIncludedBad,
+                selectedHero,
+                requireContext()
+            )
+            binding.cardIncludedBad.card.visibility = View.VISIBLE
+        }
     }
 }

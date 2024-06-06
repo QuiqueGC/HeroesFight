@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.cards_collection_fragment
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,6 +74,7 @@ class CardsCollectionAdapter(
                 }
                 holder.binding.root.setOnClickListener {
                     listener.onClick(position)
+                    Log.i("clic", "se hace clic en un héroe")
                 }
             }
 
@@ -94,6 +96,7 @@ class CardsCollectionAdapter(
                 }
                 holder.binding.root.setOnClickListener {
                     listener.onClick(position)
+                    Log.i("clic", "se hace clic en un villano")
                 }
             }
         }
