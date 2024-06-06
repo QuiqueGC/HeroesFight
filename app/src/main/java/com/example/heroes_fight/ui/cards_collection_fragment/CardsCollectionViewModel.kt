@@ -3,6 +3,7 @@ package com.example.heroes_fight.ui.cards_collection_fragment
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.heroes_fight.data.constants.MyConstants
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
@@ -26,31 +27,47 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
     private val cardsList = mutableListOf<HeroModel>()
     private var offset = 1
     private var idHero = 0
-    private var limit = 32
+    private var limit = 31
+    private var collectionComplete = false
 
     fun getCardsList() {
-        val deferreds = ArrayList<Deferred<Unit>>()
-        viewModelScope.launch {
-            _uiState.emit(CardsCollectionUiState.Loading)
-            Log.i("quique", "Empieza el bucle")
+        if (!collectionComplete) {
+            val deferreds = ArrayList<Deferred<Unit>>()
+            viewModelScope.launch {
+                _uiState.emit(CardsCollectionUiState.Loading)
+                Log.i("quique", "Empieza el bucle")
 
-            do {
-                Log.i("quique", "vuelta nº ${offset}")
-                val deferred = async { getHeroToList() }
-                deferreds.add(deferred)
-                Log.i("quique", "${offset}")
-                offset++
-            } while (offset < limit)
+                do {
+                    Log.i("quique", "vuelta nº ${offset}")
+                    val deferred = async { getHeroToList() }
+                    deferreds.add(deferred)
+                    Log.i("quique", "${offset}")
+                    offset++
+                } while (offset <= limit)
 
-            deferreds.awaitAll()
-            cardsList.sortBy { it.id }
-            limit += limit
+                deferreds.awaitAll()
+                cardsList.sortBy { it.id }
 
-            for (hero in cardsList) {
-                Log.i("quique", "nombre del héroe -> ${hero.name}")
+                checkIfTheListIsComplete()
+
+                for (hero in cardsList) {
+                    Log.i("quique", "nombre del héroe -> ${hero.name}")
+                }
+                Log.i("quique", "emite lista")
+                _uiState.emit(CardsCollectionUiState.Success(cardsList))
             }
-            Log.i("quique", "emite lista")
-            _uiState.emit(CardsCollectionUiState.Success(cardsList))
+        }
+    }
+
+    private fun checkIfTheListIsComplete() {
+        if (limit >= MyConstants.MAX_HEROES_IN_API) {
+            collectionComplete = true
+        }
+
+        limit += limit
+
+        if (limit > MyConstants.MAX_HEROES_IN_API) {
+            limit = MyConstants.MAX_HEROES_IN_API
         }
     }
 
