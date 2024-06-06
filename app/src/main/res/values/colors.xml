@@ -11,5 +11,5 @@
     <color name="startColorInfoBoxes">#FFFFFFFF</color>
     <color name="colorPrimary">#478B91</color>
     <color name="backgroundLight">#DADADA</color>
-    <color name="backgroundDark">#353535</color>
+    <color name="backgroundDark">#232323</color>
 </resources>

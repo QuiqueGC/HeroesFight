@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -61,6 +62,35 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
         observeViewModel()
 
         setupListeners()
+
+        setupSearchView()
+    }
+
+    private fun setupSearchView() {
+        with(binding.searchView) {
+
+            setOnClickListener {
+                isIconified = false
+            }
+
+            setOnQueryTextFocusChangeListener { _, hasFocus ->
+                isIconified = !hasFocus
+            }
+
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+
+                    // TODO: aquí es donde irá la llamada al viewModel para
+                    //  que nos dé la lista de héroes con ese nombre
+
+
+                    binding.searchView.clearFocus()
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean = false
+            })
+        }
     }
 
     private fun setupListeners() {
