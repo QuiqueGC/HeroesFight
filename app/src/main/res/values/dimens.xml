@@ -26,5 +26,6 @@
     <dimen name="smallCardWidth">85dp</dimen>
     <dimen name="smallCardHeight">165dp</dimen>
     <dimen name="txtBonusSize">14sp</dimen>
+    <dimen name="txtTurnSize">18sp</dimen>
 
 </resources>
