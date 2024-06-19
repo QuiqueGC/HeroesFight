@@ -66,6 +66,18 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
         setupListeners()
 
         setupSearchView()
+
+        setupSwipeToRefresh()
+    }
+
+    private fun setupSwipeToRefresh() {
+        with(binding.swipeToRefresh) {
+            setOnRefreshListener {
+                viewModel.restartList()
+                viewModel.getCardsList()
+                isRefreshing = false
+            }
+        }
     }
 
     private fun setupSearchView() {
@@ -130,11 +142,13 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
             }
 
             cardIncludedGood.card.setOnClickListener {
+                searchView.visibility = View.VISIBLE
                 it.visibility = View.GONE
                 selectedHero = HeroModel()
             }
 
             cardIncludedBad.card.setOnClickListener {
+                searchView.visibility = View.VISIBLE
                 it.visibility = View.GONE
                 selectedHero = HeroModel()
             }
@@ -197,7 +211,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     }
 
     override fun onClick(position: Int) {
-
+        binding.searchView.visibility = View.GONE
         with(binding) {
             if (cardIncludedBad.card.isVisible || cardIncludedGood.card.isVisible) {
                 cardIncludedBad.card.visibility = View.GONE

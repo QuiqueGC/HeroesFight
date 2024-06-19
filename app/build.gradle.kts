@@ -90,6 +90,9 @@ dependencies {
     //daggerHilt
     implementation("com.google.dagger:hilt-android:2.48.1")
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
+
+    //Swiperefreshlayout
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }
 
 //necesito el kapt para dagger, parece
