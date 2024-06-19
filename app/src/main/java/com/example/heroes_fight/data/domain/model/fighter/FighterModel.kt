@@ -124,23 +124,13 @@ class FighterModel(
         val enemyPositionValue = enemy.position.y + enemy.position.x
         val result: String
 
-        if (heroPositionValue < enemyPositionValue) {
-            result = if (enemyPositionValue - heroPositionValue == 1) {
-                resolveAttack(enemy)
+        if (abs(heroPositionValue - enemyPositionValue) == 1) {
 
-            } else {
-                "${enemy.name} is so far"
-            }
+            result = resolveAttack(enemy)
 
         } else {
 
-            result = if (heroPositionValue - enemyPositionValue == 1) {
-
-                resolveAttack(enemy)
-
-            } else {
-                "${enemy.name} is so far"
-            }
+            result = "${enemy.name} is so far"
         }
         return result
     }
@@ -167,7 +157,6 @@ class FighterModel(
             }
         }
 
-        Log.i("quique", "CHEQUEO DE HUMANOS EN MEDIO")
         Log.i("quique", "CHEQUEO DE HUMANOS EN MEDIO")
         for (fighter in allFightersList) {
             if (fighter.name != name && fighter.name != enemy.name) {
@@ -266,29 +255,18 @@ class FighterModel(
     }
 
 
-
     override fun sabotage(enemy: FighterModel): String {
         val heroPositionValue = position.y + position.x
         val enemyPositionValue = enemy.position.y + enemy.position.x
         val result: String
 
-        if (heroPositionValue < enemyPositionValue) {
-            result = if (enemyPositionValue - heroPositionValue == 1) {
-                resolveSabotage(enemy)
+        if (abs(heroPositionValue - enemyPositionValue) == 1) {
 
-            } else {
-                "${enemy.name} is so far"
-            }
+            result = resolveSabotage(enemy)
 
         } else {
 
-            result = if (heroPositionValue - enemyPositionValue == 1) {
-
-                resolveSabotage(enemy)
-
-            } else {
-                "${enemy.name} is so far"
-            }
+            result = "${enemy.name} is so far"
         }
         return result
     }
@@ -298,24 +276,13 @@ class FighterModel(
         val allyPositionValue = ally.position.y + ally.position.x
         val result: String
 
-        if (heroPositionValue < allyPositionValue) {
-            result = if (allyPositionValue - heroPositionValue == 1) {
+        if (abs(heroPositionValue - allyPositionValue) == 1) {
 
-                resolveSupport(ally)
-
-            } else {
-                "${ally.name} is so far"
-            }
+            result = resolveSupport(ally)
 
         } else {
 
-            result = if (heroPositionValue - allyPositionValue == 1) {
-
-                resolveSupport(ally)
-
-            } else {
-                "${ally.name} is so far"
-            }
+            result = "${ally.name} is so far"
         }
         return result
 
