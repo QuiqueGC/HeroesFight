@@ -391,7 +391,8 @@
         android:id="@+id/v7i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v6i" />
+        app:layout_constraintTop_toBottomOf="@id/v6i"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <View
         android:id="@+id/v8a"
@@ -873,7 +874,6 @@
         app:layout_constraintStart_toEndOf="@id/btnSupport"
         app:layout_constraintTop_toBottomOf="@id/btnAttack" />
 
-
     <Button
         android:id="@+id/btnShot"
         style="@style/actionBtn"
@@ -894,7 +894,15 @@
         android:layout_marginEnd="@dimen/marginCommon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    />
 
+    <TextView
+        android:id="@+id/tvActionResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="40 dmg"
+        android:textColor="@color/colorPrimary"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@id/v1c"
+        app:layout_constraintStart_toEndOf="@id/v1c" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
