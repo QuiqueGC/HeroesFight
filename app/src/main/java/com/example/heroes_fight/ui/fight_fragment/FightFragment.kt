@@ -265,6 +265,24 @@ class FightFragment : Fragment() {
         )
     }
 
+    private fun moveTvActionResult(ivFighter: View) {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(binding.root)
+        constraintSet.connect(
+            binding.tvActionResult.id,
+            ConstraintSet.BOTTOM,
+            ivFighter.id,
+            ConstraintSet.TOP
+        )
+        constraintSet.connect(
+            binding.tvActionResult.id,
+            ConstraintSet.START,
+            ivFighter.id,
+            ConstraintSet.END
+        )
+        constraintSet.applyTo(binding.root)
+    }
+
     private fun updateBoardAfterMovement() {
         binding.tvInfo.text = getString(R.string.choiceAction)
         binding.btnMove.isEnabled = false
@@ -275,12 +293,12 @@ class FightFragment : Fragment() {
         refreshBoard()
 
         if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
-            /*binding.btnPass.setBackgroundColor(
+            binding.btnPass.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.greenTurn
                 )
-            )*/
+            )
         }
     }
 
@@ -295,6 +313,7 @@ class FightFragment : Fragment() {
             }
 
             ivVillains[i].setOnLongClickListener {
+                moveTvActionResult(it)
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttack(i, false)
                     PlayerChoice.SABOTAGE -> performSabotage(i, false)
@@ -306,6 +325,7 @@ class FightFragment : Fragment() {
                 true
             }
             ivHeroes[i].setOnLongClickListener {
+                moveTvActionResult(it)
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttack(i, true)
                     PlayerChoice.SABOTAGE -> performSabotage(i, true)
@@ -422,6 +442,8 @@ class FightFragment : Fragment() {
                     disableActionButtons(binding.btnMove)
                     refreshBoard()
                     binding.tvInfo.text = resultMessage
+                    binding.tvActionResult.text = resultMessage
+                    binding.tvActionResult.visibility = View.VISIBLE
 
                 } else {
                     showToast(resultMessage)
