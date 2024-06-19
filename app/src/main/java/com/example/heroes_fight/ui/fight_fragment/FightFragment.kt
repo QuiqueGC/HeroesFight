@@ -436,17 +436,17 @@ class FightFragment : Fragment() {
 
 
         lifecycleScope.launch {
-            viewModel.actionResult.collect { resultMessage ->
+            viewModel.actionResult.collect { actionResultModel ->
 
                 if (actualFighter.actionPerformed) {
                     disableActionButtons(binding.btnMove)
                     refreshBoard()
-                    binding.tvInfo.text = resultMessage
-                    binding.tvActionResult.text = resultMessage
+                    binding.tvInfo.text = actionResultModel.txtToTvInfo
+                    binding.tvActionResult.text = actionResultModel.txtToTvActionResult
                     binding.tvActionResult.visibility = View.VISIBLE
 
                 } else {
-                    showToast(resultMessage)
+                    showToast(actionResultModel.txtToTvInfo)
                 }
                 if (actualFighter.movementPerformed) {
                     binding.btnMove.isEnabled = false

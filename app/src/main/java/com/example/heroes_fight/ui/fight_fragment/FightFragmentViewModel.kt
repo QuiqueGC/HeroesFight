@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.constants.MyConstants
+import com.example.heroes_fight.data.domain.model.common.ActionResultModel
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
@@ -36,8 +37,8 @@ class FightFragmentViewModel @Inject constructor(
     private val _actualFighter = MutableStateFlow(FighterModel())
     val actualFighter: StateFlow<FighterModel> = _actualFighter
 
-    private val _actionResult = MutableSharedFlow<String>()
-    val actionResult: SharedFlow<String> = _actionResult
+    private val _actionResult = MutableSharedFlow<ActionResultModel>()
+    val actionResult: SharedFlow<ActionResultModel> = _actionResult
 
     private val _dyingFighter = MutableSharedFlow<FighterModel>()
     val dyingFighter: SharedFlow<FighterModel> = _dyingFighter

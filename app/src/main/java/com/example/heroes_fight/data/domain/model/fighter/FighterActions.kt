@@ -1,5 +1,6 @@
 package com.example.heroes_fight.data.domain.model.fighter
 
+import com.example.heroes_fight.data.domain.model.common.ActionResultModel
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 
@@ -7,7 +8,7 @@ interface FighterActions {
 
     fun move(destinationPosition: Position): Boolean
 
-    fun attack(enemy: FighterModel): String
+    fun attack(enemy: FighterModel): ActionResultModel
 
     fun getDefenseRoll(): Int
 
@@ -15,14 +16,14 @@ interface FighterActions {
 
     fun getDodgeRoll(): Int
 
-    fun sabotage(enemy: FighterModel): String
+    fun sabotage(enemy: FighterModel): ActionResultModel
 
-    fun defense(): String
-    fun support(ally: FighterModel): String
+    fun defense(): ActionResultModel
+    fun support(ally: FighterModel): ActionResultModel
 
     fun shot(
         enemy: FighterModel,
         rocks: List<RockModel>,
         allFightersList: List<FighterModel>
-    ): String
+    ): ActionResultModel
 }

@@ -1,6 +1,7 @@
 package com.example.heroes_fight.data.domain.model.fighter
 
 import android.util.Log
+import com.example.heroes_fight.data.domain.model.common.ActionResultModel
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
@@ -119,20 +120,18 @@ class FighterModel(
     }
 
 
-    override fun attack(enemy: FighterModel): String {
+    override fun attack(enemy: FighterModel): ActionResultModel {
         val heroPositionValue = position.y + position.x
         val enemyPositionValue = enemy.position.y + enemy.position.x
-        val result: String
 
-        if (abs(heroPositionValue - enemyPositionValue) == 1) {
+        return if (abs(heroPositionValue - enemyPositionValue) == 1) {
 
-            result = resolveAttack(enemy)
+            resolveAttack(enemy)
 
         } else {
 
-            result = "${enemy.name} is so far"
+            ActionResultModel("${enemy.name} is so far")
         }
-        return result
     }
 
 
@@ -140,10 +139,10 @@ class FighterModel(
         enemy: FighterModel,
         rocks: List<RockModel>,
         allFightersList: List<FighterModel>
-    ): String {
+    ): ActionResultModel {
         var difference: Int
         var resultOfDistanceDifference: Int
-        var result = "${enemy.name} is to far"
+        var actionResultModel = ActionResultModel("${enemy.name} is to far")
         val cellsInTheBulletTrajectory =
             Bresenham.calculateBulletTrajectory(position, enemy.position)
         var thereIsRock = false
@@ -189,7 +188,7 @@ class FighterModel(
 
                         if (y + resultOfDistanceDifference >= enemy.position.y) {
 
-                            result = resolveShot(enemy)
+                            actionResultModel = resolveShot(enemy)
                         }
                     }
                 } else if (x > enemy.position.x && y > enemy.position.y) {
@@ -198,7 +197,7 @@ class FighterModel(
                         resultOfDistanceDifference = distanceToShot - difference
                         if (y - resultOfDistanceDifference <= enemy.position.y) {
 
-                            result = resolveShot(enemy)
+                            actionResultModel = resolveShot(enemy)
                         }
                     }
                 } else if (x < enemy.position.x && y > enemy.position.y) {
@@ -207,7 +206,7 @@ class FighterModel(
                         resultOfDistanceDifference = distanceToShot - difference
                         if (y - resultOfDistanceDifference <= enemy.position.y) {
 
-                            result = resolveShot(enemy)
+                            actionResultModel = resolveShot(enemy)
                         }
                     }
                 } else if (x > enemy.position.x && y < enemy.position.y) {
@@ -217,87 +216,84 @@ class FighterModel(
                         if (y + resultOfDistanceDifference >= enemy.position.y) {
 
 
-                            result = resolveShot(enemy)
+                            actionResultModel = resolveShot(enemy)
                         }
                     }
                 } else if (x == enemy.position.x && y < enemy.position.y) {
                     if (y + distanceToShot >= enemy.position.y) {
 
 
-                        result = resolveShot(enemy)
+                        actionResultModel = resolveShot(enemy)
                     }
                 } else if (x == enemy.position.x && y > enemy.position.y) {
                     if (y - distanceToShot <= enemy.position.y) {
 
 
-                        result = resolveShot(enemy)
+                        actionResultModel = resolveShot(enemy)
                     }
                 } else if (x < enemy.position.x && y == enemy.position.y) {
                     if (x + distanceToShot >= enemy.position.x) {
 
 
-                        result = resolveShot(enemy)
+                        actionResultModel = resolveShot(enemy)
                     }
                 } else if (x > enemy.position.x && y == enemy.position.y) {
                     if (x - distanceToShot <= enemy.position.x) {
 
-                        result = resolveShot(enemy)
+                        actionResultModel = resolveShot(enemy)
                     }
                 }
             }
         } else if (thereIsRock) {
-            result = "The enemy is under cover"
+            actionResultModel = ActionResultModel("The enemy is under cover")
         } else {
-            result = "The enemy is behind other fighter"
+            actionResultModel = ActionResultModel("The enemy is behind other fighter")
         }
 
-        return result
+        return actionResultModel
     }
 
 
-    override fun sabotage(enemy: FighterModel): String {
+    override fun sabotage(enemy: FighterModel): ActionResultModel {
         val heroPositionValue = position.y + position.x
         val enemyPositionValue = enemy.position.y + enemy.position.x
-        val result: String
 
-        if (abs(heroPositionValue - enemyPositionValue) == 1) {
+        return if (abs(heroPositionValue - enemyPositionValue) == 1) {
 
-            result = resolveSabotage(enemy)
+            resolveSabotage(enemy)
 
         } else {
-
-            result = "${enemy.name} is so far"
+            ActionResultModel("${enemy.name} is so far")
         }
-        return result
     }
 
-    override fun support(ally: FighterModel): String {
+    override fun support(ally: FighterModel): ActionResultModel {
         val heroPositionValue = position.y + position.x
         val allyPositionValue = ally.position.y + ally.position.x
-        val result: String
 
-        if (abs(heroPositionValue - allyPositionValue) == 1) {
+        return if (abs(heroPositionValue - allyPositionValue) == 1) {
 
-            result = resolveSupport(ally)
+            resolveSupport(ally)
 
         } else {
 
-            result = "${ally.name} is so far"
+            ActionResultModel("${ally.name} is so far")
         }
-        return result
-
     }
 
-    override fun defense(): String {
+    override fun defense(): ActionResultModel {
         defenseBonus = 35
         actionPerformed = true
         movementPerformed = true
-        return "$name is prepared for enemy attacks (+$defenseBonus combat)"
+        return ActionResultModel(
+            "$name is prepared for enemy attacks (+$defenseBonus combat)",
+            "+35 def"
+        )
     }
 
-    private fun resolveSabotage(enemy: FighterModel): String {
+    private fun resolveSabotage(enemy: FighterModel): ActionResultModel {
         val sabotageRoll = Random.nextInt(1, 101)
-        val result: String
+        val actionResultModel: ActionResultModel
 
         if (sabotageRoll < 90 && sabotageRoll <= intelligence) {
             val sabotageDifference = intelligence - sabotageRoll
@@ -308,22 +304,28 @@ class FighterModel(
 
                 enemy.isSabotaged = true
 
-                result = "${enemy.name} was sabotaged and will lose the next turn"
+                actionResultModel = ActionResultModel(
+                    "${enemy.name} was sabotaged and will lose the next turn",
+                    "Sabotaged"
+                )
 
             } else {
-                result = "${enemy.name} was smarter and sabotage didn't work"
+                actionResultModel = ActionResultModel(
+                    "${enemy.name} was smarter and sabotage didn't work",
+                    "Defended"
+                )
             }
         } else {
-            result = "$name failed the try of sabotage"
+            actionResultModel = ActionResultModel("$name failed the try of sabotage", "Miss")
         }
 
         actionPerformed = true
-        return result
+        return actionResultModel
     }
 
-    private fun resolveSupport(ally: FighterModel): String {
+    private fun resolveSupport(ally: FighterModel): ActionResultModel {
         val supportRoll = Random.nextInt(1, 101)
-        val result: String
+        val actionResultModel: ActionResultModel
 
         if (supportRoll < 90 && supportRoll <= intelligence) {
             var supportDifference = intelligence - supportRoll
@@ -333,22 +335,25 @@ class FighterModel(
             }
 
             ally.combatBonus = supportDifference
-            result = "${ally.name} is more powerful right now (+$supportDifference combat)"
+            actionResultModel = ActionResultModel(
+                "${ally.name} is more powerful right now (+$supportDifference combat)",
+                "+$supportDifference combat"
+            )
 
         } else {
-            result = "$name failed supporting ${ally.name}"
+            actionResultModel = ActionResultModel("$name failed supporting ${ally.name}", "Miss")
         }
 
         actionPerformed = true
-        return result
+        return actionResultModel
     }
 
-    private fun resolveAttack(enemy: FighterModel): String {
+    private fun resolveAttack(enemy: FighterModel): ActionResultModel {
         score.meleeAtks++
         val attackRoll = Random.nextInt(1, 101)
         Log.i("diferencia", "La tirada de ataque A PALO SECO ES -> $attackRoll")
         Log.i("quique", "El valor de combat es -> $combat")
-        val result: String
+        val actionResultModel: ActionResultModel
 
         if (attackRoll <= 90 && attackRoll <= combat + combatBonus) {
             val attackDifference = combat - attackRoll + combatBonus
@@ -366,29 +371,32 @@ class FighterModel(
                 if (damageBonus > 20) {
                     damageBonus = 20
                 }
-                result = resolveDamage(damageBonus, enemy)
+                actionResultModel = resolveDamage(damageBonus, enemy)
 
             } else {
                 enemy.durability -= 5
                 enemy.score.meleeDmgRec += 5
                 enemy.score.defAtks++
                 score.meleeDmg += 5
-                result = "${enemy.name} defended the attack and just received 5 of damage"
+                actionResultModel = ActionResultModel(
+                    "${enemy.name} defended the attack and just received 5 of damage",
+                    "5 dmg"
+                )
             }
         } else {
-            result = "$name failed the attack"
+            actionResultModel = ActionResultModel("$name failed the attack", "Miss")
         }
 
         actionPerformed = true
-        return result
+        return actionResultModel
     }
 
-    private fun resolveShot(enemy: FighterModel): String {
+    private fun resolveShot(enemy: FighterModel): ActionResultModel {
         score.rangeAtks++
         val shotRoll = Random.nextInt(1, 101)
         Log.i("quique", "resultado de la tirada de disparo -> $shotRoll")
         Log.i("quique", "El valor de power es -> $power")
-        val result: String
+        val actionResultModel: ActionResultModel
         actionPerformed = true
         if (shotRoll <= 90 && shotRoll <= power) {
             val shotDifference = power - shotRoll
@@ -403,27 +411,32 @@ class FighterModel(
                 enemy.durability -= damage
                 enemy.score.rangeDmgRec += damage
                 score.rangeDmg += damage
-                result = "$name inflicted $damage of damage to ${enemy.name}"
-
+                actionResultModel = ActionResultModel(
+                    "$name inflicted $damage of damage to ${enemy.name}",
+                    "$damage dmg"
+                )
 
             } else {
                 enemy.score.dodgedAtks++
-                result = "${enemy.name} dodged the shot and don't received damage"
+                actionResultModel = ActionResultModel(
+                    "${enemy.name} dodged the shot and don't received damage",
+                    "Dodged"
+                )
             }
         } else {
-            result = "$name failed the shot"
+            actionResultModel = ActionResultModel("$name failed the shot", "Miss")
 
         }
 
-        return result
+        return actionResultModel
     }
 
 
-    private fun resolveDamage(damageBonus: Int, enemy: FighterModel): String {
+    private fun resolveDamage(damageBonus: Int, enemy: FighterModel): ActionResultModel {
         val damageRoll = Random.nextInt(1, 101)
         Log.i("quique", "La tiradad de daño es -> $damageRoll")
         Log.i("quique", "La fuerza es -> $strength")
-        val result: String
+        val actionResultModel: ActionResultModel
         if (damageRoll <= strength + damageBonus) {
             var damage = strength - damageRoll
             Log.i("quique", "El daño final es -> $damage")
@@ -433,15 +446,21 @@ class FighterModel(
             enemy.durability -= damage
             enemy.score.meleeDmgRec += damage
             score.meleeDmg += damage
-            result = "$name inflicted $damage of damage to ${enemy.name}"
+            actionResultModel = ActionResultModel(
+                "$name inflicted $damage of damage to ${enemy.name}",
+                "$damage dmg"
+            )
 
         } else {
             enemy.durability -= 8
             enemy.score.meleeDmgRec += 8
             score.meleeDmg += 8
-            result = "$name didn't used strength enough and just caused 8 of damage"
+            actionResultModel = ActionResultModel(
+                "$name didn't used strength enough and just caused 8 of damage",
+                "8 dmg"
+            )
         }
-        return result
+        return actionResultModel
     }
 
 
