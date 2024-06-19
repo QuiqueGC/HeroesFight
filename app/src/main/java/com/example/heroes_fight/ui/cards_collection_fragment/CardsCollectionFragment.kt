@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.cards_collection_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     private lateinit var adapter: CardsCollectionAdapter
 
     private var selectedHero = HeroModel()
+    private var isFullCollection = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,16 +81,15 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-
-                    // TODO: aquí es donde irá la llamada al viewModel para
-                    //  que nos dé la lista de héroes con ese nombre
-
-
-                    binding.searchView.clearFocus()
-                    return false
+                    if (query != null) {
+                        isFullCollection = false
+                        viewModel.searchHero(query)
+                        clearFocus()
+                    }
+                    return true
                 }
 
-                override fun onQueryTextChange(newText: String?): Boolean = false
+                override fun onQueryTextChange(newText: String?): Boolean = true
             })
         }
     }
@@ -186,7 +187,10 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                         1
                     )
                 ) {
-                    viewModel.getCardsList()
+                    if (isFullCollection) {
+                        viewModel.getCardsList()
+                        Log.i("quique", "Ha entrado en el if de la paginación")
+                    }
                 }
             }
         })

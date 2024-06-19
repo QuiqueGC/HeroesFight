@@ -20,6 +20,10 @@ class DataProvider @Inject constructor(
         return remoteDataSource.getHeroById(idHero)
     }
 
+    override suspend fun searchHeroByName(nameHero: String): BaseResponse<MutableList<HeroModel>> {
+        return remoteDataSource.searchHeroByName(nameHero)
+    }
+
     override suspend fun getHeroBiographyById(idHero: Int): BaseResponse<BiographyModel> {
         return remoteDataSource.getHeroBiographyById(idHero)
     }

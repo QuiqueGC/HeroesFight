@@ -10,6 +10,7 @@ import com.example.heroes_fight.data.domain.repository.remote.mapper.AppearanceM
 import com.example.heroes_fight.data.domain.repository.remote.mapper.BiographyMapper
 import com.example.heroes_fight.data.domain.repository.remote.mapper.FighterMapper
 import com.example.heroes_fight.data.domain.repository.remote.mapper.HeroMapper
+import com.example.heroes_fight.data.domain.repository.remote.mapper.HeroesListMapper
 import com.example.heroes_fight.data.domain.repository.remote.mapper.ImgMapper
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import javax.inject.Inject
@@ -19,10 +20,21 @@ import javax.inject.Singleton
 class RemoteDataSource @Inject constructor(private val apiCallService: ApiCallService) :
     DataSource {
 
-    //private val apiCallService = ApiCallService(RetrofitClient.getApiServices())
     override suspend fun getHeroById(idHero: Int): BaseResponse<HeroModel> {
         return when (val apiResult = apiCallService.getHeroById(idHero)) {
             is BaseResponse.Success -> BaseResponse.Success(HeroMapper().fromResponse(apiResult.data))
+            is BaseResponse.Error -> BaseResponse.Error(ErrorModel())
+        }
+    }
+
+    override suspend fun searchHeroByName(nameHero: String): BaseResponse<MutableList<HeroModel>> {
+        return when (val apiResult = apiCallService.searchHeroByName(nameHero)) {
+            is BaseResponse.Success -> BaseResponse.Success(
+                HeroesListMapper().fromResponse(
+                    apiResult.data
+                )
+            )
+
             is BaseResponse.Error -> BaseResponse.Error(ErrorModel())
         }
     }

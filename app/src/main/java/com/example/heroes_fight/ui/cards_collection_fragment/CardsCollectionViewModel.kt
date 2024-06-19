@@ -7,6 +7,7 @@ import com.example.heroes_fight.data.constants.MyConstants
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
+import com.example.heroes_fight.data.domain.use_case.SearchHeroByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -17,7 +18,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCase: GetHeroByIdUseCase) :
+class CardsCollectionViewModel @Inject constructor(
+    private val getHeroByIdUseCase: GetHeroByIdUseCase,
+    private val searchHeroByNameUseCase: SearchHeroByNameUseCase
+) :
     ViewModel() {
 
     private val _uiState = MutableStateFlow<CardsCollectionUiState>(CardsCollectionUiState.Loading)
@@ -31,6 +35,7 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
     private var collectionComplete = false
 
     fun getCardsList() {
+        Log.i("quique", "HA ENTRADO EN GET_CARDS_LIST")
         if (!collectionComplete) {
             val deferreds = ArrayList<Deferred<Unit>>()
             viewModelScope.launch {
@@ -57,6 +62,29 @@ class CardsCollectionViewModel @Inject constructor(private val getHeroByIdUseCas
                 _uiState.emit(CardsCollectionUiState.Success(cardsList))
             }
         }
+    }
+
+    fun searchHero(nameHero: String) {
+        Log.i("quique", "HA ENTRADO EN SEARCH_HERO")
+        viewModelScope.launch {
+            _uiState.emit(CardsCollectionUiState.Loading)
+            when (val baseResponse = searchHeroByNameUseCase(nameHero)) {
+                is BaseResponse.Error -> _uiState.emit(CardsCollectionUiState.Error(baseResponse.error))
+                is BaseResponse.Success -> {
+                    cardsList.clear()
+                    cardsList.addAll(baseResponse.data)
+                    _uiState.emit(CardsCollectionUiState.Success(baseResponse.data))
+                }
+            }
+        }
+    }
+
+    fun restartList() {
+        Log.i("quique", "HA ENTRADO EN RESTART_LIST")
+        offset = 1
+        idHero = 0
+        limit = 31
+        cardsList.clear()
     }
 
     private fun checkIfTheListIsComplete() {
