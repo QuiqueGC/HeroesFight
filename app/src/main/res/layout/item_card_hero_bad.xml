@@ -296,17 +296,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vCardStats" />
 
-        <ImageView
-            android:id="@+id/ivSabotaged"
-            android:layout_width="@dimen/cardStatsHeight"
-            android:layout_height="@dimen/cardStatsHeight"
-            android:scaleType="centerCrop"
+        <TextView
+            android:id="@+id/tvSabotaged"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fighting_spirit_2_bold"
+            android:rotation="-38"
+            android:text="SABOTAGED"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@id/vCardStats"
-            app:layout_constraintTop_toTopOf="@id/vCardStats"
-            app:layout_constraintEnd_toEndOf="@id/vCardStats"
-            app:layout_constraintBottom_toBottomOf="@id/vCardStats"
-            android:src="@drawable/ic_sabotaged" />
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/imgHero"
+            app:layout_constraintStart_toStartOf="@id/imgHero"
+            app:layout_constraintEnd_toEndOf="@id/imgHero"
+            app:layout_constraintTop_toTopOf="@id/imgHero" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

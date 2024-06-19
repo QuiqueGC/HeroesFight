@@ -74,9 +74,9 @@ object CardsFiller {
             tvBonusValue.text = "+${fighterModel.combatBonus}"
             tvDefenseValue.text = "+${fighterModel.defenseBonus}"
             if (fighterModel.isSabotaged) {
-                ivSabotaged.visibility = View.VISIBLE
+                tvSabotaged.visibility = View.VISIBLE
             } else {
-                ivSabotaged.visibility = View.GONE
+                tvSabotaged.visibility = View.GONE
             }
             Glide.with(context)
                 .load(fighterModel.image)
@@ -111,9 +111,9 @@ object CardsFiller {
             tvBonusValue.text = "+${fighterModel.combatBonus}"
             tvDefenseValue.text = "+${fighterModel.defenseBonus}"
             if (fighterModel.isSabotaged) {
-                ivSabotaged.visibility = View.VISIBLE
+                tvSabotaged.visibility = View.VISIBLE
             } else {
-                ivSabotaged.visibility = View.GONE
+                tvSabotaged.visibility = View.GONE
             }
             Glide.with(context)
                 .load(fighterModel.image)
