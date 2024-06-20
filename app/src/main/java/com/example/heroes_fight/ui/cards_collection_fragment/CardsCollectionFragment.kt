@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.utils.CardsFiller
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
+import com.example.heroes_fight.ui.cards_collection_fragment.adapter.CardsCollectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

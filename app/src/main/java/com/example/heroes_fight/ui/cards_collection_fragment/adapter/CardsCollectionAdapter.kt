@@ -1,4 +1,4 @@
-package com.example.heroes_fight.ui.cards_collection_fragment
+package com.example.heroes_fight.ui.cards_collection_fragment.adapter
 
 import android.content.Context
 import android.util.Log
