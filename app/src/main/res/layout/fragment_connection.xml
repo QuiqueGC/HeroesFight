@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/btnSameDevice"
+        android:id="@+id/btnOnOff"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:text="On/Off"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/btnWifiDirect"
+        android:id="@+id/btnDiscover"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:text="Discover"
@@ -40,13 +40,13 @@
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:textSize="28sp"
         android:layout_marginBottom="@dimen/marginMax"
-        app:layout_constraintTop_toBottomOf="@id/btnSameDevice"
+        app:layout_constraintTop_toBottomOf="@id/btnOnOff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/btnWifiDirect"
+        app:layout_constraintTop_toBottomOf="@id/btnDiscover"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
