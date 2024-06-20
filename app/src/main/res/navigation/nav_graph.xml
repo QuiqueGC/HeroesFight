@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph.xml"
-    app:startDestination="@id/fightModeFragment">
+    app:startDestination="@id/connectionFragment">
 
     <fragment
         android:id="@+id/mainMenuFragment"
@@ -87,8 +87,8 @@
             app:argType="com.example.heroes_fight.data.domain.model.fighter.ScoreListModel" />
     </fragment>
     <fragment
-        android:id="@+id/fightModeFragment"
-        android:name="com.example.heroes_fight.ui.FightModeFragment"
-        android:label="fragment_fight_mode"
-        tools:layout="@layout/fragment_fight_mode" />
+        android:id="@+id/connectionFragment"
+        android:name="com.example.heroes_fight.ui.fight_mode_fragment.ConnectionFragment"
+        android:label="fragment_connection"
+        tools:layout="@layout/fragment_connection" />
 </navigation>
