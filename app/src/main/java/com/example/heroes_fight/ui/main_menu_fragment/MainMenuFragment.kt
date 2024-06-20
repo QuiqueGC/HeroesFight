@@ -31,7 +31,7 @@ class MainMenuFragment : Fragment() {
         }
 
         binding.btnFight.setOnClickListener {
-            findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToFightFragment())
+            findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToModeSelectionFragment())
         }
 
         /*binding.root.setOnClickListener {
