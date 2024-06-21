@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.fight_fragment
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import com.example.heroes_fight.R
 import com.example.heroes_fight.data.constants.MyConstants.BOARD_MAX_COLUMNS
 import com.example.heroes_fight.data.constants.MyConstants.BOARD_MAX_LINES
 import com.example.heroes_fight.data.constants.MyConstants.MAX_ROCKS
+import com.example.heroes_fight.data.domain.model.common.ActionResultModel
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
@@ -53,10 +55,12 @@ class FightFragment : Fragment() {
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
     private var indexOfActualFighter = -1
     private var initiativeIndex = 0
+    private val middleColumn = 4
     private var actualFighter = FighterModel()
     private var destinationPosition = Position()
 
     private var isFirstTurn = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -265,20 +269,38 @@ class FightFragment : Fragment() {
         )
     }
 
-    private fun moveTvActionResult(ivFighter: View) {
+    private fun moveTvActionResultRight(ivFighter: View) {
         val constraintSet = ConstraintSet()
         constraintSet.clone(binding.root)
         constraintSet.connect(
-            binding.tvActionResult.id,
+            binding.tvActionResultRight.id,
             ConstraintSet.BOTTOM,
             ivFighter.id,
             ConstraintSet.TOP
         )
         constraintSet.connect(
-            binding.tvActionResult.id,
+            binding.tvActionResultRight.id,
             ConstraintSet.START,
             ivFighter.id,
             ConstraintSet.END
+        )
+        constraintSet.applyTo(binding.root)
+    }
+
+    private fun moveTvActionResultLeft(ivFighter: View) {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(binding.root)
+        constraintSet.connect(
+            binding.tvActionResultLeft.id,
+            ConstraintSet.BOTTOM,
+            ivFighter.id,
+            ConstraintSet.TOP
+        )
+        constraintSet.connect(
+            binding.tvActionResultLeft.id,
+            ConstraintSet.END,
+            ivFighter.id,
+            ConstraintSet.START
         )
         constraintSet.applyTo(binding.root)
     }
@@ -313,7 +335,8 @@ class FightFragment : Fragment() {
             }
 
             ivVillains[i].setOnLongClickListener {
-                moveTvActionResult(it)
+                moveTvActionResultRight(it)
+                moveTvActionResultLeft(it)
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttack(i, false)
                     PlayerChoice.SABOTAGE -> performSabotage(i, false)
@@ -325,7 +348,8 @@ class FightFragment : Fragment() {
                 true
             }
             ivHeroes[i].setOnLongClickListener {
-                moveTvActionResult(it)
+                moveTvActionResultRight(it)
+                moveTvActionResultLeft(it)
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttack(i, true)
                     PlayerChoice.SABOTAGE -> performSabotage(i, true)
@@ -441,10 +465,8 @@ class FightFragment : Fragment() {
                 if (actualFighter.actionPerformed) {
                     disableActionButtons(binding.btnMove)
                     refreshBoard()
-                    binding.tvInfo.text = actionResultModel.txtToTvInfo
-                    binding.tvActionResult.text = actionResultModel.txtToTvActionResult
-                    binding.tvActionResult.visibility = View.VISIBLE
-
+                    showInfo(actionResultModel)
+                    startTimerToHideTvResult()
                 } else {
                     showToast(actionResultModel.txtToTvInfo)
                 }
@@ -496,6 +518,29 @@ class FightFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showInfo(actionResultModel: ActionResultModel) {
+        binding.tvInfo.text = actionResultModel.txtToTvInfo
+        binding.tvActionResultRight.text = actionResultModel.txtToTvActionResult
+        binding.tvActionResultLeft.text = actionResultModel.txtToTvActionResult
+        if (actualFighter.position.x > middleColumn) {
+            binding.tvActionResultLeft.visibility = View.VISIBLE
+        } else {
+            binding.tvActionResultRight.visibility = View.VISIBLE
+        }
+    }
+
+    private fun startTimerToHideTvResult() {
+        val timer = object : CountDownTimer(1500, 1500) {
+            override fun onTick(millisUntilFinished: Long) {}
+
+            override fun onFinish() {
+                binding.tvActionResultRight.visibility = View.GONE
+                binding.tvActionResultLeft.visibility = View.GONE
+            }
+        }
+        timer.start()
     }
 
     private fun showReferee(sentenceToSay: String) {

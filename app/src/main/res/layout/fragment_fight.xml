@@ -559,13 +559,13 @@
     <include
         android:id="@+id/linearInitiative"
         layout="@layout/linear_list_initiative"
-        android:layout_marginTop="@dimen/marginLarge"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/imgInitiativeSize"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/marginLarge"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
@@ -733,11 +733,11 @@
         android:id="@+id/imgReferee"
         android:layout_width="256dp"
         android:layout_height="256dp"
-        android:visibility="gone"
         android:clickable="true"
         android:focusable="true"
         android:scaleType="centerCrop"
         android:src="@drawable/referee"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/vBoard"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -746,9 +746,9 @@
         android:layout_width="@dimen/speechBubbleWidth"
         android:layout_height="@dimen/speechBubbleHeight"
         android:layout_marginBottom="-64dp"
-        android:visibility="gone"
         android:scaleType="centerInside"
         android:src="@drawable/speech_bubble_background"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/imgReferee"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -771,33 +771,34 @@
         android:id="@+id/tvTurn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/marginCommon"
-        android:layout_marginTop="@dimen/marginLarge"
-        android:visibility="invisible"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:textAlignment="center"
-        android:textColor="@color/txtInfoBoxesColor"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:elevation="5dp"
         android:layout_marginStart="@dimen/marginMin"
+        android:layout_marginTop="@dimen/marginLarge"
+        android:layout_marginEnd="@dimen/marginCommon"
         android:background="@drawable/background_info_boxes"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:paddingStart="@dimen/marginCommon"
+        android:singleLine="true"
+        android:textColor="@color/txtInfoBoxesColor"
+        android:textSize="@dimen/txtTurnSize"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnPass"
         app:layout_constraintTop_toBottomOf="@id/linearInitiative"
-        tools:text="Manolo's turn" />
+        tools:text="Manolo's hjhjhjh jhjhjh jhjhjh jh jh jh jhuhjhj turn" />
 
     <TextView
         android:id="@+id/tvInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_info_boxes"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:paddingStart="@dimen/marginCommon"
+        android:textColor="@color/txtInfoBoxesColor"
         android:visibility="invisible"
         android:elevation="5dp"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:background="@drawable/background_info_boxes"
-        android:textAlignment="center"
-        android:textColor="@color/txtInfoBoxesColor"
-        app:layout_constraintEnd_toEndOf="@id/tvTurn"
+        app:layout_constraintEnd_toStartOf="@id/btnPass"
         app:layout_constraintStart_toStartOf="@id/tvTurn"
         app:layout_constraintTop_toBottomOf="@id/tvTurn"
         tools:text="Manolo did 450 damage to each hero" />
@@ -826,15 +827,15 @@
 
     <Button
         android:id="@+id/btnPass"
-        android:text="Pass"
         style="@style/actionBtn"
+        android:text="Pass"
         app:layout_constraintBottom_toTopOf="@id/vBoard"
         app:layout_constraintEnd_toEndOf="@id/vBoard" />
 
     <Button
         android:id="@+id/btnMove"
-        android:text="Mov"
         style="@style/actionBtn"
+        android:text="Mov"
         app:layout_constraintBottom_toTopOf="@id/btnSupport"
         app:layout_constraintEnd_toStartOf="@id/btnAttack"
         app:layout_constraintStart_toStartOf="parent"
@@ -842,8 +843,8 @@
 
     <Button
         android:id="@+id/btnAttack"
-        android:text="Atck!"
         style="@style/actionBtn"
+        android:text="Atck!"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toStartOf="@id/btnDefend"
         app:layout_constraintStart_toEndOf="@id/btnMove"
@@ -851,8 +852,8 @@
 
     <Button
         android:id="@+id/btnDefend"
-        android:text="Def"
         style="@style/actionBtn"
+        android:text="Def"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnAttack"
@@ -860,8 +861,8 @@
 
     <Button
         android:id="@+id/btnSupport"
-        android:text="Sup"
         style="@style/actionBtn"
+        android:text="Sup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnSabotage"
         app:layout_constraintStart_toStartOf="parent"
@@ -869,8 +870,8 @@
 
     <Button
         android:id="@+id/btnSabotage"
-        android:text="Sab"
         style="@style/actionBtn"
+        android:text="Sab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnShot"
         app:layout_constraintStart_toEndOf="@id/btnSupport"
@@ -888,24 +889,39 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
-        android:indeterminateTint="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateBehavior="repeat"
-        android:layout_marginBottom="@dimen/marginCommon"
         android:layout_marginEnd="@dimen/marginCommon"
+        android:layout_marginBottom="@dimen/marginCommon"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/tvActionResult"
+        android:id="@+id/tvActionResultRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_bio_and_appearance_card"
+        android:padding="@dimen/marginCommon"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txtTurnSize"
         android:visibility="gone"
-        android:textColor="@color/colorPrimary"
-        android:textSize="32sp"
         android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@id/v1c"
         app:layout_constraintStart_toEndOf="@id/v1c" />
+
+    <TextView
+        android:id="@+id/tvActionResultLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bio_and_appearance_card"
+        android:padding="@dimen/marginCommon"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txtTurnSize"
+        android:visibility="gone"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toTopOf="@id/v1c"
+        app:layout_constraintEnd_toStartOf="@id/v1c" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
