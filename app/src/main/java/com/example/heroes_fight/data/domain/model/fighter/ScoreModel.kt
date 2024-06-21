@@ -1,6 +1,7 @@
 package com.example.heroes_fight.data.domain.model.fighter
 
 import com.example.heroes_fight.data.domain.model.BaseModel
+import java.io.Serializable
 
 data class ScoreModel(
     val serialNum: String,
@@ -16,4 +17,4 @@ data class ScoreModel(
     var dodgedAtks: Int = 0,
     var rangeDmgRec: Int = 0,
     var survived: Boolean = true,
-) : BaseModel()
+) : BaseModel(), Serializable

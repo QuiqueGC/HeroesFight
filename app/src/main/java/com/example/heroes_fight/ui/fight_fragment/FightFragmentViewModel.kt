@@ -31,10 +31,10 @@ open class FightFragmentViewModel @Inject constructor(
     private val boardManager: BoardManager
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<FightFragmentUiState>(FightFragmentUiState.Loading)
+    open val _uiState = MutableStateFlow<FightFragmentUiState>(FightFragmentUiState.Loading)
     val uiState: StateFlow<FightFragmentUiState> = _uiState
 
-    private val _actualFighter = MutableStateFlow(FighterModel())
+    open val _actualFighter = MutableStateFlow(FighterModel())
     val actualFighter: StateFlow<FighterModel> = _actualFighter
 
     private val _actionResult = MutableSharedFlow<ActionResultModel>()
@@ -47,12 +47,12 @@ open class FightFragmentViewModel @Inject constructor(
     val finishBattle: StateFlow<ScoreListModel?> = _finishBattle
 
 
-    private var heroes = mutableListOf<FighterModel>()
-    private var villains = mutableListOf<FighterModel>()
-    private var allFighters = mutableListOf<FighterModel>()
+    open var heroes = mutableListOf<FighterModel>()
+    open var villains = mutableListOf<FighterModel>()
+    open var allFighters = mutableListOf<FighterModel>()
 
 
-    fun getRandomHeroes() {
+    open fun getRandomHeroes() {
         var isBalanced = false
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.emit(FightFragmentUiState.Loading)
@@ -73,9 +73,9 @@ open class FightFragmentViewModel @Inject constructor(
                 Log.i("quique", "Valor de héroes -> $powerHeroes")
                 val powerVillains = getAllPower(villains)
                 Log.i("quique", "Valor de villanos -> $powerVillains")
-                val difference = abs(powerHeroes - powerVillains)
-                Log.i("quique", "Diferencia -> $difference")
-                if (difference <= 150) {
+                val powerDifference = abs(powerHeroes - powerVillains)
+                Log.i("quique", "Diferencia -> $powerDifference")
+                if (powerDifference <= 150) {
                     isBalanced = true
                 }
 

@@ -64,7 +64,6 @@ open class FightFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getRandomHeroes()
     }
 
     override fun onCreateView(
@@ -72,8 +71,15 @@ open class FightFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFightBinding.inflate(inflater, container, false)
+
+        setupFightersInSameDevice()
+
         addActionButtonsToList()
         return binding.root
+    }
+
+    open fun setupFightersInSameDevice() {
+        viewModel.getRandomHeroes()
     }
 
     private fun addActionButtonsToList() {
@@ -395,28 +401,9 @@ open class FightFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
-            viewModel.uiState.collect { fightFragmentUiState ->
 
-                when (fightFragmentUiState) {
-                    is FightFragmentUiState.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is FightFragmentUiState.Error -> showToast("ERROR ERROR ERROR")
+        collectUiState()
 
-                    is FightFragmentUiState.Success -> {
-                        showHeroesMiniatures(
-                            fightFragmentUiState.heroesList,
-                            fightFragmentUiState.villainsList
-                        )
-                        addFightersToLists(
-                            fightFragmentUiState.heroesList,
-                            fightFragmentUiState.villainsList
-                        )
-                        putFightersInTheInitiativeList(fightFragmentUiState.allFightersSorted)
-
-                    }
-                }
-            }
-        }
 
         lifecycleScope.launch {
             viewModel.actualFighter.collect { actualFighter ->
@@ -499,6 +486,34 @@ open class FightFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun collectUiState() {
+        lifecycleScope.launch {
+            viewModel.uiState.collect { fightFragmentUiState ->
+
+                when (fightFragmentUiState) {
+                    is FightFragmentUiState.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is FightFragmentUiState.Error -> showToast("ERROR ERROR ERROR")
+                    is FightFragmentUiState.Success -> {
+                        putFightersInTheirPlaces(fightFragmentUiState)
+                    }
+                }
+            }
+        }
+    }
+
+    open fun putFightersInTheirPlaces(fightFragmentUiState: FightFragmentUiState.Success) {
+        showHeroesMiniatures(
+            fightFragmentUiState.heroesList,
+            fightFragmentUiState.villainsList
+        )
+        addFightersToLists(
+            fightFragmentUiState.heroesList,
+            fightFragmentUiState.villainsList
+        )
+        putFightersInTheInitiativeList(fightFragmentUiState.allFightersSorted)
+
     }
 
     private fun showInfo(actionResultModel: ActionResultModel) {

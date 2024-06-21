@@ -1,39 +1,48 @@
 package com.example.heroes_fight.ui.fight_p2p_fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.heroes_fight.ui.fight_fragment.FightFragment
+import com.example.heroes_fight.ui.fight_fragment.FightFragmentUiState
+import kotlinx.coroutines.launch
 
 class FightP2PFragment : FightFragment() {
 
     //private val viewModel: FightFragmentViewModel by viewModels()
     override val viewModel: FightP2PFragmentViewModel by viewModels()
     private val args: FightP2PFragmentArgs by navArgs()
-    private lateinit var server: TcpServer
-    private lateinit var client: TcpClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (args.isServer) {
-            Log.i("skts", "Ha entrado en la parte de server")
-            server = TcpServer(8888)
-            server.startServer()
-        } else {
-            Log.i("skts", "Ha entrado en la parte de cliente")
-            client = TcpClient(
-                "192.168.1.140",
-                8888
-            ) // "10.0.2.2" es la dirección IP del host para los emuladores
-            client.connectToServer()
-        }
+
+        viewModel.establishConnection(args.isServer)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeConnection()
+    }
 
+    private fun observeConnection() {
+        lifecycleScope.launch {
+            viewModel.connectionEstablished.collect {
+                if (it) {
+                    viewModel.getRandomHeroes()
+                }
+            }
+        }
+    }
+
+    override fun setupFightersInSameDevice() {}
+
+    override fun putFightersInTheirPlaces(fightFragmentUiState: FightFragmentUiState.Success) {
+        super.putFightersInTheirPlaces(fightFragmentUiState)
+        if (args.isServer) {
+            viewModel.sendFighters()
+        }
     }
 }

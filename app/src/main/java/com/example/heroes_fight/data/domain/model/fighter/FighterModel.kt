@@ -6,6 +6,7 @@ import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.utils.Bresenham
+import java.io.Serializable
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -43,7 +44,7 @@ class FighterModel(
     durability,
     power,
     combat,
-), FighterActions {
+), FighterActions, Serializable {
     override fun move(destinationPosition: Position): Boolean {
         var canMove = false
         var difference: Int
