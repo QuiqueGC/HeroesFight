@@ -38,7 +38,7 @@ open class FightFragment : Fragment() {
     //EL BIDIMENSIONAL HACE [Y][X] Y NO AL REVÉS
 
     private lateinit var binding: FragmentFightBinding
-    private val viewModel: FightFragmentViewModel by viewModels()
+    open val viewModel: FightFragmentViewModel by viewModels()
 
     private val board = List(10) { arrayOfNulls<View>(9) }
 
@@ -179,25 +179,6 @@ open class FightFragment : Fragment() {
         }
     }
 
-    private fun setColorActionButtons(selectedButton: Button?) {
-        for (btn in actionButtons) {
-            if (btn != selectedButton) {
-                btn.setBackgroundColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.blueGood
-                    )
-                )
-            } else {
-                btn.setBackgroundColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.greenTurn
-                    )
-                )
-            }
-        }
-    }
 
     private fun paintAccessibleTiles() {
         val markedTiles = viewModel.getAccessibleTiles(playerChoice)

@@ -25,7 +25,7 @@ import javax.inject.Inject
 import kotlin.math.abs
 
 @HiltViewModel
-class FightFragmentViewModel @Inject constructor(
+open class FightFragmentViewModel @Inject constructor(
     private val getVillainListUseCase: GetVillainListUseCase,
     private val getHeroesListUseCase: GetHeroesListUseCase,
     private val boardManager: BoardManager

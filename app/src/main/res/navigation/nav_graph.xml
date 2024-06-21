@@ -110,5 +110,10 @@
     <fragment
         android:id="@+id/fightP2PFragment"
         android:name="com.example.heroes_fight.ui.fight_p2p_fragment.FightP2PFragment"
-        android:label="FightP2PFragment" />
+        android:label="FightP2PFragment"
+        tools:layout="@layout/fragment_fight">
+        <argument
+            android:name="isServer"
+            app:argType="boolean" />
+    </fragment>
 </navigation>
