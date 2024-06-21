@@ -907,7 +907,6 @@
         android:textColor="@color/white"
         android:textSize="@dimen/txtTurnSize"
         android:visibility="gone"
-        android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@id/v1c"
         app:layout_constraintStart_toEndOf="@id/v1c" />
 
@@ -920,7 +919,6 @@
         android:textColor="@color/white"
         android:textSize="@dimen/txtTurnSize"
         android:visibility="gone"
-        android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@id/v1c"
         app:layout_constraintEnd_toStartOf="@id/v1c" />
 
