@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.heroes_fight.databinding.FragmentConnectionBinding
 import com.example.heroes_fight.ui.connection_fragment.adapter.PeersAdapter
@@ -32,9 +33,6 @@ class ConnectionFragment : Fragment(), WifiP2pManager.PeerListListener,
     private lateinit var channel: WifiP2pManager.Channel
     private lateinit var receiver: BroadcastReceiver
     private var peers: MutableList<WifiP2pDevice> = ArrayList()
-
-
-
 
 
     override fun onCreateView(
@@ -59,6 +57,10 @@ class ConnectionFragment : Fragment(), WifiP2pManager.PeerListListener,
 
         binding.btnDiscover.setOnClickListener {
             discoverPeers()
+        }
+
+        binding.btnGoFight.setOnClickListener {
+            findNavController().navigate(ConnectionFragmentDirections.actionConnectionFragmentToFightP2PFragment())
         }
     }
 

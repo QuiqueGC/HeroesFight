@@ -7,27 +7,16 @@
     tools:context=".ui.connection_fragment.ConnectionFragment">
 
 
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="ConnectionStatus"
-        android:textColor="@color/white"
-        android:background="@drawable/background_bio_and_appearance_card"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <Button
-        android:id="@+id/btnOnOff"
+        android:id="@+id/btnGoFight"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:text="On/Off"
+        android:text="Go fight"
         android:textColor="@color/txtInfoBoxesColor"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:textSize="28sp"
         android:layout_marginBottom="@dimen/marginMax"
-        app:layout_constraintTop_toBottomOf="@id/tvStatus"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -40,7 +29,7 @@
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:textSize="28sp"
         android:layout_marginBottom="@dimen/marginMax"
-        app:layout_constraintTop_toBottomOf="@id/btnOnOff"
+        app:layout_constraintTop_toBottomOf="@id/btnGoFight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

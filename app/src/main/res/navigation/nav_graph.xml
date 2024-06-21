@@ -90,7 +90,11 @@
         android:id="@+id/connectionFragment"
         android:name="com.example.heroes_fight.ui.connection_fragment.ConnectionFragment"
         android:label="fragment_connection"
-        tools:layout="@layout/fragment_connection" />
+        tools:layout="@layout/fragment_connection">
+        <action
+            android:id="@+id/action_connectionFragment_to_fightP2PFragment"
+            app:destination="@id/fightP2PFragment" />
+    </fragment>
     <fragment
         android:id="@+id/modeSelectionFragment"
         android:name="com.example.heroes_fight.ui.mode_selection_fragment.ModeSelectionFragment"
@@ -103,4 +107,8 @@
             android:id="@+id/action_modeSelectionFragment_to_fightFragment"
             app:destination="@id/fightFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/fightP2PFragment"
+        android:name="com.example.heroes_fight.ui.fight_p2p_fragment.FightP2PFragment"
+        android:label="FightP2PFragment" />
 </navigation>

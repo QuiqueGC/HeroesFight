@@ -33,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FightFragment : Fragment() {
+open class FightFragment : Fragment() {
 
     //EL BIDIMENSIONAL HACE [Y][X] Y NO AL REVÉS
 
