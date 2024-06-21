@@ -8,6 +8,7 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:scaleType">centerCrop</item>
+        <item name="android:elevation">5dp</item>
         <item name="android:layout_marginHorizontal">@dimen/marginMin</item>
         <item name="shapeAppearanceOverlay">@style/heroInInitiativeListShapeOverlay</item>
     </style>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/marginLarge"
+    android:elevation="5dp"
     android:background="@drawable/background_info_boxes">
 
     <TextView
