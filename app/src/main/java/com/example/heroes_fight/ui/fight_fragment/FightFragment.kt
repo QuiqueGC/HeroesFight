@@ -37,7 +37,7 @@ open class FightFragment : Fragment() {
 
     //EL BIDIMENSIONAL HACE [Y][X] Y NO AL REVÉS
 
-    private lateinit var binding: FragmentFightBinding
+    open lateinit var binding: FragmentFightBinding
     open val viewModel: FightFragmentViewModel by viewModels()
 
     private val board = List(10) { arrayOfNulls<View>(9) }
@@ -48,7 +48,7 @@ open class FightFragment : Fragment() {
     private val ivHeroes = mutableListOf<ShapeableImageView>()
     private val ivVillains = mutableListOf<ShapeableImageView>()
     private val ivAllFighters = mutableListOf<ShapeableImageView>()
-    private val actionButtons = mutableListOf<Button>()
+    open val actionButtons = mutableListOf<Button>()
     open val rocks = mutableListOf<RockModel>()
     private val ivRocks = mutableListOf<ImageView>()
 

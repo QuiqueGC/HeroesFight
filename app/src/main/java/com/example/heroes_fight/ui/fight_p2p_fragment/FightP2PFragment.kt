@@ -64,6 +64,27 @@ class FightP2PFragment : FightFragment() {
         Log.i("skts", "Ha terminado de hacer lo básico de emitir actualFighter")
         Log.i("skts", "ID del actualFighter = ${actualFighter.id}")
         sendOrGetRocks()
+        establishWhoIsThePlayer()
+    }
+
+    private fun establishWhoIsThePlayer() {
+        lifecycleScope.launch {
+            viewModel.actualFighter.collect {
+                if (actualFighter.id != 0) {
+                    if (actualFighter.isHero && args.isServer || !actualFighter.isHero && !args.isServer) {
+
+                        actionButtons.forEach { it.isEnabled = true }
+                        binding.btnPass.isEnabled = true
+
+                    } else {
+
+                        actionButtons.forEach { it.isEnabled = false }
+                        binding.btnPass.isEnabled = false
+
+                    }
+                }
+            }
+        }
     }
 
     private fun sendOrGetRocks() {
