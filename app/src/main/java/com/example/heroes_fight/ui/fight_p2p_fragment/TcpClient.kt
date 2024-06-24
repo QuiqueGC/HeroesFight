@@ -1,15 +1,23 @@
 package com.example.heroes_fight.ui.fight_p2p_fragment
 
 import android.util.Log
+import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.InputStream
 import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.OutputStream
 import java.net.Socket
 
 class TcpClient(private val serverIp: String, private val serverPort: Int) {
 
     private lateinit var socket: Socket
+    private lateinit var inputStream: InputStream
+    private lateinit var outputStream: OutputStream
+    private lateinit var ois: ObjectInputStream
+    private lateinit var oos: ObjectOutputStream
 
     suspend fun connectToServer() {
         Log.i("skts", "intentará conectarse al server")
@@ -21,7 +29,10 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
 
                 val input = socket.getInputStream().bufferedReader()
                 val output = socket.getOutputStream().bufferedWriter()
-
+                inputStream = socket.getInputStream()
+                outputStream = socket.getOutputStream()
+                ois = ObjectInputStream(inputStream)
+                oos = ObjectOutputStream(outputStream)
                 output.write("Hello from Client\n")
                 output.flush()
 
@@ -45,8 +56,8 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
         withContext(Dispatchers.IO) {
             Log.i("skts", "recibiendo listas")
             try {
-                val inputStream = socket.getInputStream()
-                val ois = ObjectInputStream(inputStream)
+                //val inputStream = socket.getInputStream()
+                //val ois = ObjectInputStream(inputStream)
 
                 Log.i("skts", "listas recibidas")
                 heroes.addAll(ois.readObject() as MutableList<FighterModel>)
@@ -56,6 +67,7 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                 Log.i("skts", "Nº villanos ${villains.size}")
                 Log.i("skts", "Nº total ${allFighters.size}")
 
+                //ois.close()
             } catch (e: Exception) {
 
                 Log.i("skts", "Saltó el catch de recepción de listas")
@@ -63,4 +75,23 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
             }
         }
     }
+
+
+    suspend fun sendRocks(rocks: MutableList<RockModel>) {
+        withContext(Dispatchers.IO) {
+            try {
+                //val outputStream = clientSocket.getOutputStream()
+                //val oos = ObjectOutputStream(outputStream)
+                oos.writeObject(rocks)
+                oos.flush()
+                //oos.close()
+                Log.i("skts", "Rocas enviadas! CANTIDAD: ${rocks.size}")
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de enviado rocas")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+
 }

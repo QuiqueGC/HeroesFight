@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.fight_p2p_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +16,8 @@ class FightP2PFragment : FightFragment() {
     override val viewModel: FightP2PFragmentViewModel by viewModels()
     private val args: FightP2PFragmentArgs by navArgs()
 
+    private var rocksWereSent = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,6 +28,17 @@ class FightP2PFragment : FightFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeConnection()
+
+        observeRocksFlow()
+
+    }
+
+    private fun observeRocksFlow() {
+        lifecycleScope.launch {
+            viewModel.rocksFlow.collect {
+                showRocks()
+            }
+        }
     }
 
     private fun observeConnection() {
@@ -39,9 +53,40 @@ class FightP2PFragment : FightFragment() {
 
     override fun setupFightersInSameDevice() {}
 
-    override fun putFightersInTheirPlaces(fightFragmentUiState: FightFragmentUiState.Success) {
-        super.putFightersInTheirPlaces(fightFragmentUiState)
+    override fun setupRocks() {
+        if (!args.isServer) {
+            super.setupRocks()
+        }
+    }
+
+    override fun collectActualFighter() {
+        super.collectActualFighter()
+        Log.i("skts", "Ha terminado de hacer lo básico de emitir actualFighter")
+        Log.i("skts", "ID del actualFighter = ${actualFighter.id}")
+        sendOrGetRocks()
+    }
+
+    private fun sendOrGetRocks() {
+        lifecycleScope.launch {
+            viewModel.actualFighter.collect {
+                if (actualFighter.id != 0 && !rocksWereSent) {
+                    if (!args.isServer) {
+                        viewModel.sendRocksToServer(rocks)
+                    } else {
+                        Log.i("skts", "Se ejecuta la función para coger las rocas")
+                        viewModel.getRocksFromClient(rocks)
+                        //showRocks()
+                    }
+                    rocksWereSent = true
+                }
+            }
+        }
+    }
+
+    override fun completeBattlefield(fightFragmentUiState: FightFragmentUiState.Success) {
+        super.completeBattlefield(fightFragmentUiState)
         if (args.isServer) {
+            Log.i("skts", "Ha entrado en el SUccess del UIState")
             viewModel.sendFighters()
         }
     }

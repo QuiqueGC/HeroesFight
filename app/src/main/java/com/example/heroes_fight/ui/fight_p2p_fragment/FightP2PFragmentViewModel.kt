@@ -2,6 +2,7 @@ package com.example.heroes_fight.ui.fight_p2p_fragment
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
 import com.example.heroes_fight.data.utils.BoardManager
@@ -9,7 +10,9 @@ import com.example.heroes_fight.ui.fight_fragment.FightFragmentUiState
 import com.example.heroes_fight.ui.fight_fragment.FightFragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +26,9 @@ class FightP2PFragmentViewModel @Inject constructor(
 
     private val _connectionEstablished = MutableStateFlow(false)
     val connectionEstablished: StateFlow<Boolean> = _connectionEstablished
+
+    private val _rocksFlow = MutableSharedFlow<MutableList<RockModel>>()
+    val rocksFlow: SharedFlow<MutableList<RockModel>> = _rocksFlow
 
     private lateinit var server: TcpServer
     private lateinit var client: TcpClient
@@ -46,6 +52,7 @@ class FightP2PFragmentViewModel @Inject constructor(
                 }
             }
             deferred.await()
+            Log.i("skts", "Ha dejado de esperar")
             _connectionEstablished.emit(true)
         }
 
@@ -82,6 +89,25 @@ class FightP2PFragmentViewModel @Inject constructor(
     }
 
     fun sendFighters() {
+        Log.i("skts", "Ha entrado en la función de sendFighters")
         server.sendFightersList(heroes, villains, allFighters)
+    }
+
+    fun sendRocksToServer(rocks: MutableList<RockModel>) {
+        viewModelScope.launch {
+            val deferred = async { client.sendRocks(rocks) }
+            deferred.await()
+        }
+    }
+
+
+    suspend fun getRocksFromClient(rocks: MutableList<RockModel>) {
+        Log.i("skts", "Intenta coger la lista de rocas")
+        viewModelScope.launch {
+            val deferred = async { server.getRocksFromClient(rocks) }
+            deferred.await()
+            _rocksFlow.emit(rocks)
+            Log.i("skts", "Ha terminado de esperar por las rocas")
+        }
     }
 }

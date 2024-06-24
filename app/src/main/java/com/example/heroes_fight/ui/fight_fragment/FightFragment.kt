@@ -49,14 +49,14 @@ open class FightFragment : Fragment() {
     private val ivVillains = mutableListOf<ShapeableImageView>()
     private val ivAllFighters = mutableListOf<ShapeableImageView>()
     private val actionButtons = mutableListOf<Button>()
-    private val rocks = mutableListOf<RockModel>()
+    open val rocks = mutableListOf<RockModel>()
     private val ivRocks = mutableListOf<ImageView>()
 
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
     private var indexOfActualFighter = -1
     private var initiativeIndex = 0
     private val middleColumn = 4
-    private var actualFighter = FighterModel()
+    open var actualFighter = FighterModel()
     private var destinationPosition = Position()
 
     private var isFirstTurn = true
@@ -405,26 +405,8 @@ open class FightFragment : Fragment() {
         collectUiState()
 
 
-        lifecycleScope.launch {
-            viewModel.actualFighter.collect { actualFighter ->
-                if (actualFighter.id != 0) {
+        collectActualFighter()
 
-                    binding.tvInfo.text = getString(R.string.choiceAction)
-
-                    this@FightFragment.actualFighter = actualFighter
-
-                    checkIfSabotaged()
-
-                    extractActualFighterIndex()
-
-                    changeBorderOfActualFighter()
-
-                    setBorderAtInitiativeList()
-
-                    showAllViews()
-                }
-            }
-        }
 
 
         lifecycleScope.launch {
@@ -488,6 +470,29 @@ open class FightFragment : Fragment() {
         }
     }
 
+    open fun collectActualFighter() {
+        lifecycleScope.launch {
+            viewModel.actualFighter.collect { actualFighter ->
+                if (actualFighter.id != 0) {
+
+                    binding.tvInfo.text = getString(R.string.choiceAction)
+
+                    this@FightFragment.actualFighter = actualFighter
+
+                    checkIfSabotaged()
+
+                    extractActualFighterIndex()
+
+                    changeBorderOfActualFighter()
+
+                    setBorderAtInitiativeList()
+
+                    showAllViews()
+                }
+            }
+        }
+    }
+
     private fun collectUiState() {
         lifecycleScope.launch {
             viewModel.uiState.collect { fightFragmentUiState ->
@@ -496,14 +501,14 @@ open class FightFragment : Fragment() {
                     is FightFragmentUiState.Loading -> binding.progressBar.visibility = View.VISIBLE
                     is FightFragmentUiState.Error -> showToast("ERROR ERROR ERROR")
                     is FightFragmentUiState.Success -> {
-                        putFightersInTheirPlaces(fightFragmentUiState)
+                        completeBattlefield(fightFragmentUiState)
                     }
                 }
             }
         }
     }
 
-    open fun putFightersInTheirPlaces(fightFragmentUiState: FightFragmentUiState.Success) {
+    open fun completeBattlefield(fightFragmentUiState: FightFragmentUiState.Success) {
         showHeroesMiniatures(
             fightFragmentUiState.heroesList,
             fightFragmentUiState.villainsList
@@ -513,7 +518,6 @@ open class FightFragment : Fragment() {
             fightFragmentUiState.villainsList
         )
         putFightersInTheInitiativeList(fightFragmentUiState.allFightersSorted)
-
     }
 
     private fun showInfo(actionResultModel: ActionResultModel) {
@@ -662,6 +666,10 @@ open class FightFragment : Fragment() {
 
         }
         insertRockViewsAtList()
+        setupRocks()
+    }
+
+    open fun setupRocks() {
         rocks.addAll(viewModel.getRocks())
         showRocks()
     }
@@ -682,7 +690,7 @@ open class FightFragment : Fragment() {
         }
     }
 
-    private fun showRocks() {
+    open fun showRocks() {
         for (i in rocks.indices) {
 
             ivRocks[i].visibility = View.VISIBLE
