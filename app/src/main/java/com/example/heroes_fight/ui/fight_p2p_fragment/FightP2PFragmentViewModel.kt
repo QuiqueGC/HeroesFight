@@ -128,18 +128,20 @@ class FightP2PFragmentViewModel @Inject constructor(
 
     fun sendMovement() {
         if (isServer) {
-            server.sendAction(
+            server.sendMove(_actualFighter.value)
+            /*server.sendAction(
                 ResultToSendBySocketModel(),
                 villains,
                 heroes
-            )
+            )*/
 
         } else {
-            client.sendAction(
+            client.sendMove(_actualFighter.value)
+            /*client.sendAction(
                 ResultToSendBySocketModel(),
                 villains,
                 heroes
-            )
+            )*/
         }
     }
 
@@ -155,6 +157,15 @@ class FightP2PFragmentViewModel @Inject constructor(
         Log.i("skts", "servidor esperando por acciones")
         viewModelScope.launch {
             server.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes)
+        }
+    }
+
+    override fun finishTurn() {
+        super.finishTurn()
+        if (actualFighter.value.isHero && !isServer) {
+            clientAwaitForActions()
+        } else if (!actualFighter.value.isHero && isServer) {
+            serverAwaitForActions()
         }
     }
 }

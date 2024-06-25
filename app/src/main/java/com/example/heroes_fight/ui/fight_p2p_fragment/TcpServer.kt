@@ -109,16 +109,58 @@ class TcpServer(private val port: Int) {
         villains: MutableList<FighterModel>,
         heroes: MutableList<FighterModel>
     ) {
+        var finnishTurn = false
         withContext(Dispatchers.IO) {
             try {
                 do {
+                    val action = ois.readObject() as String
+                    Log.i("skts", "Valor de ACTION -> $action")
+                    when (action) {
+                        "move" -> {
+                            val actualPosition = ois.readObject() as Position
+                            Log.i(
+                                "skts",
+                                "Posición recibida ${actualPosition.y} ${actualPosition.x}"
+                            )
+                            val actualFighter = ois.readObject() as FighterModel
+                            Log.i(
+                                "skts",
+                                "Posición recibida dentro del hero ${actualFighter.position.y} ${actualFighter.position.x}"
+                            )
+                            Log.i("skts", "ID del actualFighter ${actualFighter.id}")
+                            for (villain in villains) {
+                                if (villain.id == actualFighter.id) {
+                                    Log.i("skts", "Coinciden los ID")
+                                    villain.position = actualPosition
+                                }
+                            }
+                            actionFromOtherDevice.emit(
+                                ResultToSendBySocketModel(
+                                    action = action
+                                )
+                            )
+                        }
+
+                        "pass" -> {
+
+                        }
+                    }
+
+                    /*
+                    val heroPositions = ois.readObject() as MutableList<Position>
                     val villainsReceived = ois.readObject() as MutableList<FighterModel>
                     val heroesReceived = ois.readObject() as MutableList<FighterModel>
                     val resultFromServer = ois.readObject() as ResultToSendBySocketModel
 
+                    for (position in heroPositions) {
+                        Log.i("skts", "Posición -> y: ${position.y}, x ${position.x}")
+                    }
+
                     for (i in heroes.indices) {
-                        heroes[i].position.y = heroesReceived[i].position.y
-                        heroes[i].position.x = heroesReceived[i].position.x
+                        Log.i("skts", "BONUS DE DEFENSA = ${heroes[i].defenseBonus}")
+
+                        heroes[i].position.y = heroPositions[i].y
+                        heroes[i].position.x = heroPositions[i].x
                         heroes[i].combatBonus = heroesReceived[i].combatBonus
                         heroes[i].defenseBonus = heroesReceived[i].defenseBonus
                         heroes[i].actionPerformed = heroesReceived[i].actionPerformed
@@ -164,8 +206,8 @@ class TcpServer(private val port: Int) {
                             resultFromServer.finnishTurn
                         )
                     )
-
-                } while (!resultFromServer.finnishTurn)
+*/
+                } while (!finnishTurn)
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de recepción de acción")
                 Log.i("skts", e.toString())
@@ -201,6 +243,23 @@ class TcpServer(private val port: Int) {
 
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de envío de acción")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+    fun sendMove(actualFighter: FighterModel) {
+        thread {
+            try {
+                oos.writeObject("move")
+                Log.i(
+                    "skts",
+                    "Enviando posición ${actualFighter.position.y} ${actualFighter.position.x}"
+                )
+                oos.writeObject(Position(actualFighter.position.y, actualFighter.position.x))
+                oos.writeObject(actualFighter)
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de envío de movimiento")
                 Log.i("skts", e.toString())
             }
         }

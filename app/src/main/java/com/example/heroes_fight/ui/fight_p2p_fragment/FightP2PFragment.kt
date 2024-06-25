@@ -39,13 +39,16 @@ class FightP2PFragment : FightFragment() {
         lifecycleScope.launch {
             viewModel.actionFromOtherDevice.collect {
 
-                destinationPosition = actualFighter.position
-                Log.i("skts", "Tamaño de board ->>> " + board.size.toString())
-                Log.i(
-                    "skts",
-                    "Posición de actualFighter ->>> " + actualFighter.position.y + "," + actualFighter.position.x
-                )
-                moveFighterView()
+                if (it.action == "move") {
+                    destinationPosition = actualFighter.position
+                    Log.i("skts", "Tamaño de board ->>> " + board.size.toString())
+                    Log.i(
+                        "skts",
+                        "Posición de actualFighter ->>> " + actualFighter.position.y + "," + actualFighter.position.x
+                    )
+                    moveFighterView()
+                }
+
             }
         }
     }
@@ -53,6 +56,7 @@ class FightP2PFragment : FightFragment() {
     override fun moveFighterView() {
         super.moveFighterView()
         if (actualFighter.isHero && args.isServer || !actualFighter.isHero && !args.isServer) {
+            Log.i("skts", "Ha entrado en el sendMovement para enviar al otro dispositivo")
             viewModel.sendMovement()
         }
     }
@@ -61,8 +65,6 @@ class FightP2PFragment : FightFragment() {
         lifecycleScope.launch {
             viewModel.rocksFlow.collect {
                 showRocks()
-                // TODO: aquí funciona para el movimiento del cliente
-                //viewModel.awaitForEnemyActions()
             }
         }
     }

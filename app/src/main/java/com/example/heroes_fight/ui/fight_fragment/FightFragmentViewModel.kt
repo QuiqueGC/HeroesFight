@@ -125,7 +125,7 @@ open class FightFragmentViewModel @Inject constructor(
         allFighters.sortByDescending { it.speed }
     }
 
-    fun finishTurn() {
+    open fun finishTurn() {
         _actualFighter.value.refreshDataToNextTurn()
         allFighters.removeFirst()
         if (allFighters.isEmpty()) {

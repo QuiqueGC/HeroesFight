@@ -102,10 +102,44 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
         villains: MutableList<FighterModel>,
         heroes: MutableList<FighterModel>
     ) {
+        var finnishTurn = false
         withContext(Dispatchers.IO) {
             try {
                 do {
+                    val action = ois.readObject() as String
+                    Log.i("skts", "Valor de ACTION -> $action")
+                    when (action) {
+                        "move" -> {
+                            val actualPosition = ois.readObject() as Position
+                            Log.i(
+                                "skts",
+                                "Posición recibida ${actualPosition.y} ${actualPosition.x}"
+                            )
+                            val actualFighter = ois.readObject() as FighterModel
+                            Log.i(
+                                "skts",
+                                "Posición recibida dentro del hero ${actualFighter.position.y} ${actualFighter.position.x}"
+                            )
+                            Log.i("skts", "ID del actualFighter ${actualFighter.id}")
+                            for (hero in heroes) {
+                                if (hero.id == actualFighter.id) {
+                                    Log.i("skts", "Coinciden los ID")
+                                    hero.position = actualPosition
+                                }
+                            }
+                            actionFromOtherDevice.emit(
+                                ResultToSendBySocketModel(
+                                    action = action
+                                )
+                            )
+                        }
 
+                        "pass" -> {
+
+                        }
+                    }
+
+                    /*
                     val heroPositions = ois.readObject() as MutableList<Position>
                     val villainsReceived = ois.readObject() as MutableList<FighterModel>
                     val heroesReceived = ois.readObject() as MutableList<FighterModel>
@@ -165,14 +199,15 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                             resultFromServer.finnishTurn
                         )
                     )
-
-                } while (!resultFromServer.finnishTurn)
+*/
+                } while (!finnishTurn)
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de recepción de acción")
                 Log.i("skts", e.toString())
             }
         }
     }
+
 
     fun sendAction(
         resultToShow: ResultToSendBySocketModel,
@@ -199,6 +234,23 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
 
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de envío de acción")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+    fun sendMove(actualFighter: FighterModel) {
+        thread {
+            try {
+                oos.writeObject("move")
+                Log.i(
+                    "skts",
+                    "Enviando posición ${actualFighter.position.y} ${actualFighter.position.x}"
+                )
+                oos.writeObject(Position(actualFighter.position.y, actualFighter.position.x))
+                oos.writeObject(actualFighter)
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de envío de movimiento")
                 Log.i("skts", e.toString())
             }
         }
