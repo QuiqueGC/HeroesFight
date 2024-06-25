@@ -31,7 +31,7 @@ class FighterModel(
     var movementPerformed: Boolean = false,
     var isSabotaged: Boolean = false,
     var isHero: Boolean = true,
-    val score: ScoreModel = ScoreModel(serialNum, name, image)
+    var score: ScoreModel = ScoreModel(serialNum, name, image)
 ) : HeroModel(
     id,
     serialNum,

@@ -2,6 +2,7 @@ package com.example.heroes_fight.ui.fight_p2p_fragment
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.example.heroes_fight.data.domain.model.common.ResultToSendBySocketModel
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
@@ -33,6 +34,9 @@ class FightP2PFragmentViewModel @Inject constructor(
     private lateinit var server: TcpServer
     private lateinit var client: TcpClient
     private var isServer = false
+
+    private val _actionFromOtherDevice = MutableSharedFlow<ResultToSendBySocketModel>()
+    val actionFromOtherDevice: SharedFlow<ResultToSendBySocketModel> = _actionFromOtherDevice
 
     fun establishConnection(isServer: Boolean) {
         this.isServer = isServer
@@ -97,6 +101,11 @@ class FightP2PFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             val deferred = async { client.sendRocks(rocks) }
             deferred.await()
+            if (actualFighter.value.isHero && !isServer) {
+                clientAwaitForActions()
+            } else if (!actualFighter.value.isHero && isServer) {
+                serverAwaitForActions()
+            }
         }
     }
 
@@ -108,6 +117,44 @@ class FightP2PFragmentViewModel @Inject constructor(
             deferred.await()
             _rocksFlow.emit(rocks)
             Log.i("skts", "Ha terminado de esperar por las rocas")
+            if (actualFighter.value.isHero && !isServer) {
+                clientAwaitForActions()
+            } else if (!actualFighter.value.isHero && isServer) {
+                serverAwaitForActions()
+            }
+        }
+    }
+
+
+    fun sendMovement() {
+        if (isServer) {
+            server.sendAction(
+                ResultToSendBySocketModel(),
+                villains,
+                heroes
+            )
+
+        } else {
+            client.sendAction(
+                ResultToSendBySocketModel(),
+                villains,
+                heroes
+            )
+        }
+    }
+
+
+    fun clientAwaitForActions() {
+        Log.i("skts", "cliente esperando por acciones")
+        viewModelScope.launch {
+            client.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes)
+        }
+    }
+
+    fun serverAwaitForActions() {
+        Log.i("skts", "servidor esperando por acciones")
+        viewModelScope.launch {
+            server.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes)
         }
     }
 }

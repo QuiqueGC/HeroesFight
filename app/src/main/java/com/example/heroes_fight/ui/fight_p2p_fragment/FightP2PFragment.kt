@@ -31,12 +31,38 @@ class FightP2PFragment : FightFragment() {
 
         observeRocksFlow()
 
+        observeResultEnemyAction()
+
+    }
+
+    private fun observeResultEnemyAction() {
+        lifecycleScope.launch {
+            viewModel.actionFromOtherDevice.collect {
+
+                destinationPosition = actualFighter.position
+                Log.i("skts", "Tamaño de board ->>> " + board.size.toString())
+                Log.i(
+                    "skts",
+                    "Posición de actualFighter ->>> " + actualFighter.position.y + "," + actualFighter.position.x
+                )
+                moveFighterView()
+            }
+        }
+    }
+
+    override fun moveFighterView() {
+        super.moveFighterView()
+        if (actualFighter.isHero && args.isServer || !actualFighter.isHero && !args.isServer) {
+            viewModel.sendMovement()
+        }
     }
 
     private fun observeRocksFlow() {
         lifecycleScope.launch {
             viewModel.rocksFlow.collect {
                 showRocks()
+                // TODO: aquí funciona para el movimiento del cliente
+                //viewModel.awaitForEnemyActions()
             }
         }
     }
@@ -77,11 +103,11 @@ class FightP2PFragment : FightFragment() {
                         binding.btnPass.isEnabled = true
 
                     } else {
-
                         actionButtons.forEach { it.isEnabled = false }
                         binding.btnPass.isEnabled = false
-
                     }
+
+                    //viewModel.awaitForEnemyActions()
                 }
             }
         }
@@ -98,6 +124,7 @@ class FightP2PFragment : FightFragment() {
                         viewModel.getRocksFromClient(rocks)
                         //showRocks()
                     }
+
                     rocksWereSent = true
                 }
             }

@@ -40,10 +40,10 @@ open class FightFragment : Fragment() {
     open lateinit var binding: FragmentFightBinding
     open val viewModel: FightFragmentViewModel by viewModels()
 
-    private val board = List(10) { arrayOfNulls<View>(9) }
+    open val board = List(10) { arrayOfNulls<View>(9) }
 
-    private val heroes = mutableListOf<FighterModel>()
-    private val villains = mutableListOf<FighterModel>()
+    open val heroes = mutableListOf<FighterModel>()
+    open val villains = mutableListOf<FighterModel>()
     private var allFighters = mutableListOf<FighterModel>()
     private val ivHeroes = mutableListOf<ShapeableImageView>()
     private val ivVillains = mutableListOf<ShapeableImageView>()
@@ -57,7 +57,7 @@ open class FightFragment : Fragment() {
     private var initiativeIndex = 0
     private val middleColumn = 4
     open var actualFighter = FighterModel()
-    private var destinationPosition = Position()
+    open var destinationPosition = Position()
 
     private var isFirstTurn = true
 
@@ -225,7 +225,7 @@ open class FightFragment : Fragment() {
         }
     }
 
-    private fun moveFighterView() {
+    open fun moveFighterView() {
         val constraintSet = ConstraintSet()
 
         constraintSet.clone(binding.root)
@@ -408,32 +408,9 @@ open class FightFragment : Fragment() {
         collectActualFighter()
 
 
+        collectActionResult()
 
-        lifecycleScope.launch {
-            viewModel.actionResult.collect { actionResultModel ->
 
-                if (actualFighter.actionPerformed) {
-                    disableActionButtons(binding.btnMove)
-                    refreshBoard()
-                    showInfo(actionResultModel)
-                    startTimerToHideTvResult()
-                } else {
-                    showToast(actionResultModel.txtToTvInfo)
-                }
-                if (actualFighter.movementPerformed) {
-                    binding.btnMove.isEnabled = false
-                    //binding.btnMove.visibility = View.INVISIBLE
-                }
-                if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
-                    binding.btnPass.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.greenTurn
-                        )
-                    )
-                }
-            }
-        }
 
         lifecycleScope.launch {
             viewModel.dyingFighter.collect { dyingFighter ->
@@ -463,6 +440,34 @@ open class FightFragment : Fragment() {
                     findNavController().navigate(
                         FightFragmentDirections.actionFightFragmentToScoreFragment(
                             it
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    open fun collectActionResult() {
+        lifecycleScope.launch {
+            viewModel.actionResult.collect { actionResultModel ->
+
+                if (actualFighter.actionPerformed) {
+                    disableActionButtons(binding.btnMove)
+                    refreshBoard()
+                    showInfo(actionResultModel)
+                    startTimerToHideTvResult()
+                } else {
+                    showToast(actionResultModel.txtToTvInfo)
+                }
+                if (actualFighter.movementPerformed) {
+                    binding.btnMove.isEnabled = false
+                    //binding.btnMove.visibility = View.INVISIBLE
+                }
+                if (actualFighter.actionPerformed && actualFighter.movementPerformed) {
+                    binding.btnPass.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.greenTurn
                         )
                     )
                 }

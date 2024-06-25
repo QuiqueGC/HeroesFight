@@ -37,7 +37,7 @@ open class FightFragmentViewModel @Inject constructor(
     open val _actualFighter = MutableStateFlow(FighterModel())
     val actualFighter: StateFlow<FighterModel> = _actualFighter
 
-    private val _actionResult = MutableSharedFlow<ActionResultModel>()
+    open val _actionResult = MutableSharedFlow<ActionResultModel>()
     val actionResult: SharedFlow<ActionResultModel> = _actionResult
 
     private val _dyingFighter = MutableSharedFlow<FighterModel>()
@@ -215,9 +215,9 @@ open class FightFragmentViewModel @Inject constructor(
 
     fun performSupport(allyToSupport: FighterModel) {
         if (!_actualFighter.value.actionPerformed) {
-            val resultOfSabotage = _actualFighter.value.support(allyToSupport)
+            val resultOfSupport = _actualFighter.value.support(allyToSupport)
             viewModelScope.launch {
-                _actionResult.emit(resultOfSabotage)
+                _actionResult.emit(resultOfSupport)
             }
         }
     }
