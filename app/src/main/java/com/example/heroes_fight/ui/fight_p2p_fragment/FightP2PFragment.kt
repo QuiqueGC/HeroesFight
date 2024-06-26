@@ -63,6 +63,10 @@ class FightP2PFragment : FightFragment() {
                         showInfo(it)
                         startTimerToHideTvResult()
                     }
+                    "sabotage" -> {
+                        showInfo(it)
+                        startTimerToHideTvResult()
+                    }
                 }
 
             }
@@ -121,11 +125,23 @@ class FightP2PFragment : FightFragment() {
                 if (actualFighter.id != 0) {
                     if (actualFighter.isHero && args.isServer || !actualFighter.isHero && !args.isServer) {
 
-                        actionButtons.forEach { it.isEnabled = true }
+                        if (!actualFighter.isSabotaged) {
+                            actionButtons.forEach {
+                                it.isEnabled = true
+                                it.visibility = View.VISIBLE
+                            }
+                        }
+                        binding.btnPass.visibility = View.VISIBLE
                         binding.btnPass.isEnabled = true
 
                     } else {
-                        actionButtons.forEach { it.isEnabled = false }
+                        if (!actualFighter.isSabotaged) {
+                            actionButtons.forEach {
+                                it.isEnabled = false
+                                it.visibility = View.GONE
+                            }
+                        }
+                        binding.btnPass.visibility = View.GONE
                         binding.btnPass.isEnabled = false
                     }
 
@@ -164,4 +180,5 @@ class FightP2PFragment : FightFragment() {
             viewModel.sendFighters()
         }
     }
+
 }

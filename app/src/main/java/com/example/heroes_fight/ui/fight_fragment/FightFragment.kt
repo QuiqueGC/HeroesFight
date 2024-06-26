@@ -742,14 +742,18 @@ open class FightFragment : Fragment() {
             initiativeIndex = 0
         }
 
+        restoreBtnPassColor()
+
+        viewModel.finishTurn()
+    }
+
+    private fun restoreBtnPassColor() {
         binding.btnPass.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
                 R.color.colorPrimary
             )
         )
-
-        viewModel.finishTurn()
     }
 
     private fun disableActionButtons(noDisableButton: Button?) {

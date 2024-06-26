@@ -196,6 +196,21 @@ class FightP2PFragmentViewModel @Inject constructor(
                 }
             }
         }
+    }
+    override fun performSabotage(enemyToSabotage: FighterModel) {
+        if (!_actualFighter.value.actionPerformed) {
+            val resultOfSabotage = _actualFighter.value.sabotage(enemyToSabotage)
+            viewModelScope.launch {
+                _actionResult.emit(resultOfSabotage)
+            }
+            if (_actualFighter.value.actionPerformed) {
+                if (isServer) {
+                    server.sendSabotage(enemyToSabotage, resultOfSabotage)
+                } else {
+                    client.sendSabotage(enemyToSabotage, resultOfSabotage)
+                }
+            }
 
+        }
     }
 }

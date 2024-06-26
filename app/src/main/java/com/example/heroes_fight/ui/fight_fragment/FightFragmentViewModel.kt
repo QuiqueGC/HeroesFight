@@ -213,7 +213,7 @@ open class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun performSabotage(enemyToSabotage: FighterModel) {
+    open fun performSabotage(enemyToSabotage: FighterModel) {
         if (!_actualFighter.value.actionPerformed) {
             val resultOfSabotage = _actualFighter.value.sabotage(enemyToSabotage)
             viewModelScope.launch {
