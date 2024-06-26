@@ -56,14 +56,10 @@ class FightP2PFragment : FightFragment() {
                     }
 
                     "defense" -> {
-                        /*if (actualFighter.isHero){
-                            moveTvActionResultLeft(ivHeroes[indexOfActualFighter])
-                            moveTvActionResultRight(ivHeroes[indexOfActualFighter])
-                        }else{
-                            moveTvActionResultLeft(ivVillains[indexOfActualFighter])
-                            moveTvActionResultRight(ivVillains[indexOfActualFighter])
-                        }*/
-
+                        showInfo(it)
+                        startTimerToHideTvResult()
+                    }
+                    "support" -> {
                         showInfo(it)
                         startTimerToHideTvResult()
                     }

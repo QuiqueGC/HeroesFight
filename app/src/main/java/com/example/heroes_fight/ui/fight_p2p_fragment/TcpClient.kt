@@ -117,6 +117,7 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                         }
 
                         "defense" -> emitDefense(action, heroes, actionToEmit)
+                        "support" -> emitSupport(action, heroes, actionToEmit)
                     }
 
                 } while (!finnishTurn)
@@ -126,6 +127,37 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                 )
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de recepción de acción")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+    private suspend fun emitSupport(
+        action: String,
+        heroes: MutableList<FighterModel>,
+        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>
+    ) {
+        withContext(Dispatchers.IO) {
+            try {
+                val combatBonus = ois.read()
+                Log.i("skts", "CombatBonus recibido -> $combatBonus")
+                val allyToSupport = ois.readObject() as FighterModel
+                val resultOfSupport = ois.readObject() as ActionResultModel
+                for (hero in heroes) {
+                    if (hero.id == allyToSupport.id) {
+                        Log.i("skts", "Coinciden los ID")
+                        hero.combatBonus = combatBonus
+                    }
+                }
+                actionToEmit.emit(
+                    ResultToSendBySocketModel(
+                        resultOfSupport.txtToTvInfo,
+                        resultOfSupport.txtToTvActionResult,
+                        action
+                    )
+                )
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de recepción de defensa")
                 Log.i("skts", e.toString())
             }
         }
@@ -208,6 +240,22 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                 )
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de recepción de movimiento")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+    fun sendSupport(allyToSupport: FighterModel, resultOfSupport: ActionResultModel) {
+        thread {
+            val combatBonus = allyToSupport.combatBonus
+            Log.i("skts", "Valor de combatBonus -> $combatBonus")
+            try {
+                oos.writeObject("support")
+                oos.write(combatBonus)
+                oos.writeObject(allyToSupport)
+                oos.writeObject(resultOfSupport)
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de enviar support")
                 Log.i("skts", e.toString())
             }
         }

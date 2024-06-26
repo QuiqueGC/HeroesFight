@@ -222,7 +222,7 @@ open class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun performSupport(allyToSupport: FighterModel) {
+    open fun performSupport(allyToSupport: FighterModel) {
         if (!_actualFighter.value.actionPerformed) {
             val resultOfSupport = _actualFighter.value.support(allyToSupport)
             viewModelScope.launch {

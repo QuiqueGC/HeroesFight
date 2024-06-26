@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.common.ResultToSendBySocketModel
 import com.example.heroes_fight.data.domain.model.common.RockModel
+import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
 import com.example.heroes_fight.data.utils.BoardManager
@@ -178,5 +179,23 @@ class FightP2PFragmentViewModel @Inject constructor(
         } else {
             client.sendDefense(_actualFighter.value, resultOfDefense)
         }
+    }
+
+    override fun performSupport(allyToSupport: FighterModel) {
+        if (!_actualFighter.value.actionPerformed) {
+            val resultOfSupport = _actualFighter.value.support(allyToSupport)
+            viewModelScope.launch {
+                _actionResult.emit(resultOfSupport)
+            }
+
+            if (_actualFighter.value.actionPerformed) {
+                if (isServer) {
+                    server.sendSupport(allyToSupport, resultOfSupport)
+                } else {
+                    client.sendSupport(allyToSupport, resultOfSupport)
+                }
+            }
+        }
+
     }
 }
