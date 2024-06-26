@@ -101,7 +101,8 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
     suspend fun awaitForEnemyActions(
         actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>,
         villains: MutableList<FighterModel>,
-        heroes: MutableList<FighterModel>
+        heroes: MutableList<FighterModel>,
+        attackedFighter: FighterModel
     ) {
         var finnishTurn = false
         withContext(Dispatchers.IO) {
@@ -119,7 +120,7 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                         "defense" -> emitDefense(action, heroes, actionToEmit)
                         "support" -> emitSupport(action, heroes, actionToEmit)
                         "sabotage" -> emitSabotage(action, villains, actionToEmit)
-                        "attack" -> emitAttack(action, villains, actionToEmit)
+                        "attack" -> emitAttack(action, villains, actionToEmit, attackedFighter)
                     }
 
                 } while (!finnishTurn)
@@ -137,7 +138,8 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
     private suspend fun emitAttack(
         action: String,
         villains: MutableList<FighterModel>,
-        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>
+        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>,
+        attackedFighter: FighterModel
     ) {
         withContext(Dispatchers.IO) {
             try {
@@ -149,8 +151,11 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                         Log.i("skts", "Coinciden los ID")
                         Log.i("skts", "Valor de durability recibido -> $durability")
                         villain.durability = durability
+                        attackedFighter.id = enemyToAttack.id
+                        attackedFighter.durability = durability
                         if (villain.durability <= 0) {
                             villain.score.survived = false
+                            attackedFighter.score.survived = false
                             Log.i("skts", "Se ha establecido a false el survived")
                         }
                     }

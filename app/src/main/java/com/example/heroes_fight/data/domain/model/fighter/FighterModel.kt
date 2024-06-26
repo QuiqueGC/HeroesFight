@@ -11,7 +11,7 @@ import kotlin.math.abs
 import kotlin.random.Random
 
 class FighterModel(
-    id: Int = 0,
+    override var id: Int = 0,
     serialNum: String = "",
     name: String = "",
     alignment: String = "",

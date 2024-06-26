@@ -171,7 +171,7 @@ open class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun performShot(enemyToAttack: FighterModel, rocks: List<RockModel>) {
+    open fun performShot(enemyToAttack: FighterModel, rocks: List<RockModel>) {
         val allFightersToCheck = mutableListOf<FighterModel>()
         allFightersToCheck.addAll(heroes)
         allFightersToCheck.addAll(villains)

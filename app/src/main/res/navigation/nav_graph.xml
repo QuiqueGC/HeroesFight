@@ -115,5 +115,8 @@
         <argument
             android:name="isServer"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_fightP2PFragment_to_scoreFragment"
+            app:destination="@id/scoreFragment" />
     </fragment>
 </navigation>

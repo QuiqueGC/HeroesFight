@@ -59,23 +59,21 @@ class FightP2PFragment : FightFragment() {
                         showInfo(it)
                         startTimerToHideTvResult()
                     }
+
                     "support" -> {
                         showInfo(it)
                         startTimerToHideTvResult()
                     }
+
                     "sabotage" -> {
                         showInfo(it)
                         startTimerToHideTvResult()
                     }
+
                     "attack" -> {
                         showInfo(it)
                         startTimerToHideTvResult()
-                        if (args.isServer) {
-                            viewModel.checkDeadFighters(heroes)
-                        } else {
-                            viewModel.checkDeadFighters(villains)
-                        }
-
+                        viewModel.checkDeadsFromOtherDevice()
                     }
                 }
 
@@ -109,6 +107,30 @@ class FightP2PFragment : FightFragment() {
                 if (it) {
                     viewModel.getRandomHeroes()
                 }
+            }
+        }
+    }
+
+    override fun collectDyingFighter() {
+        lifecycleScope.launch {
+            viewModel.dyingFighter.collect { dyingFighter ->
+                val indexOfDyingFighter: Int
+                if (heroes.any { it.id == dyingFighter.id }) {
+                    indexOfDyingFighter = heroes.indexOfFirst { it.id == dyingFighter.id }
+                    ivHeroes[indexOfDyingFighter].visibility = View.GONE
+
+                    showReferee(
+                        "${actualFighter.name} has killed " + heroes[indexOfDyingFighter].name + "!!!"
+                    )
+
+                } else {
+                    indexOfDyingFighter = villains.indexOfFirst { it.id == dyingFighter.id }
+                    ivVillains[indexOfDyingFighter].visibility = View.GONE
+                    showReferee(
+                        "${actualFighter.name} has killed " + villains[indexOfDyingFighter].name + "!!!"
+                    )
+                }
+                removeOfInitiativeList(dyingFighter)
             }
         }
     }

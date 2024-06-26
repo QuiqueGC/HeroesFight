@@ -108,7 +108,8 @@ class TcpServer(private val port: Int) {
     suspend fun awaitForEnemyActions(
         actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>,
         villains: MutableList<FighterModel>,
-        heroes: MutableList<FighterModel>
+        heroes: MutableList<FighterModel>,
+        attackedFighter: FighterModel
     ) {
         var finnishTurn = false
         withContext(Dispatchers.IO) {
@@ -129,7 +130,7 @@ class TcpServer(private val port: Int) {
                         "defense" -> emitDefense(action, villains, actionToEmit)
                         "support" -> emitSupport(action, villains, actionToEmit)
                         "sabotage" -> emitSabotage(action, heroes, actionToEmit)
-                        "attack" -> emitAttack(action, heroes, actionToEmit)
+                        "attack" -> emitAttack(action, heroes, actionToEmit, attackedFighter)
                     }
                     Log.i(
                         "skts",
@@ -150,7 +151,8 @@ class TcpServer(private val port: Int) {
     private suspend fun emitAttack(
         action: String,
         heroes: MutableList<FighterModel>,
-        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>
+        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>,
+        attackedFighter: FighterModel
     ) {
         withContext(Dispatchers.IO) {
             try {
@@ -162,8 +164,11 @@ class TcpServer(private val port: Int) {
                         Log.i("skts", "Coinciden los ID")
                         Log.i("skts", "Valor de durability recibido -> $durability")
                         hero.durability = durability
+                        attackedFighter.id = enemyToAttack.id
+                        attackedFighter.durability = durability
                         if (hero.durability <= 0) {
                             hero.score.survived = false
+                            attackedFighter.score.survived = false
                             Log.i("skts", "Se ha establecido a false el survived")
                         }
                     }

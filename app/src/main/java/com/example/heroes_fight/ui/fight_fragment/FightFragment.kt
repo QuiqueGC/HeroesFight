@@ -411,7 +411,24 @@ open class FightFragment : Fragment() {
         collectActionResult()
 
 
+        collectDyingFighter()
 
+
+
+        lifecycleScope.launch {
+            viewModel.finishBattle.collect {
+                if (it != null) {
+                    findNavController().navigate(
+                        FightFragmentDirections.actionFightFragmentToScoreFragment(
+                            it
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    open fun collectDyingFighter() {
         lifecycleScope.launch {
             viewModel.dyingFighter.collect { dyingFighter ->
                 val indexOfDyingFighter: Int
@@ -431,18 +448,6 @@ open class FightFragment : Fragment() {
                     )
                 }
                 removeOfInitiativeList(dyingFighter)
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.finishBattle.collect {
-                if (it != null) {
-                    findNavController().navigate(
-                        FightFragmentDirections.actionFightFragmentToScoreFragment(
-                            it
-                        )
-                    )
-                }
             }
         }
     }
@@ -548,13 +553,13 @@ open class FightFragment : Fragment() {
         timer.start()
     }
 
-    private fun showReferee(sentenceToSay: String) {
+    open fun showReferee(sentenceToSay: String) {
         binding.imgReferee.visibility = View.VISIBLE
         binding.ivSpeechBubble.visibility = View.VISIBLE
         binding.tvKilledFighter.text = sentenceToSay
     }
 
-    private fun removeOfInitiativeList(dyingFighter: FighterModel) {
+    open fun removeOfInitiativeList(dyingFighter: FighterModel) {
         val dyingFighterFiltered = allFighters.filter { it.id == dyingFighter.id }
         val indexOfDyingFighter = allFighters.indexOf(dyingFighterFiltered.first())
         ivAllFighters[indexOfDyingFighter].visibility = View.GONE

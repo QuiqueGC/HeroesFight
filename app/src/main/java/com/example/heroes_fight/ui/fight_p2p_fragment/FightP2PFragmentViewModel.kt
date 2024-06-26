@@ -42,6 +42,9 @@ class FightP2PFragmentViewModel @Inject constructor(
     private val _actionFromOtherDevice = MutableSharedFlow<ResultToSendBySocketModel>()
     val actionFromOtherDevice: SharedFlow<ResultToSendBySocketModel> = _actionFromOtherDevice
 
+
+    private var attackedEnemy = FighterModel()
+
     fun establishConnection(isServer: Boolean) {
         this.isServer = isServer
         viewModelScope.launch {
@@ -141,18 +144,19 @@ class FightP2PFragmentViewModel @Inject constructor(
     fun clientAwaitForActions() {
         Log.i("skts", "cliente esperando por acciones")
         viewModelScope.launch {
-            client.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes)
+            client.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes, attackedEnemy)
         }
     }
 
     fun serverAwaitForActions() {
         Log.i("skts", "servidor esperando por acciones")
         viewModelScope.launch {
-            server.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes)
+            server.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes, attackedEnemy)
         }
     }
 
     override fun finishTurn() {
+        attackedEnemy = FighterModel()
         viewModelScope.launch(Dispatchers.IO) {
             val deferred = async {
                 if (_actualFighter.value.isHero && isServer) {
@@ -239,6 +243,35 @@ class FightP2PFragmentViewModel @Inject constructor(
         }
     }
 
+    override fun performShot(enemyToAttack: FighterModel, rocks: List<RockModel>) {
+        val allFightersToCheck = mutableListOf<FighterModel>()
+        allFightersToCheck.addAll(heroes)
+        allFightersToCheck.addAll(villains)
+        allFightersToCheck.removeAll { it.durability <= 0 }
+        if (!_actualFighter.value.actionPerformed) {
+            val resultOfShot = _actualFighter.value.shot(enemyToAttack, rocks, allFightersToCheck)
+
+            viewModelScope.launch {
+                _actionResult.emit(resultOfShot)
+            }
+
+            if (_actualFighter.value.actionPerformed) {
+                if (isServer) {
+                    server.sendAttack(enemyToAttack, resultOfShot)
+                } else {
+                    client.sendAttack(enemyToAttack, resultOfShot)
+                }
+            }
+
+            if (enemyToAttack.durability <= 0) {
+                _actualFighter.value.score.kills++
+                enemyToAttack.score.survived = false
+
+                checkIfFinishGameOrJustDie(enemyToAttack)
+            }
+        }
+    }
+
     override fun checkIfFinishGameOrJustDie(enemyToAttack: FighterModel) {
         if (heroes.none { it.score.survived } || villains.none { it.score.survived }) {
             val scores = mutableListOf<ScoreModel>()
@@ -258,7 +291,7 @@ class FightP2PFragmentViewModel @Inject constructor(
         }
     }
 
-    fun checkDeadFighters(fightersToCheck: MutableList<FighterModel>) {
+    fun checkDeadsFromOtherDevice() {
         if (heroes.none { it.score.survived } || villains.none { it.score.survived }) {
             val scores = mutableListOf<ScoreModel>()
             if (isServer) {
@@ -270,21 +303,17 @@ class FightP2PFragmentViewModel @Inject constructor(
                 _finishBattle.emit(ScoreListModel(false, scores))
             }
         } else {
-            Log.i("skts", "Ha entrado en el else con el foreach de chequeo de muertos")
-            fightersToCheck.forEach { fighterToCheck ->
-                if (!fighterToCheck.score.survived && allFighters.any { it.id == fighterToCheck.id }) {
-                    Log.i(
-                        "skts",
-                        "Ha encontrado el héroe que no sobrevivió y sigue en la lista de allFighters"
-                    )
-                    allFighters.removeAll { it.id == fighterToCheck.id }
-                    Log.i("skts", "Lo ha borrado")
-                    viewModelScope.launch {
-                        Log.i("skts", "Emite el cadáver")
-                        _dyingFighter.emit(fighterToCheck)
-                    }
+            Log.i("dying", "Survive? ${attackedEnemy.score.survived}")
+            Log.i("dying", "Name? ${attackedEnemy.name}")
+            Log.i("dying", "Durability? ${attackedEnemy.durability}")
+            Log.i("dying", "id? ${attackedEnemy.id}")
+            if (!attackedEnemy.score.survived) {
+                allFighters.removeAll { it.id == attackedEnemy.id }
+                viewModelScope.launch {
+                    _dyingFighter.emit(attackedEnemy)
                 }
             }
+
         }
     }
 }

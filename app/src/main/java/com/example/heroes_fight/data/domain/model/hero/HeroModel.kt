@@ -3,7 +3,7 @@ package com.example.heroes_fight.data.domain.model.hero
 import com.example.heroes_fight.data.domain.model.BaseModel
 
 open class HeroModel(
-    val id: Int = 0,
+    open val id: Int = 0,
     val serialNum: String = "",
     val name: String = "",
     val alignment: String = "",
