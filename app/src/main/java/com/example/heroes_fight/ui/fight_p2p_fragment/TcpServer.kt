@@ -129,6 +129,7 @@ class TcpServer(private val port: Int) {
                         "defense" -> emitDefense(action, villains, actionToEmit)
                         "support" -> emitSupport(action, villains, actionToEmit)
                         "sabotage" -> emitSabotage(action, heroes, actionToEmit)
+                        "attack" -> emitAttack(action, heroes, actionToEmit)
                     }
                     Log.i(
                         "skts",
@@ -141,6 +142,41 @@ class TcpServer(private val port: Int) {
                 )
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de recepción de acción")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+    private suspend fun emitAttack(
+        action: String,
+        heroes: MutableList<FighterModel>,
+        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>
+    ) {
+        withContext(Dispatchers.IO) {
+            try {
+                val durability = ois.readObject() as Int
+                val enemyToAttack = ois.readObject() as FighterModel
+                val resultOfAttack = ois.readObject() as ActionResultModel
+                for (hero in heroes) {
+                    if (hero.id == enemyToAttack.id) {
+                        Log.i("skts", "Coinciden los ID")
+                        Log.i("skts", "Valor de durability recibido -> $durability")
+                        hero.durability = durability
+                        if (hero.durability <= 0) {
+                            hero.score.survived = false
+                            Log.i("skts", "Se ha establecido a false el survived")
+                        }
+                    }
+                }
+                actionToEmit.emit(
+                    ResultToSendBySocketModel(
+                        resultOfAttack.txtToTvInfo,
+                        resultOfAttack.txtToTvActionResult,
+                        action
+                    )
+                )
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de recepción de ataque")
                 Log.i("skts", e.toString())
             }
         }
@@ -296,6 +332,22 @@ class TcpServer(private val port: Int) {
                 oos.writeObject(isSabotaged)
                 oos.writeObject(enemyToSabotage)
                 oos.writeObject(resultOfSabotage)
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de enviar support")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+    fun sendAttack(enemyToAttack: FighterModel, resultOfAttack: ActionResultModel) {
+        thread {
+            val durability = enemyToAttack.durability
+            Log.i("skts", "Valor de durability -> $durability")
+            try {
+                oos.writeObject("attack")
+                oos.writeObject(durability)
+                oos.writeObject(enemyToAttack)
+                oos.writeObject(resultOfAttack)
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de enviar support")
                 Log.i("skts", e.toString())

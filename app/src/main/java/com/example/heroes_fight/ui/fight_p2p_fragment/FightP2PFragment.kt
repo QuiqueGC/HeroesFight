@@ -67,6 +67,16 @@ class FightP2PFragment : FightFragment() {
                         showInfo(it)
                         startTimerToHideTvResult()
                     }
+                    "attack" -> {
+                        showInfo(it)
+                        startTimerToHideTvResult()
+                        if (args.isServer) {
+                            viewModel.checkDeadFighters(heroes)
+                        } else {
+                            viewModel.checkDeadFighters(villains)
+                        }
+
+                    }
                 }
 
             }

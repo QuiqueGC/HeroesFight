@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.common.ResultToSendBySocketModel
 import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
+import com.example.heroes_fight.data.domain.model.fighter.ScoreListModel
+import com.example.heroes_fight.data.domain.model.fighter.ScoreModel
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
 import com.example.heroes_fight.data.utils.BoardManager
@@ -211,6 +213,78 @@ class FightP2PFragmentViewModel @Inject constructor(
                 }
             }
 
+        }
+    }
+
+    override fun performAttack(enemyToAttack: FighterModel) {
+        if (!_actualFighter.value.actionPerformed) {
+            val resultOfAttack = _actualFighter.value.attack(enemyToAttack)
+            viewModelScope.launch {
+                _actionResult.emit(resultOfAttack)
+            }
+            if (_actualFighter.value.actionPerformed) {
+                if (isServer) {
+                    server.sendAttack(enemyToAttack, resultOfAttack)
+                } else {
+                    client.sendAttack(enemyToAttack, resultOfAttack)
+                }
+            }
+
+            if (enemyToAttack.durability <= 0) {
+                _actualFighter.value.score.kills++
+                enemyToAttack.score.survived = false
+
+                checkIfFinishGameOrJustDie(enemyToAttack)
+            }
+        }
+    }
+
+    override fun checkIfFinishGameOrJustDie(enemyToAttack: FighterModel) {
+        if (heroes.none { it.score.survived } || villains.none { it.score.survived }) {
+            val scores = mutableListOf<ScoreModel>()
+            if (isServer) {
+                heroes.forEach { scores.add(it.score) }
+            } else {
+                villains.forEach { scores.add(it.score) }
+            }
+            viewModelScope.launch {
+                _finishBattle.emit(ScoreListModel(false, scores))
+            }
+        } else {
+            allFighters.remove(enemyToAttack)
+            viewModelScope.launch {
+                _dyingFighter.emit(enemyToAttack)
+            }
+        }
+    }
+
+    fun checkDeadFighters(fightersToCheck: MutableList<FighterModel>) {
+        if (heroes.none { it.score.survived } || villains.none { it.score.survived }) {
+            val scores = mutableListOf<ScoreModel>()
+            if (isServer) {
+                heroes.forEach { scores.add(it.score) }
+            } else {
+                villains.forEach { scores.add(it.score) }
+            }
+            viewModelScope.launch {
+                _finishBattle.emit(ScoreListModel(false, scores))
+            }
+        } else {
+            Log.i("skts", "Ha entrado en el else con el foreach de chequeo de muertos")
+            fightersToCheck.forEach { fighterToCheck ->
+                if (!fighterToCheck.score.survived && allFighters.any { it.id == fighterToCheck.id }) {
+                    Log.i(
+                        "skts",
+                        "Ha encontrado el héroe que no sobrevivió y sigue en la lista de allFighters"
+                    )
+                    allFighters.removeAll { it.id == fighterToCheck.id }
+                    Log.i("skts", "Lo ha borrado")
+                    viewModelScope.launch {
+                        Log.i("skts", "Emite el cadáver")
+                        _dyingFighter.emit(fighterToCheck)
+                    }
+                }
+            }
         }
     }
 }

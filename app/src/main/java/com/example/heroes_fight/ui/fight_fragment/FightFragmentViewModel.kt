@@ -40,10 +40,10 @@ open class FightFragmentViewModel @Inject constructor(
     open val _actionResult = MutableSharedFlow<ActionResultModel>()
     val actionResult: SharedFlow<ActionResultModel> = _actionResult
 
-    private val _dyingFighter = MutableSharedFlow<FighterModel>()
+    open val _dyingFighter = MutableSharedFlow<FighterModel>()
     val dyingFighter: SharedFlow<FighterModel> = _dyingFighter
 
-    private val _finishBattle = MutableStateFlow<ScoreListModel?>(null)
+    open val _finishBattle = MutableStateFlow<ScoreListModel?>(null)
     val finishBattle: StateFlow<ScoreListModel?> = _finishBattle
 
 
@@ -155,7 +155,7 @@ open class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun performAttack(enemyToAttack: FighterModel) {
+    open fun performAttack(enemyToAttack: FighterModel) {
         if (!_actualFighter.value.actionPerformed) {
             val resultOfAttack = _actualFighter.value.attack(enemyToAttack)
             viewModelScope.launch {
@@ -192,7 +192,7 @@ open class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun checkIfFinishGameOrJustDie(enemyToAttack: FighterModel) {
+    open fun checkIfFinishGameOrJustDie(enemyToAttack: FighterModel) {
         if (heroes.none { it.score.survived }) {
             val scores = mutableListOf<ScoreModel>()
             villains.forEach { scores.add(it.score) }
