@@ -54,8 +54,20 @@ class FightP2PFragment : FightFragment() {
                         Log.i("skts", "EMPIEZA TODO LO DEL FINNISH_TURN PORQUE HA RECIBIDO PASS")
                         finishTurn()
                     }
-                }
 
+                    "defense" -> {
+                        /*if (actualFighter.isHero){
+                            moveTvActionResultLeft(ivHeroes[indexOfActualFighter])
+                            moveTvActionResultRight(ivHeroes[indexOfActualFighter])
+                        }else{
+                            moveTvActionResultLeft(ivVillains[indexOfActualFighter])
+                            moveTvActionResultRight(ivVillains[indexOfActualFighter])
+                        }*/
+
+                        showInfo(it)
+                        startTimerToHideTvResult()
+                    }
+                }
 
             }
         }

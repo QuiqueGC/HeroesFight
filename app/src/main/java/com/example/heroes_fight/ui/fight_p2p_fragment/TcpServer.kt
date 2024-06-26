@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.fight_p2p_fragment
 
 import android.util.Log
+import com.example.heroes_fight.data.domain.model.common.ActionResultModel
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.ResultToSendBySocketModel
 import com.example.heroes_fight.data.domain.model.common.RockModel
@@ -118,6 +119,7 @@ class TcpServer(private val port: Int) {
                         "Empieza el bucle"
                     )
                     val action = ois.readObject() as String
+
                     Log.i("skts", "Valor de ACTION -> $action")
                     when (action) {
                         "move" -> {
@@ -157,6 +159,25 @@ class TcpServer(private val port: Int) {
                                 )
                             )
                         }
+
+                        "defense" -> {
+                            val defenseBonus = ois.read()
+                            val actualFighter = ois.readObject() as FighterModel
+                            val resultOfDefense = ois.readObject() as ActionResultModel
+                            for (villain in villains) {
+                                if (villain.id == actualFighter.id) {
+                                    Log.i("skts", "Coinciden los ID")
+                                    villain.defenseBonus = defenseBonus
+                                }
+                            }
+                            actionFromOtherDevice.emit(
+                                ResultToSendBySocketModel(
+                                    resultOfDefense.txtToTvInfo,
+                                    resultOfDefense.txtToTvActionResult,
+                                    action
+                                )
+                            )
+                        }
                     }
                     Log.i(
                         "skts",
@@ -174,6 +195,20 @@ class TcpServer(private val port: Int) {
         }
     }
 
+    fun sendDefense(actualFighter: FighterModel, resultOfDefense: ActionResultModel) {
+        thread {
+            val defenseBonus = actualFighter.defenseBonus
+            try {
+                oos.writeObject("defense")
+                oos.write(defenseBonus)
+                oos.writeObject(actualFighter)
+                oos.writeObject(resultOfDefense)
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de enviar defense")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
 
 
     fun sendMove(actualFighter: FighterModel) {
@@ -206,4 +241,6 @@ class TcpServer(private val port: Int) {
             }
         }
     }
+
+
 }

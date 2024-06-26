@@ -167,4 +167,16 @@ class FightP2PFragmentViewModel @Inject constructor(
 
         }
     }
+
+    override fun performDefense() {
+        val resultOfDefense = _actualFighter.value.defense()
+        viewModelScope.launch {
+            _actionResult.emit(resultOfDefense)
+        }
+        if (isServer) {
+            server.sendDefense(_actualFighter.value, resultOfDefense)
+        } else {
+            client.sendDefense(_actualFighter.value, resultOfDefense)
+        }
+    }
 }

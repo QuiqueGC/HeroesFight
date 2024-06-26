@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.fight_p2p_fragment
 
 import android.util.Log
+import com.example.heroes_fight.data.domain.model.common.ActionResultModel
 import com.example.heroes_fight.data.domain.model.common.Position
 import com.example.heroes_fight.data.domain.model.common.ResultToSendBySocketModel
 import com.example.heroes_fight.data.domain.model.common.RockModel
@@ -146,6 +147,24 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                                 )
                             )
                         }
+                        "defense" -> {
+                            val defenseBonus = ois.read()
+                            val actualFighter = ois.readObject() as FighterModel
+                            val resultOfDefense = ois.readObject() as ActionResultModel
+                            for (hero in heroes) {
+                                if (hero.id == actualFighter.id) {
+                                    Log.i("skts", "Coinciden los ID")
+                                    hero.defenseBonus = defenseBonus
+                                }
+                            }
+                            actionFromOtherDevice.emit(
+                                ResultToSendBySocketModel(
+                                    resultOfDefense.txtToTvInfo,
+                                    resultOfDefense.txtToTvActionResult,
+                                    action
+                                )
+                            )
+                        }
                     }
 
                 } while (!finnishTurn)
@@ -160,6 +179,20 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
         }
     }
 
+    fun sendDefense(actualFighter: FighterModel, resultOfDefense: ActionResultModel) {
+        thread {
+            val defenseBonus = actualFighter.defenseBonus
+            try {
+                oos.writeObject("defense")
+                oos.write(defenseBonus)
+                oos.writeObject(actualFighter)
+                oos.writeObject(resultOfDefense)
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de enviar defense")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
 
     fun sendMove(actualFighter: FighterModel) {
         thread {

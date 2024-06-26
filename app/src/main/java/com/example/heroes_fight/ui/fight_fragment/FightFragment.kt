@@ -45,15 +45,15 @@ open class FightFragment : Fragment() {
     open val heroes = mutableListOf<FighterModel>()
     open val villains = mutableListOf<FighterModel>()
     private var allFighters = mutableListOf<FighterModel>()
-    private val ivHeroes = mutableListOf<ShapeableImageView>()
-    private val ivVillains = mutableListOf<ShapeableImageView>()
+    open val ivHeroes = mutableListOf<ShapeableImageView>()
+    open val ivVillains = mutableListOf<ShapeableImageView>()
     private val ivAllFighters = mutableListOf<ShapeableImageView>()
     open val actionButtons = mutableListOf<Button>()
     open val rocks = mutableListOf<RockModel>()
     private val ivRocks = mutableListOf<ImageView>()
 
     private var playerChoice = PlayerChoice.WAITING_FOR_ACTION
-    private var indexOfActualFighter = -1
+    open var indexOfActualFighter = -1
     private var initiativeIndex = 0
     private val middleColumn = 4
     open var actualFighter = FighterModel()
@@ -256,7 +256,7 @@ open class FightFragment : Fragment() {
         )
     }
 
-    private fun moveTvActionResultRight(ivFighter: View) {
+    open fun moveTvActionResultRight(ivFighter: View) {
         val constraintSet = ConstraintSet()
         constraintSet.clone(binding.root)
         constraintSet.connect(
@@ -274,7 +274,7 @@ open class FightFragment : Fragment() {
         constraintSet.applyTo(binding.root)
     }
 
-    private fun moveTvActionResultLeft(ivFighter: View) {
+    open fun moveTvActionResultLeft(ivFighter: View) {
         val constraintSet = ConstraintSet()
         constraintSet.clone(binding.root)
         constraintSet.connect(
@@ -322,8 +322,8 @@ open class FightFragment : Fragment() {
             }
 
             ivVillains[i].setOnLongClickListener {
-                moveTvActionResultRight(it)
-                moveTvActionResultLeft(it)
+                //moveTvActionResultRight(it)
+                //moveTvActionResultLeft(it)
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttack(i, false)
                     PlayerChoice.SABOTAGE -> performSabotage(i, false)
@@ -335,8 +335,8 @@ open class FightFragment : Fragment() {
                 true
             }
             ivHeroes[i].setOnLongClickListener {
-                moveTvActionResultRight(it)
-                moveTvActionResultLeft(it)
+                //moveTvActionResultRight(it)
+                //moveTvActionResultLeft(it)
                 when (playerChoice) {
                     PlayerChoice.ATTACK -> performAttack(i, true)
                     PlayerChoice.SABOTAGE -> performSabotage(i, true)
@@ -525,7 +525,7 @@ open class FightFragment : Fragment() {
         putFightersInTheInitiativeList(fightFragmentUiState.allFightersSorted)
     }
 
-    private fun showInfo(actionResultModel: ActionResultModel) {
+    open fun showInfo(actionResultModel: ActionResultModel) {
         binding.tvInfo.text = actionResultModel.txtToTvInfo
         binding.tvActionResultRight.text = actionResultModel.txtToTvActionResult
         binding.tvActionResultLeft.text = actionResultModel.txtToTvActionResult
@@ -536,7 +536,7 @@ open class FightFragment : Fragment() {
         }
     }
 
-    private fun startTimerToHideTvResult() {
+    open fun startTimerToHideTvResult() {
         val timer = object : CountDownTimer(1500, 1500) {
             override fun onTick(millisUntilFinished: Long) {}
 
@@ -611,10 +611,14 @@ open class FightFragment : Fragment() {
     }
 
     private fun extractActualFighterIndex() {
-        indexOfActualFighter = if (actualFighter.isHero) {
-            heroes.indexOf(heroes.find { it.id == actualFighter.id })
+        if (actualFighter.isHero) {
+            indexOfActualFighter = heroes.indexOf(heroes.find { it.id == actualFighter.id })
+            moveTvActionResultRight(ivHeroes[indexOfActualFighter])
+            moveTvActionResultLeft(ivHeroes[indexOfActualFighter])
         } else {
-            villains.indexOf(villains.find { it.id == actualFighter.id })
+            indexOfActualFighter = villains.indexOf(villains.find { it.id == actualFighter.id })
+            moveTvActionResultRight(ivVillains[indexOfActualFighter])
+            moveTvActionResultLeft(ivVillains[indexOfActualFighter])
         }
     }
 

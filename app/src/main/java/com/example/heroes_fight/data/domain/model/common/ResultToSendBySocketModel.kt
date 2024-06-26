@@ -6,5 +6,4 @@ data class ResultToSendBySocketModel(
     override var txtToTvInfo: String = "",
     override var txtToTvActionResult: String = "",
     var action: String = "",
-    var finnishTurn: Boolean = false
 ) : ActionResultModel(txtToTvInfo, txtToTvActionResult), Serializable

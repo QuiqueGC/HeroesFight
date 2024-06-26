@@ -231,7 +231,7 @@ open class FightFragmentViewModel @Inject constructor(
         }
     }
 
-    fun performDefense() {
+    open fun performDefense() {
         val resultOfDefense = _actualFighter.value.defense()
         viewModelScope.launch {
             _actionResult.emit(resultOfDefense)
