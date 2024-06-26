@@ -10,6 +10,7 @@ import com.example.heroes_fight.data.utils.BoardManager
 import com.example.heroes_fight.ui.fight_fragment.FightFragmentUiState
 import com.example.heroes_fight.ui.fight_fragment.FightFragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -101,14 +102,18 @@ class FightP2PFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             val deferred = async { client.sendRocks(rocks) }
             deferred.await()
-            if (actualFighter.value.isHero && !isServer) {
-                clientAwaitForActions()
-            } else if (!actualFighter.value.isHero && isServer) {
-                serverAwaitForActions()
-            }
+            //chooseWhoWaitForActions()
         }
     }
 
+    fun chooseWhoWaitForActions() {
+        Log.i("skts", "Ha entrado en chooseWhoWaitForActions")
+        if (actualFighter.value.isHero && !isServer) {
+            clientAwaitForActions()
+        } else if (!actualFighter.value.isHero && isServer) {
+            serverAwaitForActions()
+        }
+    }
 
     suspend fun getRocksFromClient(rocks: MutableList<RockModel>) {
         Log.i("skts", "Intenta coger la lista de rocas")
@@ -117,31 +122,15 @@ class FightP2PFragmentViewModel @Inject constructor(
             deferred.await()
             _rocksFlow.emit(rocks)
             Log.i("skts", "Ha terminado de esperar por las rocas")
-            if (actualFighter.value.isHero && !isServer) {
-                clientAwaitForActions()
-            } else if (!actualFighter.value.isHero && isServer) {
-                serverAwaitForActions()
-            }
+            //chooseWhoWaitForActions()
         }
     }
-
 
     fun sendMovement() {
         if (isServer) {
             server.sendMove(_actualFighter.value)
-            /*server.sendAction(
-                ResultToSendBySocketModel(),
-                villains,
-                heroes
-            )*/
-
         } else {
             client.sendMove(_actualFighter.value)
-            /*client.sendAction(
-                ResultToSendBySocketModel(),
-                villains,
-                heroes
-            )*/
         }
     }
 
@@ -161,11 +150,21 @@ class FightP2PFragmentViewModel @Inject constructor(
     }
 
     override fun finishTurn() {
-        super.finishTurn()
-        if (actualFighter.value.isHero && !isServer) {
-            clientAwaitForActions()
-        } else if (!actualFighter.value.isHero && isServer) {
-            serverAwaitForActions()
+        viewModelScope.launch(Dispatchers.IO) {
+            val deferred = async {
+                if (_actualFighter.value.isHero && isServer) {
+                    Log.i("skts", "enviando finnish turn desde server")
+                    server.sendFinnishTurn()
+                } else if (!_actualFighter.value.isHero && !isServer) {
+                    Log.i("skts", "enviando finish turn desde cliente")
+                    client.sendFinnishTurn()
+                }
+            }
+            Log.i("skts", "espera a terminar el envío de finnishTurn")
+            deferred.await()
+
+            super.finishTurn()
+
         }
     }
 }

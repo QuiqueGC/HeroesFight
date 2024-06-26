@@ -135,72 +135,24 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                         }
 
                         "pass" -> {
-
+                            finnishTurn = true
+                            Log.i(
+                                "skts",
+                                "Recibió pass y ahora lo emite"
+                            )
+                            actionFromOtherDevice.emit(
+                                ResultToSendBySocketModel(
+                                    action = action
+                                )
+                            )
                         }
                     }
 
-                    /*
-                    val heroPositions = ois.readObject() as MutableList<Position>
-                    val villainsReceived = ois.readObject() as MutableList<FighterModel>
-                    val heroesReceived = ois.readObject() as MutableList<FighterModel>
-                    val resultFromServer = ois.readObject() as ResultToSendBySocketModel
-
-                    for (position in heroPositions) {
-                        Log.i("skts", "Posición -> y: ${position.y}, x ${position.x}")
-                    }
-
-                    for (i in heroes.indices) {
-                        Log.i("skts", "BONUS DE DEFENSA = ${heroes[i].defenseBonus}")
-
-                        heroes[i].position.y = heroPositions[i].y
-                        heroes[i].position.x = heroPositions[i].x
-                        heroes[i].combatBonus = heroesReceived[i].combatBonus
-                        heroes[i].defenseBonus = heroesReceived[i].defenseBonus
-                        heroes[i].actionPerformed = heroesReceived[i].actionPerformed
-                        heroes[i].movementPerformed = heroesReceived[i].movementPerformed
-                        heroes[i].isSabotaged = heroesReceived[i].isSabotaged
-                        heroes[i].score = heroesReceived[i].score
-                        heroes[i].durability = heroesReceived[i].durability
-
-                        Log.i(
-                            "skts",
-                            "Posición del héroe recibido $i ->>> " + heroesReceived[i].position.y + "," + heroesReceived[i].position.x
-                        )
-                        Log.i(
-                            "skts",
-                            "Posición del héroe $i ->>> " + heroes[i].position.y + "," + heroes[i].position.x
-                        )
-
-                        villains[i].position.y = villainsReceived[i].position.y
-                        villains[i].position.x = villainsReceived[i].position.x
-                        villains[i].combatBonus = villainsReceived[i].combatBonus
-                        villains[i].defenseBonus = villainsReceived[i].defenseBonus
-                        villains[i].actionPerformed = villainsReceived[i].actionPerformed
-                        villains[i].movementPerformed = villainsReceived[i].movementPerformed
-                        villains[i].isSabotaged = villainsReceived[i].isSabotaged
-                        villains[i].score = villainsReceived[i].score
-                        villains[i].durability = villainsReceived[i].durability
-
-                        Log.i(
-                            "skts",
-                            "Posición del villano recibido $i ->>> " + villainsReceived[i].position.y + "," + villainsReceived[i].position.x
-                        )
-                        Log.i(
-                            "skts",
-                            "Posición del villano $i ->>> " + villains[i].position.y + "," + villains[i].position.x
-                        )
-                    }
-
-                    actionFromOtherDevice.emit(
-                        ResultToSendBySocketModel(
-                            resultFromServer.txtToTvInfo,
-                            resultFromServer.txtToTvActionResult,
-                            resultFromServer.action,
-                            resultFromServer.finnishTurn
-                        )
-                    )
-*/
                 } while (!finnishTurn)
+                Log.i(
+                    "skts",
+                    "Salió del bucle del threat que espera acciones"
+                )
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de recepción de acción")
                 Log.i("skts", e.toString())
@@ -208,36 +160,6 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
         }
     }
 
-
-    fun sendAction(
-        resultToShow: ResultToSendBySocketModel,
-        villains: MutableList<FighterModel>,
-        heroes: MutableList<FighterModel>
-    ) {
-        thread {
-            heroes.forEach {
-                Log.i(
-                    "skts",
-                    "Posición de héroe enviada->>> " + it.position.y + "," + it.position.x
-                )
-            }
-            villains.forEach {
-                Log.i(
-                    "skts",
-                    "Posición de villano enviada->>> " + it.position.y + "," + it.position.x
-                )
-            }
-            try {
-                oos.writeObject(villains)
-                oos.writeObject(heroes)
-                oos.writeObject(resultToShow)
-
-            } catch (e: Exception) {
-                Log.i("skts", "Saltó el catch de envío de acción")
-                Log.i("skts", e.toString())
-            }
-        }
-    }
 
     fun sendMove(actualFighter: FighterModel) {
         thread {
@@ -251,6 +173,19 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                 oos.writeObject(actualFighter)
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de envío de movimiento")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+    suspend fun sendFinnishTurn() {
+        withContext(Dispatchers.IO) {
+            try {
+                Log.i("skts", "Envía pass")
+                oos.writeObject("pass")
+
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de envío de finalizar turno")
                 Log.i("skts", e.toString())
             }
         }

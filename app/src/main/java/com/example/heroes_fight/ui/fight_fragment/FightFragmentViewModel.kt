@@ -126,16 +126,25 @@ open class FightFragmentViewModel @Inject constructor(
     }
 
     open fun finishTurn() {
+        Log.i("skts", "AQUÍ EMPIEZA LA FUNCIÓN PRINCIPAL DE FINISH_TURN (LA DEL SUPER)")
         _actualFighter.value.refreshDataToNextTurn()
+        Log.i("skts", "la lista antes de remover el primero (cantidad) ${allFighters.size}")
+
         allFighters.removeFirst()
         if (allFighters.isEmpty()) {
             orderFightersBySpeed()
         }
+        Log.i("skts", "la lista después de remover el primero (cantidad) ${allFighters.size}")
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.i("skts", "emite el actual fighter")
+
             _actualFighter.emit(allFighters.first())
+
             _actualFighter.value.removeDefenseBonus()
+
         }
+        Log.i("skts", "AQUÍ TERMINA EL SÚPER")
     }
 
     fun performMovement(destinationPosition: Position): Boolean {

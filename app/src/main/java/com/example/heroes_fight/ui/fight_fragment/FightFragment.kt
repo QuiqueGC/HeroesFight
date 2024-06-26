@@ -724,7 +724,7 @@ open class FightFragment : Fragment() {
     }
 
 
-    private fun finishTurn() {
+    open fun finishTurn() {
         if (actualFighter.isHero) {
             ivHeroes[indexOfActualFighter].setStrokeColorResource(R.color.blueGood)
         } else {

@@ -17,6 +17,7 @@ class FightP2PFragment : FightFragment() {
     private val args: FightP2PFragmentArgs by navArgs()
 
     private var rocksWereSent = false
+    private var startedBattle = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +40,22 @@ class FightP2PFragment : FightFragment() {
         lifecycleScope.launch {
             viewModel.actionFromOtherDevice.collect {
 
-                if (it.action == "move") {
-                    destinationPosition = actualFighter.position
-                    Log.i("skts", "Tamaño de board ->>> " + board.size.toString())
-                    Log.i(
-                        "skts",
-                        "Posición de actualFighter ->>> " + actualFighter.position.y + "," + actualFighter.position.x
-                    )
-                    moveFighterView()
+                when (it.action) {
+                    "move" -> {
+                        destinationPosition = actualFighter.position
+                        Log.i(
+                            "skts",
+                            "Posición de actualFighter ->>> " + actualFighter.position.y + "," + actualFighter.position.x
+                        )
+                        moveFighterView()
+                    }
+
+                    "pass" -> {
+                        Log.i("skts", "EMPIEZA TODO LO DEL FINNISH_TURN PORQUE HA RECIBIDO PASS")
+                        finishTurn()
+                    }
                 }
+
 
             }
         }
@@ -65,6 +73,10 @@ class FightP2PFragment : FightFragment() {
         lifecycleScope.launch {
             viewModel.rocksFlow.collect {
                 showRocks()
+                startedBattle = true
+                if (args.isServer) {
+                    viewModel.chooseWhoWaitForActions()
+                }
             }
         }
     }
@@ -111,6 +123,9 @@ class FightP2PFragment : FightFragment() {
 
                     //viewModel.awaitForEnemyActions()
                 }
+                if (rocksWereSent && startedBattle) {
+                    viewModel.chooseWhoWaitForActions()
+                }
             }
         }
     }
@@ -120,6 +135,7 @@ class FightP2PFragment : FightFragment() {
             viewModel.actualFighter.collect {
                 if (actualFighter.id != 0 && !rocksWereSent) {
                     if (!args.isServer) {
+                        startedBattle = true
                         viewModel.sendRocksToServer(rocks)
                     } else {
                         Log.i("skts", "Se ejecuta la función para coger las rocas")
