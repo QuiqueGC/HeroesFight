@@ -99,7 +99,7 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
     }
 
     suspend fun awaitForEnemyActions(
-        actionFromOtherDevice: MutableSharedFlow<ResultToSendBySocketModel>,
+        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>,
         villains: MutableList<FighterModel>,
         heroes: MutableList<FighterModel>
     ) {
@@ -110,61 +110,13 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                     val action = ois.readObject() as String
                     Log.i("skts", "Valor de ACTION -> $action")
                     when (action) {
-                        "move" -> {
-                            val actualPosition = ois.readObject() as Position
-                            Log.i(
-                                "skts",
-                                "Posición recibida ${actualPosition.y} ${actualPosition.x}"
-                            )
-                            val actualFighter = ois.readObject() as FighterModel
-                            Log.i(
-                                "skts",
-                                "Posición recibida dentro del hero ${actualFighter.position.y} ${actualFighter.position.x}"
-                            )
-                            Log.i("skts", "ID del actualFighter ${actualFighter.id}")
-                            for (hero in heroes) {
-                                if (hero.id == actualFighter.id) {
-                                    Log.i("skts", "Coinciden los ID")
-                                    hero.position = actualPosition
-                                }
-                            }
-                            actionFromOtherDevice.emit(
-                                ResultToSendBySocketModel(
-                                    action = action
-                                )
-                            )
+                        "move" -> emitMovement(action, heroes, actionToEmit)
+                        "pass" -> {
+                            emitPass(action, actionToEmit)
+                            finnishTurn = true
                         }
 
-                        "pass" -> {
-                            finnishTurn = true
-                            Log.i(
-                                "skts",
-                                "Recibió pass y ahora lo emite"
-                            )
-                            actionFromOtherDevice.emit(
-                                ResultToSendBySocketModel(
-                                    action = action
-                                )
-                            )
-                        }
-                        "defense" -> {
-                            val defenseBonus = ois.read()
-                            val actualFighter = ois.readObject() as FighterModel
-                            val resultOfDefense = ois.readObject() as ActionResultModel
-                            for (hero in heroes) {
-                                if (hero.id == actualFighter.id) {
-                                    Log.i("skts", "Coinciden los ID")
-                                    hero.defenseBonus = defenseBonus
-                                }
-                            }
-                            actionFromOtherDevice.emit(
-                                ResultToSendBySocketModel(
-                                    resultOfDefense.txtToTvInfo,
-                                    resultOfDefense.txtToTvActionResult,
-                                    action
-                                )
-                            )
-                        }
+                        "defense" -> emitDefense(action, heroes, actionToEmit)
                     }
 
                 } while (!finnishTurn)
@@ -174,6 +126,88 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) {
                 )
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de recepción de acción")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+    private suspend fun emitDefense(
+        action: String,
+        heroes: MutableList<FighterModel>,
+        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>
+    ) {
+        withContext(Dispatchers.IO) {
+            try {
+                val defenseBonus = ois.read()
+                val actualFighter = ois.readObject() as FighterModel
+                val resultOfDefense = ois.readObject() as ActionResultModel
+                for (hero in heroes) {
+                    if (hero.id == actualFighter.id) {
+                        Log.i("skts", "Coinciden los ID")
+                        hero.defenseBonus = defenseBonus
+                    }
+                }
+                actionToEmit.emit(
+                    ResultToSendBySocketModel(
+                        resultOfDefense.txtToTvInfo,
+                        resultOfDefense.txtToTvActionResult,
+                        action
+                    )
+                )
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de recepción de defensa")
+                Log.i("skts", e.toString())
+            }
+        }
+    }
+
+
+    private suspend fun emitPass(
+        action: String,
+        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>
+    ) {
+        withContext(Dispatchers.IO) {
+
+            Log.i("skts", "Recibió pass y ahora lo emite")
+            actionToEmit.emit(
+                ResultToSendBySocketModel(
+                    action = action
+                )
+            )
+        }
+    }
+
+    private suspend fun emitMovement(
+        action: String,
+        heroes: MutableList<FighterModel>,
+        actionToEmit: MutableSharedFlow<ResultToSendBySocketModel>
+    ) {
+        withContext(Dispatchers.IO) {
+            try {
+                val actualPosition = ois.readObject() as Position
+                Log.i(
+                    "skts",
+                    "Posición recibida ${actualPosition.y} ${actualPosition.x}"
+                )
+                val actualFighter = ois.readObject() as FighterModel
+                Log.i(
+                    "skts",
+                    "Posición recibida dentro del hero ${actualFighter.position.y} ${actualFighter.position.x}"
+                )
+                Log.i("skts", "ID del actualFighter ${actualFighter.id}")
+                for (hero in heroes) {
+                    if (hero.id == actualFighter.id) {
+                        Log.i("skts", "Coinciden los ID")
+                        hero.position = actualPosition
+                    }
+                }
+                actionToEmit.emit(
+                    ResultToSendBySocketModel(
+                        action = action
+                    )
+                )
+            } catch (e: Exception) {
+                Log.i("skts", "Saltó el catch de recepción de movimiento")
                 Log.i("skts", e.toString())
             }
         }
