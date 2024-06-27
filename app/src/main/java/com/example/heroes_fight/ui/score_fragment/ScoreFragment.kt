@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.heroes_fight.databinding.FragmentScoreBinding
 
 
-class ScoreFragment : Fragment() {
+open class ScoreFragment : Fragment() {
 
-    private lateinit var binding: FragmentScoreBinding
+    open lateinit var binding: FragmentScoreBinding
     private val args: ScoreFragmentArgs by navArgs()
-    private lateinit var adapter: ScoreAdapter
+    open lateinit var adapter: ScoreAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,13 +30,17 @@ class ScoreFragment : Fragment() {
         setupAdapter()
 
         setTitle()
+        backToMenu()
 
+    }
+
+    open fun backToMenu() {
         binding.btnBackToMenu.setOnClickListener {
             findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToNewMainMenuFragment())
         }
     }
 
-    private fun setTitle() {
+    open fun setTitle() {
         binding.tvWin.text = if (args.scoreListModel.areVillains) {
             "Villains won"
         } else {
@@ -45,13 +49,17 @@ class ScoreFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = ScoreAdapter(
-            args.scoreListModel.scores,
-            requireContext(),
-            args.scoreListModel.areVillains
-        )
+
+        createAdapter()
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
+    }
+
+    open fun createAdapter() {
+        adapter = ScoreAdapter(
+            args.scoreListModel.scores,
+            requireContext()
+        )
     }
 }

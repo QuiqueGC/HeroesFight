@@ -13,8 +13,7 @@ import com.example.heroes_fight.databinding.ItemScoreBinding
 
 class ScoreAdapter(
     private val scores: MutableList<ScoreModel>,
-    private val context: Context,
-    private val areVillains: Boolean
+    private val context: Context
 ) : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

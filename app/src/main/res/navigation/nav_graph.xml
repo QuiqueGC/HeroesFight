@@ -116,7 +116,22 @@
             android:name="isServer"
             app:argType="boolean" />
         <action
-            android:id="@+id/action_fightP2PFragment_to_scoreFragment"
-            app:destination="@id/scoreFragment" />
+            android:id="@+id/action_fightP2PFragment_to_scoreP2PFragment"
+            app:destination="@id/scoreP2PFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scoreP2PFragment"
+        android:name="com.example.heroes_fight.ui.score_p2p_fragment.ScoreP2PFragment"
+        android:label="ScoreP2PFragment"
+        tools:layout="@layout/fragment_score">
+        <argument
+            android:name="playerWon"
+            app:argType="boolean" />
+        <argument
+            android:name="scoreListModel"
+            app:argType="com.example.heroes_fight.data.domain.model.fighter.ScoreListModel" />
+        <action
+            android:id="@+id/action_scoreP2PFragment_to_newMainMenuFragment"
+            app:destination="@id/newMainMenuFragment" />
     </fragment>
 </navigation>

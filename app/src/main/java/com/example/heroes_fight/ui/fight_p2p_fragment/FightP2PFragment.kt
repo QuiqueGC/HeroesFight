@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.heroes_fight.ui.fight_fragment.FightFragment
 import com.example.heroes_fight.ui.fight_fragment.FightFragmentUiState
@@ -131,6 +132,45 @@ class FightP2PFragment : FightFragment() {
                     )
                 }
                 removeOfInitiativeList(dyingFighter)
+            }
+        }
+    }
+
+    override fun collectFinishBattle() {
+        lifecycleScope.launch {
+            viewModel.finishBattle.collect { scoreListModel ->
+                if (scoreListModel != null) {
+                    if (heroes.none { it.score.survived } && args.isServer || villains.none { it.score.survived } && !args.isServer) {
+                        findNavController().navigate(
+                            FightP2PFragmentDirections.actionFightP2PFragmentToScoreP2PFragment(
+                                false,
+                                scoreListModel
+                            )
+                        )
+                    } else {
+                        findNavController().navigate(
+                            FightP2PFragmentDirections.actionFightP2PFragmentToScoreP2PFragment(
+                                true,
+                                scoreListModel
+                            )
+                        )
+                    }
+
+
+                    /*else if (heroes.none { it.score.survived } && !args.isServer || villains.none { it.score.survived } && args.isServer) {
+                        findNavController().navigate(
+                            FightP2PFragmentDirections.actionFightP2PFragmentToScoreP2PFragment(
+                                true,
+                                scoreListModel
+                            )
+                        )
+                    }*/
+                    /*findNavController().navigate(
+                        FightFragmentDirections.actionFightFragmentToScoreFragment(
+                            it
+                        )
+                    )*/
+                }
             }
         }
     }

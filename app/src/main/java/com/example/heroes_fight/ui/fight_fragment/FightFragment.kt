@@ -414,7 +414,10 @@ open class FightFragment : Fragment() {
         collectDyingFighter()
 
 
+        collectFinishBattle()
+    }
 
+    open fun collectFinishBattle() {
         lifecycleScope.launch {
             viewModel.finishBattle.collect {
                 if (it != null) {

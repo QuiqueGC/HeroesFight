@@ -296,11 +296,14 @@ class FightP2PFragmentViewModel @Inject constructor(
             val scores = mutableListOf<ScoreModel>()
             if (isServer) {
                 heroes.forEach { scores.add(it.score) }
+                viewModelScope.launch {
+                    _finishBattle.emit(ScoreListModel(false, scores))
+                }
             } else {
                 villains.forEach { scores.add(it.score) }
-            }
-            viewModelScope.launch {
-                _finishBattle.emit(ScoreListModel(false, scores))
+                viewModelScope.launch {
+                    _finishBattle.emit(ScoreListModel(true, scores))
+                }
             }
         } else {
             Log.i("dying", "Survive? ${attackedEnemy.score.survived}")
