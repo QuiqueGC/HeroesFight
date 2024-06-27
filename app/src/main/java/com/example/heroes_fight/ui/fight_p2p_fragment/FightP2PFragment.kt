@@ -8,17 +8,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.heroes_fight.ui.fight_fragment.FightFragment
-import com.example.heroes_fight.ui.fight_fragment.FightFragmentUiState
 import kotlinx.coroutines.launch
 
 class FightP2PFragment : FightFragment() {
 
-    //private val viewModel: FightFragmentViewModel by viewModels()
     override val viewModel: FightP2PFragmentViewModel by viewModels()
     private val args: FightP2PFragmentArgs by navArgs()
 
-    private var rocksWereSent = false
-    private var startedBattle = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +31,13 @@ class FightP2PFragment : FightFragment() {
 
         observeResultEnemyAction()
 
+    }
+    private fun observeRocksFlow() {
+        lifecycleScope.launch {
+            viewModel.rocksFlow.collect {
+                showRocks(it)
+            }
+        }
     }
 
     private fun observeResultEnemyAction() {
@@ -90,17 +93,7 @@ class FightP2PFragment : FightFragment() {
         }
     }
 
-    private fun observeRocksFlow() {
-        lifecycleScope.launch {
-            viewModel.rocksFlow.collect {
-                showRocks()
-                startedBattle = true
-                if (args.isServer) {
-                    viewModel.chooseWhoWaitForActions()
-                }
-            }
-        }
-    }
+
 
     private fun observeConnection() {
         lifecycleScope.launch {
@@ -140,7 +133,9 @@ class FightP2PFragment : FightFragment() {
         lifecycleScope.launch {
             viewModel.finishBattle.collect { scoreListModel ->
                 if (scoreListModel != null) {
-                    if (heroes.none { it.score.survived } && args.isServer || villains.none { it.score.survived } && !args.isServer) {
+                    if (heroes.none { it.score.survived } && args.isServer ||
+                        villains.none { it.score.survived } && !args.isServer
+                    ) {
                         findNavController().navigate(
                             FightP2PFragmentDirections.actionFightP2PFragmentToScoreP2PFragment(
                                 false,
@@ -155,21 +150,6 @@ class FightP2PFragment : FightFragment() {
                             )
                         )
                     }
-
-
-                    /*else if (heroes.none { it.score.survived } && !args.isServer || villains.none { it.score.survived } && args.isServer) {
-                        findNavController().navigate(
-                            FightP2PFragmentDirections.actionFightP2PFragmentToScoreP2PFragment(
-                                true,
-                                scoreListModel
-                            )
-                        )
-                    }*/
-                    /*findNavController().navigate(
-                        FightFragmentDirections.actionFightFragmentToScoreFragment(
-                            it
-                        )
-                    )*/
                 }
             }
         }
@@ -178,7 +158,7 @@ class FightP2PFragment : FightFragment() {
     override fun setupFightersInSameDevice() {}
 
     override fun setupRocks() {
-        if (!args.isServer) {
+        if (args.isServer) {
             super.setupRocks()
         }
     }
@@ -187,7 +167,6 @@ class FightP2PFragment : FightFragment() {
         super.collectActualFighter()
         Log.i("skts", "Ha terminado de hacer lo básico de emitir actualFighter")
         Log.i("skts", "ID del actualFighter = ${actualFighter.id}")
-        sendOrGetRocks()
         establishWhoIsThePlayer()
     }
 
@@ -217,40 +196,16 @@ class FightP2PFragment : FightFragment() {
                         binding.btnPass.isEnabled = false
                     }
 
-                    //viewModel.awaitForEnemyActions()
-                }
-                if (rocksWereSent && startedBattle) {
                     viewModel.chooseWhoWaitForActions()
                 }
             }
         }
     }
 
-    private fun sendOrGetRocks() {
-        lifecycleScope.launch {
-            viewModel.actualFighter.collect {
-                if (actualFighter.id != 0 && !rocksWereSent) {
-                    if (!args.isServer) {
-                        startedBattle = true
-                        viewModel.sendRocksToServer(rocks)
-                    } else {
-                        Log.i("skts", "Se ejecuta la función para coger las rocas")
-                        viewModel.getRocksFromClient(rocks)
-                        //showRocks()
-                    }
-
-                    rocksWereSent = true
-                }
-            }
-        }
-    }
-
-    override fun completeBattlefield(fightFragmentUiState: FightFragmentUiState.Success) {
-        super.completeBattlefield(fightFragmentUiState)
+    override fun showAllViews() {
+        super.showAllViews()
         if (args.isServer) {
-            Log.i("skts", "Ha entrado en el SUccess del UIState")
-            viewModel.sendFighters()
+            viewModel.sendDataToFight(rocks)
         }
     }
-
 }

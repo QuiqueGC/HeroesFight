@@ -500,7 +500,9 @@ open class FightFragment : Fragment() {
 
                     setBorderAtInitiativeList()
 
-                    showAllViews()
+                    if (isFirstTurn) {
+                        showAllViews()
+                    }
                 }
             }
         }
@@ -571,19 +573,17 @@ open class FightFragment : Fragment() {
         initiativeIndex = allFighters.indexOf(actualFighter)
     }
 
-    private fun showAllViews() {
-        if (isFirstTurn) {
-            with(binding) {
-                tvTurn.visibility = View.VISIBLE
-                tvInfo.visibility = View.VISIBLE
-                linearInitiative.root.visibility = View.VISIBLE
-                btnPass.visibility = View.VISIBLE
-            }
-            actionButtons.forEach { it.visibility = View.VISIBLE }
-            ivHeroes.forEach { it.visibility = View.VISIBLE }
-            ivVillains.forEach { it.visibility = View.VISIBLE }
-            isFirstTurn = false
+    open fun showAllViews() {
+        with(binding) {
+            tvTurn.visibility = View.VISIBLE
+            tvInfo.visibility = View.VISIBLE
+            linearInitiative.root.visibility = View.VISIBLE
+            btnPass.visibility = View.VISIBLE
         }
+        actionButtons.forEach { it.visibility = View.VISIBLE }
+        ivHeroes.forEach { it.visibility = View.VISIBLE }
+        ivVillains.forEach { it.visibility = View.VISIBLE }
+        isFirstTurn = false
     }
 
     private fun setBorderAtInitiativeList() {
@@ -688,7 +688,7 @@ open class FightFragment : Fragment() {
 
     open fun setupRocks() {
         rocks.addAll(viewModel.getRocks())
-        showRocks()
+        showRocks(rocks)
     }
 
     private fun insertRockViewsAtList() {
@@ -707,7 +707,7 @@ open class FightFragment : Fragment() {
         }
     }
 
-    open fun showRocks() {
+    open fun showRocks(rocks: MutableList<RockModel>) {
         for (i in rocks.indices) {
 
             ivRocks[i].visibility = View.VISIBLE

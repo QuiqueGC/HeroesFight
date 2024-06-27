@@ -7,6 +7,8 @@ import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.model.fighter.ScoreListModel
 import com.example.heroes_fight.data.domain.model.fighter.ScoreModel
+import com.example.heroes_fight.data.domain.repository.tcp_ip.TcpClient
+import com.example.heroes_fight.data.domain.repository.tcp_ip.TcpServer
 import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
 import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
 import com.example.heroes_fight.data.utils.BoardManager
@@ -38,6 +40,7 @@ class FightP2PFragmentViewModel @Inject constructor(
     private lateinit var server: TcpServer
     private lateinit var client: TcpClient
     private var isServer = false
+    private val rocks = mutableListOf<RockModel>()
 
     private val _actionFromOtherDevice = MutableSharedFlow<ResultToSendBySocketModel>()
     val actionFromOtherDevice: SharedFlow<ResultToSendBySocketModel> = _actionFromOtherDevice
@@ -74,6 +77,24 @@ class FightP2PFragmentViewModel @Inject constructor(
             super.getRandomHeroes()
         } else {
             viewModelScope.launch {
+                val deferred = async { client.awaitForData(heroes, villains, allFighters, rocks) }
+                deferred.await()
+                _rocksFlow.emit(rocks)
+                _uiState.emit(
+                    FightFragmentUiState.Success(
+                        heroes,
+                        villains,
+                        allFighters
+                    )
+                )
+                _actualFighter.emit(allFighters[0])
+            }
+
+        }
+
+
+        /*else {
+            viewModelScope.launch {
 
                 val deferred = async {
                     client.getFightersList(heroes, villains, allFighters)
@@ -96,21 +117,10 @@ class FightP2PFragmentViewModel @Inject constructor(
                 Log.i("skts", "Emite el fighter actual -> ${allFighters[0].id}")
                 _actualFighter.emit(allFighters[0])
             }
-        }
+        }}*/
     }
 
-    fun sendFighters() {
-        Log.i("skts", "Ha entrado en la función de sendFighters")
-        server.sendFightersList(heroes, villains, allFighters)
-    }
 
-    fun sendRocksToServer(rocks: MutableList<RockModel>) {
-        viewModelScope.launch {
-            val deferred = async { client.sendRocks(rocks) }
-            deferred.await()
-            //chooseWhoWaitForActions()
-        }
-    }
 
     fun chooseWhoWaitForActions() {
         Log.i("skts", "Ha entrado en chooseWhoWaitForActions")
@@ -121,16 +131,6 @@ class FightP2PFragmentViewModel @Inject constructor(
         }
     }
 
-    suspend fun getRocksFromClient(rocks: MutableList<RockModel>) {
-        Log.i("skts", "Intenta coger la lista de rocas")
-        viewModelScope.launch {
-            val deferred = async { server.getRocksFromClient(rocks) }
-            deferred.await()
-            _rocksFlow.emit(rocks)
-            Log.i("skts", "Ha terminado de esperar por las rocas")
-            //chooseWhoWaitForActions()
-        }
-    }
 
     fun sendMovement() {
         if (isServer) {
@@ -144,7 +144,7 @@ class FightP2PFragmentViewModel @Inject constructor(
     fun clientAwaitForActions() {
         Log.i("skts", "cliente esperando por acciones")
         viewModelScope.launch {
-            client.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes, attackedEnemy)
+            client.awaitForEnemyActions(_actionFromOtherDevice, heroes, villains, attackedEnemy)
         }
     }
 
@@ -203,6 +203,7 @@ class FightP2PFragmentViewModel @Inject constructor(
             }
         }
     }
+
     override fun performSabotage(enemyToSabotage: FighterModel) {
         if (!_actualFighter.value.actionPerformed) {
             val resultOfSabotage = _actualFighter.value.sabotage(enemyToSabotage)
@@ -319,4 +320,10 @@ class FightP2PFragmentViewModel @Inject constructor(
 
         }
     }
+
+    fun sendDataToFight(rocks: MutableList<RockModel>) {
+        server.sendDataToFight(heroes, villains, allFighters, rocks)
+    }
+
+
 }
