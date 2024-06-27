@@ -20,7 +20,8 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) : ITc
     private lateinit var tcpSender: TcpSender
     private lateinit var tcpReceiver: TcpReceiver
 
-    suspend fun connectToServer() {
+    suspend fun connectToServer(): Boolean {
+        var isConnected: Boolean
         Log.i("skts", "intentará conectarse al server")
         withContext(Dispatchers.IO) {
             try {
@@ -30,13 +31,15 @@ class TcpClient(private val serverIp: String, private val serverPort: Int) : ITc
 
                 tcpSender = TcpSender(socket)
                 tcpReceiver = TcpReceiver(socket)
-
+                isConnected = true
             } catch (e: Exception) {
                 Log.i("skts", "Ha entrado en el cath?")
                 Log.i("skts", e.toString())
                 e.printStackTrace()
+                isConnected = false
             }
         }
+        return isConnected
     }
 
     override suspend fun awaitForData(

@@ -118,6 +118,9 @@
         <action
             android:id="@+id/action_fightP2PFragment_to_scoreP2PFragment"
             app:destination="@id/scoreP2PFragment" />
+        <argument
+            android:name="ipAddress"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/scoreP2PFragment"

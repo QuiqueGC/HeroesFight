@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.domain.model.common.ResultToSendBySocketModel
 import com.example.heroes_fight.data.domain.model.common.RockModel
+import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.model.fighter.ScoreListModel
 import com.example.heroes_fight.data.domain.model.fighter.ScoreModel
@@ -48,7 +49,8 @@ class FightP2PFragmentViewModel @Inject constructor(
 
     private var attackedEnemy = FighterModel()
 
-    fun establishConnection(isServer: Boolean) {
+    fun establishConnection(isServer: Boolean, ipAddress: String) {
+        //"192.168.1.140"
         this.isServer = isServer
         viewModelScope.launch {
             val deferred = async {
@@ -56,20 +58,23 @@ class FightP2PFragmentViewModel @Inject constructor(
                     Log.i("skts", "Ha entrado en la parte de server")
                     server = TcpServer(8888)
                     server.startServer()
+                    _connectionEstablished.emit(true)
                 } else {
                     Log.i("skts", "Ha entrado en la parte de cliente")
                     client = TcpClient(
-                        "192.168.1.140",
+                        ipAddress,
                         8888
                     ) // "10.0.2.2" es la dirección IP del host para los emuladores
-                    client.connectToServer()
+                    if (client.connectToServer()) {
+                        _connectionEstablished.emit(true)
+                    } else {
+                        _uiState.emit(FightFragmentUiState.Error(ErrorModel(message = "Impossible to connect. Go back and try again")))
+                    }
                 }
             }
             deferred.await()
             Log.i("skts", "Ha dejado de esperar")
-            _connectionEstablished.emit(true)
         }
-
     }
 
     override fun getRandomHeroes() {

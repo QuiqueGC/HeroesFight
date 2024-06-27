@@ -19,7 +19,7 @@ class FightP2PFragment : FightFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.establishConnection(args.isServer)
+        viewModel.establishConnection(args.isServer, args.ipAddress)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

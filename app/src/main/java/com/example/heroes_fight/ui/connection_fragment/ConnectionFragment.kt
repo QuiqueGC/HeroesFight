@@ -13,6 +13,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -62,34 +63,57 @@ class ConnectionFragment : Fragment(), WifiP2pManager.PeerListListener,
 
 
         binding.btnGoFight.setOnClickListener {
-            showDialog()
+            showHostDialog()
         }
     }
 
-    private fun showDialog() {
+    private fun showHostDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Choice your function")
-        builder.setMessage("¿Are you going to be the server?")
+        builder.setTitle("Hosting")
+        builder.setMessage("¿Are you going to be the host?")
 
         builder.setPositiveButton("Yes") { dialog, _ ->
             findNavController().navigate(
                 ConnectionFragmentDirections.actionConnectionFragmentToFightP2PFragment(
-                    true
+                    true,
+                    ""
                 )
             )
             dialog.dismiss()
         }
 
         builder.setNegativeButton("No") { dialog, _ ->
-            findNavController().navigate(
-                ConnectionFragmentDirections.actionConnectionFragmentToFightP2PFragment(
-                    false
-                )
-            )
+            showIpDialog()
             dialog.dismiss()
         }
 
         builder.create().show()
+    }
+
+    private fun showIpDialog() {
+        val inputEditText = EditText(requireContext())
+
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+            .setTitle("Enter Text")
+            .setMessage("Please enter your text below:")
+            .setView(inputEditText)
+            .setPositiveButton("OK") { dialog, _ ->
+                val ipAddress = inputEditText.text.toString()
+
+                findNavController().navigate(
+                    ConnectionFragmentDirections.actionConnectionFragmentToFightP2PFragment(
+                        false,
+                        ipAddress
+                    )
+                )
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
     }
 
     private fun setupAdapter() {

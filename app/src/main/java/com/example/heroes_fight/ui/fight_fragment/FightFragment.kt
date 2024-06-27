@@ -514,7 +514,10 @@ open class FightFragment : Fragment() {
 
                 when (fightFragmentUiState) {
                     is FightFragmentUiState.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is FightFragmentUiState.Error -> showToast("ERROR ERROR ERROR")
+                    is FightFragmentUiState.Error -> {
+                        showToast(fightFragmentUiState.errorModel.message)
+                        binding.progressBar.visibility = View.GONE
+                    }
                     is FightFragmentUiState.Success -> {
                         completeBattlefield(fightFragmentUiState)
                     }
