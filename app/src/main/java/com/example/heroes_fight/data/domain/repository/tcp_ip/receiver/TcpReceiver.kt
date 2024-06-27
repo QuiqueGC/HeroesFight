@@ -216,11 +216,20 @@ class TcpReceiver(socket: Socket) : ITcpReceiver {
                 val durability = ois.readObject() as Int
                 val enemyToAttack = ois.readObject() as FighterModel
                 val resultOfAttack = ois.readObject() as ActionResultModel
+                val defAtks = ois.readObject() as Int
+                val meleeDmgRec = ois.readObject() as Int
+                val dodgedAtks = ois.readObject() as Int
+                val rangeDmgRec = ois.readObject() as Int
+                Log.i("score", "El daño recibido por disparos -> $rangeDmgRec")
                 for (fighter in ownFighters) {
                     if (fighter.id == enemyToAttack.id) {
                         Log.i("skts", "Coinciden los ID")
                         Log.i("skts", "Valor de durability recibido -> $durability")
                         fighter.durability = durability
+                        fighter.score.defAtks = defAtks
+                        fighter.score.meleeDmgRec = meleeDmgRec
+                        fighter.score.dodgedAtks = dodgedAtks
+                        fighter.score.rangeDmgRec = rangeDmgRec
                         attackedFighter.id = enemyToAttack.id
                         attackedFighter.durability = durability
                         if (fighter.durability <= 0) {

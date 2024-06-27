@@ -109,10 +109,19 @@ class TcpSender(socket: Socket) : ITcpSender {
             val durability = enemyToAttack.durability
             Log.i("skts", "Valor de durability -> $durability")
             try {
+                Log.i(
+                    "score",
+                    "El daño recibido por disparos -> ${enemyToAttack.score.rangeDmgRec}"
+                )
                 oos.writeObject("attack")
                 oos.writeObject(durability)
                 oos.writeObject(enemyToAttack)
                 oos.writeObject(resultOfAttack)
+                oos.writeObject(enemyToAttack.score.defAtks)
+                oos.writeObject(enemyToAttack.score.meleeDmgRec)
+                oos.writeObject(enemyToAttack.score.dodgedAtks)
+                oos.writeObject(enemyToAttack.score.rangeDmgRec)
+
             } catch (e: Exception) {
                 Log.i("skts", "Saltó el catch de enviar support")
                 Log.i("skts", e.toString())
