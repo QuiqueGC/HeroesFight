@@ -76,7 +76,6 @@ class FightP2PFragmentViewModel @Inject constructor(
             Log.i("skts", "Ha dejado de esperar")
         }
     }
-
     override fun getRandomHeroes() {
         if (isServer) {
             super.getRandomHeroes()

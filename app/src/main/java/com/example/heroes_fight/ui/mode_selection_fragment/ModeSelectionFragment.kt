@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.heroes_fight.databinding.FragmentModeSelectionBinding
@@ -36,7 +38,60 @@ class ModeSelectionFragment : Fragment() {
             btnWifiDirect.setOnClickListener {
                 checkWifiDirectPermissions()
             }
+
+            btnTcpIp.setOnClickListener {
+                checkWifiDirectPermissions()
+            }
         }
+    }
+
+    private fun showHostDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Hosting")
+        builder.setMessage("¿Are you going to be the host?")
+
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            findNavController().navigate(
+                ModeSelectionFragmentDirections.actionModeSelectionFragmentToFightP2PFragment(
+                    true,
+                    ""
+                )
+            )
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("No") { dialog, _ ->
+            showIpDialog()
+            dialog.dismiss()
+        }
+
+        builder.create().show()
+    }
+
+    private fun showIpDialog() {
+        val inputEditText = EditText(requireContext())
+
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+            .setTitle("Enter Text")
+            .setMessage("Please enter your text below:")
+            .setView(inputEditText)
+            .setPositiveButton("OK") { dialog, _ ->
+                val ipAddress = inputEditText.text.toString()
+
+                findNavController().navigate(
+                    ModeSelectionFragmentDirections.actionModeSelectionFragmentToFightP2PFragment(
+                        false,
+                        ipAddress
+                    )
+                )
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
     }
 
 
@@ -97,7 +152,8 @@ class ModeSelectionFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                findNavController().navigate(ModeSelectionFragmentDirections.actionModeSelectionFragmentToConnectionFragment())
+                showHostDialog()
+                //findNavController().navigate(ModeSelectionFragmentDirections.actionModeSelectionFragmentToConnectionFragment())
             }
         }
 }

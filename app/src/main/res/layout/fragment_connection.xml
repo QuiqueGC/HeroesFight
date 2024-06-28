@@ -24,7 +24,7 @@
         android:id="@+id/btnDiscover"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:text="Discover"
+        android:text="Find Devices"
         android:textColor="@color/txtInfoBoxesColor"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:textSize="28sp"
