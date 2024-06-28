@@ -18,6 +18,7 @@ import com.example.heroes_fight.databinding.FragmentModeSelectionBinding
 class ModeSelectionFragment : Fragment() {
 
     private lateinit var binding: FragmentModeSelectionBinding
+    private var isWifiDirect = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,10 +37,12 @@ class ModeSelectionFragment : Fragment() {
                 )
             }
             btnWifiDirect.setOnClickListener {
+                isWifiDirect = true
                 checkWifiDirectPermissions()
             }
 
             btnTcpIp.setOnClickListener {
+                isWifiDirect = false
                 checkWifiDirectPermissions()
             }
         }
@@ -152,8 +155,11 @@ class ModeSelectionFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                showHostDialog()
-                //findNavController().navigate(ModeSelectionFragmentDirections.actionModeSelectionFragmentToConnectionFragment())
+                if (!isWifiDirect) {
+                    showHostDialog()
+                } else {
+                    findNavController().navigate(ModeSelectionFragmentDirections.actionModeSelectionFragmentToConnectionFragment())
+                }
             }
         }
 }

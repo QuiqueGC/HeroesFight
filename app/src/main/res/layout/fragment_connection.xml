@@ -6,19 +6,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.connection_fragment.ConnectionFragment">
 
-
-    <Button
-        android:id="@+id/btnGoFight"
-        android:layout_width="256dp"
-        android:layout_height="64dp"
-        android:text="Go fight"
-        android:textColor="@color/txtInfoBoxesColor"
+    <TextView
+        android:id="@+id/tvSelectDevice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
-        android:textSize="28sp"
-        android:layout_marginBottom="@dimen/marginMax"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/background_info_boxes"
+        android:text="Select Device"
+        android:paddingVertical="@dimen/marginCommon"
+        android:textSize="80sp"
+        android:textColor="@color/txtInfoBoxesColor"
+        android:textAlignment="center"
+        android:layout_marginTop="64dp"
+        android:layout_marginHorizontal="@dimen/marginCommon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/btnDiscover"
@@ -28,8 +32,8 @@
         android:textColor="@color/txtInfoBoxesColor"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:textSize="28sp"
-        android:layout_marginBottom="@dimen/marginMax"
-        app:layout_constraintTop_toBottomOf="@id/btnGoFight"
+        android:layout_marginBottom="128dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -37,6 +41,8 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/btnDiscover"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_marginTop="@dimen/marginLarge"
+        app:layout_constraintTop_toBottomOf="@id/tvSelectDevice"
+        app:layout_constraintBottom_toTopOf="@id/btnDiscover"
+        tools:listitem="@layout/item_recycler_device" />
 </androidx.constraintlayout.widget.ConstraintLayout>
