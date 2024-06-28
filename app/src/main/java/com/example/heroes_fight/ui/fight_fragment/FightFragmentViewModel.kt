@@ -10,8 +10,8 @@ import com.example.heroes_fight.data.domain.model.common.RockModel
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.model.fighter.ScoreListModel
 import com.example.heroes_fight.data.domain.model.fighter.ScoreModel
-import com.example.heroes_fight.data.domain.use_case.retrofit.GetHeroesListUseCase
-import com.example.heroes_fight.data.domain.use_case.retrofit.GetVillainListUseCase
+import com.example.heroes_fight.data.domain.use_case.database.GetHeroesListFromDBUseCase
+import com.example.heroes_fight.data.domain.use_case.database.GetVillainListFromDBUseCase
 import com.example.heroes_fight.data.utils.BoardManager
 import com.example.heroes_fight.data.utils.PlayerChoice
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,8 +26,8 @@ import kotlin.math.abs
 
 @HiltViewModel
 open class FightFragmentViewModel @Inject constructor(
-    private val getVillainListUseCase: GetVillainListUseCase,
-    private val getHeroesListUseCase: GetHeroesListUseCase,
+    private val getVillainListFromDBUseCase: GetVillainListFromDBUseCase,
+    private val getHeroesListFromDBUseCase: GetHeroesListFromDBUseCase,
     private val boardManager: BoardManager
 ) : ViewModel() {
 
@@ -111,11 +111,11 @@ open class FightFragmentViewModel @Inject constructor(
     }
 
     private suspend fun addVillainsToStartList() {
-        villains = getVillainListUseCase()
+        villains = getVillainListFromDBUseCase()
     }
 
     private suspend fun addHeroesToStartList() {
-        heroes = getHeroesListUseCase()
+        heroes = getHeroesListFromDBUseCase()
     }
 
     private fun orderFightersBySpeed() {

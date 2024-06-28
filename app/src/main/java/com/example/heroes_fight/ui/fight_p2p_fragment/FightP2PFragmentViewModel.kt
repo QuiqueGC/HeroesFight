@@ -10,8 +10,8 @@ import com.example.heroes_fight.data.domain.model.fighter.ScoreListModel
 import com.example.heroes_fight.data.domain.model.fighter.ScoreModel
 import com.example.heroes_fight.data.domain.repository.tcp_ip.TcpClient
 import com.example.heroes_fight.data.domain.repository.tcp_ip.TcpServer
-import com.example.heroes_fight.data.domain.use_case.retrofit.GetHeroesListUseCase
-import com.example.heroes_fight.data.domain.use_case.retrofit.GetVillainListUseCase
+import com.example.heroes_fight.data.domain.use_case.database.GetHeroesListFromDBUseCase
+import com.example.heroes_fight.data.domain.use_case.database.GetVillainListFromDBUseCase
 import com.example.heroes_fight.data.utils.BoardManager
 import com.example.heroes_fight.ui.fight_fragment.FightFragmentUiState
 import com.example.heroes_fight.ui.fight_fragment.FightFragmentViewModel
@@ -27,10 +27,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FightP2PFragmentViewModel @Inject constructor(
-    getVillainListUseCase: GetVillainListUseCase,
-    getHeroesListUseCase: GetHeroesListUseCase,
+    getVillainListFromDBUseCase: GetVillainListFromDBUseCase,
+    getHeroesListFromDBUseCase: GetHeroesListFromDBUseCase,
     boardManager: BoardManager
-) : FightFragmentViewModel(getVillainListUseCase, getHeroesListUseCase, boardManager) {
+) : FightFragmentViewModel(getVillainListFromDBUseCase, getHeroesListFromDBUseCase, boardManager) {
 
     private val _connectionEstablished = MutableStateFlow(false)
     val connectionEstablished: StateFlow<Boolean> = _connectionEstablished

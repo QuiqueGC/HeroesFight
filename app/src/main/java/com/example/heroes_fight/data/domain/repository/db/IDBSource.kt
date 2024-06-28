@@ -1,5 +1,6 @@
 package com.example.heroes_fight.data.domain.repository.db
 
+import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
@@ -12,6 +13,7 @@ interface IDBSource {
     suspend fun findHeroesByNameFromDB(heroName: String): List<HeroModel>
     suspend fun getAppearanceByIdFromDB(idHero: Int): AppearanceModel
     suspend fun getBiographyByIdFromDB(idHero: Int): BiographyModel
+    suspend fun getFighterByIdFromDB(idHero: Int): FighterModel
     suspend fun insertHeroesAtDB(heroes: List<HeroEntity>)
 
 

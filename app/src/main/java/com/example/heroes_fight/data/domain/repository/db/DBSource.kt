@@ -1,11 +1,13 @@
 package com.example.heroes_fight.data.domain.repository.db
 
+import com.example.heroes_fight.data.domain.model.fighter.FighterModel
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.repository.db.entity.HeroEntity
 import com.example.heroes_fight.data.domain.repository.db.mapper.AppearanceEntityMapper
 import com.example.heroes_fight.data.domain.repository.db.mapper.BiographyEntityMapper
+import com.example.heroes_fight.data.domain.repository.db.mapper.FighterEntityMapper
 import com.example.heroes_fight.data.domain.repository.db.mapper.HeroEntityMapper
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,6 +40,9 @@ class DBSource @Inject constructor(private val heroesDao: HeroesDao) : IDBSource
         )
     }
 
+    override suspend fun getFighterByIdFromDB(idHero: Int): FighterModel {
+        return FighterEntityMapper().fromEntity(heroesDao.getHeroById(idHero).first())
+    }
 
     override suspend fun insertHeroesAtDB(heroes: List<HeroEntity>) {
         heroesDao.insertAllHeroes(heroes)

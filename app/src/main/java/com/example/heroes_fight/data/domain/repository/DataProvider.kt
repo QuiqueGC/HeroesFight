@@ -51,6 +51,10 @@ class DataProvider @Inject constructor(
         return dbSource.findHeroesByNameFromDB(heroName)
     }
 
+    override suspend fun getFighterByIdFromDB(idHero: Int): FighterModel {
+        return dbSource.getFighterByIdFromDB(idHero)
+    }
+
     override suspend fun insertHeroesAtDB(heroes: List<HeroEntity>) {
         dbSource.insertHeroesAtDB(heroes)
     }
