@@ -2,19 +2,13 @@ package com.example.heroes_fight.ui.cards_collection_fragment
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.constants.MyConstants
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
-import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetHeroByIdUseCase
 import com.example.heroes_fight.data.domain.use_case.SearchHeroByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,7 +28,7 @@ class CardsCollectionViewModel @Inject constructor(
     private var limit = 31
     private var collectionComplete = false
 
-    fun getCardsList() {
+    /*fun getCardsList() {
         Log.i("quique", "HA ENTRADO EN GET_CARDS_LIST")
         if (!collectionComplete) {
             val deferreds = ArrayList<Deferred<Unit>>()
@@ -62,9 +56,9 @@ class CardsCollectionViewModel @Inject constructor(
                 _uiState.emit(CardsCollectionUiState.Success(cardsList))
             }
         }
-    }
+    }*/
 
-    fun searchHero(nameHero: String) {
+    /*fun searchHero(nameHero: String) {
         Log.i("quique", "HA ENTRADO EN SEARCH_HERO")
         viewModelScope.launch {
             _uiState.emit(CardsCollectionUiState.Loading)
@@ -77,7 +71,7 @@ class CardsCollectionViewModel @Inject constructor(
                 }
             }
         }
-    }
+    }*/
 
     fun restartList() {
         Log.i("quique", "HA ENTRADO EN RESTART_LIST")
@@ -99,7 +93,7 @@ class CardsCollectionViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getHeroToList() {
+    /*private suspend fun getHeroToList() {
         idHero++
         Log.i("quique", "El id que paso a la llamada es -> $idHero")
         val baseResponse = getHeroByIdUseCase(idHero)
@@ -109,7 +103,7 @@ class CardsCollectionViewModel @Inject constructor(
         } else {
             Log.i("quique", "El baseResponse ha sido ERROR")
         }
-    }
+    }*/
 
     fun getHeroFromList(position: Int): HeroModel = cardsList[position]
 }

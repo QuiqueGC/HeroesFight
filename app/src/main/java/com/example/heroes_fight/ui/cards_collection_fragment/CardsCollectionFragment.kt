@@ -1,11 +1,9 @@
 package com.example.heroes_fight.ui.cards_collection_fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.utils.CardsFiller
 import com.example.heroes_fight.databinding.FragmentCardsCollectionBinding
@@ -39,7 +36,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
         super.onCreate(savedInstanceState)
 
         adapter = CardsCollectionAdapter(requireContext(), this, mutableListOf())
-        viewModel.getCardsList()
+        //viewModel.getCardsList()
     }
 
     override fun onResume() {
@@ -66,12 +63,12 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
 
         setupListeners()
 
-        setupSearchView()
+        //setupSearchView()
 
-        setupSwipeToRefresh()
+        //setupSwipeToRefresh()
     }
 
-    private fun setupSwipeToRefresh() {
+    /*private fun setupSwipeToRefresh() {
         with(binding.swipeToRefresh) {
             setOnRefreshListener {
                 viewModel.restartList()
@@ -79,9 +76,9 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                 isRefreshing = false
             }
         }
-    }
+    }*/
 
-    private fun setupSearchView() {
+    /*private fun setupSearchView() {
         with(binding.searchView) {
 
             setOnClickListener {
@@ -105,7 +102,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                 override fun onQueryTextChange(newText: String?): Boolean = true
             })
         }
-    }
+    }*/
 
     private fun setupListeners() {
         with(binding) {
@@ -190,10 +187,10 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
             recyclerView.layoutManager = listManager
             recyclerView.adapter = adapter
         }
-        setupPagination()
+        //setupPagination()
     }
 
-    private fun setupPagination() {
+    /*private fun setupPagination() {
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val layoutManager: GridLayoutManager? =
@@ -209,7 +206,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                 }
             }
         })
-    }
+    }*/
 
     override fun onClick(position: Int) {
         binding.searchView.visibility = View.GONE

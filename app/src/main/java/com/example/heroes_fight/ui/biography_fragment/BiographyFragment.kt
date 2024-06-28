@@ -40,7 +40,7 @@ class BiographyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getHeroData(args.idHero)
+        //viewModel.getHeroData(args.idHero)
 
         observeViewModel()
     }

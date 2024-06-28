@@ -1,17 +1,11 @@
 package com.example.heroes_fight.ui.appearance_fragment
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.heroes_fight.data.domain.model.error.ErrorModel
-import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.use_case.GetAppearanceByIdUseCase
 import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +17,7 @@ class AppearanceViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<AppearanceUiState>(AppearanceUiState.Loading)
     val uiState: StateFlow<AppearanceUiState> = _uiState
 
-    fun getHeroData(idHero: Int) {
+    /*fun getHeroData(idHero: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.emit(AppearanceUiState.Loading)
             val deferredImg = async { getHeroImgByIdUseCase(idHero) }
@@ -45,5 +39,5 @@ class AppearanceViewModel @Inject constructor(
                 _uiState.emit(AppearanceUiState.Error(ErrorModel()))
             }
         }
-    }
+    }*/
 }
