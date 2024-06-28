@@ -9,7 +9,7 @@
     android:layout_marginHorizontal="@dimen/marginMin"
     android:layout_marginVertical="@dimen/marginCommon"
     app:cardCornerRadius="10dp"
-    app:cardElevation="100dp"
+    app:cardElevation="5dp"
     android:background="@drawable/background_card_small_bad">
 
     <androidx.constraintlayout.widget.ConstraintLayout

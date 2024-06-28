@@ -783,6 +783,7 @@
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearInitiative"
         tools:text="Manolo's hjhjhjh jhjhjh jhjhjh jh jh jh jhuhjhj turn" />
@@ -796,6 +797,7 @@
         android:paddingStart="@dimen/marginCommon"
         android:textColor="@color/txtInfoBoxesColor"
         android:visibility="invisible"
+        android:elevation="5dp"
         app:layout_constraintEnd_toStartOf="@id/btnPass"
         app:layout_constraintStart_toStartOf="@id/tvTurn"
         app:layout_constraintTop_toBottomOf="@id/tvTurn"
