@@ -197,13 +197,13 @@ open class FightFragmentViewModel @Inject constructor(
             val scores = mutableListOf<ScoreModel>()
             villains.forEach { scores.add(it.score) }
             viewModelScope.launch {
-                _finishBattle.emit(ScoreListModel(false, scores))
+                _finishBattle.emit(ScoreListModel(true, scores))
             }
         } else if (villains.none { it.score.survived }) {
             val scores = mutableListOf<ScoreModel>()
             heroes.forEach { scores.add(it.score) }
             viewModelScope.launch {
-                _finishBattle.emit(ScoreListModel(true, scores))
+                _finishBattle.emit(ScoreListModel(false, scores))
             }
         } else {
             allFighters.remove(enemyToAttack)
