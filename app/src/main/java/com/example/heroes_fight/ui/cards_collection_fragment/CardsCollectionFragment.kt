@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,14 +29,13 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
     private lateinit var adapter: CardsCollectionAdapter
 
     private var selectedHero = HeroModel()
-    private var isFullCollection = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         adapter = CardsCollectionAdapter(requireContext(), this, mutableListOf())
-        //viewModel.getCardsList()
+        viewModel.getCardsList()
     }
 
     override fun onResume() {
@@ -63,22 +62,21 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
 
         setupListeners()
 
-        //setupSearchView()
+        setupSearchView()
 
-        //setupSwipeToRefresh()
+        setupSwipeToRefresh()
     }
 
-    /*private fun setupSwipeToRefresh() {
+    private fun setupSwipeToRefresh() {
         with(binding.swipeToRefresh) {
             setOnRefreshListener {
-                viewModel.restartList()
                 viewModel.getCardsList()
                 isRefreshing = false
             }
         }
-    }*/
+    }
 
-    /*private fun setupSearchView() {
+    private fun setupSearchView() {
         with(binding.searchView) {
 
             setOnClickListener {
@@ -92,8 +90,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (query != null) {
-                        isFullCollection = false
-                        viewModel.searchHero(query)
+                        viewModel.findHero(query)
                         clearFocus()
                     }
                     return true
@@ -102,7 +99,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                 override fun onQueryTextChange(newText: String?): Boolean = true
             })
         }
-    }*/
+    }
 
     private fun setupListeners() {
         with(binding) {
@@ -165,14 +162,6 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                     is CardsCollectionUiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                     }
-
-                    is CardsCollectionUiState.Error -> {
-                        Toast.makeText(
-                            requireContext(),
-                            cardsCollectionUiState.errorModel.message,
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
                 }
             }
         }
@@ -187,26 +176,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
             recyclerView.layoutManager = listManager
             recyclerView.adapter = adapter
         }
-        //setupPagination()
     }
-
-    /*private fun setupPagination() {
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val layoutManager: GridLayoutManager? =
-                    recyclerView.layoutManager as GridLayoutManager?
-                if (layoutManager?.findLastCompletelyVisibleItemPosition() == recyclerView.adapter?.itemCount?.minus(
-                        1
-                    )
-                ) {
-                    if (isFullCollection) {
-                        viewModel.getCardsList()
-                        Log.i("quique", "Ha entrado en el if de la paginación")
-                    }
-                }
-            }
-        })
-    }*/
 
     override fun onClick(position: Int) {
         binding.searchView.visibility = View.GONE
@@ -217,9 +187,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
             }
             selectedHero = viewModel.getHeroFromList(position)
             setInfoInBigCardAndShow()
-
         }
-
     }
 
     private fun setInfoInBigCardAndShow() {
@@ -234,6 +202,13 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
 
         } else if (selectedHero.alignment == "bad") {
 
+            CardsFiller.fillDataIntoBadCard(
+                binding.cardIncludedBad,
+                selectedHero,
+                requireContext()
+            )
+            binding.cardIncludedBad.card.visibility = View.VISIBLE
+        } else {
             CardsFiller.fillDataIntoBadCard(
                 binding.cardIncludedBad,
                 selectedHero,

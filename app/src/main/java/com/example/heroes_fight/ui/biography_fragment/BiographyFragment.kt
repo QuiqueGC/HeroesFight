@@ -1,10 +1,10 @@
 package com.example.heroes_fight.ui.biography_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,9 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
-import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.model.hero.BiographyModel
-import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.databinding.FragmentBiographyDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,7 +20,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BiographyFragment : Fragment() {
-
 
     private val viewModel: BiographyViewModel by viewModels()
 
@@ -40,7 +37,7 @@ class BiographyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //viewModel.getHeroData(args.idHero)
+        viewModel.getHeroData(args.idHero)
 
         observeViewModel()
     }
@@ -50,23 +47,14 @@ class BiographyFragment : Fragment() {
             viewModel.uiState.collect { cardDetailUiState ->
                 when (cardDetailUiState) {
                     is BiographyUiState.Loading -> setLoading()
-                    is BiographyUiState.Success -> showData(
-                        cardDetailUiState.biographyModel,
-                        cardDetailUiState.imgModel
-                    )
-
-                    is BiographyUiState.Error -> showError(cardDetailUiState.errorModel)
+                    is BiographyUiState.Success -> showData(cardDetailUiState.biographyModel)
                 }
             }
         }
     }
 
-    private fun showError(error: ErrorModel) {
-        binding.progressBar.visibility = View.GONE
-        Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
-    }
 
-    private fun showData(biographyModel: BiographyModel, imgModel: ImgModel) {
+    private fun showData(biographyModel: BiographyModel) {
         with(binding) {
             progressBar.visibility = View.GONE
             tvNameHeroContent.text = biographyModel.name
@@ -77,8 +65,9 @@ class BiographyFragment : Fragment() {
             tvPlaceOfBirthHeroContent.text = biographyModel.placeOfBirth
             tvAliasesHeroContent.text = biographyModel.aliases
 
+            Log.i("img", "Url de la imagen -> ${biographyModel.image}")
             Glide.with(requireContext())
-                .load(imgModel.url)
+                .load(biographyModel.image)
                 .apply(RequestOptions().centerCrop())
                 .error(R.drawable.question_mark)
                 .into(imgHero)

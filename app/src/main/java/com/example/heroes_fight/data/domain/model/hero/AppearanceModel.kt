@@ -3,7 +3,6 @@ package com.example.heroes_fight.data.domain.model.hero
 import com.example.heroes_fight.data.domain.model.BaseModel
 
 data class AppearanceModel(
-    val id: String = "",
     val name: String = "",
     val gender: String = "",
     val race: String = "",
@@ -12,5 +11,6 @@ data class AppearanceModel(
     val weightKg: String = "",
     val weightLb: String = "",
     val eyeColor: String = "",
-    val hairColor: String = ""
+    val hairColor: String = "",
+    val image: String = "",
 ) : BaseModel()

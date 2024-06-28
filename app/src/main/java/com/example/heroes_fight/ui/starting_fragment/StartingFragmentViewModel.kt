@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.heroes_fight.data.constants.MyConstants
 import com.example.heroes_fight.data.domain.repository.db.entity.HeroEntity
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
+import com.example.heroes_fight.data.domain.use_case.database.GetHeroesFromDBUseCase
 import com.example.heroes_fight.data.domain.use_case.database.InsertHeroesAtDBUseCase
 import com.example.heroes_fight.data.domain.use_case.retrofit.GetHeroByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StartingFragmentViewModel @Inject constructor(
     private val getHeroByIdUseCase: GetHeroByIdUseCase,
+    private val getHeroesFromDBUseCase: GetHeroesFromDBUseCase,
     private val insertHeroesAtDBUseCase: InsertHeroesAtDBUseCase
 ) : ViewModel() {
 
@@ -31,30 +33,39 @@ class StartingFragmentViewModel @Inject constructor(
     private var idHero = 0
     private var offset = 1
     private var limit = MyConstants.MAX_HEROES_IN_API
-    private var collectionComplete = false
 
     fun getCardsList() {
         Log.i("quique", "HA ENTRADO EN GET_CARDS_LIST")
-        if (!collectionComplete) {
-            val deferreds = ArrayList<Deferred<Unit>>()
+
             viewModelScope.launch {
-                Log.i("quique", "Empieza el bucle")
-                do {
 
-                    val deferred = async { addHeroToList() }
-                    deferreds.add(deferred)
+                val heroes = getHeroesFromDBUseCase()
+                if (heroes.isEmpty()) {
+                    getHeroesFromApi()
+                    val deferreds = ArrayList<Deferred<Unit>>()
+                    Log.i("quique", "Empieza el bucle")
+                    do {
 
-                    offset++
-                } while (offset <= limit)
+                        val deferred = async { addHeroToList() }
+                        deferreds.add(deferred)
 
-                deferreds.awaitAll()
-                cardsList.sortBy { it.id }
+                        offset++
+                    } while (offset <= limit)
 
-                insertHeroesAtDBUseCase(cardsList)
+                    deferreds.awaitAll()
+                    cardsList.sortBy { it.id }
 
-                _finnishLoading.emit(true)
+                    insertHeroesAtDBUseCase(cardsList)
+
+                    _finnishLoading.emit(true)
+                } else {
+                    _finnishLoading.emit(true)
+                }
             }
-        }
+    }
+
+    private fun getHeroesFromApi() {
+
     }
 
     private suspend fun addHeroToList() {

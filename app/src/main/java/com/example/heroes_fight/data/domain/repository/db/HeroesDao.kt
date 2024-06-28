@@ -11,8 +11,11 @@ interface HeroesDao {
     @Query("SELECT * FROM hero_table")
     suspend fun getAllHeroes(): List<HeroEntity>
 
-    @Query("SELECT * FROM hero_table where name like :heroName")
-    suspend fun findByName(heroName: String): List<HeroEntity>
+    @Query("SELECT * FROM hero_table where id = :idHero")
+    suspend fun getHeroById(idHero: Int): List<HeroEntity>
+
+    @Query("SELECT * FROM hero_table where name like '%' || :heroName || '%'")
+    suspend fun findHeroByName(heroName: String): List<HeroEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllHeroes(heroes: List<HeroEntity>)

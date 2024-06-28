@@ -1,6 +1,8 @@
 package com.example.heroes_fight.data.domain.repository
 
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
+import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
+import com.example.heroes_fight.data.domain.model.hero.BiographyModel
 import com.example.heroes_fight.data.domain.model.hero.HeroModel
 import com.example.heroes_fight.data.domain.repository.db.DBSource
 import com.example.heroes_fight.data.domain.repository.db.IDBSource
@@ -42,14 +44,22 @@ class DataProvider @Inject constructor(
     }
 
     override suspend fun getHeroesFromDB(): List<HeroModel> {
-        TODO("Not yet implemented")
+        return dbSource.getHeroesFromDB()
     }
 
-    override suspend fun getHeroesByNameFromDB(heroName: String): List<HeroModel> {
-        TODO("Not yet implemented")
+    override suspend fun findHeroesByNameFromDB(heroName: String): List<HeroModel> {
+        return dbSource.findHeroesByNameFromDB(heroName)
     }
 
     override suspend fun insertHeroesAtDB(heroes: List<HeroEntity>) {
         dbSource.insertHeroesAtDB(heroes)
+    }
+
+    override suspend fun getAppearanceByIdFromDB(idHero: Int): AppearanceModel {
+        return dbSource.getAppearanceByIdFromDB(idHero)
+    }
+
+    override suspend fun getBiographyByIdFromDB(idHero: Int): BiographyModel {
+        return dbSource.getBiographyByIdFromDB(idHero)
     }
 }
