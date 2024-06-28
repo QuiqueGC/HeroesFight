@@ -8,5 +8,6 @@ object MyConstants {
     const val BOARD_MAX_COLUMNS = 9
     const val MAX_ROCKS = 15
     const val MAX_HEROES_IN_API = 731
+    const val HERO_DB_NAME = "heroes_database"
 
 }
