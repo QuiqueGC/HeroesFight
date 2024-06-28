@@ -4,11 +4,9 @@ import com.example.heroes_fight.data.domain.repository.remote.response.BaseApiCa
 import com.example.heroes_fight.data.domain.repository.remote.response.BaseResponse
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.AppearanceResponse
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.BiographyResponse
-import com.example.heroes_fight.data.domain.repository.remote.response.hero.ConnectionsResponse
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.HeroResponse
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.HeroesListResponse
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.ImgResponse
-import com.example.heroes_fight.data.domain.repository.remote.response.hero.StatsResponse
 import javax.inject.Inject
 
 class ApiCallService @Inject constructor(private val remoteApiService: RemoteApiService) :
@@ -22,9 +20,6 @@ class ApiCallService @Inject constructor(private val remoteApiService: RemoteApi
         return apiCall { remoteApiService.getHeroById(idHero) }
     }
 
-    suspend fun getHeroStatsById(idHero: Int): BaseResponse<StatsResponse> {
-        return apiCall { remoteApiService.getHeroStatsById(idHero) }
-    }
 
     suspend fun getHeroBiographyById(idHero: Int): BaseResponse<BiographyResponse> {
         return apiCall { remoteApiService.getHeroBiographyById(idHero) }
@@ -32,10 +27,6 @@ class ApiCallService @Inject constructor(private val remoteApiService: RemoteApi
 
     suspend fun getHeroAppearanceById(idHero: Int): BaseResponse<AppearanceResponse> {
         return apiCall { remoteApiService.getHeroAppearanceById(idHero) }
-    }
-
-    suspend fun getHeroConnectionsById(idHero: Int): BaseResponse<ConnectionsResponse> {
-        return apiCall { remoteApiService.getHeroConnectionsById(idHero) }
     }
 
     suspend fun getHeroImgById(idHero: Int): BaseResponse<ImgResponse> {

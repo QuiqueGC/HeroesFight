@@ -172,7 +172,7 @@ class CardsCollectionFragment : Fragment(), CardsCollectionAdapter.CardListener 
                     is CardsCollectionUiState.Error -> {
                         Toast.makeText(
                             requireContext(),
-                            "ERROR ERROR ERROR ERROR",
+                            cardsCollectionUiState.errorModel.message,
                             Toast.LENGTH_LONG
                         ).show()
                     }

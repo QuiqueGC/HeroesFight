@@ -27,9 +27,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FightP2PFragmentViewModel @Inject constructor(
-    private val getVillainListUseCase: GetVillainListUseCase,
-    private val getHeroesListUseCase: GetHeroesListUseCase,
-    private val boardManager: BoardManager
+    getVillainListUseCase: GetVillainListUseCase,
+    getHeroesListUseCase: GetHeroesListUseCase,
+    boardManager: BoardManager
 ) : FightFragmentViewModel(getVillainListUseCase, getHeroesListUseCase, boardManager) {
 
     private val _connectionEstablished = MutableStateFlow(false)
@@ -145,14 +145,14 @@ class FightP2PFragmentViewModel @Inject constructor(
     }
 
 
-    fun clientAwaitForActions() {
+    private fun clientAwaitForActions() {
         Log.i("skts", "cliente esperando por acciones")
         viewModelScope.launch {
             client.awaitForEnemyActions(_actionFromOtherDevice, heroes, villains, attackedEnemy)
         }
     }
 
-    fun serverAwaitForActions() {
+    private fun serverAwaitForActions() {
         Log.i("skts", "servidor esperando por acciones")
         viewModelScope.launch {
             server.awaitForEnemyActions(_actionFromOtherDevice, villains, heroes, attackedEnemy)

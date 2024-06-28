@@ -24,8 +24,8 @@ object Bresenham {
 
         if (shooterPosition.y != enemyPosition.y && shooterPosition.x != enemyPosition.x) {
             while (true) {
-                Log.i("quique", "x del cuadrado a pintar -> ${shooterX1Var}")
-                Log.i("quique", "y del cuadrado a pintar -> ${shooterY1Var}")
+                Log.i("quique", "x del cuadrado a pintar -> $shooterX1Var")
+                Log.i("quique", "y del cuadrado a pintar -> $shooterY1Var")
                 positions.add(Position(shooterY1Var, shooterX1Var))
                 if (shooterX1Var == enemyPosition.x && shooterY1Var == enemyPosition.y) break
                 val e2 = 2 * err

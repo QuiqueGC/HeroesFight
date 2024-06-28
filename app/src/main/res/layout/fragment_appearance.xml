@@ -10,6 +10,7 @@
         android:id="@+id/imgHero"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:importantForAccessibility="no"
         android:scaleType="centerCrop" />
 
 
@@ -21,7 +22,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="@dimen/marginCommon"
             android:paddingBottom="@dimen/marginLarge"
-            android:background="@drawable/background_bio_and_appearance_card">
+            android:background="@drawable/background_bio_and_appearance_card"
+            tools:ignore="VisualLintBounds">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/glVertical"
@@ -36,11 +38,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginCommon"
-                android:text="Appearance"
+                android:text="@string/appearance"
                 android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="VisualLintOverlap" />
 
             <TextView
                 android:id="@+id/tvNameHero"
@@ -49,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginCommon"
                 android:layout_marginTop="@dimen/marginCommon"
-                android:text="Name"
+                android:text="@string/name"
                 app:layout_constraintEnd_toStartOf="@id/glVertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvAppearance" />
@@ -72,7 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginCommon"
-                android:text="Gender"
+                android:text="@string/gender"
                 app:layout_constraintEnd_toEndOf="@id/tvNameHero"
                 app:layout_constraintStart_toStartOf="@id/tvNameHero"
                 app:layout_constraintTop_toBottomOf="@id/tvNameHero" />
@@ -95,7 +98,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginCommon"
-                android:text="Race"
+                android:text="@string/race"
                 app:layout_constraintEnd_toEndOf="@id/tvNameHero"
                 app:layout_constraintStart_toStartOf="@id/tvNameHero"
                 app:layout_constraintTop_toBottomOf="@id/tvGenderHeroContent" />
@@ -119,7 +122,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginCommon"
-                android:text="Height"
+                android:text="@string/height"
                 app:layout_constraintEnd_toEndOf="@id/tvNameHero"
                 app:layout_constraintStart_toStartOf="@id/tvNameHero"
                 app:layout_constraintTop_toBottomOf="@id/tvRaceHeroContent" />
@@ -143,10 +146,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginCommon"
-                android:text="Weight"
+                android:text="@string/weight"
                 app:layout_constraintEnd_toEndOf="@id/tvNameHero"
                 app:layout_constraintStart_toStartOf="@id/tvNameHero"
-                app:layout_constraintTop_toBottomOf="@id/tvHeightHeroContent" />
+                app:layout_constraintTop_toBottomOf="@id/tvHeightHeroContent"
+                tools:ignore="VisualLintBounds" />
 
             <TextView
                 android:id="@+id/tvWeightHeroContent"
@@ -158,7 +162,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/glVertical"
                 app:layout_constraintTop_toTopOf="@id/tvWeightHero"
-                tools:text="El nombre de este señor" />
+                tools:text="El nombre de este señor"
+                tools:ignore="VisualLintBounds" />
 
             <TextView
                 android:id="@+id/tvEyeColorHero"
@@ -166,10 +171,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginCommon"
-                android:text="Eye color"
+                android:text="@string/eye_color"
                 app:layout_constraintEnd_toEndOf="@id/tvNameHero"
                 app:layout_constraintStart_toStartOf="@id/tvNameHero"
-                app:layout_constraintTop_toBottomOf="@id/tvWeightHeroContent" />
+                app:layout_constraintTop_toBottomOf="@id/tvWeightHeroContent"
+                tools:ignore="VisualLintBounds" />
 
             <TextView
                 android:id="@+id/tvEyeColorHeroContent"
@@ -181,7 +187,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/glVertical"
                 app:layout_constraintTop_toTopOf="@id/tvEyeColorHero"
-                tools:text="El color de ojos" />
+                tools:text="El color de ojos"
+                tools:ignore="VisualLintBounds" />
 
             <TextView
                 android:id="@+id/tvHairColorHero"
@@ -189,10 +196,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginCommon"
-                android:text="Hair color"
+                android:text="@string/hair_color"
                 app:layout_constraintEnd_toEndOf="@id/tvNameHero"
                 app:layout_constraintStart_toStartOf="@id/tvNameHero"
-                app:layout_constraintTop_toBottomOf="@id/tvEyeColorHeroContent" />
+                app:layout_constraintTop_toBottomOf="@id/tvEyeColorHeroContent"
+                tools:ignore="VisualLintBounds" />
 
             <TextView
                 android:id="@+id/tvHairColorHeroContent"
@@ -204,7 +212,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/glVertical"
                 app:layout_constraintTop_toTopOf="@id/tvHairColorHero"
-                tools:text="El color de pelo" />
+                tools:text="El color de pelo"
+                tools:ignore="VisualLintBounds" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

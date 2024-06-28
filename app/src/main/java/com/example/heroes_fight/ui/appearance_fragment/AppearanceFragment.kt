@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.heroes_fight.R
+import com.example.heroes_fight.data.domain.model.error.ErrorModel
 import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
 import com.example.heroes_fight.data.domain.model.hero.ImgModel
 import com.example.heroes_fight.databinding.FragmentAppearanceBinding
@@ -51,15 +52,15 @@ class AppearanceFragment : Fragment() {
                         uiState.imgModel
                     )
 
-                    is AppearanceUiState.Error -> showError()
+                    is AppearanceUiState.Error -> showError(uiState.errorModel)
                 }
             }
         }
     }
 
-    private fun showError() {
+    private fun showError(error: ErrorModel) {
         binding.progressBar.visibility = View.GONE
-        Toast.makeText(requireContext(), "ERROR ERROR ERROR ERROR", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
     }
 
     private fun setLoading() {

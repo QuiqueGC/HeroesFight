@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:background="@drawable/background_info_boxes"
-        android:text="Choose Mode"
+        android:text="@string/choose_mode"
         android:paddingVertical="@dimen/marginCommon"
         android:textSize="80sp"
         android:textColor="@color/txtInfoBoxesColor"
@@ -27,22 +27,23 @@
         android:id="@+id/btnSameDevice"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:text="2P same device"
-        android:textColor="@color/txtInfoBoxesColor"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:textSize="28sp"
         android:layout_marginBottom="@dimen/marginMax"
         android:elevation="5dp"
-        app:layout_constraintTop_toBottomOf="@id/tvChooseMode"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:text="@string/_2p_same_device"
+        android:textColor="@color/txtInfoBoxesColor"
+        android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@id/btnTcpIp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvChooseMode"
+        tools:ignore="TextSizeCheck" />
 
     <Button
         android:id="@+id/btnTcpIp"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:text="2P TCP/IP"
+        android:text="@string/_2p_tcp_ip"
         android:textColor="@color/txtInfoBoxesColor"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:textSize="28sp"
@@ -56,15 +57,16 @@
         android:id="@+id/btnWifiDirect"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:text="2P Wifi direct"
-        android:textColor="@color/txtInfoBoxesColor"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:textSize="28sp"
         android:layout_marginBottom="@dimen/marginMax"
-        app:layout_constraintTop_toBottomOf="@id/btnTcpIp"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:text="@string/_2p_wifi_direct"
+        android:textColor="@color/txtInfoBoxesColor"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btnTcpIp"
+        tools:ignore="TextSizeCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

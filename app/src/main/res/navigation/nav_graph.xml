@@ -6,21 +6,6 @@
     app:startDestination="@id/newMainMenuFragment">
 
     <fragment
-        android:id="@+id/mainMenuFragment"
-        android:name="com.example.heroes_fight.ui.random_card_fragment.RandomCardFragment"
-        android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_random_card">
-        <action
-            android:id="@+id/action_mainMenuFragment_to_cardDetailFragment"
-            app:destination="@id/cardDetailFragment" />
-        <action
-            android:id="@+id/action_mainMenuFragment_to_appearanceFragment"
-            app:destination="@id/appearanceFragment" />
-        <action
-            android:id="@+id/action_mainMenuFragment_to_cardsCollectionFragment"
-            app:destination="@id/cardsCollectionFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/cardDetailFragment"
         android:name="com.example.heroes_fight.ui.biography_fragment.BiographyFragment"
         android:label="fragment_card_detail"
@@ -55,9 +40,6 @@
         android:name="com.example.heroes_fight.ui.main_menu_fragment.MainMenuFragment"
         android:label="fragment_new_main_menu"
         tools:layout="@layout/fragment_main_menu">
-        <action
-            android:id="@+id/action_newMainMenuFragment_to_mainMenuFragment"
-            app:destination="@id/mainMenuFragment" />
         <action
             android:id="@+id/action_newMainMenuFragment_to_cardsCollectionFragment"
             app:destination="@id/cardsCollectionFragment" />

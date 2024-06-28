@@ -12,30 +12,37 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/imgInitiativeSize"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="VisualLintBounds">
 
         <com.google.android.material.imageview.ShapeableImageView
             style="@style/fighterInInitiativeList"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
             style="@style/fighterInInitiativeList"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
             style="@style/fighterInInitiativeList"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
             style="@style/fighterInInitiativeList"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
             style="@style/fighterInInitiativeList"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView
             style="@style/fighterInInitiativeList"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:src="@drawable/fight" />
 
         <com.google.android.material.imageview.ShapeableImageView

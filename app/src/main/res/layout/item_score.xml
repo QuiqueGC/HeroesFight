@@ -23,6 +23,7 @@
         android:layout_width="120dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/marginCommon"
+        android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSerialNum"
@@ -45,7 +46,7 @@
         style="@style/txtItemScoreBold"
         android:layout_marginStart="@dimen/marginLarge"
         android:layout_marginTop="@dimen/marginLarge"
-        android:text="Kills"
+        android:text="@string/kills"
         app:layout_constraintStart_toEndOf="@id/imgFighter"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +61,7 @@
     <TextView
         android:id="@+id/tvMeleeAttacks"
         style="@style/txtItemScore"
-        android:text="Melee Atks"
+        android:text="@string/melee_atks"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvKills" />
 
@@ -74,7 +75,7 @@
     <TextView
         android:id="@+id/tvMeleeDamage"
         style="@style/txtItemScore"
-        android:text="Melee Dmg"
+        android:text="@string/melee_dmg"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvMeleeAttacks" />
 
@@ -88,7 +89,7 @@
     <TextView
         android:id="@+id/tvRangeAttacks"
         style="@style/txtItemScore"
-        android:text="Range Atks"
+        android:text="@string/range_atks"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvMeleeDamage" />
 
@@ -102,7 +103,7 @@
     <TextView
         android:id="@+id/tvRangeDamage"
         style="@style/txtItemScore"
-        android:text="Range Dmg"
+        android:text="@string/range_dmg"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvRangeAttacks" />
 
@@ -116,7 +117,7 @@
     <TextView
         android:id="@+id/tvSurvived"
         style="@style/txtItemScoreBold"
-        android:text="Survived"
+        android:text="@string/survived"
         android:layout_marginTop="@dimen/marginCommon"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvRangeDamage" />
@@ -131,7 +132,7 @@
     <TextView
         android:id="@+id/tvDefendedAttacks"
         style="@style/txtItemScore"
-        android:text="Def Atks"
+        android:text="@string/def_atks"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvSurvived" />
 
@@ -145,7 +146,7 @@
     <TextView
         android:id="@+id/tvMeleeDamageReceived"
         style="@style/txtItemScore"
-        android:text="Melee Dmg Rec"
+        android:text="@string/melee_dmg_rec"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvDefendedAttacks" />
 
@@ -159,7 +160,7 @@
     <TextView
         android:id="@+id/tvDodgedAttacks"
         style="@style/txtItemScore"
-        android:text="Dodged atks"
+        android:text="@string/dodged_atks"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvMeleeDamageReceived" />
 
@@ -173,7 +174,7 @@
     <TextView
         android:id="@+id/tvRangeDamageReceived"
         style="@style/txtItemScore"
-        android:text="Range dmg Rec"
+        android:text="@string/range_dmg_rec"
         android:layout_marginBottom="@dimen/marginCommon"
         app:layout_constraintStart_toStartOf="@id/tvKills"
         app:layout_constraintTop_toBottomOf="@id/tvDodgedAttacks"

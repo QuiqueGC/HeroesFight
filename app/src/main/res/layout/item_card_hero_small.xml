@@ -6,222 +6,224 @@
     android:id="@+id/card"
     android:layout_width="@dimen/smallCardWidth"
     android:layout_height="@dimen/smallCardHeight"
+    android:layout_marginHorizontal="@dimen/marginMin"
+    android:layout_marginVertical="@dimen/marginCommon"
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp"
-    android:layout_marginHorizontal="@dimen/marginMin"
-    android:layout_marginVertical="@dimen/marginCommon">
+    tools:ignore="TextSizeCheck">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_card_small">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glCenterVertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glCenterVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/tvId"
-        style="@style/txtBoldBlackSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="#001" />
+        <TextView
+            android:id="@+id/tvId"
+            style="@style/txtBoldBlackSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="#001" />
 
-    <ImageView
-        android:id="@+id/imgHero"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvId"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/fight" />
+        <ImageView
+            android:id="@+id/imgHero"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="1dp"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvId"
+            tools:src="@drawable/fight" />
 
-    <TextView
-        android:id="@+id/tvName"
-        style="@style/txtBoldBlackSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintEnd_toEndOf="@id/imgHero"
-        app:layout_constraintStart_toStartOf="@id/imgHero"
-        app:layout_constraintTop_toBottomOf="@id/imgHero"
-        tools:text="MANOLO MANOLERO" />
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/txtBoldBlackSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintEnd_toEndOf="@id/imgHero"
+            app:layout_constraintStart_toStartOf="@id/imgHero"
+            app:layout_constraintTop_toBottomOf="@id/imgHero"
+            tools:text="MANOLO MANOLERO" />
 
-    <View
-        android:id="@+id/vCardStats"
-        android:layout_width="68dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/background_stats"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvName" />
+        <View
+            android:id="@+id/vCardStats"
+            android:layout_width="68dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/background_stats"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName" />
 
-    <TextView
-        android:id="@+id/tvStats"
-        style="@style/txtBoldBlackSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="STATS"
-        app:layout_constraintEnd_toEndOf="@id/vCardStats"
-        app:layout_constraintStart_toStartOf="@id/vCardStats"
-        app:layout_constraintTop_toTopOf="@id/vCardStats" />
+        <TextView
+            android:id="@+id/tvStats"
+            style="@style/txtBoldBlackSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/stats"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toTopOf="@id/vCardStats" />
 
-    <TextView
-        android:id="@+id/tvIntelligence"
-        style="@style/txtStatsSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4sp"
-        android:layout_marginTop="2sp"
-        android:text="Int:"
-        app:layout_constraintStart_toStartOf="@id/vCardStats"
-        app:layout_constraintTop_toBottomOf="@id/tvStats" />
+        <TextView
+            android:id="@+id/tvIntelligence"
+            style="@style/txtStatsSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4sp"
+            android:layout_marginTop="2sp"
+            android:text="@string/intelligence"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toBottomOf="@id/tvStats" />
 
-    <TextView
-        android:id="@+id/tvIntelligenceContent"
-        style="@style/txtStatsSmall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4sp"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@id/tvIntelligence"
-        app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
-        app:layout_constraintStart_toEndOf="@id/tvIntelligence"
-        app:layout_constraintTop_toTopOf="@id/tvIntelligence"
-        tools:text="045" />
+        <TextView
+            android:id="@+id/tvIntelligenceContent"
+            style="@style/txtStatsSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4sp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@id/tvIntelligence"
+            app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
+            app:layout_constraintStart_toEndOf="@id/tvIntelligence"
+            app:layout_constraintTop_toTopOf="@id/tvIntelligence"
+            tools:text="045" />
 
 
-    <TextView
-        android:id="@+id/tvSpeed"
-        style="@style/txtStatsSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:text="Spd:"
-        app:layout_constraintStart_toStartOf="@id/vCardStats"
-        app:layout_constraintTop_toBottomOf="@id/tvIntelligence" />
+        <TextView
+            android:id="@+id/tvSpeed"
+            style="@style/txtStatsSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/spd"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toBottomOf="@id/tvIntelligence" />
 
-    <TextView
-        android:id="@+id/tvSpeedContent"
-        style="@style/txtStatsSmall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@id/tvSpeed"
-        app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
-        app:layout_constraintStart_toEndOf="@id/tvSpeed"
-        app:layout_constraintTop_toTopOf="@id/tvSpeed"
-        tools:text="085" />
+        <TextView
+            android:id="@+id/tvSpeedContent"
+            style="@style/txtStatsSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@id/tvSpeed"
+            app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
+            app:layout_constraintStart_toEndOf="@id/tvSpeed"
+            app:layout_constraintTop_toTopOf="@id/tvSpeed"
+            tools:text="085" />
 
-    <TextView
-        android:id="@+id/tvDurability"
-        style="@style/txtStatsSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:text="Dur:"
-        app:layout_constraintStart_toStartOf="@id/vCardStats"
-        app:layout_constraintTop_toBottomOf="@id/tvSpeed" />
+        <TextView
+            android:id="@+id/tvDurability"
+            style="@style/txtStatsSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/dur"
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toBottomOf="@id/tvSpeed" />
 
-    <TextView
-        android:id="@+id/tvDurabilityContent"
-        style="@style/txtStatsSmall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@id/tvDurability"
-        app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
-        app:layout_constraintStart_toEndOf="@id/tvDurability"
-        app:layout_constraintTop_toTopOf="@id/tvDurability"
-        tools:text="025" />
+        <TextView
+            android:id="@+id/tvDurabilityContent"
+            style="@style/txtStatsSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@id/tvDurability"
+            app:layout_constraintEnd_toEndOf="@id/glCenterVertical"
+            app:layout_constraintStart_toEndOf="@id/tvDurability"
+            app:layout_constraintTop_toTopOf="@id/tvDurability"
+            tools:text="025" />
 
-    <TextView
-        android:id="@+id/tvStrength"
-        style="@style/txtStatsSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="2dp"
-        android:text="Str:"
-        app:layout_constraintStart_toStartOf="@id/glCenterVertical"
-        app:layout_constraintTop_toBottomOf="@id/tvStats" />
+        <TextView
+            android:id="@+id/tvStrength"
+            style="@style/txtStatsSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/str"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
+            app:layout_constraintTop_toBottomOf="@id/tvStats" />
 
-    <TextView
-        android:id="@+id/tvStrengthContent"
-        style="@style/txtStatsSmall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@id/tvStrength"
-        app:layout_constraintEnd_toEndOf="@id/vCardStats"
-        app:layout_constraintStart_toEndOf="@id/tvStrength"
-        app:layout_constraintTop_toTopOf="@id/tvStrength"
-        tools:text="037" />
+        <TextView
+            android:id="@+id/tvStrengthContent"
+            style="@style/txtStatsSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@id/tvStrength"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintStart_toEndOf="@id/tvStrength"
+            app:layout_constraintTop_toTopOf="@id/tvStrength"
+            tools:text="037" />
 
-    <TextView
-        android:id="@+id/tvPower"
-        style="@style/txtStatsSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:text="Pow:"
-        app:layout_constraintStart_toStartOf="@id/glCenterVertical"
-        app:layout_constraintTop_toBottomOf="@id/tvStrength" />
+        <TextView
+            android:id="@+id/tvPower"
+            style="@style/txtStatsSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/pow"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
+            app:layout_constraintTop_toBottomOf="@id/tvStrength" />
 
-    <TextView
-        android:id="@+id/tvPowerContent"
-        style="@style/txtStatsSmall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@id/tvPower"
-        app:layout_constraintEnd_toEndOf="@id/vCardStats"
-        app:layout_constraintStart_toEndOf="@id/tvPower"
-        app:layout_constraintTop_toTopOf="@id/tvPower"
-        tools:text="150" />
+        <TextView
+            android:id="@+id/tvPowerContent"
+            style="@style/txtStatsSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@id/tvPower"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintStart_toEndOf="@id/tvPower"
+            app:layout_constraintTop_toTopOf="@id/tvPower"
+            tools:text="150" />
 
-    <TextView
-        android:id="@+id/tvCombat"
-        style="@style/txtStatsSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:text="Com:"
-        app:layout_constraintStart_toStartOf="@id/glCenterVertical"
-        app:layout_constraintTop_toBottomOf="@id/tvPower" />
+        <TextView
+            android:id="@+id/tvCombat"
+            style="@style/txtStatsSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/com"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
+            app:layout_constraintTop_toBottomOf="@id/tvPower" />
 
-    <TextView
-        android:id="@+id/tvCombatContent"
-        style="@style/txtStatsSmall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@id/tvCombat"
-        app:layout_constraintEnd_toEndOf="@id/vCardStats"
-        app:layout_constraintStart_toEndOf="@id/tvCombat"
-        app:layout_constraintTop_toTopOf="@id/tvCombat"
-        tools:text="086" />
+        <TextView
+            android:id="@+id/tvCombatContent"
+            style="@style/txtStatsSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@id/tvCombat"
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintStart_toEndOf="@id/tvCombat"
+            app:layout_constraintTop_toTopOf="@id/tvCombat"
+            tools:text="086" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -43,10 +43,10 @@ class CardsCollectionViewModel @Inject constructor(
                 Log.i("quique", "Empieza el bucle")
 
                 do {
-                    Log.i("quique", "vuelta nº ${offset}")
+                    Log.i("quique", "vuelta nº $offset")
                     val deferred = async { getHeroToList() }
                     deferreds.add(deferred)
-                    Log.i("quique", "${offset}")
+                    Log.i("quique", "$offset")
                     offset++
                 } while (offset <= limit)
 
@@ -101,7 +101,7 @@ class CardsCollectionViewModel @Inject constructor(
 
     private suspend fun getHeroToList() {
         idHero++
-        Log.i("quique", "El id que paso a la llamada es -> ${idHero}")
+        Log.i("quique", "El id que paso a la llamada es -> $idHero")
         val baseResponse = getHeroByIdUseCase(idHero)
         if (baseResponse is BaseResponse.Success) {
             Log.i("quique", "El baseResponse ha sido SUCCESS")

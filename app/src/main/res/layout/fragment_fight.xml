@@ -13,548 +13,638 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v1i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toTopOf="@id/vBoard" />
+        app:layout_constraintTop_toTopOf="@id/vBoard"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v1a" />
+        app:layout_constraintTop_toBottomOf="@id/v1a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v1b" />
+        app:layout_constraintTop_toBottomOf="@id/v1b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v1c" />
+        app:layout_constraintTop_toBottomOf="@id/v1c"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v1d" />
+        app:layout_constraintTop_toBottomOf="@id/v1d"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v1e" />
+        app:layout_constraintTop_toBottomOf="@id/v1e"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v1f" />
+        app:layout_constraintTop_toBottomOf="@id/v1f"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v1g" />
+        app:layout_constraintTop_toBottomOf="@id/v1g"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v1h" />
+        app:layout_constraintTop_toBottomOf="@id/v1h"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v2i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v1i" />
+        app:layout_constraintTop_toBottomOf="@id/v1i"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v2a" />
+        app:layout_constraintTop_toBottomOf="@id/v2a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v2b" />
+        app:layout_constraintTop_toBottomOf="@id/v2b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v2b" />
+        app:layout_constraintTop_toBottomOf="@id/v2b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v2b" />
+        app:layout_constraintTop_toBottomOf="@id/v2b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v2b" />
+        app:layout_constraintTop_toBottomOf="@id/v2b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v2b" />
+        app:layout_constraintTop_toBottomOf="@id/v2b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v2b" />
+        app:layout_constraintTop_toBottomOf="@id/v2b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v2b" />
+        app:layout_constraintTop_toBottomOf="@id/v2b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v3i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v2b" />
+        app:layout_constraintTop_toBottomOf="@id/v2b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v3a" />
+        app:layout_constraintTop_toBottomOf="@id/v3a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v3b" />
+        app:layout_constraintTop_toBottomOf="@id/v3b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v3c" />
+        app:layout_constraintTop_toBottomOf="@id/v3c"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v3d" />
+        app:layout_constraintTop_toBottomOf="@id/v3d"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v3e" />
+        app:layout_constraintTop_toBottomOf="@id/v3e"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v3f" />
+        app:layout_constraintTop_toBottomOf="@id/v3f"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v3g" />
+        app:layout_constraintTop_toBottomOf="@id/v3g"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v3h" />
+        app:layout_constraintTop_toBottomOf="@id/v3h"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v4i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v3i" />
+        app:layout_constraintTop_toBottomOf="@id/v3i"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v4a" />
+        app:layout_constraintTop_toBottomOf="@id/v4a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v4b" />
+        app:layout_constraintTop_toBottomOf="@id/v4b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v4c" />
+        app:layout_constraintTop_toBottomOf="@id/v4c"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v4d" />
+        app:layout_constraintTop_toBottomOf="@id/v4d"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v4e" />
+        app:layout_constraintTop_toBottomOf="@id/v4e"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v4f" />
+        app:layout_constraintTop_toBottomOf="@id/v4f"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v4g" />
+        app:layout_constraintTop_toBottomOf="@id/v4g"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v4h" />
+        app:layout_constraintTop_toBottomOf="@id/v4h"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v5i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v4i" />
+        app:layout_constraintTop_toBottomOf="@id/v4i"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v5a" />
+        app:layout_constraintTop_toBottomOf="@id/v5a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v5b" />
+        app:layout_constraintTop_toBottomOf="@id/v5b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v5c" />
+        app:layout_constraintTop_toBottomOf="@id/v5c"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v5d" />
+        app:layout_constraintTop_toBottomOf="@id/v5d"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v5e" />
+        app:layout_constraintTop_toBottomOf="@id/v5e"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v5f" />
+        app:layout_constraintTop_toBottomOf="@id/v5f"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v5g" />
+        app:layout_constraintTop_toBottomOf="@id/v5g"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v5h" />
+        app:layout_constraintTop_toBottomOf="@id/v5h"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v6i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v5i" />
+        app:layout_constraintTop_toBottomOf="@id/v5i"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v6a" />
+        app:layout_constraintTop_toBottomOf="@id/v6a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v6b" />
+        app:layout_constraintTop_toBottomOf="@id/v6b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v6c" />
+        app:layout_constraintTop_toBottomOf="@id/v6c"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v6d" />
+        app:layout_constraintTop_toBottomOf="@id/v6d"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v6e" />
+        app:layout_constraintTop_toBottomOf="@id/v6e"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v6f" />
+        app:layout_constraintTop_toBottomOf="@id/v6f"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v6g" />
+        app:layout_constraintTop_toBottomOf="@id/v6g"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v6h" />
+        app:layout_constraintTop_toBottomOf="@id/v6h"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v7i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
         app:layout_constraintTop_toBottomOf="@id/v6i"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v7a" />
+        app:layout_constraintTop_toBottomOf="@id/v7a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v7b" />
+        app:layout_constraintTop_toBottomOf="@id/v7b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v7c" />
+        app:layout_constraintTop_toBottomOf="@id/v7c"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v7d" />
+        app:layout_constraintTop_toBottomOf="@id/v7d"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v7e" />
+        app:layout_constraintTop_toBottomOf="@id/v7e"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v7f" />
+        app:layout_constraintTop_toBottomOf="@id/v7f"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v7g" />
+        app:layout_constraintTop_toBottomOf="@id/v7g"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v7h" />
+        app:layout_constraintTop_toBottomOf="@id/v7h"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v8i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v7i" />
+        app:layout_constraintTop_toBottomOf="@id/v7i"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v9a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v8a" />
+        app:layout_constraintTop_toBottomOf="@id/v8a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v9b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v8b" />
+        app:layout_constraintTop_toBottomOf="@id/v8b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v9c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v8c" />
+        app:layout_constraintTop_toBottomOf="@id/v8c"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v9d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v8d" />
+        app:layout_constraintTop_toBottomOf="@id/v8d"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v9e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v8e" />
+        app:layout_constraintTop_toBottomOf="@id/v8e"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v9f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v8f" />
+        app:layout_constraintTop_toBottomOf="@id/v8f"
+        tools:ignore="SpeakableTextPresentCheck,TooManyViews,TouchTargetSizeCheck" />
 
     <View
         android:id="@+id/v9g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v8g" />
+        app:layout_constraintTop_toBottomOf="@id/v8g"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v9h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v8h" />
+        app:layout_constraintTop_toBottomOf="@id/v8h"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v9i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v8i" />
+        app:layout_constraintTop_toBottomOf="@id/v8i"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10a"
         style="@style/tile"
         app:layout_constraintStart_toStartOf="@id/vBoard"
-        app:layout_constraintTop_toBottomOf="@id/v9a" />
+        app:layout_constraintTop_toBottomOf="@id/v9a"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10b"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1a"
-        app:layout_constraintTop_toBottomOf="@id/v9b" />
+        app:layout_constraintTop_toBottomOf="@id/v9b"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10c"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1b"
-        app:layout_constraintTop_toBottomOf="@id/v9c" />
+        app:layout_constraintTop_toBottomOf="@id/v9c"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10d"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1c"
-        app:layout_constraintTop_toBottomOf="@id/v9d" />
+        app:layout_constraintTop_toBottomOf="@id/v9d"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10e"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1d"
-        app:layout_constraintTop_toBottomOf="@id/v9e" />
+        app:layout_constraintTop_toBottomOf="@id/v9e"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10f"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1e"
-        app:layout_constraintTop_toBottomOf="@id/v9f" />
+        app:layout_constraintTop_toBottomOf="@id/v9f"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10g"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1f"
-        app:layout_constraintTop_toBottomOf="@id/v9g" />
+        app:layout_constraintTop_toBottomOf="@id/v9g"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10h"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1g"
-        app:layout_constraintTop_toBottomOf="@id/v9h" />
+        app:layout_constraintTop_toBottomOf="@id/v9h"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <View
         android:id="@+id/v10i"
         style="@style/tile"
         app:layout_constraintStart_toEndOf="@id/v1h"
-        app:layout_constraintTop_toBottomOf="@id/v9i" />
+        app:layout_constraintTop_toBottomOf="@id/v9i"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
     <include
         android:id="@+id/linearInitiative"
@@ -571,90 +661,105 @@
     <ImageView
         android:id="@+id/ivRock0"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock1"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock2"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock3"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock4"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock5"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock6"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock7"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock8"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock9"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock10"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock11"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock12"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock13"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRock14"
         style="@style/rock"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -735,23 +840,27 @@
         android:layout_height="256dp"
         android:clickable="true"
         android:focusable="true"
+        android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         android:src="@drawable/referee"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/vBoard"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="VisualLintBounds" />
 
     <ImageView
         android:id="@+id/ivSpeechBubble"
         android:layout_width="@dimen/speechBubbleWidth"
         android:layout_height="@dimen/speechBubbleHeight"
         android:layout_marginBottom="-64dp"
+        android:importantForAccessibility="no"
         android:scaleType="centerInside"
         android:src="@drawable/speech_bubble_background"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/imgReferee"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="VisualLintBounds" />
 
     <TextView
         android:id="@+id/tvKilledFighter"
@@ -775,6 +884,7 @@
         android:layout_marginTop="@dimen/marginLarge"
         android:layout_marginEnd="@dimen/marginCommon"
         android:background="@drawable/background_info_boxes"
+        android:elevation="5dp"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:paddingStart="@dimen/marginCommon"
         android:singleLine="true"
@@ -783,9 +893,9 @@
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        android:elevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearInitiative"
+        tools:ignore="RtlSymmetry"
         tools:text="Manolo's hjhjhjh jhjhjh jhjhjh jh jh jh jhuhjhj turn" />
 
     <TextView
@@ -793,14 +903,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_info_boxes"
+        android:elevation="5dp"
         android:fontFamily="@font/fighting_spirit_2_bold"
         android:paddingStart="@dimen/marginCommon"
         android:textColor="@color/txtInfoBoxesColor"
         android:visibility="invisible"
-        android:elevation="5dp"
         app:layout_constraintEnd_toStartOf="@id/btnPass"
         app:layout_constraintStart_toStartOf="@id/tvTurn"
         app:layout_constraintTop_toBottomOf="@id/tvTurn"
+        tools:ignore="RtlSymmetry,VisualLintBounds"
         tools:text="Manolo did 450 damage to each hero" />
 
     <include
@@ -828,63 +939,70 @@
     <Button
         android:id="@+id/btnPass"
         style="@style/actionBtn"
-        android:text="Pass"
+        android:text="@string/pass"
         app:layout_constraintBottom_toTopOf="@id/vBoard"
-        app:layout_constraintEnd_toEndOf="@id/vBoard" />
+        app:layout_constraintEnd_toEndOf="@id/vBoard"
+        tools:ignore="VisualLintBounds" />
 
     <Button
         android:id="@+id/btnMove"
         style="@style/actionBtn"
-        android:text="Mov"
+        android:text="@string/mov"
         app:layout_constraintBottom_toTopOf="@id/btnSupport"
         app:layout_constraintEnd_toStartOf="@id/btnAttack"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vBoard" />
+        app:layout_constraintTop_toBottomOf="@id/vBoard"
+        tools:ignore="VisualLintBounds" />
 
     <Button
         android:id="@+id/btnAttack"
         style="@style/actionBtn"
-        android:text="Atck!"
+        android:text="@string/atck"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toStartOf="@id/btnDefend"
         app:layout_constraintStart_toEndOf="@id/btnMove"
-        app:layout_constraintTop_toBottomOf="@id/vBoard" />
+        app:layout_constraintTop_toBottomOf="@id/vBoard"
+        tools:ignore="VisualLintBounds" />
 
     <Button
         android:id="@+id/btnDefend"
         style="@style/actionBtn"
-        android:text="Def"
+        android:text="@string/def"
         app:layout_constraintBottom_toTopOf="@id/btnSabotage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnAttack"
-        app:layout_constraintTop_toBottomOf="@id/vBoard" />
+        app:layout_constraintTop_toBottomOf="@id/vBoard"
+        tools:ignore="VisualLintBounds" />
 
     <Button
         android:id="@+id/btnSupport"
         style="@style/actionBtn"
-        android:text="Sup"
+        android:text="@string/sup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnSabotage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnMove" />
+        app:layout_constraintTop_toBottomOf="@id/btnMove"
+        tools:ignore="VisualLintBounds" />
 
     <Button
         android:id="@+id/btnSabotage"
         style="@style/actionBtn"
-        android:text="Sab"
+        android:text="@string/sab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnShot"
         app:layout_constraintStart_toEndOf="@id/btnSupport"
-        app:layout_constraintTop_toBottomOf="@id/btnAttack" />
+        app:layout_constraintTop_toBottomOf="@id/btnAttack"
+        tools:ignore="VisualLintBounds" />
 
     <Button
         android:id="@+id/btnShot"
         style="@style/actionBtn"
-        android:text="Shot"
+        android:text="@string/shot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnSabotage"
-        app:layout_constraintTop_toBottomOf="@id/btnAttack" />
+        app:layout_constraintTop_toBottomOf="@id/btnAttack"
+        tools:ignore="VisualLintBounds" />
 
     <ProgressBar
         android:id="@+id/progressBar"

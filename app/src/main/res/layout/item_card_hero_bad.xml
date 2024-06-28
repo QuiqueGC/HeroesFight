@@ -2,12 +2,13 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/cardWidth"
     android:id="@+id/card"
+    android:layout_width="@dimen/cardWidth"
     android:layout_height="@dimen/cardHeight"
+    android:layout_gravity="center"
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp"
-    android:layout_gravity="center">
+    tools:ignore="TextSizeCheck">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,10 +38,11 @@
             android:layout_width="@dimen/imgHeroInsideCard"
             android:layout_height="@dimen/imgHeroInsideCard"
             android:layout_marginTop="@dimen/marginMin"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvId"
-            android:scaleType="centerCrop"
             tools:src="@drawable/fight" />
 
 
@@ -72,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginCommon"
-            android:text="STATS"
+            android:text="@string/stats"
             app:layout_constraintEnd_toEndOf="@id/vCardStats"
             app:layout_constraintStart_toStartOf="@id/vCardStats"
             app:layout_constraintTop_toTopOf="@id/vCardStats" />
@@ -84,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginCommon"
             android:layout_marginTop="@dimen/marginLarge"
-            android:text="Int:"
+            android:text="@string/intelligence"
             app:layout_constraintStart_toStartOf="@id/vCardStats"
             app:layout_constraintTop_toBottomOf="@id/tvStats" />
 
@@ -108,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginCommon"
             android:layout_marginTop="@dimen/marginCommon"
-            android:text="Spd:"
+            android:text="@string/spd"
             app:layout_constraintStart_toStartOf="@id/vCardStats"
             app:layout_constraintTop_toBottomOf="@id/tvIntelligence" />
 
@@ -132,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginCommon"
             android:layout_marginTop="@dimen/marginCommon"
-            android:text="Dur:"
+            android:text="@string/dur"
             app:layout_constraintStart_toStartOf="@id/vCardStats"
             app:layout_constraintTop_toBottomOf="@id/tvSpeed" />
 
@@ -156,7 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginCommon"
             android:layout_marginTop="@dimen/marginLarge"
-            android:text="Str:"
+            android:text="@string/str"
             app:layout_constraintStart_toStartOf="@id/glCenterVertical"
             app:layout_constraintTop_toBottomOf="@id/tvStats" />
 
@@ -180,7 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginCommon"
             android:layout_marginTop="@dimen/marginCommon"
-            android:text="Pow:"
+            android:text="@string/pow"
             app:layout_constraintStart_toStartOf="@id/glCenterVertical"
             app:layout_constraintTop_toBottomOf="@id/tvStrength" />
 
@@ -204,7 +206,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginCommon"
             android:layout_marginTop="@dimen/marginCommon"
-            android:text="Com:"
+            android:text="@string/com"
             app:layout_constraintStart_toStartOf="@id/glCenterVertical"
             app:layout_constraintTop_toBottomOf="@id/tvPower" />
 
@@ -225,75 +227,75 @@
             android:id="@+id/btnBiography"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Biography"
+            android:text="@string/biography"
             android:textColor="@color/txtInfoBoxesColor"
-            app:layout_constraintTop_toBottomOf="@id/vCardStats"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/vCardStats" />
+            app:layout_constraintStart_toStartOf="@id/vCardStats"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats" />
 
         <Button
             android:id="@+id/btnAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Appearance"
+            android:text="@string/appearance"
             android:textColor="@color/txtInfoBoxesColor"
-            app:layout_constraintTop_toBottomOf="@id/vCardStats"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/vCardStats" />
+            app:layout_constraintEnd_toEndOf="@id/vCardStats"
+            app:layout_constraintTop_toBottomOf="@id/vCardStats" />
 
         <TextView
             android:id="@+id/tvDefenseValue"
             style="@style/txtBoldWhiteSmall"
-            android:textSize="@dimen/txtBonusSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginStart="@dimen/marginCommon"
-            app:layout_constraintStart_toEndOf="@id/tvBonusDefense"
+            android:textSize="@dimen/txtBonusSize"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvBonusDefense"
             app:layout_constraintTop_toBottomOf="@id/vCardStats"
             tools:text="+35" />
 
         <TextView
             android:id="@+id/tvBonusDefense"
             style="@style/txtBoldWhiteSmall"
-            android:singleLine="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Defense Bonus"
+            android:layout_marginStart="@dimen/marginCommon"
+            android:singleLine="true"
+            android:text="@string/defense_bonus"
             android:textSize="@dimen/txtBonusSize"
             android:visibility="gone"
-            android:layout_marginStart="@dimen/marginCommon"
-            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/glCenterVertical"
             app:layout_constraintTop_toBottomOf="@id/vCardStats" />
 
 
         <TextView
             android:id="@+id/tvBonusValue"
             style="@style/txtBoldWhiteSmall"
-            android:textSize="@dimen/txtBonusSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginEnd="@dimen/marginCommon"
-            app:layout_constraintEnd_toStartOf="@id/glCenterVertical"
+            android:textSize="@dimen/txtBonusSize"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/glCenterVertical"
             app:layout_constraintTop_toBottomOf="@id/vCardStats"
             tools:text="+35" />
 
         <TextView
             android:id="@+id/tvBonusCombat"
             style="@style/txtBoldWhiteSmall"
-            android:text="Combat Bonus"
-            android:textSize="@dimen/txtBonusSize"
-            android:singleLine="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginEnd="@dimen/marginCommon"
-            app:layout_constraintEnd_toStartOf="@id/tvBonusValue"
+            android:singleLine="true"
+            android:text="@string/combat_bonus"
+            android:textSize="@dimen/txtBonusSize"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvBonusValue"
             app:layout_constraintTop_toBottomOf="@id/vCardStats" />
 
         <TextView
@@ -302,14 +304,14 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/fighting_spirit_2_bold"
             android:rotation="-38"
-            android:text="SABOTAGED"
-            android:visibility="gone"
+            android:text="@string/sabotaged"
             android:textColor="@color/white"
             android:textSize="48sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/imgHero"
-            app:layout_constraintStart_toStartOf="@id/imgHero"
             app:layout_constraintEnd_toEndOf="@id/imgHero"
+            app:layout_constraintStart_toStartOf="@id/imgHero"
             app:layout_constraintTop_toTopOf="@id/imgHero" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

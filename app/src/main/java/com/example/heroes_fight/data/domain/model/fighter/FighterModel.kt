@@ -103,13 +103,13 @@ class FighterModel(
                     position = Position(destinationPosition.y, destinationPosition.x)
                     movementPerformed = true
                 }
-            } else if (x < destinationPosition.x && y == destinationPosition.y) {
+            } else if (x < destinationPosition.x) {
                 if (x + movementCapacity >= destinationPosition.x) {
                     canMove = true
                     position = Position(destinationPosition.y, destinationPosition.x)
                     movementPerformed = true
                 }
-            } else if (x > destinationPosition.x && y == destinationPosition.y) {
+            } else if (x > destinationPosition.x) {
                 if (x - movementCapacity <= destinationPosition.x) {
                     canMove = true
                     position = Position(destinationPosition.y, destinationPosition.x)
