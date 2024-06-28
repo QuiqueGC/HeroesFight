@@ -58,4 +58,9 @@
     <string name="range_dmg">Range Dmg</string>
     <string name="range_dmg_rec">Range dmg Rec</string>
     <string name="survived">Survived</string>
+    <string name="you_won">You won!</string>
+    <string name="enemy_won">Enemy won!</string>
+    <string name="yor_stats">Yor stats:</string>
+    <string name="villains_won">Villains won</string>
+    <string name="heroes_won">Heroes won</string>
 </resources>

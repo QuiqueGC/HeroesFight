@@ -27,31 +27,11 @@ class MainMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnList.setOnClickListener {
-            findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToCardsCollectionFragment())
+            findNavController().navigate(MainMenuFragmentDirections.actionMainMenuFragmentToCardsCollectionFragment())
         }
 
         binding.btnFight.setOnClickListener {
-            findNavController().navigate(MainMenuFragmentDirections.actionNewMainMenuFragmentToModeSelectionFragment())
+            findNavController().navigate(MainMenuFragmentDirections.actionMainMenuFragmentToModeSelectionFragment())
         }
-
-        /*binding.root.setOnClickListener {
-            Glide.with(requireContext())
-                .asGif()
-                .load(R.drawable.claw_test)
-                .into(object : CustomTarget<GifDrawable>() {
-                    override fun onResourceReady(
-                        resource: GifDrawable,
-                        transition: Transition<in GifDrawable>?
-                    ) {
-                        // Configurar el GIF para que se reproduzca solo una vez
-                        resource.setLoopCount(1)
-                        binding.imgClaw.setImageDrawable(resource)
-                        resource.start()
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                    }
-                })
-        }*/
     }
 }

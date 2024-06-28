@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph.xml"
-    app:startDestination="@id/newMainMenuFragment">
+    app:startDestination="@id/mainMenuFragment">
 
     <fragment
         android:id="@+id/cardDetailFragment"
@@ -36,15 +36,15 @@
             app:destination="@id/cardDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/newMainMenuFragment"
+        android:id="@+id/mainMenuFragment"
         android:name="com.example.heroes_fight.ui.main_menu_fragment.MainMenuFragment"
-        android:label="fragment_new_main_menu"
+        android:label="fragment_main_menu"
         tools:layout="@layout/fragment_main_menu">
         <action
-            android:id="@+id/action_newMainMenuFragment_to_cardsCollectionFragment"
+            android:id="@+id/action_mainMenuFragment_to_cardsCollectionFragment"
             app:destination="@id/cardsCollectionFragment" />
         <action
-            android:id="@+id/action_newMainMenuFragment_to_modeSelectionFragment"
+            android:id="@+id/action_mainMenuFragment_to_modeSelectionFragment"
             app:destination="@id/modeSelectionFragment" />
     </fragment>
     <fragment
@@ -62,8 +62,8 @@
         android:label="fragment_score"
         tools:layout="@layout/fragment_score">
         <action
-            android:id="@+id/action_scoreFragment_to_newMainMenuFragment"
-            app:destination="@id/newMainMenuFragment" />
+            android:id="@+id/action_scoreFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
         <argument
             android:name="scoreListModel"
             app:argType="com.example.heroes_fight.data.domain.model.fighter.ScoreListModel" />
@@ -119,7 +119,7 @@
             android:name="scoreListModel"
             app:argType="com.example.heroes_fight.data.domain.model.fighter.ScoreListModel" />
         <action
-            android:id="@+id/action_scoreP2PFragment_to_newMainMenuFragment"
-            app:destination="@id/newMainMenuFragment" />
+            android:id="@+id/action_scoreP2PFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
     </fragment>
 </navigation>

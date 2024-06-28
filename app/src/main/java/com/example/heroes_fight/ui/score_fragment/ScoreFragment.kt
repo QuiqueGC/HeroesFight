@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.heroes_fight.R
 import com.example.heroes_fight.databinding.FragmentScoreBinding
 
 
@@ -36,15 +37,15 @@ open class ScoreFragment : Fragment() {
 
     open fun backToMenu() {
         binding.btnBackToMenu.setOnClickListener {
-            findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToNewMainMenuFragment())
+            findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToMainMenuFragment())
         }
     }
 
     open fun setTitle() {
         binding.tvWin.text = if (args.scoreListModel.areVillains) {
-            "Villains won"
+            getString(R.string.villains_won)
         } else {
-            "Heroes won"
+            getString(R.string.heroes_won)
         }
     }
 
