@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class BiographyResponse(
 
-    @SerializedName("response") var response: String? = null,
-    @SerializedName("id") var id: String? = null,
-    @SerializedName("name") var name: String? = null,
-    @SerializedName("full-name") var fullName: String? = null,
-    @SerializedName("alter-egos") var alterEgos: String? = null,
+    @SerializedName("response") var response: String? = "",
+    @SerializedName("id") var id: String? = "",
+    @SerializedName("name") var name: String? = "",
+    @SerializedName("full-name") var fullName: String? = "",
+    @SerializedName("alter-egos") var alterEgos: String? = "",
     @SerializedName("aliases") var aliases: ArrayList<String> = arrayListOf(),
-    @SerializedName("place-of-birth") var placeOfBirth: String? = null,
-    @SerializedName("first-appearance") var firstAppearance: String? = null,
-    @SerializedName("publisher") var publisher: String? = null,
-    @SerializedName("alignment") var alignment: String? = null
+    @SerializedName("place-of-birth") var placeOfBirth: String? = "",
+    @SerializedName("first-appearance") var firstAppearance: String? = "",
+    @SerializedName("publisher") var publisher: String? = "",
+    @SerializedName("alignment") var alignment: String? = ""
 
 )

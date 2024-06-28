@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 data class AppearanceResponse(
 
-    @SerializedName("response") var response: String? = null,
-    @SerializedName("id") var id: String? = null,
-    @SerializedName("name") var name: String? = null,
-    @SerializedName("gender") var gender: String? = null,
-    @SerializedName("race") var race: String? = null,
+    @SerializedName("response") var response: String? = "",
+    @SerializedName("id") var id: String? = "",
+    @SerializedName("name") var name: String? = "",
+    @SerializedName("gender") var gender: String? = "",
+    @SerializedName("race") var race: String? = "",
     @SerializedName("height") var height: ArrayList<String> = arrayListOf(),
     @SerializedName("weight") var weight: ArrayList<String> = arrayListOf(),
-    @SerializedName("eye-color") var eyeColor: String? = null,
-    @SerializedName("hair-color") var hairColor: String? = null
+    @SerializedName("eye-color") var eyeColor: String? = "",
+    @SerializedName("hair-color") var hairColor: String? = ""
 
 )

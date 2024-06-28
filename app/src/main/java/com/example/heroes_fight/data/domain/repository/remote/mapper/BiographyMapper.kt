@@ -1,10 +1,10 @@
 package com.example.heroes_fight.data.domain.repository.remote.mapper
 
-import com.example.heroes_fight.data.domain.model.hero.BiographyModel
+import com.example.heroes_fight.data.domain.repository.db.entity.BiographyEntity
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.BiographyResponse
 
-class BiographyMapper : ResponseMapper<BiographyResponse, BiographyModel> {
-    override fun fromResponse(response: BiographyResponse): BiographyModel {
+class BiographyMapper : ResponseMapper<BiographyResponse, BiographyEntity> {
+    override fun fromResponse(response: BiographyResponse): BiographyEntity {
         var aliases = ""
         if (response.aliases.isNotEmpty()) {
             response.aliases.forEach {
@@ -16,9 +16,7 @@ class BiographyMapper : ResponseMapper<BiographyResponse, BiographyModel> {
             }
         }
 
-
-        return BiographyModel(
-            response.id ?: "",
+        return BiographyEntity(
             response.name ?: "",
             response.fullName ?: "",
             response.alterEgos ?: "",

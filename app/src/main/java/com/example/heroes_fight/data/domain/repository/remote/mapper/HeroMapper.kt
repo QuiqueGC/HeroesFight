@@ -1,24 +1,20 @@
 package com.example.heroes_fight.data.domain.repository.remote.mapper
 
-import com.example.heroes_fight.data.domain.model.hero.HeroModel
+import com.example.heroes_fight.data.domain.repository.db.entity.HeroEntity
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.HeroResponse
 import kotlin.random.Random
 
-class HeroMapper : ResponseMapper<HeroResponse, HeroModel> {
-    override fun fromResponse(response: HeroResponse): HeroModel {
+class HeroMapper : ResponseMapper<HeroResponse, HeroEntity> {
+    override fun fromResponse(response: HeroResponse): HeroEntity {
 
-        return HeroModel(
+        return HeroEntity(
             response.id?.toInt() ?: 0,
-            createSerialNum(response.id),
-            response.name ?: "",
-            response.biography?.alignment ?: "",
-            response.image?.url ?: "",
-            addedStatValueInNullCase(response.powerstats?.intelligence),
-            addedStatValueInNullCase(response.powerstats?.strength),
-            addedStatValueInNullCase(response.powerstats?.speed),
-            addedStatValueInNullCase(response.powerstats?.durability),
-            addedStatValueInNullCase(response.powerstats?.power),
-            addedStatValueInNullCase(response.powerstats?.combat)
+            response.name ?: "Not name available",
+            StatsMapper().fromResponse(response.powerstats!!),
+            BiographyMapper().fromResponse(response.biography!!),
+            AppearanceMapper().fromResponse(response.appearance!!),
+            WorkMapper().fromResponse(response.work!!),
+            ImgMapper().fromResponse(response.image!!),
         )
     }
 

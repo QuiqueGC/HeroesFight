@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName
 
 data class HeroResponse(
 
-    @SerializedName("response") var response: String? = null,
-    @SerializedName("id") var id: String? = null,
-    @SerializedName("name") var name: String? = null,
+    @SerializedName("response") var response: String? = "",
+    @SerializedName("id") var id: String? = "",
+    @SerializedName("name") var name: String? = "",
     @SerializedName("powerstats") var powerstats: StatsResponse? = StatsResponse(),
     @SerializedName("biography") var biography: BiographyResponse? = BiographyResponse(),
     @SerializedName("appearance") var appearance: AppearanceResponse? = AppearanceResponse(),

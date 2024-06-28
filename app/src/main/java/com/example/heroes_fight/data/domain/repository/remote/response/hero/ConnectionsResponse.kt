@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 
 data class ConnectionsResponse(
-    @SerializedName("response") var response: String? = null,
-    @SerializedName("id") var id: String? = null,
-    @SerializedName("name") var name: String? = null,
-    @SerializedName("group-affiliation") var groupAffiliation: String? = null,
-    @SerializedName("relatives") var relatives: String? = null
+    @SerializedName("response") var response: String? = "",
+    @SerializedName("id") var id: String? = "",
+    @SerializedName("name") var name: String? = "",
+    @SerializedName("group-affiliation") var groupAffiliation: String? = "",
+    @SerializedName("relatives") var relatives: String? = ""
 )

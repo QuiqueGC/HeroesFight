@@ -1,10 +1,10 @@
 package com.example.heroes_fight.data.domain.repository.remote.mapper
 
-import com.example.heroes_fight.data.domain.model.hero.AppearanceModel
+import com.example.heroes_fight.data.domain.repository.db.entity.AppearanceEntity
 import com.example.heroes_fight.data.domain.repository.remote.response.hero.AppearanceResponse
 
-class AppearanceMapper : ResponseMapper<AppearanceResponse, AppearanceModel> {
-    override fun fromResponse(response: AppearanceResponse): AppearanceModel {
+class AppearanceMapper : ResponseMapper<AppearanceResponse, AppearanceEntity> {
+    override fun fromResponse(response: AppearanceResponse): AppearanceEntity {
         var heightCm = ""
         var heightFeet = ""
         var weightKg = ""
@@ -19,8 +19,7 @@ class AppearanceMapper : ResponseMapper<AppearanceResponse, AppearanceModel> {
             weightLb = response.weight[0]
         }
 
-        return AppearanceModel(
-            response.id ?: "",
+        return AppearanceEntity(
             response.name ?: "",
             response.gender ?: "",
             response.race ?: "",
