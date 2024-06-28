@@ -10,8 +10,8 @@ import com.example.heroes_fight.data.domain.model.fighter.ScoreListModel
 import com.example.heroes_fight.data.domain.model.fighter.ScoreModel
 import com.example.heroes_fight.data.domain.repository.tcp_ip.TcpClient
 import com.example.heroes_fight.data.domain.repository.tcp_ip.TcpServer
-import com.example.heroes_fight.data.domain.use_case.GetHeroesListUseCase
-import com.example.heroes_fight.data.domain.use_case.GetVillainListUseCase
+import com.example.heroes_fight.data.domain.use_case.retrofit.GetHeroesListUseCase
+import com.example.heroes_fight.data.domain.use_case.retrofit.GetVillainListUseCase
 import com.example.heroes_fight.data.utils.BoardManager
 import com.example.heroes_fight.ui.fight_fragment.FightFragmentUiState
 import com.example.heroes_fight.ui.fight_fragment.FightFragmentViewModel

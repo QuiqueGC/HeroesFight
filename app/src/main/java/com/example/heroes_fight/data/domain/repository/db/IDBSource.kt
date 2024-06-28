@@ -8,7 +8,7 @@ interface IDBSource {
 
     suspend fun getHeroesFromDB(): List<HeroModel>
     suspend fun getHeroesByNameFromDB(heroName: String): List<HeroModel>
-    suspend fun insertHeroAtDB(hero: HeroEntity)
+    suspend fun insertHeroesAtDB(heroes: List<HeroEntity>)
 
 
 }

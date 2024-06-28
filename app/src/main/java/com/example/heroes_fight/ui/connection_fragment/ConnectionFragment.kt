@@ -21,8 +21,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.heroes_fight.databinding.FragmentConnectionBinding
 import com.example.heroes_fight.ui.connection_fragment.adapter.PeersAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ConnectionFragment : Fragment(), WifiP2pManager.PeerListListener,
     PeersAdapter.ItemDeviceListener, WifiP2pManager.ConnectionInfoListener {
 

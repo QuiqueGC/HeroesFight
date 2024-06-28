@@ -8,8 +8,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.heroes_fight.ui.fight_fragment.FightFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class FightP2PFragment : FightFragment() {
 
     override val viewModel: FightP2PFragmentViewModel by viewModels()

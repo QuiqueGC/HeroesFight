@@ -13,8 +13,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.heroes_fight.databinding.FragmentModeSelectionBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ModeSelectionFragment : Fragment() {
 
     private lateinit var binding: FragmentModeSelectionBinding

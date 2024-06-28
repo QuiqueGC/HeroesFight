@@ -10,8 +10,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.heroes_fight.R
 import com.example.heroes_fight.databinding.FragmentScoreBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 open class ScoreFragment : Fragment() {
 
     open lateinit var binding: FragmentScoreBinding

@@ -1,4 +1,4 @@
-package com.example.heroes_fight.data.domain.use_case
+package com.example.heroes_fight.data.domain.use_case.retrofit
 
 import com.example.heroes_fight.data.domain.repository.DataProvider
 import com.example.heroes_fight.data.domain.repository.db.entity.HeroEntity

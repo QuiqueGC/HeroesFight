@@ -1,4 +1,4 @@
-package com.example.heroes_fight.data.domain.use_case
+package com.example.heroes_fight.data.domain.use_case.retrofit
 
 import android.util.Log
 import com.example.heroes_fight.data.domain.model.common.Position

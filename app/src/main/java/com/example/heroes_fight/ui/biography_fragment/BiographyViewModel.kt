@@ -1,8 +1,8 @@
 package com.example.heroes_fight.ui.biography_fragment
 
 import androidx.lifecycle.ViewModel
-import com.example.heroes_fight.data.domain.use_case.GetHeroBiographyByIdUseCase
-import com.example.heroes_fight.data.domain.use_case.GetHeroImgByIdUseCase
+import com.example.heroes_fight.data.domain.use_case.retrofit.GetHeroBiographyByIdUseCase
+import com.example.heroes_fight.data.domain.use_case.retrofit.GetHeroImgByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -15,5 +15,5 @@ interface HeroesDao {
     suspend fun findByName(heroName: String): List<HeroEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertHero(hero: HeroEntity)
+    suspend fun insertAllHeroes(heroes: List<HeroEntity>)
 }

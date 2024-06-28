@@ -1,6 +1,9 @@
 package com.example.heroes_fight.data.domain.repository
 
 import com.example.heroes_fight.data.domain.model.fighter.FighterModel
+import com.example.heroes_fight.data.domain.model.hero.HeroModel
+import com.example.heroes_fight.data.domain.repository.db.DBSource
+import com.example.heroes_fight.data.domain.repository.db.IDBSource
 import com.example.heroes_fight.data.domain.repository.db.entity.HeroEntity
 import com.example.heroes_fight.data.domain.repository.remote.DataSource
 import com.example.heroes_fight.data.domain.repository.remote.RemoteDataSource
@@ -10,8 +13,9 @@ import javax.inject.Singleton
 
 @Singleton
 class DataProvider @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
-) : DataSource {
+    private val remoteDataSource: RemoteDataSource,
+    private val dbSource: DBSource
+) : DataSource, IDBSource {
 
     override suspend fun getHeroById(idHero: Int): BaseResponse<HeroEntity> {
         return remoteDataSource.getHeroById(idHero)
@@ -35,5 +39,17 @@ class DataProvider @Inject constructor(
 
     override suspend fun getFighterById(idHero: Int): BaseResponse<FighterModel> {
         return remoteDataSource.getFighterById(idHero)
+    }
+
+    override suspend fun getHeroesFromDB(): List<HeroModel> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getHeroesByNameFromDB(heroName: String): List<HeroModel> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertHeroesAtDB(heroes: List<HeroEntity>) {
+        dbSource.insertHeroesAtDB(heroes)
     }
 }

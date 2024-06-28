@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DBSource @Inject constructor(heroesDao: HeroesDao) : IDBSource {
+class DBSource @Inject constructor(private val heroesDao: HeroesDao) : IDBSource {
     override suspend fun getHeroesFromDB(): List<HeroModel> {
 
         TODO("Not yet implemented")
@@ -16,8 +16,7 @@ class DBSource @Inject constructor(heroesDao: HeroesDao) : IDBSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun insertHeroAtDB(hero: HeroEntity) {
-        TODO("Not yet implemented")
+    override suspend fun insertHeroesAtDB(heroes: List<HeroEntity>) {
+        heroesDao.insertAllHeroes(heroes)
     }
-
 }

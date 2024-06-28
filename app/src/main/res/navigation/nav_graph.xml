@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph.xml"
-    app:startDestination="@id/mainMenuFragment">
+    app:startDestination="@id/startingFragment">
 
     <fragment
         android:id="@+id/cardDetailFragment"
@@ -120,6 +120,15 @@
             app:argType="com.example.heroes_fight.data.domain.model.fighter.ScoreListModel" />
         <action
             android:id="@+id/action_scoreP2PFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startingFragment"
+        android:name="com.example.heroes_fight.ui.starting_fragment.StartingFragment"
+        android:label="fragment_starting"
+        tools:layout="@layout/fragment_starting">
+        <action
+            android:id="@+id/action_startingFragment_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment" />
     </fragment>
 </navigation>

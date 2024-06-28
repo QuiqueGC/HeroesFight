@@ -5,7 +5,9 @@ import androidx.navigation.fragment.navArgs
 import com.example.heroes_fight.R
 import com.example.heroes_fight.ui.score_fragment.ScoreAdapter
 import com.example.heroes_fight.ui.score_fragment.ScoreFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScoreP2PFragment : ScoreFragment() {
 
     private val args: ScoreP2PFragmentArgs by navArgs()
