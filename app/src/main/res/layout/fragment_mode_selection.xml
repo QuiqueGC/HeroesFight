@@ -49,24 +49,10 @@
         android:textSize="28sp"
         android:layout_marginBottom="@dimen/marginMax"
         app:layout_constraintTop_toBottomOf="@id/btnSameDevice"
-        app:layout_constraintBottom_toTopOf="@id/btnWifiDirect"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/btnWifiDirect"
-        android:layout_width="256dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="@dimen/marginMax"
-        android:fontFamily="@font/fighting_spirit_2_bold"
-        android:text="@string/_2p_wifi_direct"
-        android:textColor="@color/txtInfoBoxesColor"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTcpIp"
-        tools:ignore="TextSizeCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
