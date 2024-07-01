@@ -22,7 +22,7 @@ class FighterEntityMapper : EntityMapper<HeroEntity, FighterModel> {
             addedStatValueIfIsLowValue(entity.powerstats.durability),
             addedStatValueIfIsLowValue(entity.powerstats.power),
             addedStatValueIfIsLowValue(entity.powerstats.combat),
-            setCapacityToMax10(speed),
+            setCapacityToMax5(speed),
             setCapacityToMax10(distanceToShot)
         )
     }
@@ -36,21 +36,28 @@ class FighterEntityMapper : EntityMapper<HeroEntity, FighterModel> {
             else -> ""
         }
     }
-}
+    private fun addedStatValueIfIsLowValue(statToChange: Int): Int {
+        return if (statToChange < 5) {
+            Random.nextInt(5, 51)
+        } else {
+            statToChange
+        }
+    }
 
-private fun addedStatValueIfIsLowValue(statToChange: Int): Int {
-    return if (statToChange < 5) {
-        Random.nextInt(5, 51)
-    } else {
-        statToChange
+    private fun setCapacityToMax10(statToDivide: Int): Int {
+        return if (statToDivide / 10 < 1) {
+            1
+        } else {
+            statToDivide / 10
+        }
+    }
+
+    private fun setCapacityToMax5(statToDivide: Int): Int {
+        return if (statToDivide / 20 < 2) {
+            2
+        } else {
+            statToDivide / 20
+        }
     }
 }
 
-private fun setCapacityToMax10(statToDivide: Int): Int {
-    return if (statToDivide / 10 < 1) {
-        1
-    } else {
-        statToDivide / 10
-    }
-
-}

@@ -76,8 +76,8 @@ class ModeSelectionFragment : Fragment() {
         val inputEditText = EditText(requireContext())
 
         val dialogBuilder = AlertDialog.Builder(requireContext())
-            .setTitle("Enter Text")
-            .setMessage("Please enter your text below:")
+            .setTitle("IP Address")
+            .setMessage("Please enter the IP address:")
             .setView(inputEditText)
             .setPositiveButton("OK") { dialog, _ ->
                 val ipAddress = inputEditText.text.toString()
