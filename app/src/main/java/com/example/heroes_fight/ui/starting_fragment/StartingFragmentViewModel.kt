@@ -28,44 +28,52 @@ class StartingFragmentViewModel @Inject constructor(
     private val _finnishLoading = MutableStateFlow(false)
     val finnishLoading: StateFlow<Boolean> = _finnishLoading
 
+    private val _loadingPercentFlow = MutableStateFlow(0)
+    val loadingPercentFlow: StateFlow<Int> = _loadingPercentFlow
+
     private val cardsList = mutableListOf<HeroEntity>()
 
     private var idHero = 0
     private var offset = 1
     private var limit = MyConstants.MAX_HEROES_IN_API
+    private var loadingPercent = 0
+    private var indexHero = 0
 
     fun getCardsList() {
         Log.i("quique", "HA ENTRADO EN GET_CARDS_LIST")
 
-            viewModelScope.launch {
+        viewModelScope.launch {
 
-                val heroes = getHeroesFromDBUseCase()
-                if (heroes.isEmpty()) {
-                    getHeroesFromApi()
-                    val deferreds = ArrayList<Deferred<Unit>>()
-                    Log.i("quique", "Empieza el bucle")
-                    do {
+            val heroes = getHeroesFromDBUseCase()
 
-                        val deferred = async { addHeroToList() }
-                        deferreds.add(deferred)
-
-                        offset++
-                    } while (offset <= limit)
-
-                    deferreds.awaitAll()
-                    cardsList.sortBy { it.id }
-
-                    insertHeroesAtDBUseCase(cardsList)
-
-                    _finnishLoading.emit(true)
-                } else {
-                    _finnishLoading.emit(true)
-                }
+            if (heroes.isEmpty()) {
+                getHeroesFromApi()
+            } else {
+                _finnishLoading.emit(true)
             }
+        }
     }
 
     private fun getHeroesFromApi() {
+        viewModelScope.launch {
+            val deferreds = ArrayList<Deferred<Unit>>()
+            Log.i("quique", "Empieza el bucle")
+            do {
+                val deferred = async { addHeroToList() }
+                deferreds.add(deferred)
 
+                offset++
+
+            } while (offset <= limit)
+
+            deferreds.awaitAll()
+
+            cardsList.sortBy { it.id }
+
+            insertHeroesAtDBUseCase(cardsList)
+
+            _finnishLoading.emit(true)
+        }
     }
 
     private suspend fun addHeroToList() {
@@ -75,9 +83,27 @@ class StartingFragmentViewModel @Inject constructor(
         if (baseResponse is BaseResponse.Success) {
 
             Log.i("quique", "El baseResponse ha sido SUCCESS")
+
             cardsList.add(baseResponse.data)
+
+            updateProgressBar()
+
         } else {
             Log.i("quique", "El baseResponse ha sido ERROR")
         }
+    }
+
+    private suspend fun updateProgressBar() {
+        indexHero++
+        Log.i("quique", "Valor de loadingPercent ->> $loadingPercent")
+        Log.i("quique", "Valor de indexHero ->> $indexHero")
+        if (isMultipleOfSeven(indexHero)) {
+            loadingPercent++
+            _loadingPercentFlow.emit(loadingPercent)
+        }
+    }
+
+    private fun isMultipleOfSeven(number: Int): Boolean {
+        return number % 7 == 0
     }
 }

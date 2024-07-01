@@ -1,6 +1,7 @@
 package com.example.heroes_fight.ui.starting_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,14 @@ class StartingFragment : Fragment() {
                 if (finnishLoading) {
                     findNavController().navigate(StartingFragmentDirections.actionStartingFragmentToMainMenuFragment())
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.loadingPercentFlow.collect {
+                Log.i("quique", "Colectando cantidad para la progresBar")
+                Log.i("quique", "valor -> $it")
+                binding.progressBar.progress = it
             }
         }
     }

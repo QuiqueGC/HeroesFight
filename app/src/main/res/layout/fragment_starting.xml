@@ -23,14 +23,13 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
-        android:layout_width="wrap_content"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginCommon"
-        android:indeterminateBehavior="repeat"
-        android:indeterminateTint="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="@id/tvLoading"
+        android:layout_margin="@dimen/marginCommon"
+        android:progressTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="@id/tvLoading"
+        app:layout_constraintStart_toStartOf="@id/tvLoading"
         app:layout_constraintTop_toBottomOf="@id/tvLoading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
