@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/semiTransparent"
+    android:elevation="5dp"
+    android:padding="@dimen/marginCommon">
+
+
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        style="@style/txtBoldWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/marginLarge"
+        android:text="@string/connection_choice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDialogInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_an_option"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogTitle" />
+
+    <Button
+        android:id="@+id/btnHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginCommon"
+        android:background="@color/transparent"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:text="@string/be_the_host"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogInfo" />
+
+    <Button
+        android:id="@+id/btnClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginCommon"
+        android:background="@color/transparent"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:text="@string/connect_to_other_device"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@id/btnHost"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogInfo" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etIpAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginCommon"
+        android:background="@drawable/background_edit_text"
+        android:hint="@string/insert_ip_address"
+        android:inputType="number"
+        android:digits="0123456789."
+        android:maxLines="1"
+        android:maxLength="15"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/btnClient"
+        app:layout_constraintStart_toStartOf="@id/btnClient"
+        app:layout_constraintTop_toBottomOf="@id/btnClient" />
+
+    <Button
+        android:id="@+id/btnConnectClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:fontFamily="@font/fighting_spirit_2_bold"
+        android:text="@string/connect"
+        android:visibility="gone"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@id/btnHost"
+        app:layout_constraintTop_toBottomOf="@id/etIpAddress" />
+</androidx.constraintlayout.widget.ConstraintLayout>
