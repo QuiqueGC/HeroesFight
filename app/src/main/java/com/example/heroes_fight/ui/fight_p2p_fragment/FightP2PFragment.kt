@@ -27,6 +27,10 @@ class FightP2PFragment : FightFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (!args.isServer) {
+            binding.tvInfoOtherPlayer.text = "Loading battlefield"
+        }
+
         observeConnection()
 
         observeRocksFlow()
@@ -176,6 +180,7 @@ class FightP2PFragment : FightFragment() {
         lifecycleScope.launch {
             viewModel.actualFighter.collect {
                 if (actualFighter.id != 0) {
+                    //binding.tvInfoOtherPlayer.visibility = View.GONE
                     if (actualFighter.isHero && args.isServer || !actualFighter.isHero && !args.isServer) {
 
                         if (!actualFighter.isSabotaged) {
@@ -186,6 +191,7 @@ class FightP2PFragment : FightFragment() {
                         }
                         binding.btnPass.visibility = View.VISIBLE
                         binding.btnPass.isEnabled = true
+                        binding.tvInfoOtherPlayer.visibility = View.GONE
 
                     } else {
                         if (!actualFighter.isSabotaged) {
@@ -196,6 +202,9 @@ class FightP2PFragment : FightFragment() {
                         }
                         binding.btnPass.visibility = View.GONE
                         binding.btnPass.isEnabled = false
+                        binding.tvInfoOtherPlayer.visibility = View.VISIBLE
+                        binding.tvInfoOtherPlayer.text = "Enemy's turn"
+                        binding.tvInfo.text = "Enemy is thinking..."
                     }
 
                     viewModel.chooseWhoWaitForActions()
@@ -209,5 +218,10 @@ class FightP2PFragment : FightFragment() {
         if (args.isServer) {
             viewModel.sendDataToFight(rocks)
         }
+    }
+
+    override fun updateBoardAfterMovement() {
+        super.updateBoardAfterMovement()
+        binding.tvInfo.text = "Enemy is thinking..."
     }
 }

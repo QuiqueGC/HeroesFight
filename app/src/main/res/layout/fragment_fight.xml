@@ -1040,4 +1040,17 @@
         app:layout_constraintBottom_toTopOf="@id/v1c"
         app:layout_constraintEnd_toStartOf="@id/v1c" />
 
+    <TextView
+        android:id="@+id/tvInfoOtherPlayer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Awaiting player..."
+        android:textSize="32sp"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/marginMax"
+        app:layout_constraintTop_toBottomOf="@id/vBoard"
+        app:layout_constraintStart_toStartOf="@id/vBoard"
+        app:layout_constraintEnd_toEndOf="@id/vBoard"
+        tools:ignore="VisualLintBounds" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

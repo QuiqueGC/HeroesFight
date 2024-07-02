@@ -288,7 +288,7 @@ open class FightFragment : Fragment() {
         constraintSet.applyTo(binding.root)
     }
 
-    private fun updateBoardAfterMovement() {
+    open fun updateBoardAfterMovement() {
         binding.tvInfo.text = getString(R.string.choiceAction)
         binding.btnMove.isEnabled = false
         //binding.btnMove.visibility = View.INVISIBLE
