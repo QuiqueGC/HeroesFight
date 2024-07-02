@@ -64,4 +64,5 @@
     <string name="villains_won">Villains won</string>
     <string name="heroes_won">Heroes won</string>
     <string name="loading">Loading...</string>
+    <string name="the_first_time_it_may_take_several_minutes">The first time it may take several minutes</string>
 </resources>

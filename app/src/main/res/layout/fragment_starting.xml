@@ -21,6 +21,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <TextView
+        android:id="@+id/tvFewMinutes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/the_first_time_it_may_take_several_minutes"
+        android:textSize="@dimen/txtItemScore"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="@id/tvLoading"
+        app:layout_constraintEnd_toEndOf="@id/tvLoading"
+        app:layout_constraintTop_toBottomOf="@id/tvLoading" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
@@ -30,6 +41,6 @@
         android:progressTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="@id/tvLoading"
         app:layout_constraintStart_toStartOf="@id/tvLoading"
-        app:layout_constraintTop_toBottomOf="@id/tvLoading" />
+        app:layout_constraintTop_toBottomOf="@id/tvFewMinutes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
