@@ -34,12 +34,12 @@ class ModeSelectionFragment : Fragment() {
             }
 
             btnTcpIp.setOnClickListener {
-                showCustomDialog()
+                setupConnectionDialogAndShow()
             }
         }
     }
 
-    private fun showCustomDialog() {
+    private fun setupConnectionDialogAndShow() {
         val dialogBinding = DialogHostingBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.setContentView(dialogBinding.root)

@@ -1,6 +1,9 @@
 package com.example.heroes_fight.ui.fight_p2p_fragment
 
+import android.content.Context
+import android.net.wifi.WifiManager
 import android.os.Bundle
+import android.text.format.Formatter
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -29,6 +32,11 @@ class FightP2PFragment : FightFragment() {
 
         if (!args.isServer) {
             binding.tvInfoOtherPlayer.text = "Loading battlefield"
+        } else {
+            val ipAddress = getIPAddress(requireContext())
+            binding.tvInfoOtherPlayer.text =
+                "Awaiting player... \n Tell him your IP address to connect: \n" +
+                        "$ipAddress"
         }
 
         observeConnection()
@@ -38,6 +46,15 @@ class FightP2PFragment : FightFragment() {
         observeResultEnemyAction()
 
     }
+
+    fun getIPAddress(context: Context): String? {
+        val wifiManager =
+            context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifiInfo = wifiManager.connectionInfo
+        val ipAddress = wifiInfo.ipAddress
+        return Formatter.formatIpAddress(ipAddress)
+    }
+
     private fun observeRocksFlow() {
         lifecycleScope.launch {
             viewModel.rocksFlow.collect {
