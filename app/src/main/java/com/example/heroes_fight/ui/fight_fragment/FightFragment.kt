@@ -206,7 +206,7 @@ open class FightFragment : Fragment() {
     private fun setupTilesListeners() {
         for (i in 0 until BOARD_MAX_LINES) {
             for (j in 0 until BOARD_MAX_COLUMNS) {
-                board[i][j]!!.setOnClickListener { _ ->
+                board[i][j]!!.setOnLongClickListener { _ ->
                     if (playerChoice == PlayerChoice.MOVE) {
                         destinationPosition = Position(i, j)
                         if (viewModel.performMovement(destinationPosition)) {
@@ -216,6 +216,7 @@ open class FightFragment : Fragment() {
                             showToast("So far, bastard...")
                         }
                     }
+                    true
                 }
             }
         }

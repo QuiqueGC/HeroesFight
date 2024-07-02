@@ -405,7 +405,7 @@ class FighterModel(
             val enemySpeedDifference = enemy.getDodgeRoll()
             Log.i("quique", "La tiradad del enemigo de speed es -> $enemySpeedDifference")
             if (shotDifference >= enemySpeedDifference) {
-                var damage = (shotDifference - enemySpeedDifference) / 5
+                var damage = (shotDifference - enemySpeedDifference) / 4
                 if (damage < 1) {
                     damage = 1
                 }
