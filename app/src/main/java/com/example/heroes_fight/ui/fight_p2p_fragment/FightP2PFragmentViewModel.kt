@@ -93,35 +93,7 @@ class FightP2PFragmentViewModel @Inject constructor(
                 )
                 _actualFighter.emit(allFighters[0])
             }
-
         }
-
-
-        /*else {
-            viewModelScope.launch {
-
-                val deferred = async {
-                    client.getFightersList(heroes, villains, allFighters)
-                }
-
-
-                deferred.await()
-
-                Log.i("skts", "Emite el uiState")
-                Log.i("skts", "Nº héroes ${heroes.size}")
-                Log.i("skts", "Nº villanos ${villains.size}")
-                Log.i("skts", "Nº total ${allFighters.size}")
-                _uiState.emit(
-                    FightFragmentUiState.Success(
-                        heroes,
-                        villains,
-                        allFighters
-                    )
-                )
-                Log.i("skts", "Emite el fighter actual -> ${allFighters[0].id}")
-                _actualFighter.emit(allFighters[0])
-            }
-        }}*/
     }
 
 

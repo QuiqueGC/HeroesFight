@@ -41,6 +41,7 @@ class FightP2PFragment : FightFragment() {
     private fun observeRocksFlow() {
         lifecycleScope.launch {
             viewModel.rocksFlow.collect {
+                rocks.addAll(it)
                 showRocks(it)
             }
         }
